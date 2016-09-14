@@ -1,0 +1,108 @@
+
+
+/**
+ * Rijkshuisstijl (Digitale Overheid) - 07-sidebar.less
+ * ----------------------------------------------------------------------------------
+ * styling voor de sidebar
+ * ----------------------------------------------------------------------------------
+ * @author  Paul van Buuren
+ * @license GPL-2.0+
+ * @package wp-rijkshuisstijl
+ * @version 0.1.0 
+ * @desc.   Eerste opzet theme, code licht opgeschoond
+ * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
+ */
+
+
+
+.sidebar_css() {
+
+	.sidebar {
+  	
+  	border: 1px solid gray;
+  	padding: 1em;
+  	overflow: hidden;
+  	
+		.widget {
+			ul, li {
+				padding-left: 0;
+				margin-left: 0;
+			}		
+			ul ul {
+				margin-top: .5em;
+				margin-left: 1em;
+			}	
+		}
+	}
+
+	.page-link-widget.widget {
+    background: @ibgrijs;
+  }
+
+  .ibo-posts-widget,
+	.page-link-widget {
+  	padding: @padding;
+
+    .read-more {
+      text-align: right;
+      margin: 0 @padding 0 0;
+    }  	
+
+  	h2, h3 {
+      font-family: @headerfont;
+    	.font-size( @fontsize_title_h3 );
+    	text-transform: none;
+      margin-top: 0;
+      a {
+       // color: @txt;
+        text-decoration: none;
+        
+        &:hover,
+        &:active,
+        &:focus {
+          text-decoration: underline;
+        }
+      }
+  	}
+  }
+
+  .ibo-posts-widget {
+    .widget-title {
+      .visuallyhidden();
+    }
+  }
+
+	@media only screen and (min-width: ( @break_tablet ) ) {
+
+  .home-widget-area {
+//    padding: 0 @padding; 
+    &, .flex {
+      display: flex;
+    }
+    .widget, div.flexmij {
+      flex: 1;
+      display: block;
+      float: left;
+    	margin-bottom: 0;
+      ul, li {
+        list-style: none;
+        margin-left: 0;
+        padding-left: 0;
+      }
+    }
+  }
+  	
+    .page-link-widget:first-child,
+    .ibo-posts-widget:first-child + .page-link-widget{
+      max-width: 32%;
+      margin-right: 1%;
+    }
+    .page-link-widget:first-child + .ibo-posts-widget,
+    .ibo-posts-widget:first-child {
+      max-width: 66%;
+    }
+    .ibo-posts-widget + .page-link-widget {
+    }
+  }
+	
+}

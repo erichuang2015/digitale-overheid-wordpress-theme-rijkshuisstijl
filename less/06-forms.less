@@ -1,0 +1,105 @@
+
+
+/**
+ * Rijkshuisstijl (Digitale Overheid) - 06-forms.less
+ * ----------------------------------------------------------------------------------
+ * styling voor de sidebar
+ * ----------------------------------------------------------------------------------
+ * @author  Paul van Buuren
+ * @license GPL-2.0+
+ * @package wp-rijkshuisstijl
+ * @version 0.1.0 
+ * @desc.   Eerste opzet theme, code licht opgeschoond
+ * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
+ */
+
+
+.formstyling() {
+
+  #mag_animatie_tonen_form {
+    display: none;
+    visibility: hidden;
+  }
+  
+
+	@media only screen and (max-width: ( @break_fullwidth  - 1 ) ) {
+
+	}
+	
+	@media only screen and (min-width: ( @break_tablet ) ) {
+  	
+  	.entry-content {
+      .gform_wrapper {
+      	.gfield {
+        	padding-right: 1em;
+      	}
+      	.top_label {
+        	*.medium {
+            width: 99.9%;
+        	}
+      	}
+  
+      	.gfield.half {
+        	width: 50%;
+        	float: left;
+        	clear: none;
+      	}
+    	}
+  	}
+
+	}
+
+	@media only screen and (min-width: ( @break_fullwidth ) ) {
+  
+    #mag_animatie_tonen_form {
+      display: block;
+      visibility: visible;
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      width: 30%;
+      border: 1px solid transparent;
+      padding-top: 4px;
+      background: transparent;
+      border-radius: @blockradius;
+
+      font-size: 70%;
+
+      fieldset {
+        border-width: 0;
+      }
+
+      legend {
+        visibility: hidden;
+      }
+      
+      &:hover {
+        background: @wit;
+        border: 1px solid @lichtgrijs;
+
+        legend {
+          text-align: left;
+          background: white;
+          visibility: visible;
+        }
+      }
+      
+      button {
+        border: 1px solid @wit;
+        text-decoration: none;
+        float: right;
+        background: @wit;
+       // color: @txt;
+  
+        &:hover, 
+        &:focus, 
+        &:active {
+          text-decoration: underline;
+          border-color: @txt;
+         // color: @txt;
+        }
+      }
+    }
+	
+	}
+}

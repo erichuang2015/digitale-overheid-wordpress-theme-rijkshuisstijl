@@ -1,0 +1,27 @@
+
+/**
+ * Rijkshuisstijl (Digitale Overheid) - editor-styles.less
+ * ----------------------------------------------------------------------------------
+ * Genereert editor-styles.css, die wordt gebruikt in de back-end WYSIWYG-editor
+ * ----------------------------------------------------------------------------------
+ * @author  Paul van Buuren
+ * @license GPL-2.0+
+ * @package wp-rijkshuisstijl
+ * @version 0.1.0 
+ * @desc.   Eerste opzet theme, code licht opgeschoond
+ * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
+ */
+
+
+@import "mixins.less";          /* colors, sizes */
+@import "text-styles.less";     /* font-styles, shared with admin editor-styles.less */
+
+.fonts_get_webfonts();
+
+
+* {
+    .basefont();
+}
+
+.textstyles();
+

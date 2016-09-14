@@ -1,0 +1,152 @@
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Project-Id-Version: Rijkshuisstijl (Digitale Overheid) (v1.0.0)\n"
+"POT-Creation-Date: 2016-09-08 17:23+0200\n"
+"PO-Revision-Date: 2016-09-08 17:24+0200\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.9\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-WPHeader: style.css\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;"
+"_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"Last-Translator: \n"
+"Language: nl\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: functions.php:159
+msgid "<span class=\"separator\">&gt;</span>"
+msgstr ""
+
+#: functions.php:161
+msgid "Home"
+msgstr ""
+
+#: functions.php:170
+msgid "Auteurs"
+msgstr ""
+
+#: functions.php:172
+msgid "Label"
+msgstr ""
+
+#: functions.php:173
+msgid "Datum-archief"
+msgstr ""
+
+#: functions.php:174
+msgid "Zoekresultaat"
+msgstr ""
+
+#: functions.php:182 functions.php:968
+msgid "Contentsoort"
+msgstr ""
+
+#: functions.php:186 functions.php:965
+msgid "Onderwerpen"
+msgstr ""
+
+#: functions.php:195
+msgid "404 - Pagina niet gevonden"
+msgstr ""
+
+#: functions.php:626
+msgid "Koepels"
+msgstr ""
+
+#: functions.php:686
+msgctxt "Titel in de zijbalk"
+msgid "Subthema's"
+msgstr ""
+
+#: functions.php:724
+msgid "Pagina niet gevonden."
+msgstr ""
+
+#: functions.php:732
+#, php-format
+msgid ""
+"The page you are looking for no longer exists. Perhaps you can return back "
+"to the site's <a href=\"%s\">homepage</a> and see if you can find what you "
+"are looking for. Or, you can try finding it by using the search form below."
+msgstr ""
+"De pagina is stuk. Ga naar de <a href=\"%s\">homepage</a>. Of je kunt "
+"zoeken met dit zoekformulier:"
+
+#: functions.php:952
+msgid "Pagina's"
+msgstr ""
+
+#: functions.php:957
+msgid "Recent Posts:"
+msgstr ""
+
+#: functions.php:1016
+msgid "Homepage widget area"
+msgstr ""
+
+#: functions.php:1018
+msgid "Ruimte voor widget op de homepage"
+msgstr ""
+
+#: includes/nojs.php:58
+msgid "JavaScript staat uit"
+msgstr ""
+
+#: includes/widget-home.php:31
+msgid "Korte tekst met verwijzing naar een pagina."
+msgstr ""
+
+#: includes/widget-home.php:59
+msgid "Vrije tekst in widget:"
+msgstr ""
+
+#: includes/widget-home.php:66
+msgid "Linkt naar pagina:"
+msgstr ""
+
+#: includes/widget-home.php:157
+msgid "IBO Posts widget"
+msgstr ""
+
+#: includes/widget-home.php:174
+msgid "Titel:"
+msgstr ""
+
+#: includes/widget-home.php:190
+msgid "Categorie:"
+msgstr ""
+
+#: includes/widget-home.php:197
+msgid "Aantal:"
+msgstr ""
+
+#: includes/widget-home.php:328
+msgid "Lees"
+msgstr ""
+
+#: includes/widget-home.php:339
+msgid "Meer"
+msgstr ""
+
+#. Theme Name of the plugin/theme
+msgid "Rijkshuisstijl (Digitale Overheid) (v1.0.0)"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Theme voor ibewustzijnoverheid.nl"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Paul van Buuren"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://wbvb.nl/themes/ibewustzijn/"
+msgstr ""

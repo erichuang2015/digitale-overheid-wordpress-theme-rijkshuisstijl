@@ -1,0 +1,214 @@
+
+
+/**
+ * Rijkshuisstijl (Digitale Overheid) - 04-header.less
+ * ----------------------------------------------------------------------------------
+ * CSS voor de header
+ * ----------------------------------------------------------------------------------
+ * @author  Paul van Buuren
+ * @license GPL-2.0+
+ * @package wp-rijkshuisstijl
+ * @version 0.1.0 
+ * @desc.   Eerste opzet theme, code licht opgeschoond
+ * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
+ */
+
+
+.siteheader() {
+
+	/*
+	Site Header
+	---------------------------------------------------------------------------------------------------- */
+
+@breedte: 70px;
+@hoogte: 108px;
+
+@geweenstebreedte: 30px;
+@geweenstehoogte: ( ( @geweenstebreedte / @breedte) * @hoogte );
+
+
+@minheight: 175px;
+@navheight: 40px;
+
+	
+	.site-header {
+
+		.wrap {
+      
+      padding: ( @padding / 2 ) 0 0 0;
+
+      .title-area {
+
+//        background-image: url('images/bg-header-mobile.png');
+//        background-image: url('images/bg-header-mobile.svg'), none;
+        
+        background-position: right top;
+        background-repeat: no-repeat;
+        background-size: @geweenstebreedte @geweenstehoogte;
+
+//      	width: 100%;
+    		font-weight: normal;
+    		padding: 0 @geweenstebreedte 0 @padding;
+    		margin-right: @padding;
+    		overflow: hidden;
+      }
+
+
+		}
+
+		.search-form {
+			margin: @padding auto ;
+			float: right;
+			margin-top: @padding;
+		}
+	}
+		
+@sitetitlesize: 16px;	
+	
+	.site-title {
+		.font-size( ( 3.2 * @basefontsize ) );
+		line-height: 1;
+		margin: 0;
+		.headerlinkstyling();
+    font-size: ( @sitetitlesize * 1.5 );
+		
+		a {
+  		display: inline-block;
+  		padding-left: ( @sitetitlesize * 2 );
+//  		background-image: url('images/slotje.png');
+//      background-image: url('images/slotje.svg'), none;
+  		background-repeat: no-repeat;
+  		background-position: left center;
+  		background-size: contain;
+		}
+	}
+	
+	.entry-title {
+		.headerlinkstyling();
+	}
+	
+	.site-description {
+    font-weight: 300;
+    line-height: 1;
+    margin: ( @padding / 2 ) 0;
+    padding: 0;
+    font-family: @bodyfont;
+    font-size: 80%;
+    
+    span {
+      overflow: hidden;
+      margin-right: ( @padding / 2);
+    }
+		p {
+			margin: 0;
+		}
+	}
+
+
+	@media only screen and (max-width: ( @break_tablet - 1 ) ) {
+	
+		.site-header .wrap {
+			margin: 0;
+			width: 100%;
+		}
+	}
+
+
+	@media only screen and (max-width: ( @break_fullwidth  - 1 ) ) {
+
+
+		.site-header {
+			padding: 0;
+
+			.search-form {
+				float: none;
+			}
+		}
+	}
+
+	@media only screen and (min-width: ( @break_tablet ) ) {
+
+	
+    .site-header {
+      
+        background-position: center top;
+        background-repeat: no-repeat;
+        background-size: contain;
+
+//        background-image: url('images/bg-header-tablet.png');
+//        background-image: url('images/bg-header-tablet.svg'), none;
+
+      .wrap {
+        position: relative;
+
+
+        .title-area {
+          padding-top: 0;
+      		margin-right: 0;
+          margin-top: @padding;
+          background: none;
+        }
+      }
+      
+    	.title-area {
+    		text-align: center;
+    	}
+
+      
+      .site-description {
+        margin-top: @padding;
+        font-size: ( @sitetitlesize * 1 );
+        
+        span {
+          display: block;
+          margin-bottom: ( @padding / 3 );
+          clear: both;
+          float: none;
+        }
+      }
+    }
+	}
+
+	@media only screen and (min-width: ( @break_fullwidth ) ) {
+
+    .site-header {
+
+      min-height: @minheight;
+      
+//      background-image: url('images/bg-header-desktop.png');
+//      background-image: url('images/bg-header-desktop.svg'), none;
+      
+      .wrap {
+        min-height: @minheight;
+        margin-top: ( @padding / 2 );
+        
+        .site-title a {
+          background-color: rgba(256, 256, 256, .6);
+        }
+
+
+      	.title-area {
+        	margin-top: @navheight;
+      	}
+  
+        .nav-primary {
+          height: @navheight;
+          position: absolute;
+          right: 0;
+          top: 0;
+        }
+        
+      }
+
+      .site-title {
+        font-size: ( @sitetitlesize * 2 );
+      }
+
+      .site-description {
+        font-size: ( @sitetitlesize * 1.2 );
+      }
+
+      
+    }
+	}
+}
