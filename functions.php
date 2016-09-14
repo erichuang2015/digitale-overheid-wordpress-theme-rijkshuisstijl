@@ -9,8 +9,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.1.1 
- * @desc.   Eerste opzet theme, code licht opgeschoond
+ * @version 0.1.3 
+ * @desc.   Check op aanwezigheid van extra navigatiemenu
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -28,7 +28,7 @@ include_once( get_template_directory() . '/lib/init.php' );
 //* Child theme (do not remove)
 define( 'CHILD_THEME_NAME', 'Rijkshuisstijl (Digitale Overheid)' );
 define( 'CHILD_THEME_URL', 'http://wbvb.nl/themes/wp-rijkshuisstijl' );
-define( 'CHILD_THEME_VERSION', "0.1.1" );
+define( 'CHILD_THEME_VERSION', "0.1.3" );
 define( 'CHILD_THEME_VERSION_DESCRIPTION', "Eerste opzet theme, code licht opgeschoond" );
 
 define( 'WP_REVENGE', true );
@@ -803,7 +803,11 @@ add_action( 'init', 'rhswp_register_extra_menu' );
 add_action( 'genesis_header', 'rhswp_display_extra_menu', 2 );
 
 function rhswp_display_extra_menu() {
-  wp_nav_menu( array( 'theme_location' => 'extra-menu', 'container_class' => 'wrap extra-menu' ) );
+  
+  if ( has_nav_menu( 'extra-menu' ) ) {
+    wp_nav_menu( array( 'theme_location' => 'extra-menu', 'container_class' => 'wrap extra-menu' ) );
+  }
+  
 }
 
 
