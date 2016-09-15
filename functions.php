@@ -9,8 +9,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.1.3 
- * @desc.   Check op aanwezigheid van extra navigatiemenu
+ * @version 0.1.4 
+ * @desc.   Widgets toegevoegd, widgetruimtes opgeschoond
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -28,10 +28,10 @@ include_once( get_template_directory() . '/lib/init.php' );
 //* Child theme (do not remove)
 define( 'CHILD_THEME_NAME', 'Rijkshuisstijl (Digitale Overheid)' );
 define( 'CHILD_THEME_URL', 'http://wbvb.nl/themes/wp-rijkshuisstijl' );
-define( 'CHILD_THEME_VERSION', "0.1.3" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION', "Eerste opzet theme, code licht opgeschoond" );
+define( 'CHILD_THEME_VERSION', "0.1.4" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION', "Widgets toegevoegd, widgetruimtes opgeschoond" );
 
-define( 'WP_REVENGE', true );
+define( 'SHOW_CSS_DEBUG', true );
 
 define( 'ID_ZOEKEN', 'rhswp-searchform' );
 
@@ -58,10 +58,10 @@ define( 'RHSWP_HOME_WIDGET_AREA', 'home-widget-area' );
 //========================================================================================================
 
 // Include for javascript check
-include_once( $sharedfolder . '/includes/nojs.php' );
+include_once( RHS_FOLDER . '/includes/nojs.php' );
 
 // Include for CMB2 extra fields
-include_once( $sharedfolder . '/includes/example-cmb2.php' );
+include_once( RHS_FOLDER . '/includes/example-cmb2.php' );
 
 
 
@@ -80,12 +80,16 @@ add_filter( 'get_the_author_genesis_author_box_archive', '__return_false' );
 //========================================================================================================
 
 // Include for ACF custom fields and custom post types
-include_once( $sharedfolder . '/includes/cpt-acf.php' );
+include_once( RHS_FOLDER . '/includes/cpt-acf.php' );
 
 //========================================================================================================
 
 //* voor de widgets
 require_once( RHS_FOLDER . '/includes/widget-home.php' );
+require_once( RHS_FOLDER . '/includes/widget-banner.php' );
+require_once( RHS_FOLDER . '/includes/widget-newswidget.php' );
+
+
 
 //* Add support for 3-column footer widgets
 add_theme_support( 'genesis-footer-widgets', 3 );
@@ -166,8 +170,19 @@ remove_action( 'genesis_before_loop', 'genesis_do_breadcrumbs' );
 add_action( 'genesis_after_header', 'genesis_do_breadcrumbs' );
 
 
+function rhswp_breadcrumb_add_newspage( $crumb, $args ) {
+	if ( is_singular( 'post' ) || is_date() || is_category() )
+		return '<a href="' . get_permalink( get_option( 'page_for_posts' ) ) . '">' . get_the_title( get_option( 'page_for_posts' ) ) .'</a> ' . $args['sep'] . ' ' . $crumb;
+	else
+		return $crumb;
+}
+add_filter( 'genesis_single_crumb', 'rhswp_breadcrumb_add_newspage', 10, 2 );
+add_filter( 'genesis_archive_crumb', 'rhswp_breadcrumb_add_newspage', 10, 2 );
+
+
 //* Modify breadcrumb arguments.
 add_filter( 'genesis_breadcrumb_args', 'rhswp_breadcrumb_args' );
+
 function rhswp_breadcrumb_args( $args ) {
 
     global $wp_query;
@@ -175,20 +190,21 @@ function rhswp_breadcrumb_args( $args ) {
     $separator = __( '<span class="separator">&gt;</span>', 'wp-rijkshuisstijl' );
     
     $args['home']                       = __( "Home", 'wp-rijkshuisstijl' );
-    $args['sep']                        = $separator;
-    $args['list_sep']                   = ', '; // Genesis 1.5 and later
+    $args['sep']                        = $separator ;
+    $args['list_sep']                   = ', ';
     $args['prefix']                     = '<div class="breadcrumb"><div class="wrap"><nav class="breadlist">';
     $args['suffix']                     = '</nav></div></div>';
-    $args['heirarchial_attachments']    = true; // Genesis 1.5 and later
-    $args['heirarchial_categories']     = true; // Genesis 1.5 and later
+    $args['heirarchial_attachments']    = true;
+    $args['heirarchial_categories']     = true;
     $args['display']                    = true;
-    $args['labels']['prefix']           = ''; // __( "", 'wp-rijkshuisstijl' );
+    $args['labels']['prefix']           = '';
     $args['labels']['author']           = __( "Auteurs", 'wp-rijkshuisstijl' ) . $separator;
-    $args['labels']['category']         = ''; // __( "", 'wp-rijkshuisstijl' );
+    $args['labels']['category']         = '';
+    $args['labels']['date']             = '';
+//    $args['labels']['date']             = 'DATUMPIE! ' . __( "Datum-archief", 'wp-rijkshuisstijl' );
     $args['labels']['tag']              = __( "Label", 'wp-rijkshuisstijl' );
-    $args['labels']['date']             = __( "Datum-archief", 'wp-rijkshuisstijl' );
     $args['labels']['search']           = __( "Zoekresultaat", 'wp-rijkshuisstijl' );
-    $args['labels']['tax']              = ''; // __( "", 'wp-rijkshuisstijl' );
+    $args['labels']['tax']              = '';
 
     if ( isset( $wp_query->query_vars['taxonomy'] ) ) {
         
@@ -207,7 +223,7 @@ function rhswp_breadcrumb_args( $args ) {
     }
     
     
-    $args['labels']['post_type']        = ''; // __( "", 'wp-rijkshuisstijl' );
+    $args['labels']['post_type']        = '';
     $args['labels']['404']              = __( "404 - Pagina niet gevonden", 'wp-rijkshuisstijl' );
 
     return $args;
@@ -676,8 +692,9 @@ add_filter('tiny_mce_before_init', 'admin_set_tinymce_options');
 
 function rhswp_debug_css() {
 //  wp_enqueue_style( 'debug-header-check', RHSWP__THEMEFOLDER . '/css/header.css', array(), CHILD_THEME_VERSION );
-  if ( WP_REVENGE ) {
+  if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
     wp_enqueue_style( 'debug-css', RHSWP__THEMEFOLDER . '/css/revenge.css', array(), CHILD_THEME_VERSION );
+    wp_enqueue_style( 'header-counter-css', RHSWP__THEMEFOLDER . '/css/header.css', array(), CHILD_THEME_VERSION );
   }
 }
 
@@ -844,22 +861,24 @@ add_filter( 'theme_page_templates', 'be_remove_genesis_page_templates' );
 
 //========================================================================================================
 
-//* Add role to header
-add_filter('genesis_attr_site-header', 'rhswp_add_attribute_role_banner');
-
-function rhswp_add_attribute_role_banner($attributes) {
-	$attributes['role'] .= 'banner';
-	return $attributes;
-}
-
-//========================================================================================================
-
-//* Add role to footer
-add_filter('genesis_attr_site-footer', 'rhswp_add_attribute_role_contentinfo');
-
-function rhswp_add_attribute_role_contentinfo($attributes) {
-	$attributes['role'] .= 'contentinfo';
-	return $attributes;
+if ( SHOW_CSS_DEBUG ) {
+  //* Add role to header
+  add_filter('genesis_attr_site-header', 'rhswp_add_attribute_role_banner');
+  
+  function rhswp_add_attribute_role_banner($attributes) {
+  	$attributes['role'] .= 'banner';
+  	return $attributes;
+  }
+  
+  //========================================================================================================
+  
+  //* Add role to footer
+  add_filter('genesis_attr_site-footer', 'rhswp_add_attribute_role_contentinfo');
+  
+  function rhswp_add_attribute_role_contentinfo($attributes) {
+    $attributes['role'] .= 'contentinfo';
+    return $attributes;
+  }
 }
 
 //========================================================================================================
@@ -877,7 +896,6 @@ function rhswp_add_id_to_search_form( $form ) {
 
 //========================================================================================================
 
-
 // Overwrite widget settings
 add_action( 'widgets_init', 'rhswp_overwrite_widget_settings' );
 
@@ -886,10 +904,12 @@ function rhswp_overwrite_widget_settings() {
 
   //Gets rid of the default Primary Sidebar
   unregister_sidebar( 'sidebar' );
+  unregister_sidebar( 'sidebar-alt' );
   
   genesis_register_sidebar( 
     array (
-    	'name'          => 'Primary Sidebar', 
+    	'name'          => _x( 'Eerste sidebar', 'Title of primary sidebar', 'wp-rijkshuisstijl' ), 
+    	'description'   => _x( 'Primaire zijbalk met ruimte voor widgets. Wordt standaard getoond aan de rechterkant van de content op brede schermen', 'Description of primary sidebar', 'wp-rijkshuisstijl' ), 
     	'id'            => 'sidebar', 
     	'before_widget' => '<div id="%1$s" class="widget %2$s"><div class="widget-wrap">', 
     	'after_widget'  => "</div></div>\n", 
@@ -897,6 +917,56 @@ function rhswp_overwrite_widget_settings() {
     	'after_title'   => "</h3>\n" 
     ) 
   );
+  
+  genesis_register_sidebar( 
+    array (
+    	'name'          => _x( 'Tweede sidebar', 'Title of secondary sidebar', 'wp-rijkshuisstijl' ), 
+    	'description'   => _x( 'Secundaire zijbalk met ruimte voor widgets. Wordt alleen getoond op pagina\'s waar de niet-standaard layout is gekozen', 'Description of secundary sidebar', 'wp-rijkshuisstijl' ),
+    	'id'            => 'sidebar-alt', 
+    	'before_widget' => '<div id="%1$s" class="widget %2$s"><div class="widget-wrap">', 
+    	'after_widget'  => "</div></div>\n", 
+    	'before_title'  => '<h2 class="widgettitle">', 
+    	'after_title'   => "</h2>\n" 
+    ) 
+  );
 }
 
+//========================================================================================================
+
+function rhswp_add_social_buttons($file = '', $extra = '') {
+  return '';
+}
+
+//========================================================================================================
+
+function showdebug($file = '', $extra = '') {
+}
+
+//========================================================================================================
+
+function showdebug2($file = '', $extra = '') {
+    if ( ( WP_DEBUG ) && ( 22 == 22 ) ){
+
+        $break = Explode('/', $file);
+        $pfile = $break[count($break) - 1]; 
+    
+        echo '<hr><span class="debugmessage" title="' . $file . '">' . $pfile;
+        if ( $extra ) {
+            echo ' - ' . $extra;
+        }
+        echo '</span>';
+    }
+}
+
+
+//========================================================================================================
+
+add_action( 'the_content', 'baw_add_social_buttons' );
+
+function baw_add_social_buttons( $content ) {
+    if ( ! is_admin() && is_main_query() ) {
+        return $content . rhswp_add_social_buttons();
+    }
+    return $content;
+}
   

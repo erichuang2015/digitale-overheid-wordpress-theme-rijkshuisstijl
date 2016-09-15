@@ -1,0 +1,137 @@
+<?php
+
+/**
+ * wp-rijkshuisstijl - widget-banner.php
+ * ----------------------------------------------------------------------------------
+ * Widget voor het aanmaken van een banner
+ * ----------------------------------------------------------------------------------
+ *
+ * @author  Paul van Buuren
+ * @license GPL-2.0+
+ * @package wp-rijkshuisstijl
+ * @version 0.1.4 
+ * @desc.   Widgets toegevoegd, widgetruimtes opgeschoond
+ * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
+ */
+
+
+//========================================================================================================
+//* banner widget
+class rhswp_banner_widget extends WP_Widget {
+
+
+	/**
+	 * Sets up the widgets name etc
+	 */
+	public function __construct() {
+
+		$widget_ops = array(
+			'classname'   => 'banner banner-widget',
+			'description' => __( 'Mogelijkheid voor het aanmaken van een banner. Kies achtergrondkleur, links, stijl', 'wp-rijkshuisstijl' ),
+		);
+
+		parent::__construct( 'rhswp_banner_widget', 'RHS-WP - banner widget', $widget_ops );
+
+	}
+	
+     
+    function form($instance) {
+        $instance = wp_parse_args( (array) $instance, 
+            array( 
+                'rhswp_banner_widget_title'    => '', 
+                'rhswp_banner_widget_short_text'    => '',    
+                'rhswp_banner_widget_page_linktext'    => '',    
+                'rhswp_banner_widget_page_link'    => '' 
+                ) 
+            );
+
+        $rhswp_banner_widget_title          = empty( $instance['rhswp_banner_widget_title'] ) ? '' : $instance['rhswp_banner_widget_title'];
+        $rhswp_banner_widget_short_text     = empty( $instance['rhswp_banner_widget_short_text'] ) ? '' : $instance['rhswp_banner_widget_short_text'];
+        $rhswp_banner_widget_page_link      = empty( $instance['rhswp_banner_widget_page_link'] ) ? '' : $instance['rhswp_banner_widget_page_link'];
+        $rhswp_banner_widget_page_linktext  = empty( $instance['rhswp_banner_widget_page_linktext'] ) ? '' : $instance['rhswp_banner_widget_page_linktext'];
+
+
+        ?>
+
+        <p><label for="<?php echo $this->get_field_id('rhswp_banner_widget_title'); ?>">Titel: <input id="<?php echo $this->get_field_id('rhswp_banner_widget_title'); ?>" name="<?php echo $this->get_field_name('rhswp_banner_widget_title'); ?>" type="text" value="<?php echo esc_attr($rhswp_banner_widget_title); ?>" /></label></p>
+        
+        <p><label for="<?php echo $this->get_field_id('rhswp_banner_widget_short_text') ?>"><?php  _e( "Vrije tekst in widget:", 'wp-rijkshuisstijl' ) ?><br /><textarea cols="33" rows="4" id="<?php echo $this->get_field_id('rhswp_banner_widget_short_text'); ?>" name="<?php echo $this->get_field_name('rhswp_banner_widget_short_text'); ?>"><?php echo esc_attr($rhswp_banner_widget_short_text); ?></textarea></label></p>
+
+
+        <p><label for="<?php echo $this->get_field_id('rhswp_banner_widget_page_linktext'); ?>">Linktekst:<br><input id="<?php echo $this->get_field_id('rhswp_banner_widget_page_linktext'); ?>" name="<?php echo $this->get_field_name('rhswp_banner_widget_page_linktext'); ?>" type="text" value="<?php echo esc_attr($rhswp_banner_widget_page_linktext); ?>" /></label></p>
+        
+
+
+        <label for="<?php echo $this->get_field_id('rhswp_banner_widget_page_link') . '">' . __( "Linkt naar pagina:", 'wp-rijkshuisstijl' ) ?><br />
+        <?php
+            $args = array(
+                'depth'            => 0,
+                'child_of'         => 0,
+                'selected'         => esc_attr($rhswp_banner_widget_page_link),
+                'echo'             => 1,
+                'name'             => $this->get_field_name('rhswp_banner_widget_page_link')
+            );
+            
+            wp_dropdown_pages( $args );
+            
+            echo '</label>';
+
+            
+    }
+     
+    function update($new_instance, $old_instance) {
+        $instance = $old_instance;
+        $instance['rhswp_banner_widget_title']            = empty( $new_instance['rhswp_banner_widget_title'] ) ? '' : $new_instance['rhswp_banner_widget_title'];
+        $instance['rhswp_banner_widget_page_linktext']    = empty( $new_instance['rhswp_banner_widget_page_linktext'] ) ? '' : $new_instance['rhswp_banner_widget_page_linktext'];
+        $instance['rhswp_banner_widget_short_text']     	= empty( $new_instance['rhswp_banner_widget_short_text'] ) ? '' : $new_instance['rhswp_banner_widget_short_text'];
+        $instance['rhswp_banner_widget_page_link']        = empty( $new_instance['rhswp_banner_widget_page_link'] ) ? '' : $new_instance['rhswp_banner_widget_page_link'];
+        return $instance;
+    }
+     
+    function widget($args, $instance) {
+
+
+        extract($args, EXTR_SKIP);
+
+        $rhswp_banner_widget_title          = empty($instance['rhswp_banner_widget_title']) ? '' : $instance['rhswp_banner_widget_title'] ;
+        $rhswp_banner_widget_short_text     = empty($instance['rhswp_banner_widget_short_text']) ? '' : $instance['rhswp_banner_widget_short_text'] ;
+        $rhswp_banner_widget_page_link      = empty($instance['rhswp_banner_widget_page_link']) ? '' : $instance['rhswp_banner_widget_page_link'] ;
+        $rhswp_banner_widget_page_linktext  = empty($instance['rhswp_banner_widget_page_linktext']) ? _x( "Geen linktekst ingevoerd", 'Widget', 'wp-rijkshuisstijl' ) : $instance['rhswp_banner_widget_page_linktext'] ;
+        $linkafter          = '';
+        
+         
+        echo $before_widget;
+
+
+
+        echo '<div class="text">'; 
+
+        $linkbefore         = '';
+        $linkafter          = '';
+        
+        if ( $rhswp_banner_widget_page_link )
+        {
+            $rhswp_banner_widget_page_link    = get_permalink($rhswp_banner_widget_page_link);
+            $linkbefore     = '<p class="read-more"><a href="' . $rhswp_banner_widget_page_link. '">' . $rhswp_banner_widget_page_linktext;
+            $linkafter      = '</a></p>';
+            $before_title  .= '<a href="' . $rhswp_banner_widget_page_link. '" tabindex="-1">';
+            $after_title    = '</a>' . $after_title;
+        }
+
+        if ( $instance['rhswp_banner_widget_title'] !== '') {
+            echo $before_title . $instance['rhswp_banner_widget_title'] . $after_title;
+        }
+
+        echo $rhswp_banner_widget_short_text;
+        echo $linkbefore . $linkafter;
+
+        echo $after_widget;
+    }
+ 
+}
+
+
+add_action( 'widgets_init', create_function('', 'return register_widget("rhswp_banner_widget");') );
+
+	
+	

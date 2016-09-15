@@ -9,13 +9,13 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.1.0 
- * @desc.   Eerste opzet theme, code licht opgeschoond
+ * @version 0.1.4 
+ * @desc.   Widgets toegevoegd, widgetruimtes opgeschoond
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
  
-//* Template Name: RHS2 - home-pagina 
+//* Template Name: RHS-WP - home-pagina 
 
 
 remove_action( 'genesis_after_endwhile', 'genesis_posts_nav' );

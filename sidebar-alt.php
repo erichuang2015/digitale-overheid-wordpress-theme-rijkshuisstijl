@@ -19,16 +19,16 @@
 
 //* Output primary sidebar structure
 genesis_markup( array(
-	'html5'   => '<aside %s><h2>' . _x( 'Eerste sidebar', 'Title of primary sidebar', 'wp-rijkshuisstijl' ) . '</h2>',
-	'xhtml'   => '<div id="sidebar" class="sidebar widget-area">',
-	'context' => 'sidebar-primary',
+	'html5'   => '<aside %s><h2>' . _x( 'Tweede sidebar', 'Title of secondary sidebar', 'wp-rijkshuisstijl' ) . '</h2>',
+  'xhtml'   => '<div id="sidebar" class="sidebar widget-area">',
+  'context' => 'sidebar-secondary',
 ) );
 
 do_action( 'genesis_before_sidebar_widget_area' );
 
 // paginaspecifieke widget
 do_action( 'wbvb_sidebar_alt_title' );
-do_action( 'genesis_sidebar' );
+do_action( 'genesis_sidebar_alt' );
 do_action( 'genesis_after_sidebar_widget_area' );
 
 genesis_markup( array(
