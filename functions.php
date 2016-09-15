@@ -33,6 +33,9 @@ define( 'CHILD_THEME_VERSION_DESCRIPTION', "Eerste opzet theme, code licht opges
 
 define( 'WP_REVENGE', true );
 
+define( 'ID_ZOEKEN', 'rhswp-searchform' );
+
+
 
 $siteURL =  get_stylesheet_directory_uri();
 $siteURL =  preg_replace('|https://|i', '//', $siteURL );
@@ -84,6 +87,19 @@ include_once( $sharedfolder . '/includes/cpt-acf.php' );
 //* voor de widgets
 require_once( RHS_FOLDER . '/includes/widget-home.php' );
 
+//* Add support for 3-column footer widgets
+add_theme_support( 'genesis-footer-widgets', 3 );
+
+// haal de footer widgets weg uit een aparte ruimte VOOR de footer
+remove_action( 'genesis_before_footer', 'genesis_footer_widget_areas' );
+
+//* Customize the entire footer
+remove_action( 'genesis_footer', 'genesis_do_footer' );
+
+// zet de footerwidgets IN de footer
+add_action( 'genesis_footer', 'genesis_footer_widget_areas' );
+
+
 //========================================================================================================
 
 add_theme_support( 'post-thumbnails' );
@@ -97,8 +113,6 @@ add_theme_support( 'html5' );
 //* Add viewport meta tag for mobile browsers
 add_theme_support( 'genesis-responsive-viewport' );
 
-//* Add support for 3-column footer widgets
-add_theme_support( 'genesis-footer-widgets', 2 );
 
 // Geen footer
 remove_action( 'genesis_footer', 'genesis_do_footer' );
@@ -810,7 +824,6 @@ function rhswp_display_extra_menu() {
   
 }
 
-
 //========================================================================================================
 
   /**
@@ -828,4 +841,62 @@ function be_remove_genesis_page_templates( $page_templates ) {
 	return $page_templates;
 }
 add_filter( 'theme_page_templates', 'be_remove_genesis_page_templates' );
+
+//========================================================================================================
+
+//* Add role to header
+add_filter('genesis_attr_site-header', 'rhswp_add_attribute_role_banner');
+
+function rhswp_add_attribute_role_banner($attributes) {
+	$attributes['role'] .= 'banner';
+	return $attributes;
+}
+
+//========================================================================================================
+
+//* Add role to footer
+add_filter('genesis_attr_site-footer', 'rhswp_add_attribute_role_contentinfo');
+
+function rhswp_add_attribute_role_contentinfo($attributes) {
+	$attributes['role'] .= 'contentinfo';
+	return $attributes;
+}
+
+//========================================================================================================
+
+add_filter( 'get_search_form', 'rhswp_add_id_to_search_form', 21 );
+
+
+function rhswp_add_id_to_search_form( $form ) {
+
+    $form = str_replace("<form", '<form tabindex="-1" id="' . ID_ZOEKEN . '" ', $form);
+
+  return apply_filters( 'genesis_search_form', $form );
+
+}
+
+//========================================================================================================
+
+
+// Overwrite widget settings
+add_action( 'widgets_init', 'rhswp_overwrite_widget_settings' );
+
+
+function rhswp_overwrite_widget_settings() {
+
+  //Gets rid of the default Primary Sidebar
+  unregister_sidebar( 'sidebar' );
+  
+  genesis_register_sidebar( 
+    array (
+    	'name'          => 'Primary Sidebar', 
+    	'id'            => 'sidebar', 
+    	'before_widget' => '<div id="%1$s" class="widget %2$s"><div class="widget-wrap">', 
+    	'after_widget'  => "</div></div>\n", 
+    	'before_title'  => '<h3 class="widgettitle">', 
+    	'after_title'   => "</h3>\n" 
+    ) 
+  );
+}
+
   

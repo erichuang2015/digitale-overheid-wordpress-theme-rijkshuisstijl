@@ -19,7 +19,7 @@
 
 //* Output primary sidebar structure
 genesis_markup( array(
-	'html5'   => '<aside %s>',
+	'html5'   => '<aside %s><h2>' . _x( 'Gerelateerde content', 'Title of primary sidebar', 'wp-rijkshuisstijl' ) . '</h2>',
 	'xhtml'   => '<div id="sidebar" class="sidebar widget-area">',
 	'context' => 'sidebar-primary',
 ) );

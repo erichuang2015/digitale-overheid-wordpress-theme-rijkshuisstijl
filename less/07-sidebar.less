@@ -19,8 +19,7 @@
 
 	.sidebar {
   	
-  	border: 1px solid gray;
-  	padding: 1em;
+  	background: @ibgrijs;
   	overflow: hidden;
   	
 		.widget {
@@ -39,7 +38,6 @@
     background: @ibgrijs;
   }
 
-  .ibo-posts-widget,
 	.page-link-widget {
   	padding: @padding;
 
@@ -66,11 +64,60 @@
   	}
   }
 
-  .ibo-posts-widget {
-    .widget-title {
-      .visuallyhidden();
-    }
+  /*
+  Footer Widgets
+  ---------------------------------------------------------------------------------------------------- */
+	.site-footer {
+		padding: @padding 0;
+	}
+
+	.footer-widgets {
+		padding: @padding 5% @padding;
+	}
+
+	.footer-widgets-1 {
+		margin: 0;
+	}
+
+  .footer-widgets {
+  	clear: both;
+  	padding: @padding 0 @padding;
+  
+  	a {
+  		text-decoration: none;
+  	
+  		&:hover {
+  			text-decoration: underline;
+  		}
+  	}
+  
+  	.widget {
+  		margin-bottom: @padding;
+  	}
+  	
+  	.widget-title {
+  	// color: @wit;
+  	}
+  	
+  	li {
+  		list-style-type: none;
+  		margin-bottom: ( @padding / 2 );
+  		word-wrap: break-word;
+  	}
+  	
   }
+  
+  .footer-widgets-1,
+  .footer-widgets-2,
+  .footer-widgets-3 {
+  	width: 100%;
+  }
+  
+  .footer-widgets-1,
+  .footer-widgets-2 {
+  	margin-right: @padding;
+  }
+
 
 	@media only screen and (min-width: ( @break_tablet ) ) {
 
@@ -92,17 +139,27 @@
     }
   }
   	
-    .page-link-widget:first-child,
-    .ibo-posts-widget:first-child + .page-link-widget{
+    .page-link-widget:first-child {
       max-width: 32%;
       margin-right: 1%;
     }
-    .page-link-widget:first-child + .ibo-posts-widget,
-    .ibo-posts-widget:first-child {
-      max-width: 66%;
-    }
-    .ibo-posts-widget + .page-link-widget {
-    }
   }
+  footer {
+    .footer-widgets-1,
+    .footer-widgets-2,
+    .footer-widgets-3 {
+    	width: 32%;
+    	margin-right: 1%;
+    	margin-bottom: 1em;
+    	float: left;
+    	clear: none;
+    	text-align: left;
+    	padding: 0;
+    	li {
+      	float: none;
+    	}
+    }
+}
+  
 	
 }
