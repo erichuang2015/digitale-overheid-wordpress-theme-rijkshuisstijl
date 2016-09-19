@@ -186,7 +186,7 @@ class rhswp_news_widget extends WP_Widget {
             $category_link = get_category_link( $categorie );        
 
             echo $before_widget;
-            echo '<h2 class="widget-title">'. $rhswp_news_title . '</h2>'; 
+            echo '<h3 class="widget-title">'. $rhswp_news_title . '</h3>'; 
 
             echo '<div class="flex">';
 
@@ -196,11 +196,11 @@ class rhswp_news_widget extends WP_Widget {
                 $permalink = get_permalink();
                     
                 echo '<div class="flexmij">'; 
-                echo '<h3>'; 
+                echo '<h4>'; 
                 echo '<a href="' . $permalink . '">';
                 echo the_title();
                 echo '</a>';
-                echo '</h3>';
+                echo '</h4>';
                 echo the_excerpt();
                 echo '<p class="read-more"><a href="' . $permalink. '" tabindex="-1">';
                 echo __( "Lees", 'wp-rijkshuisstijl' ) . ' ' . get_the_title();

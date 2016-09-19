@@ -12,12 +12,157 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.1.0 
- * @desc.   Eerste opzet theme, code licht opgeschoond
+ * @version 0.1.5 
+ * @desc.   Optie voor sharebuttons toegevoegd
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
 
+if( function_exists('register_field_group') ):
+
+    //====================================================================================================
+    // sokmetknoppen voor twitter, linkedin, het satanische facebook
+    // 
+    register_field_group(array (
+      'key' => 'group_54e6101992f1e',
+      'title' => 'Deelknoppen: aan of uit?',
+      'fields' => array (
+        array (
+          'key' => 'field_54e610433e1d0',
+          'label' => 'Social-media-dingetjes',
+          'name' => 'socialmedia_icoontjes',
+          'prefix' => '',
+          'type' => 'radio',
+          'instructions' => '',
+          'required' => 0,
+          'conditional_logic' => 0,
+          'wrapper' => array (
+            'width' => '',
+            'class' => '',
+            'id' => '',
+          ),
+          'choices' => array (
+            SOC_MED_YES => 'Toon socialmedia-icoontjes',
+            SOC_MED_NO => 'Verberg socialmedia-icoontjes',
+          ),
+          'other_choice' => 0,
+          'save_other_choice' => 0,
+          'default_value' => SOC_MED_YES,
+          'layout' => 'vertical',
+        ),
+
+      ),
+      'location' => array (
+        array (
+          array (
+            'param' => 'post_type',
+            'operator' => '==',
+            'value' => 'post',
+          ),
+        ),
+        array (
+          array (
+            'param' => 'post_type',
+            'operator' => '==',
+            'value' => 'page',
+          ),
+        ),
+        array (
+          array (
+            'param' => 'post_type',
+            'operator' => '==',
+            'value' => 'event',
+          ),
+        ),
+      ),
+      'menu_order' => 0,
+      'position' => 'normal',
+      'style' => 'artmustgrow',
+      'label_placement' => 'top',
+      'instruction_placement' => 'label',
+      'hide_on_screen' => '',
+    ));
+
+
+  
+  acf_add_local_field_group(array (
+  	'key' => 'group_57dbb4a2b1368',
+  	'title' => 'Alternatieve paginatitel',
+  	'fields' => array (
+  		array (
+  			'key' => 'field_57dbb4bb70f6f',
+  			'label' => 'Alternatieve paginatitel gebruiken?',
+  			'name' => 'alternatieve_paginatitel_gebruiken',
+  			'type' => 'radio',
+  			'instructions' => 'De paginatitel wordt standaard gebruikt voor ondermeer verwijzingen in menu\'s en in de &lt;title&gt;. Het kan zijn dat je voor de duidelijkheid een andere tekst wilt tonen in de &lt;h1&gt;. Als je hier \'JA\' kiest, kun je een alternatieve paginatitel invoeren.',
+  			'required' => 1,
+  			'conditional_logic' => 0,
+  			'wrapper' => array (
+  				'width' => '',
+  				'class' => '',
+  				'id' => '',
+  			),
+  			'choices' => array (
+  				'Nee' => 'nee',
+  				'Ja' => 'ja',
+  			),
+  			'allow_null' => 0,
+  			'other_choice' => 0,
+  			'save_other_choice' => 0,
+  			'default_value' => 'nee',
+  			'layout' => 'horizontal',
+  		),
+  		array (
+  			'key' => 'field_57dbb54b70f70',
+  			'label' => 'Alternatieve paginatitel',
+  			'name' => 'alternatieve_paginatitel',
+  			'type' => 'text',
+  			'instructions' => '',
+  			'required' => 1,
+  			'conditional_logic' => array (
+  				array (
+  					array (
+  						'field' => 'field_57dbb4bb70f6f',
+  						'operator' => '==',
+  						'value' => 'Ja',
+  					),
+  				),
+  			),
+  			'wrapper' => array (
+  				'width' => '',
+  				'class' => '',
+  				'id' => '',
+  			),
+  			'default_value' => '',
+  			'placeholder' => '',
+  			'prepend' => '',
+  			'append' => '',
+  			'maxlength' => '',
+  			'readonly' => 0,
+  			'disabled' => 0,
+  		),
+  	),
+  	'location' => array (
+  		array (
+  			array (
+  				'param' => 'post_type',
+  				'operator' => '==',
+  				'value' => 'page',
+  			),
+  		),
+  	),
+  	'menu_order' => 0,
+  	'position' => 'acf_after_title',
+  	'style' => 'default',
+  	'label_placement' => 'top',
+  	'instruction_placement' => 'label',
+  	'hide_on_screen' => '',
+  	'active' => 1,
+  	'description' => '',
+  ));
+  
+
+endif;
 
 
 //========================================================================================================
@@ -89,6 +234,7 @@ function cptui_register_my_cpts() {
 add_action( 'init', 'cptui_register_my_taxes' );
 function cptui_register_my_taxes() {
 
+/*
 	$labels = array(
 		"name"                          => "Thema's",
 		"label"                         => "Thema's",
@@ -120,7 +266,7 @@ function cptui_register_my_taxes() {
 		"show_admin_column"             => true,
 	);
 	register_taxonomy( CTAX_thema, array( "fiche" ), $args );
-
+*/
 
 	$labels = array(
 		"name"                          => "Contentsoorten",
@@ -177,7 +323,7 @@ if( function_exists('acf_add_local_field_group') ):
     
     // advanced custom fields
 
-    
+/*
     acf_add_local_field_group(array (
     	'key' => 'group_570264250d77d',
     	'title' => "Formattering van thema's",
@@ -247,6 +393,7 @@ if( function_exists('acf_add_local_field_group') ):
     	'active' => 1,
     	'description' => '',
     ));
+*/
     
     acf_add_local_field_group(array (
     	'key' => 'group_572227c314a62',

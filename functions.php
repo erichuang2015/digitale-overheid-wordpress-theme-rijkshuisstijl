@@ -9,8 +9,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.1.4 
- * @desc.   Widgets toegevoegd, widgetruimtes opgeschoond
+ * @version 0.1.6 
+ * @desc.   Dossierpagina's toegevoegd
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -31,10 +31,13 @@ define( 'CHILD_THEME_URL', 'http://wbvb.nl/themes/wp-rijkshuisstijl' );
 define( 'CHILD_THEME_VERSION', "0.1.4" );
 define( 'CHILD_THEME_VERSION_DESCRIPTION', "Widgets toegevoegd, widgetruimtes opgeschoond" );
 
-define( 'SHOW_CSS_DEBUG', true );
+define( 'SHOW_CSS_DEBUG', false );
 
 define( 'ID_ZOEKEN', 'rhswp-searchform' );
 
+define( 'GC_TWITTERACCOUNT', 'gebrcentraal' );
+define( 'SOC_MED_NO', 'socmed_nee' );
+define( 'SOC_MED_YES', 'socmed_ja' );
 
 
 $siteURL =  get_stylesheet_directory_uri();
@@ -50,7 +53,7 @@ $sharedfolder = preg_replace('|genesis|i','wp-rijkshuisstijl',$sharedfolder);
 define( 'RHS_FOLDER', $sharedfolder );
 define( 'RHS_LINK_CPT', 'links' );
 define( 'CTAX_contentsoort', 'contentsoort' );
-define( 'CTAX_thema', 'onderwerpen' );
+define( 'CTAX_thema', 'CTAX_thema' );
 
 define( 'RHSWP_HOME_WIDGET_AREA', 'home-widget-area' );
 
@@ -969,4 +972,183 @@ function baw_add_social_buttons( $content ) {
     }
     return $content;
 }
+
+
+//========================================================================================================
+
+//Social Buttons
+
+function gc_wbvb_socialbuttons($post_info, $hidden = '') {
+	
+//	return '';
+
+    $thelink    = urlencode(get_permalink($post_info->ID));
+    $thetitle   = urlencode($post_info->post_title);
+    $sitetitle  = urlencode(get_bloginfo('name'));
+    $summary    = urlencode($post_info->post_excerpt);
+    $comment    = '';
+        
+    if ( $hidden ) {
+        $comment    = '<!-- ey, we hoeven maar 1 werkende set sokmetknoppen te gebruiken ja? dit hiero is versiering -->';
+        $thetag     = 'i';
+        $hrefattr   = 'data-href';
+        $popup      = ' onclick="javascript:window.open(this.dataset.href, \'\', \'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600\');return false;"';
+    }
+    else {
+        $thetag = 'a';
+        $hrefattr = 'href';
+        $popup      = ' onclick="javascript:window.open(this.href, \'\', \'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600\');return false;"';
+    }    
+    
+    if ( $thelink ) {
+        return $comment . '<ul class="social-media share-buttons">
+            <li><' . $thetag . ' ' . $hrefattr . '="https://twitter.com/share?url=' . $thelink . '&via=' . GC_TWITTERACCOUNT . '&text=' . $thetitle . '" class="twitter" data-url="' . $thelink . '" data-text="' . $thetitle . '" data-via="' . GC_TWITTERACCOUNT . '"' . $popup . '><span class="visuallyhidden">' . __('Deel op Twitter', 'gebruikercentraal') . '</span></' . $thetag . '></li>
+            <li><' . $thetag . ' class="facebook" ' . $hrefattr . '="https://www.facebook.com/sharer/sharer.php?u=' . $thelink . '&t=' . $thetitle . '"' . $popup . '><span class="visuallyhidden">' . __('Deel op Facebook', 'gebruikercentraal') . '</span></' . $thetag . '></li>
+            <li><' . $thetag . ' class="linkedin" ' . $hrefattr . '="http://www.linkedin.com/shareArticle?mini=true&url=' . $thelink . '&title=' . $thetitle . '&summary=' . $summary . '&source=' . $sitetitle . '"' . $popup . '><span class="visuallyhidden">' . __('Deel op LinkedIn', 'gebruikercentraal') . '</span></' . $thetag . '></li>
+            </ul>';    
+
+//            <li><' . $thetag . ' class="googleplus" ' . $hrefattr . '="https://plus.google.com/share?url=' . $thelink . '&t=' . $thetitle . '"' . $popup . '><span>' . __('Deel op Google+', 'gebruikercentraal') . '</span></' . $thetag . '></li>
+
+            
+    }
+}
+
+//========================================================================================================
+//* Customize the entry meta in the entry header (requires HTML5 theme support)
+
+add_filter( 'genesis_post_info', 'gc_wbvb_post_append_postinfo' ); 
+
+function gc_wbvb_post_append_postinfo($post_info) {
+    global $wp_query;
+    global $post;
+
+
+
+    $socialmedia_icoontjes    = SOC_MED_YES;
+
+    if ( 
+        ( 'page'    == get_post_type() ) ||
+        ( 'post'    == get_post_type() ) ||
+        ( 'event'   == get_post_type() ) 
+         ) {
+
+        
+        if ( function_exists( 'get_field' ) ) {
+            $socialmedia_icoontjes    = get_field('socialmedia_icoontjes', $post->ID );
+        }
+    }
+
+
+    if  ( ( $socialmedia_icoontjes !== SOC_MED_NO ) && ( is_single() ) )  {
+        $socialmedia_icoontjes = gc_wbvb_socialbuttons( $post, '' );
+    }            
+    else {
+        $socialmedia_icoontjes = '';
+    }
+
+    if ( is_home() ) {
+        // niks, eigenlijk
+    	return '[post_date]';
+    }
+    elseif ( is_page() ) {
+        // niks, eigenlijk
+    	return '[post_date]';
+	}
+    else {
+        
+    	if ( 'event' == get_post_type() ) {
+        	return '';
+    	}
+    	elseif ( 'post' == get_post_type() ) {
+        	if ( is_single() ) {
+          	return '[post_date] ' . $socialmedia_icoontjes ;
+        	}
+        	else {
+            	return '[post_date]';
+        	}
+    	} 
+    	else {
+        	return '[post_date]';
+    	}
+    }
+}
+
+//========================================================================================================
+
+function gc_wbvb_add_single_socialmedia_buttons() {
+
+  $socialmedia_icoontjes    = SOC_MED_YES;
   
+  if ( function_exists( 'get_field' ) ) {
+    $socialmedia_icoontjes    = get_field('socialmedia_icoontjes', $post->ID );
+
+    if  ( ( $socialmedia_icoontjes !== SOC_MED_NO ) && ( is_single() ) )  {
+      $socialmedia_icoontjes = gc_wbvb_socialbuttons($post, '' );
+    }
+    else {
+      $socialmedia_icoontjes = '';
+    }
+
+  }
+  
+  echo $socialmedia_icoontjes;
+
+}
+
+//========================================================================================================
+
+add_filter( 'genesis_post_title_text', 'genesis_post_title_text_filter', 15 );
+function genesis_post_title_text_filter( $title ) {
+  
+  global $post;
+
+  if ( function_exists( 'get_field' ) ) {
+      $alternatieve_paginatitel_gebruiken    = get_field('alternatieve_paginatitel_gebruiken', $post->ID );
+
+      if ( strtolower($alternatieve_paginatitel_gebruiken) == 'ja' ) {
+        
+        $alternatieve_paginatitel    = get_field('alternatieve_paginatitel', $post->ID );
+        
+        if ( $alternatieve_paginatitel ) {
+          return $alternatieve_paginatitel;
+        }
+      }
+  }
+
+  return $title;
+}
+
+//========================================================================================================
+
+add_filter( 'genesis_post_title_output', 'gc_wbvb_sharebuttons_for_page_top', 15 );
+ 
+function gc_wbvb_sharebuttons_for_page_top( $title ) {
+
+    global $post;
+
+    $socialmedia_icoontjes    = SOC_MED_YES;
+
+
+    if ( is_home() || is_front_page() ) {
+      return $title;
+    }
+    elseif ( is_page() ) {
+        if ( function_exists( 'get_field' ) ) {
+            $socialmedia_icoontjes    = get_field('socialmedia_icoontjes', $post->ID );
+        }
+        if  ( $socialmedia_icoontjes !== SOC_MED_NO )  {
+            // boven moeten deelknoppen komen
+            $socialmedia_icoontjes = gc_wbvb_socialbuttons($post, '' );
+        }            
+        else {
+            $socialmedia_icoontjes = '';
+        }
+        $title .= $socialmedia_icoontjes;
+    }
+
+    return $title;
+
+}
+
+
+//========================================================================================================
