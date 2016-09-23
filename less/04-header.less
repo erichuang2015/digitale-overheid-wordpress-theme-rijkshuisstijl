@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.1.0 
- * @desc.   Eerste opzet theme, code licht opgeschoond
+ * @version 0.1.7 
+ * @desc.   Functionaliteit voor groeperen van dossiers toegevoegd. Eerste opzet RHS-styling
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -42,15 +42,15 @@
 //        background-image: url('images/bg-header-mobile.png');
 //        background-image: url('images/bg-header-mobile.svg'), none;
         
-        background-position: right top;
-        background-repeat: no-repeat;
-        background-size: @geweenstebreedte @geweenstehoogte;
+//        background-position: right top;
+//        background-repeat: no-repeat;
+//        background-size: @geweenstebreedte @geweenstehoogte;
 
 //      	width: 100%;
-    		font-weight: normal;
-    		padding: 0 @geweenstebreedte 0 @padding;
-    		margin-right: @padding;
-    		overflow: hidden;
+//    		font-weight: normal;
+//    		padding: 0 @geweenstebreedte 0 @padding;
+//    		margin-right: @padding;
+//    		overflow: hidden;
       }
 
 
@@ -142,12 +142,12 @@
         position: relative;
 
 
-        .title-area {
-          padding-top: 0;
-      		margin-right: 0;
-          margin-top: @padding;
-          background: none;
-        }
+//        .title-area {
+//          padding-top: 0;
+//      		margin-right: 0;
+//          margin-top: @padding;
+//          background: none;
+//        }
       }
       
     	.title-area {
@@ -173,13 +173,8 @@
 
     .site-header {
 
-      min-height: @minheight;
-      
-//      background-image: url('images/bg-header-desktop.png');
-//      background-image: url('images/bg-header-desktop.svg'), none;
-      
       .wrap {
-        min-height: @minheight;
+        min-height: 20px;
         margin-top: ( @padding / 2 );
         
         .site-title a {
@@ -187,10 +182,6 @@
         }
 
 
-      	.title-area {
-        	margin-top: @navheight;
-      	}
-  
         .nav-primary {
           height: @navheight;
           position: absolute;

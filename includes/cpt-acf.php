@@ -12,11 +12,146 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.1.5 
- * @desc.   Optie voor sharebuttons toegevoegd
+ * @version 0.1.7 
+ * @desc.   Functionaliteit voor groeperen van dossiers toegevoegd. Eerste opzet RHS-styling
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
+
+
+
+//========================================================================================================
+
+add_action( 'init', 'rhswp_register_my_taxes' );
+
+function rhswp_register_my_taxes() {
+	$labels = array(
+		"name" => __( 'Dossiers', '' ),
+		"singular_name" => __( 'Dossier', '' ),
+		);
+
+	$args = array(
+		"label" => __( 'Dossiers', '' ),
+		"labels" => $labels,
+		"public" => true,
+		"hierarchical" => true,
+		"label" => "Dossiers",
+		"show_ui" => true,
+		"show_in_menu" => true,
+		"show_in_nav_menus" => true,
+		"query_var" => true,
+		"rewrite" => array( 'slug' => RHSWP_CT_DOSSIER, 'with_front' => true, ),
+		"show_admin_column" => false,
+		"show_in_rest" => false,
+		"rest_base" => "",
+		"show_in_quick_edit" => false,
+	);
+	register_taxonomy( RHSWP_CT_DOSSIER, array( "post", "page", "links" ), $args );
+
+}
+
+if( function_exists('acf_add_local_field_group') ):
+
+acf_add_local_field_group(array (
+	'key' => 'group_57dfd27420525',
+	'title' => 'Voor taxonomie: selecteer menu en overzichtpagina',
+	'fields' => array (
+		array (
+			'key' => 'field_57e411ac51413',
+			'label' => 'Overzichtpagina?',
+			'name' => 'dossier_overzichtpagina',
+			'type' => 'post_object',
+			'instructions' => 'Welke pagina is de overzichtspagina die hoort bij dit dossier?',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array (
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'post_type' => array (
+				0 => 'page',
+			),
+			'taxonomy' => array (
+			),
+			'allow_null' => 0,
+			'multiple' => 0,
+			'return_format' => 'object',
+			'ui' => 1,
+		),
+		array (
+			'key' => 'field_57e4122051414',
+			'label' => 'Menu voor dossier',
+			'name' => 'menu_voor_dossier',
+			'type' => 'repeater',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array (
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'collapsed' => '',
+			'min' => '',
+			'max' => '',
+			'layout' => 'table',
+			'button_label' => 'Nieuw item toevoegen aan het menu',
+			'sub_fields' => array (
+				array (
+					'key' => 'field_57e4124751415',
+					'label' => 'Pagina',
+					'name' => 'dossier_menu_pagina',
+					'type' => 'post_object',
+					'instructions' => '',
+					'required' => 0,
+					'conditional_logic' => 0,
+					'wrapper' => array (
+						'width' => '',
+						'class' => '',
+						'id' => '',
+					),
+					'post_type' => array (
+					),
+					'taxonomy' => array (
+					),
+					'allow_null' => 0,
+					'multiple' => 0,
+					'return_format' => 'object',
+					'ui' => 1,
+				),
+			),
+		),
+	),
+	'location' => array (
+		array (
+			array (
+				'param' => 'taxonomy',
+				'operator' => '==',
+				'value' => RHSWP_CT_DOSSIER,
+			),
+		),
+		array (
+			array (
+				'param' => 'user_form',
+				'operator' => '==',
+				'value' => 'edit',
+			),
+		),
+	),
+	'menu_order' => 0,
+	'position' => 'normal',
+	'style' => 'default',
+	'label_placement' => 'top',
+	'instruction_placement' => 'label',
+	'hide_on_screen' => '',
+	'active' => 1,
+	'description' => '',
+));
+
+endif;
+
+//========================================================================================================
 
 if( function_exists('register_field_group') ):
 

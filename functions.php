@@ -9,8 +9,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.1.6 
- * @desc.   Dossierpagina's toegevoegd
+ * @version 0.1.7 
+ * @desc.   Functionaliteit voor groeperen van dossiers toegevoegd. Eerste opzet RHS-styling
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -58,13 +58,20 @@ define( 'CTAX_thema', 'CTAX_thema' );
 define( 'RHSWP_HOME_WIDGET_AREA', 'home-widget-area' );
 
 
+define( 'RHSWP_PREFIX_TAG_CAT', 'rhswp_dossier_select_tag_category');
+define( 'RHSWP_CMB2_TAG_FIELD', 'select_tag');
+define( 'RHSWP_CMB2_TXT_FIELD', 'select_txt');
+
+define( 'RHSWP_CT_DOSSIER', 'dossiers' ); // slug for custom taxonomy 'dossier'
+
+
 //========================================================================================================
 
 // Include for javascript check
 include_once( RHS_FOLDER . '/includes/nojs.php' );
 
 // Include for CMB2 extra fields
-include_once( RHS_FOLDER . '/includes/example-cmb2.php' );
+include_once( RHS_FOLDER . '/includes/metadata-boxes.php' );
 
 
 
@@ -106,13 +113,58 @@ remove_action( 'genesis_footer', 'genesis_do_footer' );
 // zet de footerwidgets IN de footer
 add_action( 'genesis_footer', 'genesis_footer_widget_areas' );
 
+//========================================================================================================
+
+add_action( 'init', 'rhswp_add_excerpts_to_pages' );
+
+function rhswp_add_excerpts_to_pages() {
+     add_post_type_support( 'page', 'excerpt' );
+}
+
+// Add Read More Link to Excerpts
+add_filter( 'excerpt_more', 'rhswp_get_read_more_link');
+add_filter( 'the_content_more_link', 'rhswp_get_read_more_link' );
+
+add_filter( 'the_content_more_link', 'wpm_get_read_more_link');
+add_filter( 'get_the_content_more_link', 'rhswp_get_read_more_link'); // Genesis Framework only
+add_filter( 'excerpt_more', 'rhswp_get_read_more_link');
+
+function rhswp_get_read_more_link( $thepermalink ) {
+  if (!$thepermalink) {
+    $thepermalink = get_permalink();
+  }
+   return ' <a href="' . $thepermalink . '">' . _x( 'Lees verder', 'Standaard linktekst voor lees-meer', 'wp-rijkshuisstijl' ) . '</a>';
+}
 
 //========================================================================================================
 
+//* Reposition the primary navigation menu
+remove_action( 'genesis_after_header', 'genesis_do_nav' );
+
+// breadcrumb
+//* Reposition the breadcrumbs
+remove_action( 'genesis_before_loop', 'genesis_do_breadcrumbs' );
+
+add_action( 'genesis_after_header', 'genesis_do_nav', 10 );
+add_action( 'genesis_after_header', 'genesis_do_breadcrumbs', 12 );
+add_action( 'genesis_after_header', 'rhswp_dossier_title_checker', 14 );
+
+
+
+//* Remove the site title
+remove_action( 'genesis_site_title', 'genesis_seo_site_title' );
+add_action( 'genesis_site_title', 'rhswp_append_site_logo' );
+
+//* Remove the site title
+remove_action( 'genesis_site_title', 'genesis_seo_site_title' );
+
+remove_action( 'genesis_site_description', 'genesis_seo_site_description' );
+
+
+//========================================================================================================
+
+// thumbnails even for pages
 add_theme_support( 'post-thumbnails' );
-
-//========================================================================================================
-
 
 //* Add HTML5 markup structure
 add_theme_support( 'html5' );
@@ -167,11 +219,138 @@ function rhswp_append_search_box_to_menu( $menu, $args ) {
 
 //========================================================================================================
 
-// breadcrumb
-//* Reposition the breadcrumbs
-remove_action( 'genesis_before_loop', 'genesis_do_breadcrumbs' );
-add_action( 'genesis_after_header', 'genesis_do_breadcrumbs' );
+function rhswp_dossier_get_pagelink( $theobject, $maxlength = 50, $currentpageid = 0 ) {
 
+  if ( $currentpageid ) {
+    
+  }
+  else {
+    $currentpageid = get_the_id();
+  }
+
+  $maxposttitle = $theobject->post_title;
+
+  if ( strlen( $maxposttitle ) > $maxlength ) {
+    $maxposttitle = substr( $theobject->post_title, 0, $maxlength) . ' (...)';
+  }
+
+  if ( $theobject->ID !== $currentpageid ) {
+    return '<li><a href="' . get_permalink( $theobject->ID ) . '">' . $maxposttitle . '</a></li>';
+  }
+  else {
+    return '<li class="current"><span>' . $maxposttitle . '</span></li>';
+  }  
+
+}
+
+//========================================================================================================
+
+function rhswp_dossier_title_checker( ) {
+
+global $post;
+  
+  $currentID = $post->ID;
+  
+  $terms = get_the_terms( $currentID , RHSWP_CT_DOSSIER );
+
+  $parentID = wp_get_post_parent_id( $post->ID );
+  $parent = get_post($parentID);
+
+  $subpaginas = '';
+
+  if ($terms && ! is_wp_error( $terms ) ) { 
+//    echo 'yo: ' . $currentID;
+//    dovardump($terms);
+  }
+  else {
+//    echo 'wageffe: ' . $currentID;
+  }
+
+  if ($terms && ! is_wp_error( $terms ) ) { 
+    $term = array_pop($terms);
+    $overzichtspagina = '';
+
+    echo '<div class="here-be-dragons"><div class="wrap">'; 
+    echo '<h1>TERM-NAME: ' . $term->name  . '</h1>'; 
+    
+    if ( function_exists( 'get_field' ) ) {
+      $dossier_overzichtpagina  = get_field('dossier_overzichtpagina', $term );
+      $menu_voor_dossier        = get_field('menu_voor_dossier', $term );
+      
+      if ( $dossier_overzichtpagina ) {
+        $overzichtspagina = rhswp_dossier_get_pagelink($dossier_overzichtpagina);
+      }
+      else {
+//        echo 'Geen overzichtspagina gevonden (current: ' . $currentID . '/ parent:' . $parentID . ')';
+
+        // is aan de parent een dossier toegekend?
+        $parentterms = get_the_terms( $parentID , RHSWP_CT_DOSSIER );
+
+
+        if ($parentterms && ! is_wp_error( $parentterms ) ) { 
+          $overzichtspagina = rhswp_dossier_get_pagelink( get_post($parentID) );
+          $parentID = get_post_id( get_post($parentID) ); 
+        }
+
+      }
+      
+      if ( $menu_voor_dossier ) {
+        $dossier_menu_pagina        = get_field('dossier_menu_pagina', $term );
+        if( have_rows('menu_voor_dossier', $term ) ) {
+          while( have_rows('menu_voor_dossier', $term ) ): the_row(); 
+            $subpagina = get_sub_field('dossier_menu_pagina');
+            if ( $parentID !== $subpagina->ID ) {
+              $subpaginas .= rhswp_dossier_get_pagelink($subpagina);
+            }
+          endwhile; 
+        }
+      }
+      else {
+
+        if ( $parentID ) {
+
+          $args = array( 
+          'child_of'  => $parentID, 
+          'parent '   => $parentID,
+          'hierarchical' => 1,
+          'sort_column' => 'menu_order', 
+          'sort_order' => 'asc'
+          );
+          $pages = get_pages($args); 
+          
+          if ( $pages ) {
+            foreach ( $pages as $page ) {
+//              if ( ( $parentID !== $page->ID ) && ( $currentID !== $page->ID ) )  {
+              if ( ( $parentID !== $page->ID ) )  {
+                $subpaginas .= rhswp_dossier_get_pagelink($page);
+              }
+            }
+          }
+          else {
+          //          echo 'geen andere pagina\'s gevonden';
+          }
+        }
+
+        
+      }
+    }
+
+
+if ( $overzichtspagina || $subpaginas ) {
+  echo '<nav><ul>' . $overzichtspagina . $subpaginas;    
+  echo '</ul></nav>';    
+}
+
+
+     
+    echo '</div>';
+    echo '</div>';
+  }
+  else {
+  }
+}
+
+//========================================================================================================
 
 function rhswp_breadcrumb_add_newspage( $crumb, $args ) {
 	if ( is_singular( 'post' ) || is_date() || is_category() )
@@ -242,7 +421,7 @@ add_action( 'init', 'admin_append_editor_styles' );
 //========================================================================================================
 
 // js filter functie
-function add_defer_to_javascripts( $url )
+function rhswp_add_defer_to_javascripts( $url )
 {
     if ( // comment the following line out add 'defer' to all scripts
 //    FALSE === strpos( $url, 'contact-form-7' ) or
@@ -254,7 +433,7 @@ function add_defer_to_javascripts( $url )
     // Must be a ', not "!
     return "$url' defer='defer";
 }
-//add_filter( 'clean_url', 'add_defer_to_javascripts', 11, 1 );
+//add_filter( 'clean_url', 'rhswp_add_defer_to_javascripts', 11, 1 );
 
 //========================================================================================================
 
@@ -300,26 +479,42 @@ function rhswp_add_taxonomy_description() {
 
 //========================================================================================================
 
-// Add custom site description
-
-add_filter('genesis_seo_description', 'custom_site_description', 10, 3);
-
-function custom_site_description( $description, $inside, $wrap ) {
-
-    $inside = str_replace(". ", "</span><span>", $inside);
-    $description = sprintf('<div class="site-description" itemprop="description"><span>%s</span></div>', $inside );
-
-    return $description;
-
+function get_words($sentence, $count = 10) {
+  preg_match("/(?:\w+(?:\W+|$)){0,$count}/", $sentence, $matches);
+  return $matches[0];
 }
+
+//========================================================================================================
+
+// Filter except length to 35 words.
+// tn custom excerpt length
+function rhswp_custom_excerpt_length( $length ) {
+
+$length = 35;
+
+if ( get_option( 'excerpt_length' ) !== false ) {
+
+    // The option already exists, so we just update it.
+    update_option( 'excerpt_length', $length );
+
+} else {
+
+    // The option hasn't been added yet. We'll add it
+    add_option( 'excerpt_length', $length );
+}
+wp_cache_delete ( 'alloptions', 'options' );
+
+  return $length;
+}
+add_filter( 'excerpt_length', 'rhswp_custom_excerpt_length', 999 );
 
 
 //========================================================================================================
 
 function dovardump($data) {
-    echo '<pre>';
+    echo '<hr><pre>';
     var_dump($data);
-    echo '</pre>';
+    echo '</pre><hr>';
 }        
 
 //========================================================================================================
@@ -708,9 +903,9 @@ if ( WP_DEBUG ) {
 
 //========================================================================================================
             
-function ibo_home_filter() {
+function DELETEME_home_filter() {
 
-echo 'ibo_home_filter';
+echo 'DELETEME_home_filter';
 
     $args = array(
         'parent'         => 0,
@@ -855,12 +1050,12 @@ function rhswp_display_extra_menu() {
  * @param array $page_templates
  * @return array
  */
-function be_remove_genesis_page_templates( $page_templates ) {
+function rhswp_remove_genesis_page_templates( $page_templates ) {
 	unset( $page_templates['page_archive.php'] );
 	unset( $page_templates['page_blog.php'] );
 	return $page_templates;
 }
-add_filter( 'theme_page_templates', 'be_remove_genesis_page_templates' );
+add_filter( 'theme_page_templates', 'rhswp_remove_genesis_page_templates' );
 
 //========================================================================================================
 
@@ -964,21 +1159,21 @@ function showdebug2($file = '', $extra = '') {
 
 //========================================================================================================
 
-add_action( 'the_content', 'baw_add_social_buttons' );
+//add_action( 'the_content', 'DELETEME_add_social_buttons' );
 
-function baw_add_social_buttons( $content ) {
-    if ( ! is_admin() && is_main_query() ) {
-        return $content . rhswp_add_social_buttons();
-    }
-    return $content;
-}
+//function DELETEME_add_social_buttons( $content ) {
+//    if ( ! is_admin() && is_main_query() ) {
+//        return $content . rhswp_add_social_buttons();
+//    }
+//    return $content;
+//}
 
 
 //========================================================================================================
 
 //Social Buttons
 
-function gc_wbvb_socialbuttons($post_info, $hidden = '') {
+function rhswp_socialbuttons($post_info, $hidden = '') {
 	
 //	return '';
 
@@ -1016,16 +1211,59 @@ function gc_wbvb_socialbuttons($post_info, $hidden = '') {
 //========================================================================================================
 //* Customize the entry meta in the entry header (requires HTML5 theme support)
 
-add_filter( 'genesis_post_info', 'gc_wbvb_post_append_postinfo' ); 
+//  add_filter( 'genesis_after_loop', 'rhswp_post_append_postinfo' ); 
+//  add_filter( '', 'rhswp_post_append_postinfo' ); 
 
-function gc_wbvb_post_append_postinfo($post_info) {
+add_action( 'genesis_after_loop', 'rhswp_add_sharebuttons_after_content', 15 );
+//add_action( 'genesis_entry_content', 'rhswp_add_sharebuttons_after_content', 15 );
+
+function rhswp_add_sharebuttons_after_content() {
+  global $post;
+  
+  $socialmedia_icoontjes    = SOC_MED_YES;
+
+
+  if ( 
+      ( 'page'    == get_post_type() ) ||
+      ( 'post'    == get_post_type() ) ||
+      ( 'event'   == get_post_type() ) 
+       ) {
+
+      
+      if ( function_exists( 'get_field' ) ) {
+          $socialmedia_icoontjes    = get_field('socialmedia_icoontjes', $post->ID );
+      }
+  }
+
+
+  if ( is_home() || is_front_page() ) {
+      $socialmedia_icoontjes = '';
+  }
+  elseif  ( ( $socialmedia_icoontjes !== SOC_MED_NO ) && ( is_single() ||  is_page() ) )  {
+      $socialmedia_icoontjes = rhswp_socialbuttons( $post, '' );
+  }            
+  else {
+      $socialmedia_icoontjes = '';
+  }
+ 
+ echo $socialmedia_icoontjes;
+      
+}
+
+//========================================================================================================
+//* Customize the entry meta in the entry header (requires HTML5 theme support)
+
+add_filter( 'genesis_post_info', 'rhswp_post_append_postinfo' ); 
+
+function rhswp_post_append_postinfo($post_info) {
     global $wp_query;
     global $post;
 
 
 
-    $socialmedia_icoontjes    = SOC_MED_YES;
+//    $socialmedia_icoontjes    = SOC_MED_YES;
 
+/*
     if ( 
         ( 'page'    == get_post_type() ) ||
         ( 'post'    == get_post_type() ) ||
@@ -1040,11 +1278,12 @@ function gc_wbvb_post_append_postinfo($post_info) {
 
 
     if  ( ( $socialmedia_icoontjes !== SOC_MED_NO ) && ( is_single() ) )  {
-        $socialmedia_icoontjes = gc_wbvb_socialbuttons( $post, '' );
+        $socialmedia_icoontjes = rhswp_socialbuttons( $post, '' );
     }            
     else {
         $socialmedia_icoontjes = '';
     }
+*/
 
     if ( is_home() ) {
         // niks, eigenlijk
@@ -1061,7 +1300,7 @@ function gc_wbvb_post_append_postinfo($post_info) {
     	}
     	elseif ( 'post' == get_post_type() ) {
         	if ( is_single() ) {
-          	return '[post_date] ' . $socialmedia_icoontjes ;
+            	return '[post_date]';
         	}
         	else {
             	return '[post_date]';
@@ -1075,7 +1314,7 @@ function gc_wbvb_post_append_postinfo($post_info) {
 
 //========================================================================================================
 
-function gc_wbvb_add_single_socialmedia_buttons() {
+function rhswp_add_single_socialmedia_buttons() {
 
   $socialmedia_icoontjes    = SOC_MED_YES;
   
@@ -1083,7 +1322,7 @@ function gc_wbvb_add_single_socialmedia_buttons() {
     $socialmedia_icoontjes    = get_field('socialmedia_icoontjes', $post->ID );
 
     if  ( ( $socialmedia_icoontjes !== SOC_MED_NO ) && ( is_single() ) )  {
-      $socialmedia_icoontjes = gc_wbvb_socialbuttons($post, '' );
+      $socialmedia_icoontjes = rhswp_socialbuttons($post, '' );
     }
     else {
       $socialmedia_icoontjes = '';
@@ -1119,10 +1358,10 @@ function genesis_post_title_text_filter( $title ) {
 }
 
 //========================================================================================================
-
-add_filter( 'genesis_post_title_output', 'gc_wbvb_sharebuttons_for_page_top', 15 );
+/*
+add_filter( 'genesis_post_title_output', 'rhswp_sharebuttons_for_page_top', 15 );
  
-function gc_wbvb_sharebuttons_for_page_top( $title ) {
+function rhswp_sharebuttons_for_page_top( $title ) {
 
     global $post;
 
@@ -1138,7 +1377,7 @@ function gc_wbvb_sharebuttons_for_page_top( $title ) {
         }
         if  ( $socialmedia_icoontjes !== SOC_MED_NO )  {
             // boven moeten deelknoppen komen
-            $socialmedia_icoontjes = gc_wbvb_socialbuttons($post, '' );
+            $socialmedia_icoontjes = rhswp_socialbuttons($post, '' );
         }            
         else {
             $socialmedia_icoontjes = '';
@@ -1149,6 +1388,44 @@ function gc_wbvb_sharebuttons_for_page_top( $title ) {
     return $title;
 
 }
-
+*/
 
 //========================================================================================================
+
+function cmb2_sanitize_human_name( $override_value, $value ) {
+  $value = sanitize_text_field( $value );
+
+  $names = explode(' ', $value);
+
+  if ( count( $names ) < 2 ) {
+    return '';
+  }
+
+  return ucwords( $value );
+}
+add_filter( 'cmb2_sanitize_human_name', 'cmb2_sanitize_human_name', 10, 2 );
+
+//========================================================================================================
+
+function cmb2_render_human_name( $field, $escaped_value, $object_id,
+          $object_type, $field_type_object ) {
+
+  echo $field_type_object->input( array( 'type' => 'text' ) );
+}
+add_action( 'cmb2_render_human_name', 'cmb2_render_human_name', 10, 5 );
+
+//========================================================================================================
+
+function rhswp_append_site_logo() {
+$siteURL =  get_stylesheet_directory_uri();
+$siteURL =  preg_replace('|https://|i', '//', $siteURL );
+$siteURL =  preg_replace('|http://|i', '//', $siteURL );
+
+  echo '
+  <a href="/" title="Naar de homepage van digitaleoverheid.nl">
+        <img src="' . $siteURL . '/images/logo-digitaleoverheid.svg" alt="Logo digitaleoverheid.nl" id="logotype">
+  </a>';
+}
+
+//========================================================================================================
+

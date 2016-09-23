@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.1.0 
- * @desc.   Eerste opzet theme, code licht opgeschoond
+ * @version 0.1.7 
+ * @desc.   Functionaliteit voor groeperen van dossiers toegevoegd. Eerste opzet RHS-styling
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -19,7 +19,7 @@
 
 	.sidebar {
   	
-  	background: @ibgrijs;
+//  	background: @ibgrijs;
   	overflow: hidden;
   	
 		.widget {
@@ -27,9 +27,16 @@
 				padding-left: 0;
 				margin-left: 0;
 			}		
+			li {
+  			margin-top: .2em;
+  			margin-bottom: .5em;
+			}
 			ul ul {
-				margin-top: .5em;
+  			margin-top: .5em;
 				margin-left: 1em;
+				li {
+  				margin-top: 0;
+				}
 			}	
 		}
 	}

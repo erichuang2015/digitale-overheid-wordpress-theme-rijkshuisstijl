@@ -9,8 +9,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.1.6 
- * @desc.   Dossierpagina's toegevoegd
+ * @version 0.1.7 
+ * @desc.   Functionaliteit voor groeperen van dossiers toegevoegd. Eerste opzet RHS-styling
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -26,6 +26,7 @@ add_action( 'genesis_entry_content', 'rhswp_get_page_dossiersingle', 15 );
 genesis();
 
 function rhswp_get_page_dossiersingle() {
-  echo '<h1>overzichtspagina voor een dossier (rhswp_get_page_dossiersingle)</h1>';  
-  
+//  echo '<h1>overzichtspagina voor een dossier (rhswp_get_page_dossiersingle)</h1>';  
+  echo '<h2>Meer</h2>';  
+  echo '<p>Hieronder allerlei relevante elementen (rhswp_get_page_dossiersingle)</p>';  
 }

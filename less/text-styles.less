@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.1.0 
- * @desc.   Eerste opzet theme, code licht opgeschoond
+ * @version 0.1.7 
+ * @desc.   Functionaliteit voor groeperen van dossiers toegevoegd. Eerste opzet RHS-styling
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -24,323 +24,322 @@
 
 .textstyles() {
 
-    
-    a {
-    // color: @a_inactive; // @txt;
-    	text-decoration: underline;
-    
-    	&:visited {
-      // color: @a_visited;
-      }
+  a {
+    color: @a_inactive; // @txt;
+  	text-decoration: underline;
   
-    	&:hover,
-    	&:active,
-    	&:focus {
-      // color: @a_active;
-      }
+  	&:visited {
+      color: @a_visited;
     }
-    
-    a img {
-    	margin-bottom: -4px;
-    	margin-bottom: -0.4rem;
-    }
-    
-    a:hover {
-    	text-decoration: underline;
-    }
-    
-    p {
-    	margin: 0 0 @padding 0;
-    	padding: 0;
-    }
-    
-    strong, b {
-    	font-weight: 700;
-    	font-family: @fontstrong;
-    }
-    
-    ol,
-    ul {
-    	padding: 0 0 0 @padding;
-    }
-    
-    blockquote,
-    blockquote::before {
-    // color: @txt;
-    }
-    
-    blockquote {
-    	margin: @padding;
-    }
-    
-    blockquote::before {
-    	content: "\201C";
-    	display: block;
-    	.font-size(30);
-    	height: 0;
-    	left: ( -1 * @padding );
-    	position: relative;
-    	top: ( -1 * @padding );
-    }
-    
-    .entry-content code {
-    	background-color: @grijs;
-    // color: @txt;
-    }
-    
-    cite {
-    	font-style: normal;
-    }
-    
 
-    dl {
-        display: block;
-        overflow: hidden;
-        clear: both;
-        padding-bottom: 0;
-        padding-top: 0;
-        margin-top: 0;
-        
-        dt, dd {
+  	&:hover,
+  	&:active,
+  	&:focus {
+      color: @a_active;
+    }
+  }
+  
+  a img {
+  	margin-bottom: -4px;
+  	margin-bottom: -0.4rem;
+  }
+  
+  a:hover {
+  	text-decoration: underline;
+  }
+  
+  p {
+  	margin: 0 0 @padding 0;
+  	padding: 0;
+  }
+  
+  strong, b {
+  	font-weight: 700;
+  	font-family: @fontstrong;
+  }
+  
+  ol,
+  ul {
+  	padding: 0 0 0 @padding;
+  }
+  
+  blockquote,
+  blockquote::before {
+  // color: @txt;
+  }
+  
+  blockquote {
+  	margin: @padding;
+  }
+  
+  blockquote::before {
+  	content: "\201C";
+  	display: block;
+  	.font-size(30);
+  	height: 0;
+  	left: ( -1 * @padding );
+  	position: relative;
+  	top: ( -1 * @padding );
+  }
+  
+  .entry-content code {
+  	background-color: @grijs;
+  // color: @txt;
+  }
+  
+  cite {
+  	font-style: normal;
+  }
+  
+
+  dl {
+      display: block;
+      overflow: hidden;
+      clear: both;
+      padding-bottom: 0;
+      padding-top: 0;
+      margin-top: 0;
+      
+      dt, dd {
 //            padding: ( @padding / 2 ) 0;
-        }
-        dt {
-            font-weight: bold;
-        	font-family: 'Rijksoverheid Sans bold', sans-serif;
-            display: inline-block;
-            max-width: 40%;
-            float: left;
-        }
-        dd {
-            display: inline-block;
-            width: 55%;
-            float: right;
-        }
-        
-        & + dl {
-          padding-top: @padding;
-            border-top-style: none;
-            border-top: 1px solid @lichtgrijs;
-        }
-    }
-    dl + dl {
-      margin-top: 1em;
-    }
+      }
+      dt {
+          font-weight: bold;
+      	font-family: 'Rijksoverheid Sans bold', sans-serif;
+          display: inline-block;
+          max-width: 40%;
+          float: left;
+      }
+      dd {
+          display: inline-block;
+          width: 55%;
+          float: right;
+      }
+      
+      & + dl {
+        padding-top: @padding;
+          border-top-style: none;
+          border-top: 1px solid @lichtgrijs;
+      }
+  }
+  dl + dl {
+    margin-top: 1em;
+  }
 
-    p {
-        -webkit-hyphens: auto;
-        -moz-hyphens: auto;
-        -ms-hyphens: auto;
-        -o-hyphens: auto;
-        hyphens: auto;
-    }
-    b,strong {
-        -webkit-hyphens: manual;
-        -moz-hyphens: manual;
-        -ms-hyphens: manual;
-        -o-hyphens: manual;
-        hyphens: manual;
-    }
-    
-    .attachment a,
-    .gallery a {
-    	border: none;
-    }
-    
-    
-    ol li {
-    	list-style-type: decimal;
-    }
-    
-    ul li {
-    	list-style-type: disc;
-    }
-    
-    ol ol,
-    ul ul {
-    	margin-bottom: 0;
-    }
-    
-
-
-    
-    /* Headings
-    --------------------------------------------- */
-    
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-    // color: @header_color;
-    	font-weight: 700; 
-    	line-height: 1.2;
-    	margin: ( @gutter / 2 ) 0 ( @gutter / 4 );
-        font-family: @headerfont;
-    }
-    
-    h1 {
-    	.font-size( @fontsize_title_h1 );
-    // color: @header_color_2;
-    }
-    
-    h2 {
-    	.font-size( @fontsize_title_h2 );
-    }
-    
-    h3 {
-    	.font-size( @fontsize_title_h3 );
-    }
-    
-    h4 {
-    	.font-size( @fontsize_title_h4 );
-    }
-    
-    h5 {
-    	.font-size( @fontsize_title_h5 );
-    }
-    
-    h6 {
-    	.font-size( @fontsize_title_h6 );
-    }
+  p {
+      -webkit-hyphens: auto;
+      -moz-hyphens: auto;
+      -ms-hyphens: auto;
+      -o-hyphens: auto;
+      hyphens: auto;
+  }
+  b,strong {
+      -webkit-hyphens: manual;
+      -moz-hyphens: manual;
+      -ms-hyphens: manual;
+      -o-hyphens: manual;
+      hyphens: manual;
+  }
+  
+  .attachment a,
+  .gallery a {
+  	border: none;
+  }
+  
+  
+  ol li {
+  	list-style-type: decimal;
+  }
+  
+  ul li {
+  	list-style-type: disc;
+  }
+  
+  ol ol,
+  ul ul {
+  	margin-bottom: 0;
+  }
+  
 
 
-    
-    /* Tables
-    --------------------------------------------- */
-    
-    table {
-    	border-collapse: collapse;
-    	border-spacing: 0;
-    	line-height: 2;
-    	margin-bottom: @padding;
-    	width: 100%;
-    	
-    	.time {
-        	width: 20%;
-        	min-width: 80px;
-    	}
-    	.topic, .presentor {
-        	width: 30%;
-    	}
-    	.topic {
-        	width: 45%;
-    	}
-    
-        tbody {
-        	border-top: 1px solid @grijs;
-        }
-        
-        th,
-        td {
-        	text-align: left;
-            vertical-align: top;
-        }
-        
-        th {
-        	font-weight: bold;
-        	text-transform: uppercase;
-        }
-        
-
-    }
-    
-    .entry-content {
-        
-        .teammembers, table {
-    
-        	td, p, h1, h2, h3, h4, h5, h6 {
-                font-family: @bodyfont;
-                font-weight: normal;
-                line-height: 1.4;
-                margin: 0;
-                padding: 0;
-        	}
-        	h1, h2, h3, h4 {
-        	    font-size: 18px;
-            }
-            td, p, h5, h6 {
-        	    font-size: 16px;
-            }
-            h5, h6 {
-        	    margin: 0 0 6px 0;
-        	    font-style: italic;
-            }
-           	
-        	&, li {
-            	list-style: none;
-            	padding-left: 0;
-            	margin-left: 0;
-        	}
-            li {
-                margin-bottom: 1em;
-            }
-    
-            td {
-            	padding: 0 ( @padding / 4 ) ( @padding ) 0;
-            }
-
-        }
-
-    }
+  
+  /* Headings
+  --------------------------------------------- */
+  
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+  // color: @header_color;
+  	font-weight: 700; 
+  	line-height: 1.2;
+  	margin: ( @gutter / 2 ) 0 ( @gutter / 4 );
+      font-family: @headerfont;
+  }
+  
+  h1 {
+  	.font-size( @fontsize_title_h1 );
+  // color: @header_color_2;
+  }
+  
+  h2 {
+  	.font-size( @fontsize_title_h2 );
+  }
+  
+  h3 {
+  	.font-size( @fontsize_title_h3 );
+  }
+  
+  h4 {
+  	.font-size( @fontsize_title_h4 );
+  }
+  
+  h5 {
+  	.font-size( @fontsize_title_h5 );
+  }
+  
+  h6 {
+  	.font-size( @fontsize_title_h6 );
+  }
 
 
-    
-    img.centered,
-    .aligncenter {
-    	display: block;
-    	margin: 0 auto @padding;
-    }
-    
-    img.alignnone {
+  
+  /* Tables
+  --------------------------------------------- */
+  
+  table {
+  	border-collapse: collapse;
+  	border-spacing: 0;
+  	line-height: 2;
+  	margin-bottom: @padding;
+  	width: 100%;
+  	
+  	.time {
+      	width: 20%;
+      	min-width: 80px;
+  	}
+  	.topic, .presentor {
+      	width: 30%;
+  	}
+  	.topic {
+      	width: 45%;
+  	}
+  
+      tbody {
+      	border-top: 1px solid @grijs;
+      }
+      
+      th,
+      td {
+      	text-align: left;
+          vertical-align: top;
+      }
+      
+      th {
+      	font-weight: bold;
+      	text-transform: uppercase;
+      }
+      
+
+  }
+  
+  .entry-content {
+      
+      .teammembers, table {
+  
+      	td, p, h1, h2, h3, h4, h5, h6 {
+              font-family: @bodyfont;
+              font-weight: normal;
+              line-height: 1.4;
+              margin: 0;
+              padding: 0;
+      	}
+      	h1, h2, h3, h4 {
+      	    font-size: 18px;
+          }
+          td, p, h5, h6 {
+      	    font-size: 16px;
+          }
+          h5, h6 {
+      	    margin: 0 0 6px 0;
+      	    font-style: italic;
+          }
+         	
+      	&, li {
+          	list-style: none;
+          	padding-left: 0;
+          	margin-left: 0;
+      	}
+          li {
+              margin-bottom: 1em;
+          }
+  
+          td {
+          	padding: 0 ( @padding / 4 ) ( @padding ) 0;
+          }
+
+      }
+
+  }
+
+
+  
+  img.centered,
+  .aligncenter {
+  	display: block;
+  	margin: 0 auto @padding;
+  }
+  
+  img.alignnone {
 //    	margin-bottom: @padding;
-    }
-    
-    .alignleft {
-    	float: left;
-    	text-align: left;
-    }
-    
-    .alignright {
-    	float: right;
-    	text-align: right;
-    }
-    
-    img.alignleft,
-    .wp-caption.alignleft {
-    	margin: ( @padding / 3 ) ( @padding / 2 ) @padding 0;
-    }
-    
-    img.alignright,
-    .wp-caption.alignright {
-    	margin: ( @padding / 3 ) 0 @padding ( @padding / 2 );
-    }
+  }
+  
+  .alignleft {
+  	float: left;
+  	text-align: left;
+  }
+  
+  .alignright {
+  	float: right;
+  	text-align: right;
+  }
+  
+  img.alignleft,
+  .wp-caption.alignleft {
+  	margin: ( @padding / 3 ) ( @padding / 2 ) @padding 0;
+  }
+  
+  img.alignright,
+  .wp-caption.alignright {
+  	margin: ( @padding / 3 ) 0 @padding ( @padding / 2 );
+  }
 
-    .wp-caption.alignnone {
-    	margin: ( @padding / 3 ) 0 0 0;
-    }
-    
-    .wp-caption-text {
-    	.font-size(12);
-    	font-weight: normal;
-    	text-align: left;
-    	border-bottom: 1px solid #ddd;
-    	line-height: 1.4;
-    	padding: ( @padding / 2 ) 0;
-    }
+  .wp-caption.alignnone {
+  	margin: ( @padding / 3 ) 0 0 0;
+  }
+  
+  .wp-caption-text {
+  	.font-size(12);
+  	font-weight: normal;
+  	text-align: left;
+  	border-bottom: 1px solid #ddd;
+  	line-height: 1.4;
+  	padding: ( @padding / 2 ) 0;
+  }
 
-    .alignright .wp-caption-text {
-        margin-left: 10px;
-        margin-bottom: 0 !important;
-    }
-    .alignleft .wp-caption-text {
-        margin-right: 10px;
-        margin-bottom: 0 !important;
-    }
-    
-    .gallery-caption {
-    	border-bottom: none;
-    }
+  .alignright .wp-caption-text {
+      margin-left: 10px;
+      margin-bottom: 0 !important;
+  }
+  .alignleft .wp-caption-text {
+      margin-right: 10px;
+      margin-bottom: 0 !important;
+  }
+  
+  .gallery-caption {
+  	border-bottom: none;
+  }
 }
 

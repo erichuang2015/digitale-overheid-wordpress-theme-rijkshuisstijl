@@ -7,8 +7,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.1.0 
- * @desc.   Eerste opzet theme, code licht opgeschoond
+ * @version 0.1.7 
+ * @desc.   Functionaliteit voor groeperen van dossiers toegevoegd. Eerste opzet RHS-styling
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -20,8 +20,21 @@
 @ibrood:			           #CA2B1B;
 
 @ibblue_medium:		       #4B9ED4;
-@ibblue_dark:		         #137EC2;
+@ibblue_dark:		         #275937; // donkergroen
 @ibblue_darkest:		     #0A5294;
+
+// ========================================================================
+@nav_bg_color:                #275937; // donkergroen
+@nav_a_color_default:         white;
+
+@nav_li_active_bg:            #becdc3;
+@nav_li_active_color:         black;
+
+@nav_submenu_bg_default:      black;
+@nav_submenu_a_color_default: black;
+
+
+// ========================================================================
 
 @strokeheight: 		       43px;
 
@@ -58,8 +71,8 @@
 @hoogte_tooltip_button:   36;
 @hoogte_tooltip_button_px:   36px;
 
-@a_hover:                 @ibblue_dark;
-@a_inactive:              @ibblue_dark;
+@a_hover:                 green;
+@a_inactive:              @ibblue_darkest;
 @a_active:                red;
 @a_visited:               rebeccapurple;
 
@@ -254,9 +267,9 @@
 
 //=========================================================================================================
 
-@light_gray:  red;
+@light_gray:  white;
 @blauw3:      black;
-@groen_1:     green;
+@groen_1:     white;
 
 .socialmedia_styling() {
 
@@ -290,6 +303,7 @@
           &:active,
           &:focus {
             border-color: @txt;
+            background-color: @blauw3;
           }
         }
       }

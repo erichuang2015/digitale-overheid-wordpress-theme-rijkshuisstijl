@@ -3,8 +3,8 @@
 	Description: Theme voor ibewustzijnoverheid.nl
 	Author: Paul van Buuren
 	Author URI: https://wbvb.nl/themes/ibewustzijn/
-	Version: 0.1.6
-	Version description: 0.1.6 - Dossierpagina's toegevoegd
+	Version: 0.1.7
+	Version description: 0.1.7 - Functionaliteit voor groeperen van dossiers toegevoegd. Eerste opzet RHS-styling
 
 	Template: genesis
 	Template Version: 2.0.2
@@ -22,6 +22,7 @@ Imports
 @import "05-menus.less";      /* all things related to navigation menus */
 @import "06-forms.less";      /* forms */
 @import "07-sidebar.less";    /* sidebar styling */
+@import "08-structure.less"; 
 
 
 .fonts_get_webfonts();
@@ -53,7 +54,8 @@ Imports
       -webkit-text-size-adjust: 100%
   }
   body {
-      margin: 0
+      margin: 0;
+      padding: 0
   }
   
   h1 {
@@ -225,10 +227,12 @@ html {
 body > div { font-size: 1.6rem; }
 
 body {
-	background-color: @wit;
-	background-repeat: no-repeat;
-	background-position: center top;
-    .basefont();
+  background-color: @wit;
+  background-repeat: no-repeat;
+  background-position: center top;
+  .basefont();
+  margin: 0;
+  padding: 0
 }
 
 a,
@@ -581,7 +585,7 @@ Common Classes
 .breadcrumb, 
 .archive-description,
 .author-box {
-	margin-bottom: @padding;
+//	margin-bottom: @padding;
 }
 
 .breadcrumb {
@@ -590,10 +594,10 @@ Common Classes
 //		height: @strokeheight;
 	}
 	nav {
-		padding: ( @padding / 2 ) @padding;
+		padding: ( @padding / 2 ) 0;
 		
 		a {
-  	// color: @txt;
+  	  color: @txt;
   		text-decoration: none;
   		
   		&:hover,
@@ -603,29 +607,12 @@ Common Classes
   		}
 		}
 	}
-	
-	&:before {
-		display: block;
-		height: ( @strokeheight / 2 );
-		content: ' ';
-		background: url('images/achtergrondbalken.png');
-		background-repeat: repeat-x;
-		background-position: center center;
-	}
 
 	.separator {
 		display: inline-block;
 		margin-left: ( @padding / 3 );
 		margin-right: ( @padding / 3 );
 	}	
-}
-
-@media only screen and (min-width: ( @break_fullwidth ) ) {
-  .breadcrumb {
-  	&:before {
-  		height: @strokeheight;
-  	}
-  }  
 }
 
 
@@ -1385,25 +1372,6 @@ box-shadow: 2px 2px 4px lighten(@gboxshawow_grijs, 20%);
 }
 
 
-.bestuurslaag-block,
-.thema-block {
-
-	width: 30%;
-
-	a {
-	// color: @wit;
-		padding: @padding;
-		display: block;
-		text-decoration: none;
-		text-align: center;
-		
-		&:active,
-		&:hover,
-		&:focus {
-			text-decoration: underline;
-		}
-	}
-}
 
 
 .formstyling();
@@ -1608,10 +1576,6 @@ Media Queries
     }
 
 
-    .breadcrumb, 
-    .archive-description,
-    .author-box {
-    }
     
 }
 
@@ -1715,6 +1679,8 @@ Media Queries
   overflow: hidden;
   ul {
     float: right;
+    padding: 0;
+    margin: 0;
   }
   li {
     display: inline-block;
@@ -1725,3 +1691,5 @@ Media Queries
 }
 
 .socialmedia_styling();
+
+.teststructure();
