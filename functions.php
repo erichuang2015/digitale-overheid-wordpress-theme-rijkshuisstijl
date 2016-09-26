@@ -9,8 +9,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.1.8 
- * @desc.   Changes for banner widget; added CPT documenten; 
+ * @version 0.1.9 
+ * @desc.   Overviewpage for documenten 
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
