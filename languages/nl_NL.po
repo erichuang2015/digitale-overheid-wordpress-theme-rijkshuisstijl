@@ -1,0 +1,586 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Rijkshuisstijl (Digitale Overheid) (v1.0.1)\n"
+"POT-Creation-Date: 2016-09-26 12:19+0200\n"
+"PO-Revision-Date: 2016-09-26 12:25+0200\n"
+"Last-Translator: \n"
+"Language-Team: WBVB Rotterdam <info@wbvb.nl>\n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.8.9\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-WPHeader: style.css\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: functions.php:139
+msgctxt "Standaard linktekst voor lees-meer"
+msgid "Lees verder"
+msgstr ""
+
+#: functions.php:291
+msgctxt "Standaardlabel voor het menu in de dossiers"
+msgid "Overzicht"
+msgstr "Overzicht"
+
+#: functions.php:381
+msgid "<span class=\"separator\">&gt;</span>"
+msgstr ""
+
+#: functions.php:383
+msgid "Home"
+msgstr ""
+
+#: functions.php:392
+msgid "Auteurs"
+msgstr ""
+
+#: functions.php:396
+msgid "Label"
+msgstr ""
+
+#: functions.php:397
+msgid "Zoekresultaat"
+msgstr ""
+
+#: functions.php:405
+msgid "Contentsoort"
+msgstr ""
+
+#: functions.php:409
+msgid "Onderwerpen"
+msgstr ""
+
+#: functions.php:418
+msgid "404 - Pagina niet gevonden"
+msgstr ""
+
+#: functions.php:612
+msgctxt "Titel in de zijbalk"
+msgid "Subthema's"
+msgstr ""
+
+#: functions.php:650
+msgid "Pagina niet gevonden."
+msgstr ""
+
+#: functions.php:658
+#, php-format
+msgid ""
+"The page you are looking for no longer exists. Perhaps you can return back "
+"to the site's <a href=\"%s\">homepage</a> and see if you can find what you "
+"are looking for. Or, you can try finding it by using the search form below."
+msgstr ""
+"De pagina is stuk. Ga naar de <a href=\"%s\">homepage</a>. Of je kunt zoeken "
+"met dit zoekformulier:"
+
+#: functions.php:746
+msgid "Pagina's"
+msgstr ""
+
+#: functions.php:751
+msgid "Recent Posts:"
+msgstr ""
+
+#: functions.php:800
+msgid "Homepage widget area"
+msgstr ""
+
+#: functions.php:802
+msgid "Ruimte voor widget op de homepage"
+msgstr ""
+
+#: functions.php:966
+msgid "Koepels"
+msgstr ""
+
+#: functions.php:1033
+msgid "Extra navigatiemenu (rechtsboven)"
+msgstr ""
+
+#: functions.php:1118 sidebar.php:22
+msgctxt "Title of primary sidebar"
+msgid "Eerste sidebar"
+msgstr ""
+
+#: functions.php:1119
+msgctxt "Description of primary sidebar"
+msgid ""
+"Primaire zijbalk met ruimte voor widgets. Wordt standaard getoond aan de "
+"rechterkant van de content op brede schermen"
+msgstr ""
+
+#: functions.php:1130 sidebar-alt.php:22
+msgctxt "Title of secondary sidebar"
+msgid "Tweede sidebar"
+msgstr ""
+
+#: functions.php:1131
+msgctxt "Description of secundary sidebar"
+msgid ""
+"Secundaire zijbalk met ruimte voor widgets. Wordt alleen getoond op pagina's "
+"waar de niet-standaard layout is gekozen"
+msgstr ""
+
+#: functions.php:1209
+msgid "Deel op Twitter"
+msgstr ""
+
+#: functions.php:1210
+msgid "Deel op Facebook"
+msgstr ""
+
+#: functions.php:1211
+msgid "Deel op LinkedIn"
+msgstr ""
+
+#: includes/cpt-acf.php:29 includes/cpt-acf.php:34
+msgid "Dossiers"
+msgstr ""
+
+#: includes/cpt-acf.php:30
+msgid "Dossier"
+msgstr ""
+
+#: includes/cpt-acf.php:57 includes/cpt-acf.php:59 includes/cpt-acf.php:75
+msgid "Documenten"
+msgstr ""
+
+#: includes/cpt-acf.php:58
+msgid "Document"
+msgstr ""
+
+#: includes/cpt-acf.php:60
+msgid "Alle documenten"
+msgstr ""
+
+#: includes/cpt-acf.php:61
+msgid "Nieuw document toevoegen"
+msgstr ""
+
+#: includes/cpt-acf.php:62
+msgid "Voeg nieuw document toe"
+msgstr ""
+
+#: includes/cpt-acf.php:63
+msgid "Bewerk document"
+msgstr ""
+
+#: includes/cpt-acf.php:64
+msgid "Nieuw document"
+msgstr ""
+
+#: includes/cpt-acf.php:65
+msgid "Bekijk document"
+msgstr ""
+
+#: includes/cpt-acf.php:66
+msgid "Zoek document"
+msgstr ""
+
+#: includes/cpt-acf.php:67
+msgid "Geen documenten gevonden"
+msgstr ""
+
+#: includes/cpt-acf.php:68
+msgid "Geen documenten gevonden in de prullenbak"
+msgstr ""
+
+#: includes/cpt-acf.php:69
+msgid "Uitgelichte afbeelding"
+msgstr ""
+
+#: includes/cpt-acf.php:70
+msgid "Overzichten"
+msgstr ""
+
+#: includes/cpt-acf.php:71
+msgid "Bijbehorende bestanden"
+msgstr ""
+
+#: includes/example-cmb2.php:122
+msgid "Test Metabox"
+msgstr ""
+
+#: includes/example-cmb2.php:138 includes/example-cmb2.php:449
+msgid "Test Text"
+msgstr ""
+
+#: includes/example-cmb2.php:139 includes/example-cmb2.php:152
+#: includes/example-cmb2.php:165 includes/example-cmb2.php:173
+#: includes/example-cmb2.php:181 includes/example-cmb2.php:190
+#: includes/example-cmb2.php:198 includes/example-cmb2.php:213
+#: includes/example-cmb2.php:221 includes/example-cmb2.php:229
+#: includes/example-cmb2.php:246 includes/example-cmb2.php:255
+#: includes/example-cmb2.php:268 includes/example-cmb2.php:275
+#: includes/example-cmb2.php:282 includes/example-cmb2.php:296
+#: includes/example-cmb2.php:309 includes/example-cmb2.php:322
+#: includes/example-cmb2.php:334 includes/example-cmb2.php:343
+#: includes/example-cmb2.php:351 includes/example-cmb2.php:360
+#: includes/example-cmb2.php:367 includes/example-cmb2.php:381
+#: includes/example-cmb2.php:450 includes/example-cmb2.php:546
+#: includes/example-cmb2.php:554 includes/example-cmb2.php:561
+#: includes/example-cmb2.php:568 includes/example-cmb2.php:575
+#: includes/example-cmb2.php:582 includes/example-cmb2.php:589
+#: includes/example-cmb2.php:619 includes/example-cmb2.php:627
+#: includes/example-cmb2.php:634 includes/example-cmb2.php:674
+#: includes/metadata-boxes.php:58 includes/metadata-boxes.php:67
+#: includes/metadata-boxes.php:95
+msgid "field description (optional)"
+msgstr ""
+
+#: includes/example-cmb2.php:151
+msgid "Test Text Small"
+msgstr ""
+
+#: includes/example-cmb2.php:164
+msgid "Test Text Medium"
+msgstr ""
+
+#: includes/example-cmb2.php:172
+msgid "Custom Rendered Field"
+msgstr ""
+
+#: includes/example-cmb2.php:180
+msgid "Website URL"
+msgstr ""
+
+#: includes/example-cmb2.php:189
+msgid "Test Text Email"
+msgstr ""
+
+#: includes/example-cmb2.php:197
+msgid "Test Time"
+msgstr ""
+
+#: includes/example-cmb2.php:205 includes/example-cmb2.php:206
+msgid "Time zone"
+msgstr ""
+
+#: includes/example-cmb2.php:212
+msgid "Test Date Picker"
+msgstr ""
+
+#: includes/example-cmb2.php:220
+msgid "Test Date Picker (UNIX timestamp)"
+msgstr ""
+
+#: includes/example-cmb2.php:228
+msgid "Test Date/Time Picker Combo (UNIX timestamp)"
+msgstr ""
+
+#: includes/example-cmb2.php:245
+msgid "Test Money"
+msgstr ""
+
+#: includes/example-cmb2.php:254
+msgid "Test Color Picker"
+msgstr ""
+
+#: includes/example-cmb2.php:267
+msgid "Test Text Area"
+msgstr ""
+
+#: includes/example-cmb2.php:274
+msgid "Test Text Area Small"
+msgstr ""
+
+#: includes/example-cmb2.php:281
+msgid "Test Text Area for Code"
+msgstr ""
+
+#: includes/example-cmb2.php:288
+msgid "Test Title Weeeee"
+msgstr ""
+
+#: includes/example-cmb2.php:289
+msgid "This is a title description"
+msgstr ""
+
+#: includes/example-cmb2.php:295
+msgid "Test Select"
+msgstr ""
+
+#: includes/example-cmb2.php:301 includes/example-cmb2.php:314
+#: includes/example-cmb2.php:326
+msgid "Option One"
+msgstr ""
+
+#: includes/example-cmb2.php:302 includes/example-cmb2.php:315
+#: includes/example-cmb2.php:327
+msgid "Option Two"
+msgstr ""
+
+#: includes/example-cmb2.php:303 includes/example-cmb2.php:316
+#: includes/example-cmb2.php:328
+msgid "Option Three"
+msgstr ""
+
+#: includes/example-cmb2.php:308
+msgid "Test Radio inline"
+msgstr ""
+
+#: includes/example-cmb2.php:321
+msgid "Test Radio"
+msgstr ""
+
+#: includes/example-cmb2.php:333 includes/metadata-boxes.php:57
+msgid "Test Taxonomy Radio"
+msgstr ""
+
+#: includes/example-cmb2.php:342
+msgid "Test Taxonomy Select"
+msgstr ""
+
+#: includes/example-cmb2.php:350
+msgid "Test Taxonomy Multi Checkbox"
+msgstr ""
+
+#: includes/example-cmb2.php:359
+msgid "Test Checkbox"
+msgstr ""
+
+#: includes/example-cmb2.php:366
+msgid "Test Multi Checkbox"
+msgstr ""
+
+#: includes/example-cmb2.php:372
+msgid "Check One"
+msgstr ""
+
+#: includes/example-cmb2.php:373
+msgid "Check Two"
+msgstr ""
+
+#: includes/example-cmb2.php:374
+msgid "Check Three"
+msgstr ""
+
+#: includes/example-cmb2.php:380
+msgid "Test wysiwyg"
+msgstr ""
+
+#: includes/example-cmb2.php:388
+msgid "Test Image"
+msgstr ""
+
+#: includes/example-cmb2.php:389
+msgid "Upload an image or enter a URL."
+msgstr ""
+
+#: includes/example-cmb2.php:395
+msgid "Multiple Files"
+msgstr ""
+
+#: includes/example-cmb2.php:396
+msgid "Upload or add multiple images/attachments."
+msgstr ""
+
+#: includes/example-cmb2.php:403
+msgid "oEmbed"
+msgstr ""
+
+#: includes/example-cmb2.php:404
+msgid ""
+"Enter a youtube, twitter, or instagram URL. Supports services listed at <a "
+"href=\"http://codex.wordpress.org/Embeds\">http://codex.wordpress.org/"
+"Embeds</a>."
+msgstr ""
+
+#: includes/example-cmb2.php:437 includes/metadata-boxes.php:46
+msgid "Bijbehorende tag / categorie"
+msgstr ""
+
+#: includes/example-cmb2.php:438
+msgid ""
+"Selecteer de tag / categorie van berichten die op deze pagina getoond moeten "
+"worden."
+msgstr ""
+
+#: includes/example-cmb2.php:471
+msgid "Repeating Field Group"
+msgstr ""
+
+#: includes/example-cmb2.php:479
+msgid "Generates reusable form entries"
+msgstr ""
+
+#: includes/example-cmb2.php:481
+msgid "Entry {#}"
+msgstr ""
+
+#: includes/example-cmb2.php:482
+msgid "Add Another Entry"
+msgstr ""
+
+#: includes/example-cmb2.php:483
+msgid "Remove Entry"
+msgstr ""
+
+#: includes/example-cmb2.php:496
+msgid "Entry Title"
+msgstr ""
+
+#: includes/example-cmb2.php:503
+msgid "Description"
+msgstr ""
+
+#: includes/example-cmb2.php:504
+msgid "Write a short description for this entry"
+msgstr ""
+
+#: includes/example-cmb2.php:510
+msgid "Entry Image"
+msgstr ""
+
+#: includes/example-cmb2.php:516
+msgid "Image Caption"
+msgstr ""
+
+#: includes/example-cmb2.php:538
+msgid "User Profile Metabox"
+msgstr ""
+
+#: includes/example-cmb2.php:545 includes/example-cmb2.php:618
+msgid "Extra Info"
+msgstr ""
+
+#: includes/example-cmb2.php:553
+msgid "Avatar"
+msgstr ""
+
+#: includes/example-cmb2.php:560
+msgid "Facebook URL"
+msgstr ""
+
+#: includes/example-cmb2.php:567
+msgid "Twitter URL"
+msgstr ""
+
+#: includes/example-cmb2.php:574
+msgid "Google+ URL"
+msgstr ""
+
+#: includes/example-cmb2.php:581
+msgid "Linkedin URL"
+msgstr ""
+
+#: includes/example-cmb2.php:588
+msgid "User Field"
+msgstr ""
+
+#: includes/example-cmb2.php:611
+msgid "Category Metabox"
+msgstr ""
+
+#: includes/example-cmb2.php:626
+msgid "Term Image"
+msgstr ""
+
+#: includes/example-cmb2.php:633
+msgid "Arbitrary Term Field"
+msgstr ""
+
+#: includes/example-cmb2.php:658
+msgid "Theme Options Metabox"
+msgstr ""
+
+#: includes/example-cmb2.php:673
+msgid "Site Background Color"
+msgstr ""
+
+#: includes/metadata-boxes.php:66 includes/metadata-boxes.php:78
+msgid "Tag"
+msgstr ""
+
+#: includes/metadata-boxes.php:72
+msgid "Er zijn geen tags toegevoegd."
+msgstr ""
+
+#: includes/metadata-boxes.php:79
+msgid "Kies de tag voor de actueelpagina onder dit dossier."
+msgstr ""
+
+#: includes/nojs.php:58
+msgid "JavaScript staat uit"
+msgstr ""
+
+#: includes/widget-banner.php:30
+msgid ""
+"Mogelijkheid voor het aanmaken van een banner. Kies achtergrondkleur, links, "
+"stijl"
+msgstr ""
+
+#: includes/widget-banner.php:59 includes/widget-home.php:59
+msgid "Vrije tekst in widget:"
+msgstr ""
+
+#: includes/widget-banner.php:66 includes/widget-home.php:66
+msgid "Linkt naar pagina:"
+msgstr ""
+
+#: includes/widget-banner.php:138
+msgctxt "Widget"
+msgid "Hier zou een banner staan, maar er is geen linktekst ingevoerd"
+msgstr ""
+
+#: includes/widget-home.php:31
+msgid "Korte tekst met verwijzing naar een pagina."
+msgstr ""
+
+#: includes/widget-home.php:100
+msgctxt "Widget"
+msgid "Geen linktekst ingevoerd"
+msgstr ""
+
+#: includes/widget-newswidget.php:31
+msgid "Mogelijkheid voor tonen van nieuwsberichten uit een bepaalde categorie"
+msgstr ""
+
+#: includes/widget-newswidget.php:52
+msgid "Titel:"
+msgstr ""
+
+#: includes/widget-newswidget.php:68
+msgid "Categorie:"
+msgstr ""
+
+#: includes/widget-newswidget.php:75
+msgid "Aantal:"
+msgstr ""
+
+#: includes/widget-newswidget.php:206
+msgid "Lees"
+msgstr ""
+
+#: includes/widget-newswidget.php:217
+msgid "Meer"
+msgstr ""
+
+#: page_dossiersoverview.php:59
+msgctxt "Standaardtekst als pagina geen tekst heeft."
+msgid "Eh, dit is een pagina zonder tekst"
+msgstr ""
+
+#. Theme Name of the plugin/theme
+msgid "Rijkshuisstijl (Digitale Overheid) (v0.1.0)"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Theme voor ibewustzijnoverheid.nl"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Paul van Buuren"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://wbvb.nl/themes/ibewustzijn/"
+msgstr ""

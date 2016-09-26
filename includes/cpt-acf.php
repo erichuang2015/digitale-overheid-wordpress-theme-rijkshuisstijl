@@ -12,8 +12,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.1.7 
- * @desc.   Functionaliteit voor groeperen van dossiers toegevoegd. Eerste opzet RHS-styling
+ * @version 0.1.8 
+ * @desc.   Changes for banner widget; added CPT documenten; 
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -26,12 +26,12 @@ add_action( 'init', 'rhswp_register_my_taxes' );
 
 function rhswp_register_my_taxes() {
 	$labels = array(
-		"name" => __( 'Dossiers', '' ),
-		"singular_name" => __( 'Dossier', '' ),
+		"name" => __( 'Dossiers', 'wp-rijkshuisstijl' ),
+		"singular_name" => __( 'Dossier', 'wp-rijkshuisstijl' ),
 		);
 
 	$args = array(
-		"label" => __( 'Dossiers', '' ),
+		"label" => __( 'Dossiers', 'wp-rijkshuisstijl' ),
 		"labels" => $labels,
 		"public" => true,
 		"hierarchical" => true,
@@ -46,108 +46,272 @@ function rhswp_register_my_taxes() {
 		"rest_base" => "",
 		"show_in_quick_edit" => false,
 	);
-	register_taxonomy( RHSWP_CT_DOSSIER, array( "post", "page", "links" ), $args );
+	register_taxonomy( RHSWP_CT_DOSSIER, array( "post", "page", "links", "document" ), $args );
 
 }
 
+add_action( 'init', 'rhswp_register_custom_post_types' );
+
+function rhswp_register_custom_post_types() {
+	$labels = array(
+		"name" => __( 'Documenten', 'wp-rijkshuisstijl' ),
+		"singular_name" => __( 'Document', 'wp-rijkshuisstijl' ),
+		"menu_name" => __( 'Documenten', 'wp-rijkshuisstijl' ),
+		"all_items" => __( 'Alle documenten', 'wp-rijkshuisstijl' ),
+		"add_new" => __( 'Nieuw document toevoegen', 'wp-rijkshuisstijl' ),
+		"add_new_item" => __( 'Voeg nieuw document toe', 'wp-rijkshuisstijl' ),
+		"edit_item" => __( 'Bewerk document', 'wp-rijkshuisstijl' ),
+		"new_item" => __( 'Nieuw document', 'wp-rijkshuisstijl' ),
+		"view_item" => __( 'Bekijk document', 'wp-rijkshuisstijl' ),
+		"search_items" => __( 'Zoek document', 'wp-rijkshuisstijl' ),
+		"not_found" => __( 'Geen documenten gevonden', 'wp-rijkshuisstijl' ),
+		"not_found_in_trash" => __( 'Geen documenten gevonden in de prullenbak', 'wp-rijkshuisstijl' ),
+		"featured_image" => __( 'Uitgelichte afbeelding', 'wp-rijkshuisstijl' ),
+		"archives" => __( 'Overzichten', 'wp-rijkshuisstijl' ),
+		"uploaded_to_this_item" => __( 'Bijbehorende bestanden', 'wp-rijkshuisstijl' ),
+		);
+
+	$args = array(
+		"label" => __( 'Documenten', 'wp-rijkshuisstijl' ),
+		"labels" => $labels,
+		"description" => "",
+		"public" => true,
+		"publicly_queryable" => true,
+		"show_ui" => true,
+		"show_in_rest" => false,
+		"rest_base" => "",
+		"has_archive" => true,
+		"show_in_menu" => true,
+				"exclude_from_search" => false,
+		"capability_type" => "post",
+		"map_meta_cap" => true,
+		"hierarchical" => false,
+		"rewrite" => array( "slug" => RHSWP_CPT_DOCUMENT, "with_front" => true ),
+		"query_var" => true,
+		
+		"supports" => array( "title", "editor", "thumbnail" ),		
+		"taxonomies" => array( "dossiers" ),
+			);
+	register_post_type( RHSWP_CPT_DOCUMENT, $args );
+
+// End of rhswp_register_custom_post_types()
+}
+
+
 if( function_exists('acf_add_local_field_group') ):
 
-acf_add_local_field_group(array (
-	'key' => 'group_57dfd27420525',
-	'title' => 'Voor taxonomie: selecteer menu en overzichtpagina',
-	'fields' => array (
-		array (
-			'key' => 'field_57e411ac51413',
-			'label' => 'Overzichtpagina?',
-			'name' => 'dossier_overzichtpagina',
-			'type' => 'post_object',
-			'instructions' => 'Welke pagina is de overzichtspagina die hoort bij dit dossier?',
-			'required' => 0,
-			'conditional_logic' => 0,
-			'wrapper' => array (
-				'width' => '',
-				'class' => '',
-				'id' => '',
-			),
-			'post_type' => array (
-				0 => 'page',
-			),
-			'taxonomy' => array (
-			),
-			'allow_null' => 0,
-			'multiple' => 0,
-			'return_format' => 'object',
-			'ui' => 1,
-		),
-		array (
-			'key' => 'field_57e4122051414',
-			'label' => 'Menu voor dossier',
-			'name' => 'menu_voor_dossier',
-			'type' => 'repeater',
-			'instructions' => '',
-			'required' => 0,
-			'conditional_logic' => 0,
-			'wrapper' => array (
-				'width' => '',
-				'class' => '',
-				'id' => '',
-			),
-			'collapsed' => '',
-			'min' => '',
-			'max' => '',
-			'layout' => 'table',
-			'button_label' => 'Nieuw item toevoegen aan het menu',
-			'sub_fields' => array (
-				array (
-					'key' => 'field_57e4124751415',
-					'label' => 'Pagina',
-					'name' => 'dossier_menu_pagina',
-					'type' => 'post_object',
-					'instructions' => '',
-					'required' => 0,
-					'conditional_logic' => 0,
-					'wrapper' => array (
-						'width' => '',
-						'class' => '',
-						'id' => '',
-					),
-					'post_type' => array (
-					),
-					'taxonomy' => array (
-					),
-					'allow_null' => 0,
-					'multiple' => 0,
-					'return_format' => 'object',
-					'ui' => 1,
-				),
-			),
-		),
-	),
-	'location' => array (
-		array (
-			array (
-				'param' => 'taxonomy',
-				'operator' => '==',
-				'value' => RHSWP_CT_DOSSIER,
-			),
-		),
-		array (
-			array (
-				'param' => 'user_form',
-				'operator' => '==',
-				'value' => 'edit',
-			),
-		),
-	),
-	'menu_order' => 0,
-	'position' => 'normal',
-	'style' => 'default',
-	'label_placement' => 'top',
-	'instruction_placement' => 'label',
-	'hide_on_screen' => '',
-	'active' => 1,
-	'description' => '',
-));
+//========================================================================================================
+  acf_add_local_field_group(array (
+  	'key' => 'group_57e8f17964532',
+  	'title' => 'Document',
+  	'fields' => array (
+  		array (
+  			'key' => 'field_57e8f1821cab5',
+  			'label' => 'Bijbehorend document',
+  			'name' => 'rhswp_document_upload',
+  			'type' => 'file',
+  			'instructions' => '',
+  			'required' => 1,
+  			'conditional_logic' => 0,
+  			'wrapper' => array (
+  				'width' => '',
+  				'class' => '',
+  				'id' => '',
+  			),
+  			'return_format' => 'array',
+  			'library' => 'all',
+  			'min_size' => '',
+  			'max_size' => '',
+  			'mime_types' => '',
+  		),
+  	),
+  	'location' => array (
+  		array (
+  			array (
+  				'param' => 'post_type',
+  				'operator' => '==',
+  				'value' => RHSWP_CPT_DOCUMENT,
+  			),
+  		),
+  	),
+  	'menu_order' => 0,
+  	'position' => 'acf_after_title',
+  	'style' => 'default',
+  	'label_placement' => 'top',
+  	'instruction_placement' => 'label',
+  	'hide_on_screen' => '',
+  	'active' => 1,
+  	'description' => '',
+  ));
+
+//========================================================================================================
+  acf_add_local_field_group(array (
+  	'key' => 'group_57dfd27420525',
+  	'title' => 'Voor taxonomie: selecteer menu en overzichtpagina',
+  	'fields' => array (
+  		array (
+  			'key' => 'field_57e411ac51413',
+  			'label' => 'Overzichtpagina?',
+  			'name' => 'dossier_overzichtpagina',
+  			'type' => 'post_object',
+  			'instructions' => 'Welke pagina is de overzichtspagina die hoort bij dit dossier?',
+  			'required' => 0,
+  			'conditional_logic' => 0,
+  			'wrapper' => array (
+  				'width' => '',
+  				'class' => '',
+  				'id' => '',
+  			),
+  			'post_type' => array (
+  				0 => 'page',
+  			),
+  			'taxonomy' => array (
+  			),
+  			'allow_null' => 0,
+  			'multiple' => 0,
+  			'return_format' => 'object',
+  			'ui' => 1,
+  		),
+  		array (
+  			'key' => 'field_57e4122051414',
+  			'label' => 'Menu voor dossier',
+  			'name' => 'menu_voor_dossier',
+  			'type' => 'repeater',
+  			'instructions' => '',
+  			'required' => 0,
+  			'conditional_logic' => 0,
+  			'wrapper' => array (
+  				'width' => '',
+  				'class' => '',
+  				'id' => '',
+  			),
+  			'collapsed' => '',
+  			'min' => '',
+  			'max' => '',
+  			'layout' => 'table',
+  			'button_label' => 'Nieuw item toevoegen aan het menu',
+  			'sub_fields' => array (
+  				array (
+  					'key' => 'field_57e4124751415',
+  					'label' => 'Pagina',
+  					'name' => 'dossier_menu_pagina',
+  					'type' => 'post_object',
+  					'instructions' => '',
+  					'required' => 0,
+  					'conditional_logic' => 0,
+  					'wrapper' => array (
+  						'width' => '',
+  						'class' => '',
+  						'id' => '',
+  					),
+  					'post_type' => array (
+  					),
+  					'taxonomy' => array (
+  					),
+  					'allow_null' => 0,
+  					'multiple' => 0,
+  					'return_format' => 'object',
+  					'ui' => 1,
+  				),
+  			),
+  		),
+  	),
+  	'location' => array (
+  		array (
+  			array (
+  				'param' => 'taxonomy',
+  				'operator' => '==',
+  				'value' => RHSWP_CT_DOSSIER,
+  			),
+  		),
+  		array (
+  			array (
+  				'param' => 'user_form',
+  				'operator' => '==',
+  				'value' => 'edit',
+  			),
+  		),
+  	),
+  	'menu_order' => 0,
+  	'position' => 'normal',
+  	'style' => 'default',
+  	'label_placement' => 'top',
+  	'instruction_placement' => 'label',
+  	'hide_on_screen' => '',
+  	'active' => 1,
+  	'description' => '',
+  ));
+
+
+  acf_add_local_field_group(array (
+  	'key' => 'group_57e4e9cdb7b83',
+  	'title' => 'Layout-opties voor banner-widget',
+  	'fields' => array (
+  		array (
+  			'key' => 'field_57e4e9d8216a4',
+  			'label' => 'Randkleur',
+  			'name' => 'rhswp_widget_randkleur',
+  			'type' => 'color_picker',
+  			'instructions' => '',
+  			'required' => 1,
+  			'conditional_logic' => 0,
+  			'wrapper' => array (
+  				'width' => '',
+  				'class' => '',
+  				'id' => '',
+  			),
+  			'default_value' => '#000000',
+  		),
+  		array (
+  			'key' => 'field_57e4ea1a06fbd',
+  			'label' => 'Achtergrondkleur',
+  			'name' => 'rhswp_widget_achtergrondkleur',
+  			'type' => 'color_picker',
+  			'instructions' => '',
+  			'required' => 1,
+  			'conditional_logic' => 0,
+  			'wrapper' => array (
+  				'width' => '',
+  				'class' => '',
+  				'id' => '',
+  			),
+  			'default_value' => '#ffffff',
+  		),
+  		array (
+  			'key' => 'field_57e4ea5206fbe',
+  			'label' => 'Tekstkleur',
+  			'name' => 'rhswp_widget_tekstkleur',
+  			'type' => 'color_picker',
+  			'instructions' => '',
+  			'required' => 0,
+  			'conditional_logic' => 0,
+  			'wrapper' => array (
+  				'width' => '',
+  				'class' => '',
+  				'id' => '',
+  			),
+  			'default_value' => '#000000',
+  		),
+  	),
+  	'location' => array (
+  		array (
+  			array (
+  				'param' => 'widget',
+  				'operator' => '==',
+  				'value' => 'rhswp_banner_widget',
+  			),
+  		),
+  	),
+  	'menu_order' => 0,
+  	'position' => 'normal',
+  	'style' => 'default',
+  	'label_placement' => 'top',
+  	'instruction_placement' => 'label',
+  	'hide_on_screen' => '',
+  	'active' => 1,
+  	'description' => '',
+  ));
+
 
 endif;
 

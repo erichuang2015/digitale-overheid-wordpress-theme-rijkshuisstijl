@@ -9,8 +9,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.1.7 
- * @desc.   Functionaliteit voor groeperen van dossiers toegevoegd. Eerste opzet RHS-styling
+ * @version 0.1.8 
+ * @desc.   Changes for banner widget; added CPT documenten; 
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -63,6 +63,9 @@ define( 'RHSWP_CMB2_TAG_FIELD', 'select_tag');
 define( 'RHSWP_CMB2_TXT_FIELD', 'select_txt');
 
 define( 'RHSWP_CT_DOSSIER', 'dossiers' ); // slug for custom taxonomy 'dossier'
+define( 'RHSWP_CPT_DOCUMENT', 'document' ); // slug for custom post type 'document'
+
+define( 'RHSWP_WIDGET_BANNER', 'RHS-WP - banner widget');
 
 
 //========================================================================================================
@@ -219,7 +222,7 @@ function rhswp_append_search_box_to_menu( $menu, $args ) {
 
 //========================================================================================================
 
-function rhswp_dossier_get_pagelink( $theobject, $maxlength = 50, $currentpageid = 0 ) {
+function rhswp_dossier_get_pagelink( $theobject, $preferedtitle = '', $maxlength = 50, $currentpageid = 0 ) {
 
   if ( $currentpageid ) {
     
@@ -228,7 +231,13 @@ function rhswp_dossier_get_pagelink( $theobject, $maxlength = 50, $currentpageid
     $currentpageid = get_the_id();
   }
 
-  $maxposttitle = $theobject->post_title;
+  if ( $preferedtitle ) {
+    $maxposttitle = $preferedtitle;
+  }
+  else {
+    $maxposttitle = $theobject->post_title;
+  }
+  
 
   if ( strlen( $maxposttitle ) > $maxlength ) {
     $maxposttitle = substr( $theobject->post_title, 0, $maxlength) . ' (...)';
@@ -257,6 +266,7 @@ global $post;
   $parent = get_post($parentID);
 
   $subpaginas = '';
+  $shownalready = '';
 
   if ($terms && ! is_wp_error( $terms ) ) { 
 //    echo 'yo: ' . $currentID;
@@ -271,17 +281,17 @@ global $post;
     $overzichtspagina = '';
 
     echo '<div class="here-be-dragons"><div class="wrap">'; 
-    echo '<h1>TERM-NAME: ' . $term->name  . '</h1>'; 
+    echo '<h1>' . $term->name  . '</h1>'; 
     
     if ( function_exists( 'get_field' ) ) {
       $dossier_overzichtpagina  = get_field('dossier_overzichtpagina', $term );
       $menu_voor_dossier        = get_field('menu_voor_dossier', $term );
       
       if ( $dossier_overzichtpagina ) {
-        $overzichtspagina = rhswp_dossier_get_pagelink($dossier_overzichtpagina);
+        $overzichtspagina = rhswp_dossier_get_pagelink($dossier_overzichtpagina, _x( 'Overzicht', 'Standaardlabel voor het menu in de dossiers', 'wp-rijkshuisstijl' ) );
+        $shownalready     = $dossier_overzichtpagina->ID;
       }
       else {
-//        echo 'Geen overzichtspagina gevonden (current: ' . $currentID . '/ parent:' . $parentID . ')';
 
         // is aan de parent een dossier toegekend?
         $parentterms = get_the_terms( $parentID , RHSWP_CT_DOSSIER );
@@ -320,8 +330,7 @@ global $post;
           
           if ( $pages ) {
             foreach ( $pages as $page ) {
-//              if ( ( $parentID !== $page->ID ) && ( $currentID !== $page->ID ) )  {
-              if ( ( $parentID !== $page->ID ) )  {
+              if ( ( $parentID !== $page->ID ) && ( $shownalready !== $page->ID ) )  {
                 $subpaginas .= rhswp_dossier_get_pagelink($page);
               }
             }

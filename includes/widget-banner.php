@@ -9,8 +9,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.1.4 
- * @desc.   Widgets toegevoegd, widgetruimtes opgeschoond
+ * @version 0.1.8 
+ * @desc.   Changes for banner widget; added CPT documenten; 
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -30,7 +30,8 @@ class rhswp_banner_widget extends WP_Widget {
 			'description' => __( 'Mogelijkheid voor het aanmaken van een banner. Kies achtergrondkleur, links, stijl', 'wp-rijkshuisstijl' ),
 		);
 
-		parent::__construct( 'rhswp_banner_widget', 'RHS-WP - banner widget', $widget_ops );
+    parent::__construct( 'rhswp_banner_widget', RHSWP_WIDGET_BANNER, $widget_ops );
+
 
 	}
 	
@@ -94,44 +95,102 @@ class rhswp_banner_widget extends WP_Widget {
         extract($args, EXTR_SKIP);
 
         $rhswp_banner_widget_title          = empty($instance['rhswp_banner_widget_title']) ? '' : $instance['rhswp_banner_widget_title'] ;
-        $rhswp_banner_widget_short_text     = empty($instance['rhswp_banner_widget_short_text']) ? '' : $instance['rhswp_banner_widget_short_text'] ;
-        $rhswp_banner_widget_page_link      = empty($instance['rhswp_banner_widget_page_link']) ? '' : $instance['rhswp_banner_widget_page_link'] ;
-        $rhswp_banner_widget_page_linktext  = empty($instance['rhswp_banner_widget_page_linktext']) ? _x( "Geen linktekst ingevoerd", 'Widget', 'wp-rijkshuisstijl' ) : $instance['rhswp_banner_widget_page_linktext'] ;
-        $linkafter          = '';
-        
+
+        $text_color     = empty( get_field( 'rhswp_widget_tekstkleur', 'widget_' . $widget_id) ) ? '#000000' : get_field( 'rhswp_widget_tekstkleur', 'widget_' . $widget_id);
          
-        echo $before_widget;
 
-
-
-        echo '<div class="text">'; 
-
-        $linkbefore         = '';
+        $rhswp_banner_widget_title          = empty($instance['rhswp_banner_widget_title']) ? '' : $instance['rhswp_banner_widget_title'] ;
+        $rhswp_banner_widget_short_text     = empty($instance['rhswp_banner_widget_short_text']) ? '' : '<span style="color:' . $text_color . ';">' . $instance['rhswp_banner_widget_short_text'] . '</span>';
+        $rhswp_banner_widget_page_link      = empty($instance['rhswp_banner_widget_page_link']) ? '' : $instance['rhswp_banner_widget_page_link'] ;
+        $rhswp_banner_widget_page_linktext  = empty($instance['rhswp_banner_widget_page_linktext']) ? '' : $instance['rhswp_banner_widget_page_linktext'] ;
         $linkafter          = '';
         
-        if ( $rhswp_banner_widget_page_link )
-        {
-            $rhswp_banner_widget_page_link    = get_permalink($rhswp_banner_widget_page_link);
-            $linkbefore     = '<p class="read-more"><a href="' . $rhswp_banner_widget_page_link. '">' . $rhswp_banner_widget_page_linktext;
-            $linkafter      = '</a></p>';
-            $before_title  .= '<a href="' . $rhswp_banner_widget_page_link. '" tabindex="-1">';
-            $after_title    = '</a>' . $after_title;
+        if ( $rhswp_banner_widget_page_linktext ) {
+          
+        
+          echo $before_widget;
+          echo '<div class="text">'; 
+  
+          $linkbefore         = '';
+          $linkafter          = '';
+          
+          if ( $rhswp_banner_widget_page_link )
+          {
+              $rhswp_banner_widget_page_link    = get_permalink($rhswp_banner_widget_page_link);
+              $linkbefore     = '<p class="read-more"><a href="' . $rhswp_banner_widget_page_link. '" style="color:' . $text_color . ';">' . $rhswp_banner_widget_page_linktext;
+              $linkafter      = '</a></p>';
+              $before_title  .= '<a href="' . $rhswp_banner_widget_page_link. '" tabindex="-1" style="color:' . $text_color . ';">';
+              $after_title    = '</a>' . $after_title;
+          }
+  
+          if ( $instance['rhswp_banner_widget_title'] !== '') {
+              echo $before_title . $instance['rhswp_banner_widget_title'] . $after_title;
+          }
+  
+          echo $rhswp_banner_widget_short_text;
+          echo $linkbefore . $linkafter;
+  
+          echo '</div>'; 
+          echo $after_widget;
+
         }
-
-        if ( $instance['rhswp_banner_widget_title'] !== '') {
-            echo $before_title . $instance['rhswp_banner_widget_title'] . $after_title;
+        else {
+          echo '<!-- ' . _x( "Hier zou een banner staan, maar er is geen linktekst ingevoerd", 'Widget', 'wp-rijkshuisstijl' )  . ' -->';
         }
-
-        echo $rhswp_banner_widget_short_text;
-        echo $linkbefore . $linkafter;
-
-        echo $after_widget;
+        
     }
  
 }
 
 
 add_action( 'widgets_init', create_function('', 'return register_widget("rhswp_banner_widget");') );
+
+
+//========================================================================================================
+
+add_filter('dynamic_sidebar_params', 'filter_for_RHSWP_WIDGET_BANNER');
+
+function filter_for_RHSWP_WIDGET_BANNER( $params ) {
+	
+	// get widget vars
+	$widget_name  = $params[0]['widget_name'];
+	$widget_id    = $params[0]['widget_id'];
+	
+//	echo($widget_name);
+	
+	// bail early if this widget is not a Text widget
+	if( $widget_name != RHSWP_WIDGET_BANNER ) {
+		
+		return $params;
+		
+	}
+
+
+  $border_color   = empty( get_field( 'rhswp_widget_randkleur', 'widget_' . $widget_id) ) ? '#000000' : get_field( 'rhswp_widget_randkleur', 'widget_' . $widget_id);
+  $backgr_color   = empty( get_field( 'rhswp_widget_achtergrondkleur', 'widget_' . $widget_id) ) ? '#ffffff' : get_field( 'rhswp_widget_achtergrondkleur', 'widget_' . $widget_id);
+  $text_color     = empty( get_field( 'rhswp_widget_tekstkleur', 'widget_' . $widget_id) ) ? '#000000' : get_field( 'rhswp_widget_tekstkleur', 'widget_' . $widget_id);
+
+  
+
+  if( $backgr_color ) {
+    $params[0]['before_widget'] .= sprintf('<div style="border: 1px solid %s; background-color: %s; padding: 1em;">', $border_color, $backgr_color);
+    $params[0]['after_widget'] .= '</div>';		
+  }
+  
+  if ( $text_color ) {
+//    $params[0]['before_widget'] .= sprintf('<a href="%s" style="color:%s;">', $url, $text_color);
+//    $params[0]['after_widget'] .= '</a>';		
+  }
+    
+  
+  
+	
+	// return
+	return $params;
+
+}
+
+//========================================================================================================
 
 	
 	
