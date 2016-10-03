@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.1.8 
- * @desc.   Changes for banner widget; added CPT documenten; 
+ * @version 0.1.10
+ * @desc.   Dossier overview page, H2 in sidebar visueel onzichtbaar gemaakt 
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -17,16 +17,7 @@
 
 .sidebar_css() {
 
-	aside.sidebar {
-  	.widget + .widget {
-    	margin-top: 1em;
-  	}
-	}
-	.sidebar {
-  	
-//  	background: @ibgrijs;
-  	overflow: hidden;
-  	
+
 		.widget {
 			ul, li {
 				padding-left: 0;
@@ -44,6 +35,22 @@
 				}
 			}	
 		}
+
+
+	aside.sidebar {
+  	.widget + .widget {
+    	margin-top: 1em;
+  	}
+	}
+	.sidebar {
+  	
+//  	background: @ibgrijs;
+  	overflow: hidden;
+  	
+  	h2 {
+      .visuallyhidden();
+  	}
+  	
 	}
 
 	.page-link-widget.widget {

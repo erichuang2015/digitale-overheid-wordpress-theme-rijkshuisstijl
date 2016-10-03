@@ -34,74 +34,74 @@
   /**
    * Hook in and add a metabox that only appears on the 'About' page
    */
-  function rhswp_register_dossier_actueel_page_metabox() {
+function rhswp_register_dossier_actueel_page_metabox() {
+
+
+	/**
+	 * Metabox to be displayed on a single page ID
+	 */
+  
+  $cmb_dossier_actueel_page = new_cmb2_box( array(
+    'id'            => RHSWP_PREFIX_TAG_CAT . 'metabox',
+    'title'         => __( 'Bijbehorende tag / categorie', 'wp-rijkshuisstijl' ),
+    'object_types'  => array( 'page', ), // Post type
+    'show_on_cb'    => 'rhswp_check_page_templates',
+    'context'       => 'normal',
+    'priority'      => 'high',
+    'show_names'    => true,
+    'closed'        => false,
+  ));
+
+  if ( 22 == 33 ) {
+   	$cmb_dossier_actueel_page->add_field( array(
+  		'name'     => __( 'Test Taxonomy Radio', 'wp-rijkshuisstijl' ),
+  		'desc'     => __( 'field description (optional)', 'wp-rijkshuisstijl' ),
+  		'id'       => RHSWP_PREFIX_TAG_CAT . 'select_category_radio',
+  		'type'     => 'taxonomy_radio',
+  		'taxonomy' => 'category', // Taxonomy Slug
+  	) );
+  }
+  if ( 22 == 33 ) {
+ 	$cmb_dossier_actueel_page->add_field( array(
+		'name'     => __( 'Tag', 'wp-rijkshuisstijl' ),
+		'desc'     => __( 'field description (optional)', 'wp-rijkshuisstijl' ) . ' / "' . RHSWP_PREFIX_TAG_CAT . RHSWP_CMB2_TAG_FIELD . '"',
+		'id'       => RHSWP_PREFIX_TAG_CAT . RHSWP_CMB2_TAG_FIELD . 'XXX',
+		'type'     => 'taxonomy_radio',
+		'taxonomy' => 'post_tag', // Taxonomy Slug
+    'text'      => array(
+        'no_terms_text' => __( 'Er zijn geen tags toegevoegd.', 'wp-rijkshuisstijl' )
+    ),  		
+	) );
+  }
+
+  $cmb_dossier_actueel_page->add_field( array(
+		'name'     => __( 'Tag', 'wp-rijkshuisstijl' ),
+		'desc'     => __( 'Kies de tag voor de actueelpagina onder dit dossier.', 'wp-rijkshuisstijl' ),
+		'id'       => RHSWP_PREFIX_TAG_CAT . RHSWP_CMB2_TAG_FIELD,
+    'type'           => 'radio',
+      // Use a callback to avoid performance hits on pages where this field is not displayed (including the front-end).
+      'options_cb'     => 'cmb2_get_term_options',
+      // Same arguments you would pass to `get_terms`.
+      'get_terms_args' => array(
+          'taxonomy'   => 'post_tag',
+          'hide_empty' => false,
+      ),
+  ) );
 
   
-  	/**
-  	 * Metabox to be displayed on a single page ID
-  	 */
-    
-    $cmb_dossier_actueel_page = new_cmb2_box( array(
-      'id'            => RHSWP_PREFIX_TAG_CAT . 'metabox',
-      'title'         => __( 'Bijbehorende tag / categorie', 'wp-rijkshuisstijl' ),
-      'object_types'  => array( 'page', ), // Post type
-      'show_on_cb'    => 'add_conditions',
-      'context'       => 'normal',
-      'priority'      => 'high',
-      'show_names'    => true,
-      'closed'        => false,
-    ));
-
-    if ( 22 == 33 ) {
-     	$cmb_dossier_actueel_page->add_field( array(
-    		'name'     => __( 'Test Taxonomy Radio', 'wp-rijkshuisstijl' ),
-    		'desc'     => __( 'field description (optional)', 'wp-rijkshuisstijl' ),
-    		'id'       => RHSWP_PREFIX_TAG_CAT . 'select_category_radio',
-    		'type'     => 'taxonomy_radio',
-    		'taxonomy' => 'category', // Taxonomy Slug
-    	) );
-    }
-    if ( 22 == 33 ) {
-   	$cmb_dossier_actueel_page->add_field( array(
-  		'name'     => __( 'Tag', 'wp-rijkshuisstijl' ),
-  		'desc'     => __( 'field description (optional)', 'wp-rijkshuisstijl' ) . ' / "' . RHSWP_PREFIX_TAG_CAT . RHSWP_CMB2_TAG_FIELD . '"',
-  		'id'       => RHSWP_PREFIX_TAG_CAT . RHSWP_CMB2_TAG_FIELD . 'XXX',
-  		'type'     => 'taxonomy_radio',
-  		'taxonomy' => 'post_tag', // Taxonomy Slug
-      'text'      => array(
-          'no_terms_text' => __( 'Er zijn geen tags toegevoegd.', 'wp-rijkshuisstijl' )
-      ),  		
+  if ( 22 == 22 ) {
+  	$cmb_dossier_actueel_page->add_field( array(
+  		'name' => RHSWP_PREFIX_TAG_CAT . RHSWP_CMB2_TXT_FIELD,
+  		'desc' => __( 'field description (optional)', 'wp-rijkshuisstijl' ),
+  		'id'   => RHSWP_PREFIX_TAG_CAT . RHSWP_CMB2_TXT_FIELD,
+  		'type' => 'text',
   	) );
-    }
-
-    $cmb_dossier_actueel_page->add_field( array(
-  		'name'     => __( 'Tag', 'wp-rijkshuisstijl' ),
-  		'desc'     => __( 'Kies de tag voor de actueelpagina onder dit dossier.', 'wp-rijkshuisstijl' ),
-  		'id'       => RHSWP_PREFIX_TAG_CAT . RHSWP_CMB2_TAG_FIELD,
-      'type'           => 'radio',
-        // Use a callback to avoid performance hits on pages where this field is not displayed (including the front-end).
-        'options_cb'     => 'cmb2_get_term_options',
-        // Same arguments you would pass to `get_terms`.
-        'get_terms_args' => array(
-            'taxonomy'   => 'post_tag',
-            'hide_empty' => false,
-        ),
-    ) );
-
-    
-    if ( 22 == 22 ) {
-    	$cmb_dossier_actueel_page->add_field( array(
-    		'name' => RHSWP_PREFIX_TAG_CAT . RHSWP_CMB2_TXT_FIELD,
-    		'desc' => __( 'field description (optional)', 'wp-rijkshuisstijl' ),
-    		'id'   => RHSWP_PREFIX_TAG_CAT . RHSWP_CMB2_TXT_FIELD,
-    		'type' => 'text',
-    	) );
-    }
   }
+}
 
 
     //Return true if page template is 'page-template' or id is 30.
-function add_conditions() {
+function rhswp_check_page_templates() {
   
   $post_id = 0;
   

@@ -7,8 +7,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.1.0 
- * @desc.   Eerste opzet theme, code licht opgeschoond
+ * @version 0.1.10 
+ * @desc.   Dossier overview page, H2 in sidebar visueel onzichtbaar gemaakt 
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -16,7 +16,7 @@
 @import "mixins.less";          /* colors, sizes */
 @import "text-styles.less";     /* font-styles, shared with admin editor-styles.less */
 
-.fonts_get_webfonts();
+.fonts_get_webfonts_relative();
 
 
 * {
@@ -25,3 +25,6 @@
 
 .textstyles();
 
+.cmb-type-text {
+  border: 10px solid red;
+}

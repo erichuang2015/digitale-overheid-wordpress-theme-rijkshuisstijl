@@ -19,3 +19,7 @@ wp-content/plugins/hello.php
 deleteme-code-voor-extra-knop-editor.html
 
 distribute.sh
+
+unused-code.php
+
+includes/widget-banner-2.php

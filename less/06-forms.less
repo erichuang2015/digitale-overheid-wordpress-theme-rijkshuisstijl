@@ -8,18 +8,50 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.1.0 
- * @desc.   Eerste opzet theme, code licht opgeschoond
+ * @version 0.1.10 
+ * @desc.   Dossier overview page, H2 in sidebar visueel onzichtbaar gemaakt 
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
 
 .formstyling() {
 
-  #mag_animatie_tonen_form {
-    display: none;
-    visibility: hidden;
+
+  fieldset {
+    margin:  0 1em 0 0;
+    padding: 0 1em 0 0;
+    border-style: none;
+    
+    input, select, textarea {
+      display: block;
+    	box-sizing: border-box;
+    }
   }
+  
+  /* contact form 7, cf7 */
+
+  .wpcf7-form-control-wrap {
+    overflow: hidden;
+    display: block;
+
+    .wpcf7-not-valid-tip,
+    .wpcf7-not-valid {
+    }
+    .wpcf7-not-valid-tip {
+      &:before {
+        content: '!';
+        display: block;
+        float: left;
+        border: 1px solid red;
+        border-radius: 50%;
+        min-width: 20px;
+        min-height: 20px;
+        text-align: center;
+        margin-right: .5em;
+        font-weight: bold;
+      }
+    }
+  }  
   
 
 	@media only screen and (max-width: ( @break_fullwidth  - 1 ) ) {
@@ -51,55 +83,7 @@
 
 	@media only screen and (min-width: ( @break_fullwidth ) ) {
   
-    #mag_animatie_tonen_form {
-      display: block;
-      visibility: visible;
-      position: absolute;
-      right: 0;
-      bottom: 0;
-      width: 30%;
-      border: 1px solid transparent;
-      padding-top: 4px;
-      background: transparent;
-      border-radius: @blockradius;
 
-      font-size: 70%;
-
-      fieldset {
-        border-width: 0;
-      }
-
-      legend {
-        visibility: hidden;
-      }
-      
-      &:hover {
-        background: @wit;
-        border: 1px solid @lichtgrijs;
-
-        legend {
-          text-align: left;
-          background: white;
-          visibility: visible;
-        }
-      }
-      
-      button {
-        border: 1px solid @wit;
-        text-decoration: none;
-        float: right;
-        background: @wit;
-       // color: @txt;
-  
-        &:hover, 
-        &:focus, 
-        &:active {
-          text-decoration: underline;
-          border-color: @txt;
-         // color: @txt;
-        }
-      }
-    }
 	
 	}
 }

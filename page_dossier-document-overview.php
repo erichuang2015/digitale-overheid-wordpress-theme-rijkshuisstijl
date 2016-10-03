@@ -9,8 +9,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.1.9 
- * @desc.   Overviewpage for documenten 
+ * @version 0.1.10 
+ * @desc.   Dossier overview page, H2 in sidebar visueel onzichtbaar gemaakt 
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 

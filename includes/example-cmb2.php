@@ -106,12 +106,12 @@ if ( 22 == 22 ) {
   }
   
   if ( 22 == 33 ) {
-    add_action( 'cmb2_admin_init', 'rhswp_register_demo_metabox' );
+    add_action( 'cmb2_admin_init', 'rhswp_register_metabox_rijksvideo' );
   }
   /**
    * Hook in and add a demo metabox. Can only happen on the 'cmb2_admin_init' or 'cmb2_init' hook.
    */
-  function rhswp_register_demo_metabox() {
+  function rhswp_register_metabox_rijksvideo() {
   	$prefix = 'rhswp_demo_';
   
   	/**

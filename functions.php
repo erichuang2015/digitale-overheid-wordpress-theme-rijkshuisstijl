@@ -9,8 +9,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.1.9 
- * @desc.   Overviewpage for documenten 
+ * @version 0.1.10
+ * @desc.   Dossier overview page, H2 in sidebar visueel onzichtbaar gemaakt 
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -44,14 +44,14 @@ $siteURL =  get_stylesheet_directory_uri();
 $siteURL =  preg_replace('|https://|i', '//', $siteURL );
 $siteURL =  preg_replace('|http://|i', '//', $siteURL );
 
-define( 'RHSWP__THEMEFOLDER', $siteURL );
+define( 'RHSWP_THEMEFOLDER', $siteURL );
 
 $sharedfolder = get_stylesheet_directory();
 $sharedfolder = preg_replace('|genesis|i','wp-rijkshuisstijl',$sharedfolder);
 
 
-define( 'RHS_FOLDER', $sharedfolder );
-define( 'RHS_LINK_CPT', 'links' );
+define( 'RHSWP_FOLDER', $sharedfolder );
+define( 'RHSWP_LINK_CPT', 'links' );
 define( 'CTAX_contentsoort', 'contentsoort' );
 define( 'CTAX_thema', 'CTAX_thema' );
 
@@ -62,20 +62,24 @@ define( 'RHSWP_PREFIX_TAG_CAT', 'rhswp_dossier_select_tag_category');
 define( 'RHSWP_CMB2_TAG_FIELD', 'select_tag');
 define( 'RHSWP_CMB2_TXT_FIELD', 'select_txt');
 
-define( 'RHSWP_CT_DOSSIER', 'dossiers' ); // slug for custom taxonomy 'dossier'
-define( 'RHSWP_CPT_DOCUMENT', 'document' ); // slug for custom post type 'document'
+define( 'RHSWP_CT_DOSSIER', 'dossiers' );       // slug for custom taxonomy 'dossier'
+
+define( 'RHSWP_CPT_DOCUMENT', 'document' );     // slug for custom post type 'document'
+
 
 define( 'RHSWP_WIDGET_BANNER', 'RHS-WP - banner widget');
 
 
+
+define( 'RHSWP_CSS_BANNER', 'banner-css' ); // slug for custom post type 'document'
+
 //========================================================================================================
 
 // Include for javascript check
-include_once( RHS_FOLDER . '/includes/nojs.php' );
+include_once( RHSWP_FOLDER . '/includes/nojs.php' );
 
 // Include for CMB2 extra fields
-include_once( RHS_FOLDER . '/includes/metadata-boxes.php' );
-
+include_once( RHSWP_FOLDER . '/includes/metadata-boxes.php' );
 
 
 // does our beloved visitor allow for JavaScript?
@@ -93,14 +97,14 @@ add_filter( 'get_the_author_genesis_author_box_archive', '__return_false' );
 //========================================================================================================
 
 // Include for ACF custom fields and custom post types
-include_once( RHS_FOLDER . '/includes/cpt-acf.php' );
+include_once( RHSWP_FOLDER . '/includes/cpt-acf.php' );
 
 //========================================================================================================
 
 //* voor de widgets
-require_once( RHS_FOLDER . '/includes/widget-home.php' );
-require_once( RHS_FOLDER . '/includes/widget-banner.php' );
-require_once( RHS_FOLDER . '/includes/widget-newswidget.php' );
+require_once( RHSWP_FOLDER . '/includes/widget-home.php' );
+require_once( RHSWP_FOLDER . '/includes/widget-banner.php' );
+require_once( RHSWP_FOLDER . '/includes/widget-newswidget.php' );
 
 
 
@@ -183,7 +187,7 @@ remove_action( 'genesis_footer', 'genesis_do_footer' );
 //========================================================================================================
 
 // prepare for translation
-load_child_theme_textdomain('wp-rijkshuisstijl', RHS_FOLDER . '/languages' );
+load_child_theme_textdomain('wp-rijkshuisstijl', RHSWP_FOLDER . '/languages' );
 
 //========================================================================================================
 
@@ -423,7 +427,7 @@ function rhswp_breadcrumb_args( $args ) {
 //========================================================================================================
 
 function admin_append_editor_styles() {
-    add_editor_style(RHSWP__THEMEFOLDER . '/editor-styles.css');
+    add_editor_style(RHSWP_THEMEFOLDER . '/css/editor-styles.css');
 }
 add_action( 'init', 'admin_append_editor_styles' );
 
@@ -687,58 +691,6 @@ function rhswp_404() {
 
 //========================================================================================================
 
-
-function rhswp_get_relevant_links() {
-
-
-  $args = array(
-    'post_type'   => RHS_LINK_CPT,
-    'limit'       => -1,
-    'orderby'     => 'name',
-    'order'       => 'ASC'
-  ); 
-  $links = new WP_Query( $args );
-  
-  if ( $links->have_posts() ) {
-    
-    echo '<div class="flex">';  
-    
-    while ( $links->have_posts() ) : $links->the_post();
-    
-      if ( function_exists( 'get_field' ) ) {
-        $url_voor_relevante_link        = get_field('url_voor_relevante_link' );
-        $linktekst_voor_relevante_link  = get_field('linktekst_voor_relevante_link' );
-      }
-      
-      
-      echo '<section><header class="entry-header"><h2 class="entry-title" itemprop="headline">';
-      the_title();
-      echo '</h2></header>';
-      
-      echo '<div class="entry-content" itemprop="text">';
-      the_content();
-      
-      if ( $url_voor_relevante_link ) {
-        echo '<a href="';
-        echo $url_voor_relevante_link;
-        echo '">';
-        echo $linktekst_voor_relevante_link;
-        echo '</a>';
-      }
-      
-      
-      echo '</div></section>';
-      
-    endwhile;
-    
-    echo '</div>';  
-    
-  }
-
-}
-
-//========================================================================================================
-
 function rhswp_get_sitemap_content() {
   ?>        
 
@@ -755,6 +707,10 @@ function rhswp_get_sitemap_content() {
   </section>
 
   <?php
+
+  rhswp_show_customtax_terms( RHSWP_CT_DOSSIER, __( 'Dossiers', 'wp-rijkshuisstijl' ) . ":" );
+    
+    
 }
 
 //========================================================================================================
@@ -824,7 +780,7 @@ add_action( 'wp_enqueue_scripts', 'rhswp_enqueue_js_scripts' );
 function rhswp_enqueue_js_scripts() {
 
     if ( ( is_home() || is_front_page() ) ) {
-//        wp_enqueue_script( 'commentform', RHSWP__THEMEFOLDER . '/js/min/scripts-home-min.js', array( 'jquery' ), '', true );
+//        wp_enqueue_script( 'commentform', RHSWP_THEMEFOLDER . '/js/min/scripts-home-min.js', array( 'jquery' ), '', true );
     }
 }
 
@@ -893,15 +849,14 @@ function admin_set_tinymce_options( $settings ) {
 
 
  
-add_filter('tiny_mce_before_init', 'admin_set_tinymce_options');
+//add_filter('tiny_mce_before_init', 'admin_set_tinymce_options');
 
 //========================================================================================================
 
 function rhswp_debug_css() {
-//  wp_enqueue_style( 'debug-header-check', RHSWP__THEMEFOLDER . '/css/header.css', array(), CHILD_THEME_VERSION );
   if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
-    wp_enqueue_style( 'debug-css', RHSWP__THEMEFOLDER . '/css/revenge.css', array(), CHILD_THEME_VERSION );
-    wp_enqueue_style( 'header-counter-css', RHSWP__THEMEFOLDER . '/css/header.css', array(), CHILD_THEME_VERSION );
+    wp_enqueue_style( 'debug-css', RHSWP_THEMEFOLDER . '/css/revenge.css', array(), CHILD_THEME_VERSION );
+    wp_enqueue_style( 'header-counter-css', RHSWP_THEMEFOLDER . '/css/header.css', array(), CHILD_THEME_VERSION );
   }
 }
 
@@ -1165,19 +1120,6 @@ function showdebug2($file = '', $extra = '') {
     }
 }
 
-
-//========================================================================================================
-
-//add_action( 'the_content', 'DELETEME_add_social_buttons' );
-
-//function DELETEME_add_social_buttons( $content ) {
-//    if ( ! is_admin() && is_main_query() ) {
-//        return $content . rhswp_add_social_buttons();
-//    }
-//    return $content;
-//}
-
-
 //========================================================================================================
 
 //Social Buttons
@@ -1438,3 +1380,62 @@ $siteURL =  preg_replace('|http://|i', '//', $siteURL );
 
 //========================================================================================================
 
+
+function rhswp_show_customtax_terms( $taxonomy, $title = '', $dosection = true ) {
+
+  $sectionstart = '<section>';
+  $sectionend   = '</section>';
+  
+  if ( !$dosection ) {
+    $sectionstart = '';
+    $sectionend   = '';
+  }
+
+  if ( taxonomy_exists( $taxonomy ) ) { 
+    echo $sectionstart;
+
+    echo '<h2>' . $title . '</h2>';
+      
+    $orderby      = 'name'; 
+    $show_count   = false;
+    $pad_counts   = false;
+    $hierarchical = true;
+    $title        = '';
+     
+    $args = array(
+      'taxonomy'     => $taxonomy,
+      'orderby'      => $orderby,
+      'show_count'   => $show_count,
+      'pad_counts'   => $pad_counts,
+      'hierarchical' => $hierarchical,
+      'title_li'     => $title
+    );
+  
+    echo '<ul>';
+    wp_list_categories( $args ); 
+    echo '</ul>';
+    echo $sectionend;
+    
+  }
+
+}
+
+//========================================================================================================
+add_action('admin_head', 'my_custom_fonts');
+
+function my_custom_fonts() {
+  echo '<style>
+  .cmb2-wrap .cmb-row {
+    margin: 0 !important;
+    border-bottom-style: none  !important;
+    padding-top: 0 !important;
+  }
+  .cmb2-text-url,
+  .cmb2-text-url input.cmb2-text-medium{
+    width: 100% !important;
+  }
+  </style>';
+}
+
+
+//========================================================================================================
