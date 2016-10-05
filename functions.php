@@ -9,8 +9,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.1.10
- * @desc.   Dossier overview page, H2 in sidebar visueel onzichtbaar gemaakt 
+ * @version 0.1.11
+ * @desc.   Overzichtspagina voor dossiers toegevoegd, plus optie om deze in broodkruimelpad op te nemen 
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -62,7 +62,9 @@ define( 'RHSWP_PREFIX_TAG_CAT', 'rhswp_dossier_select_tag_category');
 define( 'RHSWP_CMB2_TAG_FIELD', 'select_tag');
 define( 'RHSWP_CMB2_TXT_FIELD', 'select_txt');
 
-define( 'RHSWP_CT_DOSSIER', 'dossiers' );       // slug for custom taxonomy 'dossier'
+if ( ! defined( 'RHSWP_CT_DOSSIER' ) ) {
+  define( 'RHSWP_CT_DOSSIER', 'dossiers' );       // slug for custom taxonomy 'dossier'
+}
 
 define( 'RHSWP_CPT_DOCUMENT', 'document' );     // slug for custom post type 'document'
 
@@ -119,6 +121,29 @@ remove_action( 'genesis_footer', 'genesis_do_footer' );
 
 // zet de footerwidgets IN de footer
 add_action( 'genesis_footer', 'genesis_footer_widget_areas' );
+
+
+// voor de actueel-pagina, voeg een titel toe
+add_action( 'genesis_loop', 'rhswp_add_title_to_blog_page', 1 );
+
+//========================================================================================================
+
+
+function rhswp_add_title_to_blog_page() {
+
+
+  if ( is_home() && 'page' == get_option( 'show_on_front' ) ) {
+
+    $actueelpageid    = get_option( 'page_for_posts' );
+    $actueelpagetitle = rhswp_filter_alternative_title( $actueelpageid, get_the_title( $actueelpageid ) );
+
+
+    echo '<header class="entry-header"><h1 class="entry-title" itemprop="headline">' . $actueelpagetitle . '</h1> </header>';
+
+
+  }
+  
+}
 
 //========================================================================================================
 
@@ -264,100 +289,101 @@ global $post;
   
   $currentID = $post->ID;
   
-  $terms = get_the_terms( $currentID , RHSWP_CT_DOSSIER );
-
-  $parentID = wp_get_post_parent_id( $post->ID );
-  $parent = get_post($parentID);
-
-  $subpaginas = '';
-  $shownalready = '';
-
-  if ($terms && ! is_wp_error( $terms ) ) { 
-//    echo 'yo: ' . $currentID;
-//    dovardump($terms);
-  }
-  else {
-//    echo 'wageffe: ' . $currentID;
-  }
-
-  if ($terms && ! is_wp_error( $terms ) ) { 
-    $term = array_pop($terms);
-    $overzichtspagina = '';
-
-    echo '<div class="here-be-dragons"><div class="wrap">'; 
-    echo '<h1>' . $term->name  . '</h1>'; 
-    
-    if ( function_exists( 'get_field' ) ) {
-      $dossier_overzichtpagina  = get_field('dossier_overzichtpagina', $term );
-      $menu_voor_dossier        = get_field('menu_voor_dossier', $term );
+  if ( taxonomy_exists( RHSWP_CT_DOSSIER ) ) {
       
-      if ( $dossier_overzichtpagina ) {
-        $overzichtspagina = rhswp_dossier_get_pagelink($dossier_overzichtpagina, _x( 'Overzicht', 'Standaardlabel voor het menu in de dossiers', 'wp-rijkshuisstijl' ) );
-        $shownalready     = $dossier_overzichtpagina->ID;
-      }
-      else {
-
-        // is aan de parent een dossier toegekend?
-        $parentterms = get_the_terms( $parentID , RHSWP_CT_DOSSIER );
-
-
-        if ($parentterms && ! is_wp_error( $parentterms ) ) { 
-          $overzichtspagina = rhswp_dossier_get_pagelink( get_post($parentID) );
-          $parentID = get_post_id( get_post($parentID) ); 
-        }
-
-      }
+    $terms = get_the_terms( $currentID , RHSWP_CT_DOSSIER );
+  
+    $parentID = wp_get_post_parent_id( $post->ID );
+    $parent = get_post($parentID);
+  
+    $subpaginas = '';
+    $shownalready = '';
+  
+    if ($terms && ! is_wp_error( $terms ) ) { 
+  //    echo 'yo: ' . $currentID;
+  //    dovardump($terms);
+    }
+    else {
+  //    echo 'wageffe: ' . $currentID;
+    }
+  
+    if ($terms && ! is_wp_error( $terms ) ) { 
+      $term = array_pop($terms);
+      $overzichtspagina = '';
+  
+      echo '<div class="here-be-dragons"><div class="wrap">'; 
+      echo '<h1>' . $term->name  . '</h1>'; 
       
-      if ( $menu_voor_dossier ) {
-        $dossier_menu_pagina        = get_field('dossier_menu_pagina', $term );
-        if( have_rows('menu_voor_dossier', $term ) ) {
-          while( have_rows('menu_voor_dossier', $term ) ): the_row(); 
-            $subpagina = get_sub_field('dossier_menu_pagina');
-            if ( $parentID !== $subpagina->ID ) {
-              $subpaginas .= rhswp_dossier_get_pagelink($subpagina);
-            }
-          endwhile; 
+      if ( function_exists( 'get_field' ) ) {
+        $dossier_overzichtpagina  = get_field('dossier_overzichtpagina', $term );
+        $menu_voor_dossier        = get_field('menu_voor_dossier', $term );
+        
+        if ( $dossier_overzichtpagina ) {
+          $overzichtspagina = rhswp_dossier_get_pagelink($dossier_overzichtpagina, _x( 'Overzicht', 'Standaardlabel voor het menu in de dossiers', 'wp-rijkshuisstijl' ) );
+          $shownalready     = $dossier_overzichtpagina->ID;
         }
-      }
-      else {
-
-        if ( $parentID ) {
-
-          $args = array( 
-          'child_of'  => $parentID, 
-          'parent '   => $parentID,
-          'hierarchical' => 1,
-          'sort_column' => 'menu_order', 
-          'sort_order' => 'asc'
-          );
-          $pages = get_pages($args); 
-          
-          if ( $pages ) {
-            foreach ( $pages as $page ) {
-              if ( ( $parentID !== $page->ID ) && ( $shownalready !== $page->ID ) )  {
-                $subpaginas .= rhswp_dossier_get_pagelink($page);
+        else {
+  
+          // is aan de parent een dossier toegekend?
+          $parentterms = get_the_terms( $parentID , RHSWP_CT_DOSSIER );
+  
+  
+          if ($parentterms && ! is_wp_error( $parentterms ) ) { 
+            $overzichtspagina = rhswp_dossier_get_pagelink( get_post($parentID) );
+            $parentID = get_post_id( get_post($parentID) ); 
+          }
+  
+        }
+        
+        if ( $menu_voor_dossier ) {
+          $dossier_menu_pagina        = get_field('dossier_menu_pagina', $term );
+          if( have_rows('menu_voor_dossier', $term ) ) {
+            while( have_rows('menu_voor_dossier', $term ) ): the_row(); 
+              $subpagina = get_sub_field('dossier_menu_pagina');
+              if ( $parentID !== $subpagina->ID ) {
+                $subpaginas .= rhswp_dossier_get_pagelink($subpagina);
+              }
+            endwhile; 
+          }
+        }
+        else {
+  
+          if ( $parentID ) {
+  
+            $args = array( 
+            'child_of'  => $parentID, 
+            'parent '   => $parentID,
+            'hierarchical' => 1,
+            'sort_column' => 'menu_order', 
+            'sort_order' => 'asc'
+            );
+            $pages = get_pages($args); 
+            
+            if ( $pages ) {
+              foreach ( $pages as $page ) {
+                if ( ( $parentID !== $page->ID ) && ( $shownalready !== $page->ID ) )  {
+                  $subpaginas .= rhswp_dossier_get_pagelink($page);
+                }
               }
             }
+            else {
+            //          echo 'geen andere pagina\'s gevonden';
+            }
           }
-          else {
-          //          echo 'geen andere pagina\'s gevonden';
-          }
+  
+          
         }
-
-        
       }
+  
+      
+      if ( $overzichtspagina || $subpaginas ) {
+        echo '<nav><ul>' . $overzichtspagina . $subpaginas;    
+        echo '</ul></nav>';    
+      }
+  
+      echo '</div>';
+      echo '</div>';
     }
-
-
-if ( $overzichtspagina || $subpaginas ) {
-  echo '<nav><ul>' . $overzichtspagina . $subpaginas;    
-  echo '</ul></nav>';    
-}
-
-
-     
-    echo '</div>';
-    echo '</div>';
   }
   else {
   }
@@ -374,6 +400,7 @@ function rhswp_breadcrumb_add_newspage( $crumb, $args ) {
 add_filter( 'genesis_single_crumb', 'rhswp_breadcrumb_add_newspage', 10, 2 );
 add_filter( 'genesis_archive_crumb', 'rhswp_breadcrumb_add_newspage', 10, 2 );
 
+//========================================================================================================
 
 //* Modify breadcrumb arguments.
 add_filter( 'genesis_breadcrumb_args', 'rhswp_breadcrumb_args' );
@@ -407,6 +434,29 @@ function rhswp_breadcrumb_args( $args ) {
         
         if ( $tax == CTAX_contentsoort ) {
             $args['labels']['tax'] = '<a href="/' . CTAX_contentsoort . '/">' . __( 'Contentsoort', 'wp-rijkshuisstijl' ) . '</a>' . $separator;
+        }
+        elseif ( $tax == RHSWP_CT_DOSSIER ) {
+
+          if( get_field('dossier_overzichtspagina', 'option') ) {
+            $dossier_overzichtspagina     = get_field('dossier_overzichtspagina', 'option');
+            $dossier_overzichtspagina_id  = $dossier_overzichtspagina->ID;
+            
+            $auteursoverzichtpagina_start = '<a href="' . get_permalink( $dossier_overzichtspagina_id ) . '">' ;
+            $auteursoverzichtpagina_end   = '</a>';
+
+
+            $actueelpagetitle = rhswp_filter_alternative_title( $dossier_overzichtspagina_id, get_the_title( $dossier_overzichtspagina_id ) );
+
+
+            $tax = '';
+            $args['labels']['tax'] = $auteursoverzichtpagina_start . $actueelpagetitle . $auteursoverzichtpagina_end . $separator;
+
+          }
+          else {
+            $args['labels']['tax'] =  $separator;
+          }
+
+          
         }
         elseif ( $tax == CTAX_thema ) {
             $tax = '';
@@ -1287,17 +1337,15 @@ function rhswp_add_single_socialmedia_buttons() {
 
 //========================================================================================================
 
-add_filter( 'genesis_post_title_text', 'genesis_post_title_text_filter', 15 );
-function genesis_post_title_text_filter( $title ) {
-  
-  global $post;
+function rhswp_filter_alternative_title( $postid = 0,  $title = '' ) {
 
   if ( function_exists( 'get_field' ) ) {
-      $alternatieve_paginatitel_gebruiken    = get_field('alternatieve_paginatitel_gebruiken', $post->ID );
+    
+      $alternatieve_paginatitel_gebruiken    = get_field('alternatieve_paginatitel_gebruiken', $postid );
 
       if ( strtolower($alternatieve_paginatitel_gebruiken) == 'ja' ) {
         
-        $alternatieve_paginatitel    = get_field('alternatieve_paginatitel', $post->ID );
+        $alternatieve_paginatitel    = get_field('alternatieve_paginatitel', $postid );
         
         if ( $alternatieve_paginatitel ) {
           return $alternatieve_paginatitel;
@@ -1309,37 +1357,17 @@ function genesis_post_title_text_filter( $title ) {
 }
 
 //========================================================================================================
-/*
-add_filter( 'genesis_post_title_output', 'rhswp_sharebuttons_for_page_top', 15 );
- 
-function rhswp_sharebuttons_for_page_top( $title ) {
 
-    global $post;
+add_filter( 'genesis_post_title_text', 'genesis_post_title_text_filter', 15 );
 
-    $socialmedia_icoontjes    = SOC_MED_YES;
+function genesis_post_title_text_filter( $title ) {
+  
+  global $post;
 
+  $title = rhswp_filter_alternative_title( $post->ID, $title );
 
-    if ( is_home() || is_front_page() ) {
-      return $title;
-    }
-    elseif ( is_page() ) {
-        if ( function_exists( 'get_field' ) ) {
-            $socialmedia_icoontjes    = get_field('socialmedia_icoontjes', $post->ID );
-        }
-        if  ( $socialmedia_icoontjes !== SOC_MED_NO )  {
-            // boven moeten deelknoppen komen
-            $socialmedia_icoontjes = rhswp_socialbuttons($post, '' );
-        }            
-        else {
-            $socialmedia_icoontjes = '';
-        }
-        $title .= $socialmedia_icoontjes;
-    }
-
-    return $title;
-
+  return $title;
 }
-*/
 
 //========================================================================================================
 

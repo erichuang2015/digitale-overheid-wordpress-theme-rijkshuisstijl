@@ -12,8 +12,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.1.10 
- * @desc.   Dossier overview page, H2 in sidebar visueel onzichtbaar gemaakt 
+ * @version 0.1.11
+ * @desc.   Overzichtspagina voor dossiers toegevoegd, plus optie om deze in broodkruimelpad op te nemen 
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -373,6 +373,21 @@ endif;
 
 //========================================================================================================
 
+// options page 
+if( function_exists('acf_add_options_page') ):
+
+	$args = array(
+		'slug' => 'instellingen',
+		'title' => __( 'Theme-instellingen', 'wp-rijkshuisstijl' ),
+		'parent' => 'themes.php'
+	); 
+	
+		acf_add_options_page($args);
+
+endif;
+
+//========================================================================================================
+
 if( function_exists('register_field_group') ):
 
     //====================================================================================================
@@ -528,6 +543,101 @@ endif;
 //========================================================================================================
 
 if( function_exists('acf_add_local_field_group') ):
+
+    acf_add_local_field_group(array (
+    	'key' => 'group_57f50ce2004e6',
+    	'title' => 'Dossieroverzicht: selecteer uitgelichte dossiers',
+    	'fields' => array (
+    		array (
+    			'key' => 'field_57f50cf4234e6',
+    			'label' => 'Uitgelichte dossiers',
+    			'name' => 'uitgelichte_dossiers',
+    			'type' => 'taxonomy',
+    			'instructions' => 'De dossiers die je hier kiest worden bovenaan de pagina getoond met speciale layout.',
+    			'required' => 0,
+    			'conditional_logic' => 0,
+    			'wrapper' => array (
+    				'width' => '',
+    				'class' => '',
+    				'id' => '',
+    			),
+    			'taxonomy' => 'dossiers',
+    			'field_type' => 'checkbox',
+    			'allow_null' => 0,
+    			'add_term' => 1,
+    			'save_terms' => 0,
+    			'load_terms' => 0,
+    			'return_format' => 'id',
+    			'multiple' => 0,
+    		),
+    	),
+    	'location' => array (
+    		array (
+    			array (
+    				'param' => 'page_template',
+    				'operator' => '==',
+    				'value' => 'page_showalldossiers.php',
+    			),
+    		),
+    	),
+    	'menu_order' => 0,
+    	'position' => 'acf_after_title',
+    	'style' => 'default',
+    	'label_placement' => 'top',
+    	'instruction_placement' => 'label',
+    	'hide_on_screen' => '',
+    	'active' => 1,
+    	'description' => '',
+    ));
+    
+    acf_add_local_field_group(array (
+    	'key' => 'group_57f5099923f1b',
+    	'title' => 'Theme-instellingen',
+    	'fields' => array (
+    		array (
+    			'key' => 'field_57f509b68989b',
+    			'label' => 'Dossier-overzichtspagina',
+    			'name' => 'dossier_overzichtspagina',
+    			'type' => 'post_object',
+    			'instructions' => '',
+    			'required' => 1,
+    			'conditional_logic' => 0,
+    			'wrapper' => array (
+    				'width' => '',
+    				'class' => '',
+    				'id' => '',
+    			),
+    			'post_type' => array (
+    				0 => 'page',
+    			),
+    			'taxonomy' => array (
+    			),
+    			'allow_null' => 0,
+    			'multiple' => 0,
+    			'return_format' => 'object',
+    			'ui' => 1,
+    		),
+    	),
+    	'location' => array (
+    		array (
+    			array (
+    				'param' => 'options_page',
+    				'operator' => '==',
+    				'value' => 'instellingen',
+    			),
+    		),
+    	),
+    	'menu_order' => 0,
+    	'position' => 'acf_after_title',
+    	'style' => 'default',
+    	'label_placement' => 'top',
+    	'instruction_placement' => 'label',
+    	'hide_on_screen' => '',
+    	'active' => 1,
+    	'description' => '',
+    ));
+    
+
     
     // advanced custom fields
     

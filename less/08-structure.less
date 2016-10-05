@@ -7,8 +7,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.1.8 
- * @desc.   Changes for banner widget; added CPT documenten; 
+ * @version 0.1.11
+ * @desc.   Overzichtspagina voor dossiers toegevoegd, plus optie om deze in broodkruimelpad op te nemen 
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -140,8 +140,8 @@
     margin-top: 1em;
   }
 
-  .home nav.nav-primary {
-    border-bottom: 20px solid @nav_li_active_bg;
+  .home .breadcrumb-link-wrap a span {
+    .visuallyhidden();
   }
 
   .header-dossier {

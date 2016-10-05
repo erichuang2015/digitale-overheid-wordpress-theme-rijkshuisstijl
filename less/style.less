@@ -3,8 +3,8 @@
 	Description: Theme voor ibewustzijnoverheid.nl
 	Author: Paul van Buuren
 	Author URI: https://wbvb.nl/themes/ibewustzijn/
-	Version: 0.1.10
-	Version description: 0.1.10 - Dossier overview page, H2 in sidebar visueel onzichtbaar gemaakt 
+	Version: 0.1.11
+	Version description: 0.1.11 - Overzichtspagina voor dossiers toegevoegd, plus optie om deze in broodkruimelpad op te nemen 
 
 	Template: genesis
 	Template Version: 2.0.2
@@ -1099,42 +1099,22 @@ input[type="text"] {
   }
 }
 .home {
-    header .page-title {
-      padding-left: @padding;
-    }
-}
-.single,
-.page {
-  article {
-//    max-width: 100%;
-    .entry-content {
-//      border: 10px solid blue;
-//      max-width: 40em;
-//      overflow: visible;
-    }
+  header .page-title {
+    padding-left: @padding;
   }
 }
 
+@media only screen and (min-width: ( @break_tablet ) ) {
 
-	@media only screen and (min-width: ( @break_tablet ) ) {
-
-    .category {
-      main.content {
-        .archive-description {
-          display: block;
-          width: 100%;          
-        }        
-      }
+  .category {
+    main.content {
+      .archive-description {
+        display: block;
+        width: 100%;          
+      }        
     }
-
-
-    
-	}
-
-	@media only screen and (min-width: ( @break_fullwidth ) ) {
-
-
   }
+}
 
 
 .visuallyhidden {
