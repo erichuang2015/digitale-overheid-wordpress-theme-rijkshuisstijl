@@ -12,14 +12,14 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.1.4 
- * @desc.   Widgets toegevoegd, widgetruimtes opgeschoond
+ * @version 0.1.12
+ * @desc.   Dossieroverzicht herzien, documentdownload toegevoegd, read-more gewijzigd, breadcrumb gewijzigd 
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
 //* Output primary sidebar structure
 genesis_markup( array(
-	'html5'   => '<aside %s><h2>' . _x( 'Eerste sidebar', 'Title of primary sidebar', 'wp-rijkshuisstijl' ) . '</h2>',
+	'html5'   => '<aside %s><h2 class="screen-reader-text">' . _x( 'Gerelateerde content', 'Title of primary sidebar', 'wp-rijkshuisstijl' ) . '</h2>',
 	'xhtml'   => '<div id="sidebar" class="sidebar widget-area">',
 	'context' => 'sidebar-primary',
 ) );

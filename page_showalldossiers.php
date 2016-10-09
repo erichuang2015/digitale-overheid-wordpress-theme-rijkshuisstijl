@@ -9,8 +9,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.1.11
- * @desc.   Overzichtspagina voor dossiers toegevoegd, plus optie om deze in broodkruimelpad op te nemen 
+ * @version 0.1.12
+ * @desc.   Dossieroverzicht herzien, documentdownload toegevoegd, read-more gewijzigd, breadcrumb gewijzigd 
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -34,10 +34,12 @@ function rhswp_show_all_dossiers() {
 
     foreach ( $terms as $term ) {
 
-      echo '<div class="dossieroverzicht" style="border: 1px solid #adadad; padding: 1em; background: #e0e0e0;">';  
+      echo '<article class="dossieroverzicht">';  
       echo '<h2 class="entry-title"><a href="' . get_term_link( $term->term_id, RHSWP_CT_DOSSIER ) . '">' . $term->name .'</a></h2>';  
-      echo '<p>' . $term->description .'</p>';  
-      echo '</div>';  
+      if ( $term->description ) {
+        echo '<p>' . $term->description .'</p>';  
+      }
+      echo '</article>';  
     
     }
 

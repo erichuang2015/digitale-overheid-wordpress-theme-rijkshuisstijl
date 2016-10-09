@@ -12,8 +12,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.1.11
- * @desc.   Overzichtspagina voor dossiers toegevoegd, plus optie om deze in broodkruimelpad op te nemen 
+ * @version 0.1.12
+ * @desc.   Dossieroverzicht herzien, documentdownload toegevoegd, read-more gewijzigd, breadcrumb gewijzigd 
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -30,23 +30,50 @@ function rhswp_register_my_taxes() {
 		"singular_name" => __( 'Dossier', 'wp-rijkshuisstijl' ),
 		);
 
+	$labels = array(
+		"name"                  => __( 'Dossiers', 'wp-rijkshuisstijl' ),
+		"singular_name"         => __( 'Dossier', 'wp-rijkshuisstijl' ),
+		"menu_name"             => __( 'Dossiers', 'wp-rijkshuisstijl' ),
+		"all_items"             => __( 'Alle dossiers', 'wp-rijkshuisstijl' ),
+		"add_new"               => __( 'Nieuw dossier toevoegen', 'wp-rijkshuisstijl' ),
+		"add_new_item"          => __( 'Voeg nieuw dossier toe', 'wp-rijkshuisstijl' ),
+		"edit_item"             => __( 'Bewerk dossier', 'wp-rijkshuisstijl' ),
+		"new_item"              => __( 'Nieuw dossier', 'wp-rijkshuisstijl' ),
+		"view_item"             => __( 'Bekijk dossier', 'wp-rijkshuisstijl' ),
+		"search_items"          => __( 'Zoek dossier', 'wp-rijkshuisstijl' ),
+		"not_found"             => __( 'Geen dossiers gevonden', 'wp-rijkshuisstijl' ),
+		"not_found_in_trash"    => __( 'Geen dossiers gevonden in de prullenbak', 'wp-rijkshuisstijl' ),
+		"featured_image"        => __( 'Uitgelichte afbeelding', 'wp-rijkshuisstijl' ),
+		"archives"              => __( 'Overzichten', 'wp-rijkshuisstijl' ),
+		"uploaded_to_this_item" => __( 'Bijbehorende bestanden', 'wp-rijkshuisstijl' ),
+		);
+
+
+
 	$args = array(
-		"label" => __( 'Dossiers', 'wp-rijkshuisstijl' ),
-		"labels" => $labels,
-		"public" => true,
-		"hierarchical" => true,
-		"label" => "Dossiers",
-		"show_ui" => true,
-		"show_in_menu" => true,
-		"show_in_nav_menus" => true,
-		"query_var" => true,
-		"rewrite" => array( 'slug' => RHSWP_CT_DOSSIER, 'with_front' => true, ),
-		"show_admin_column" => false,
-		"show_in_rest" => false,
-		"rest_base" => "",
-		"show_in_quick_edit" => false,
+		"label"               => __( 'Dossiers', 'wp-rijkshuisstijl' ),
+		"labels"              => $labels,
+		"public"              => true,
+		"hierarchical"        => true,
+		"label"               => __( 'Dossiers', 'wp-rijkshuisstijl' ),
+		"show_ui"             => true,
+		"show_in_menu"        => true,
+		"show_in_nav_menus"   => true,
+		"query_var"           => true,
+		"rewrite"             => array( 'slug' => RHSWP_CT_DOSSIER, 'with_front' => true, ),
+		"show_admin_column"   => false,
+		"show_in_rest"        => false,
+		"rest_base"           => "",
+		"show_in_quick_edit"  => false,
 	);
-	register_taxonomy( RHSWP_CT_DOSSIER, array( "post", "page", "links", "document" ), $args );
+	register_taxonomy( RHSWP_CT_DOSSIER, array( "post", "page", "links", 'event', "document" ), $args );
+
+  add_action( 'admin_menu', 'myprefix_remove_meta_box');
+  
+  function myprefix_remove_meta_box(){
+     remove_meta_box( RHSWP_CT_DOSSIER . 'div', array( 'page' ), 'normal');
+  }
+  
 
 }
 
@@ -66,43 +93,42 @@ function rhswp_register_custom_post_types() {
   */  
   
 	$labels = array(
-		"name" => __( 'Documenten', 'wp-rijkshuisstijl' ),
-		"singular_name" => __( 'Document', 'wp-rijkshuisstijl' ),
-		"menu_name" => __( 'Documenten', 'wp-rijkshuisstijl' ),
-		"all_items" => __( 'Alle documenten', 'wp-rijkshuisstijl' ),
-		"add_new" => __( 'Nieuw document toevoegen', 'wp-rijkshuisstijl' ),
-		"add_new_item" => __( 'Voeg nieuw document toe', 'wp-rijkshuisstijl' ),
-		"edit_item" => __( 'Bewerk document', 'wp-rijkshuisstijl' ),
-		"new_item" => __( 'Nieuw document', 'wp-rijkshuisstijl' ),
-		"view_item" => __( 'Bekijk document', 'wp-rijkshuisstijl' ),
-		"search_items" => __( 'Zoek document', 'wp-rijkshuisstijl' ),
-		"not_found" => __( 'Geen documenten gevonden', 'wp-rijkshuisstijl' ),
-		"not_found_in_trash" => __( 'Geen documenten gevonden in de prullenbak', 'wp-rijkshuisstijl' ),
-		"featured_image" => __( 'Uitgelichte afbeelding', 'wp-rijkshuisstijl' ),
-		"archives" => __( 'Overzichten', 'wp-rijkshuisstijl' ),
+		"name"                  => __( 'Documenten', 'wp-rijkshuisstijl' ),
+		"singular_name"         => __( 'Document', 'wp-rijkshuisstijl' ),
+		"menu_name"             => __( 'Documenten', 'wp-rijkshuisstijl' ),
+		"all_items"             => __( 'Alle documenten', 'wp-rijkshuisstijl' ),
+		"add_new"               => __( 'Nieuw document toevoegen', 'wp-rijkshuisstijl' ),
+		"add_new_item"          => __( 'Voeg nieuw document toe', 'wp-rijkshuisstijl' ),
+		"edit_item"             => __( 'Bewerk document', 'wp-rijkshuisstijl' ),
+		"new_item"              => __( 'Nieuw document', 'wp-rijkshuisstijl' ),
+		"view_item"             => __( 'Bekijk document', 'wp-rijkshuisstijl' ),
+		"search_items"          => __( 'Zoek document', 'wp-rijkshuisstijl' ),
+		"not_found"             => __( 'Geen documenten gevonden', 'wp-rijkshuisstijl' ),
+		"not_found_in_trash"    => __( 'Geen documenten gevonden in de prullenbak', 'wp-rijkshuisstijl' ),
+		"featured_image"        => __( 'Uitgelichte afbeelding', 'wp-rijkshuisstijl' ),
+		"archives"              => __( 'Overzichten', 'wp-rijkshuisstijl' ),
 		"uploaded_to_this_item" => __( 'Bijbehorende bestanden', 'wp-rijkshuisstijl' ),
 		);
 
 	$args = array(
-		"label" => __( 'Documenten', 'wp-rijkshuisstijl' ),
-		"labels" => $labels,
-		"description" => "",
-		"public" => true,
-		"publicly_queryable" => true,
-		"show_ui" => true,
-		"show_in_rest" => false,
-		"rest_base" => "",
-		"has_archive" => true,
-		"show_in_menu" => true,
-				"exclude_from_search" => false,
-		"capability_type" => "post",
-		"map_meta_cap" => true,
-		"hierarchical" => false,
-		"rewrite" => array( "slug" => RHSWP_CPT_DOCUMENT, "with_front" => true ),
-		"query_var" => true,
-		
-		"supports" => array( "title", "editor", "thumbnail" ),		
-		"taxonomies" => array( "dossiers" ),
+		"label"               => __( 'Documenten', 'wp-rijkshuisstijl' ),
+		"labels"              => $labels,
+		"description"         => "",
+		"public"              => true,
+		"publicly_queryable"  => true,
+		"show_ui"             => true,
+		"show_in_rest"        => false,
+		"rest_base"           => "",
+		"has_archive"         => true,
+		"show_in_menu"        => true,
+		"exclude_from_search" => false,
+		"capability_type"     => "post",
+		"map_meta_cap"        => true,
+		"hierarchical"        => false,
+		"rewrite"             => array( "slug" => RHSWP_CPT_DOCUMENT, "with_front" => true ),
+		"query_var"           => true,
+		"supports"            => array( "title", "editor", "thumbnail" ),		
+		"taxonomies"          => array( "dossiers" ),
 			);
 	register_post_type( RHSWP_CPT_DOCUMENT, $args );
 
@@ -180,6 +206,45 @@ if( function_exists('acf_add_local_field_group') ):
   			'max_size' => '',
   			'mime_types' => '',
   		),
+  		array (
+  			'key' => 'field_57faa99195748',
+  			'label' => 'Bestandstype',
+  			'name' => 'rhswp_document_filetype',
+  			'type' => 'text',
+  			'instructions' => 'Denk aan: PDF, Word-document, tekstbestand',
+  			'required' => 0,
+  			'conditional_logic' => 0,
+  			'wrapper' => array (
+  				'width' => '',
+  				'class' => '',
+  				'id' => '',
+  			),
+  			'default_value' => '',
+  			'placeholder' => '',
+  			'prepend' => '',
+  			'append' => '',
+  			'maxlength' => '',
+  		),
+  		array (
+  			'key' => 'field_57faa9a013f5f',
+  			'label' => 'Document-grootte',
+  			'name' => 'rhswp_document_filesize',
+  			'type' => 'text',
+  			'instructions' => 'bijvoorbeeld: 372KB, of: 2MB',
+  			'required' => 0,
+  			'conditional_logic' => 0,
+  			'wrapper' => array (
+  				'width' => '',
+  				'class' => '',
+  				'id' => '',
+  			),
+  			'default_value' => '',
+  			'placeholder' => '',
+  			'prepend' => '',
+  			'append' => '',
+  			'maxlength' => '',
+  		),
+  		
   	),
   	'location' => array (
   		array (
@@ -201,6 +266,9 @@ if( function_exists('acf_add_local_field_group') ):
   ));
 
 //========================================================================================================
+// dit is de oude code, dus die bewaar ik voor nu, maar gebruik deze niet.
+if ( 22 == 33 ) {
+  
   acf_add_local_field_group(array (
   	'key' => 'group_57dfd27420525',
   	'title' => 'Voor taxonomie: selecteer menu en overzichtpagina',
@@ -297,6 +365,107 @@ if( function_exists('acf_add_local_field_group') ):
   	'active' => 1,
   	'description' => '',
   ));
+}
+else {
+  
+  acf_add_local_field_group(array (
+  	'key' => 'group_57f90d0a441e4',
+  	'title' => 'Dossier-informatie',
+  	'fields' => array (
+  		array (
+  			'key' => 'field_57f90d20c2fdf',
+  			'label' => 'Overzichtpagina',
+  			'name' => 'dossier_overzichtpagina',
+  			'type' => 'post_object',
+  			'instructions' => 'Welke pagina is de overzichtspagina die hoort bij dit dossier?',
+  			'required' => 0,
+  			'conditional_logic' => 0,
+  			'wrapper' => array (
+  				'width' => '',
+  				'class' => '',
+  				'id' => '',
+  			),
+  			'post_type' => array (
+  				0 => 'page',
+  			),
+  			'taxonomy' => array (
+  			),
+  			'allow_null' => 0,
+  			'multiple' => 0,
+  			'return_format' => 'object',
+  			'ui' => 1,
+  		),
+  		array (
+  			'key' => 'field_57fa70f9fe7a3',
+  			'label' => 'Toon overzichtspagina in het menu?',
+  			'name' => 'toon_overzichtspagina_in_het_menu',
+  			'type' => 'radio',
+  			'instructions' => '',
+  			'required' => 1,
+  			'conditional_logic' => 0,
+  			'wrapper' => array (
+  				'width' => '',
+  				'class' => '',
+  				'id' => '',
+  			),
+  			'choices' => array (
+  				'ja' => 'Toon wel',
+  				'nee' => 'Toon niet',
+  			),
+  			'allow_null' => 0,
+  			'other_choice' => 0,
+  			'save_other_choice' => 0,
+  			'default_value' => 'ja',
+  			'layout' => 'vertical',
+  			'return_format' => 'value',
+  		),
+  		array (
+  			'key' => 'field_57f90f281dcfb',
+  			'label' => 'Andere pagina\'s in het menu',
+  			'name' => 'menu_pages',
+  			'type' => 'relationship',
+  			'instructions' => '',
+  			'required' => 0,
+  			'conditional_logic' => 0,
+  			'wrapper' => array (
+  				'width' => '',
+  				'class' => '',
+  				'id' => '',
+  			),
+  			'post_type' => array (
+  				0 => 'page',
+  			),
+  			'taxonomy' => array (
+  			),
+  			'filters' => array (
+  				0 => 'search',
+  				1 => 'taxonomy',
+  			),
+  			'elements' => '',
+  			'min' => '',
+  			'max' => '',
+  			'return_format' => 'object',
+  		),
+  	),
+  	'location' => array (
+  		array (
+  			array (
+  				'param' => 'taxonomy',
+  				'operator' => '==',
+  				'value' => 'dossiers',
+  			),
+  		),
+  	),
+  	'menu_order' => 0,
+  	'position' => 'normal',
+  	'style' => 'default',
+  	'label_placement' => 'top',
+  	'instruction_placement' => 'label',
+  	'hide_on_screen' => '',
+  	'active' => 1,
+  	'description' => '',
+  ));
+}
 
 
   acf_add_local_field_group(array (

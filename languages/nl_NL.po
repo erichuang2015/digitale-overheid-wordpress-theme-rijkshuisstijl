@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Rijkshuisstijl (Digitale Overheid) (v1.0.1)\n"
-"POT-Creation-Date: 2016-09-26 12:19+0200\n"
-"PO-Revision-Date: 2016-09-26 12:25+0200\n"
+"POT-Creation-Date: 2016-10-08 20:35+0200\n"
+"PO-Revision-Date: 2016-10-08 20:36+0200\n"
 "Last-Translator: \n"
 "Language-Team: WBVB Rotterdam <info@wbvb.nl>\n"
 "Language: nl\n"
@@ -20,58 +20,67 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
-#: functions.php:139
+#: functions.php:94
+msgid "Custom Metabox Title"
+msgstr ""
+
+#: functions.php:186
 msgctxt "Standaard linktekst voor lees-meer"
 msgid "Lees verder"
 msgstr ""
 
-#: functions.php:291
+#: functions.php:339
+msgctxt "Standaardlabel voor het menu in de dossiers"
+msgid "Poepie"
+msgstr ""
+
+#: functions.php:345
 msgctxt "Standaardlabel voor het menu in de dossiers"
 msgid "Overzicht"
 msgstr "Overzicht"
 
-#: functions.php:381
+#: functions.php:444
 msgid "<span class=\"separator\">&gt;</span>"
 msgstr ""
 
-#: functions.php:383
+#: functions.php:446
 msgid "Home"
 msgstr ""
 
-#: functions.php:392
+#: functions.php:455
 msgid "Auteurs"
 msgstr ""
 
-#: functions.php:396
+#: functions.php:459
 msgid "Label"
 msgstr ""
 
-#: functions.php:397
+#: functions.php:460
 msgid "Zoekresultaat"
 msgstr ""
 
-#: functions.php:405
+#: functions.php:468
 msgid "Contentsoort"
 msgstr ""
 
-#: functions.php:409
+#: functions.php:495
 msgid "Onderwerpen"
 msgstr ""
 
-#: functions.php:418
+#: functions.php:504
 msgid "404 - Pagina niet gevonden"
 msgstr ""
 
-#: functions.php:612
+#: functions.php:698
 msgctxt "Titel in de zijbalk"
 msgid "Subthema's"
 msgstr ""
 
-#: functions.php:650
+#: functions.php:736
 msgid "Pagina niet gevonden."
 msgstr ""
 
-#: functions.php:658
+#: functions.php:744
 #, php-format
 msgid ""
 "The page you are looking for no longer exists. Perhaps you can return back "
@@ -81,128 +90,192 @@ msgstr ""
 "De pagina is stuk. Ga naar de <a href=\"%s\">homepage</a>. Of je kunt zoeken "
 "met dit zoekformulier:"
 
-#: functions.php:746
+#: functions.php:780
 msgid "Pagina's"
 msgstr ""
 
-#: functions.php:751
+#: functions.php:785
 msgid "Recent Posts:"
 msgstr ""
 
-#: functions.php:800
+#: functions.php:793 includes/cpt-acf.php:29 includes/cpt-acf.php:34
+#: includes/cpt-acf.php:36 includes/cpt-acf.php:54 includes/cpt-acf.php:58
+#: unused-code.php:83 unused-code.php:88
+msgid "Dossiers"
+msgstr ""
+
+#: functions.php:838
 msgid "Homepage widget area"
 msgstr ""
 
-#: functions.php:802
+#: functions.php:840
 msgid "Ruimte voor widget op de homepage"
 msgstr ""
 
-#: functions.php:966
+#: functions.php:1003
 msgid "Koepels"
 msgstr ""
 
-#: functions.php:1033
+#: functions.php:1070
 msgid "Extra navigatiemenu (rechtsboven)"
 msgstr ""
 
-#: functions.php:1118 sidebar.php:22
+#: functions.php:1155 sidebar.php:22
 msgctxt "Title of primary sidebar"
 msgid "Eerste sidebar"
 msgstr ""
 
-#: functions.php:1119
+#: functions.php:1156
 msgctxt "Description of primary sidebar"
 msgid ""
 "Primaire zijbalk met ruimte voor widgets. Wordt standaard getoond aan de "
 "rechterkant van de content op brede schermen"
 msgstr ""
 
-#: functions.php:1130 sidebar-alt.php:22
+#: functions.php:1167 sidebar-alt.php:22
 msgctxt "Title of secondary sidebar"
 msgid "Tweede sidebar"
 msgstr ""
 
-#: functions.php:1131
+#: functions.php:1168
 msgctxt "Description of secundary sidebar"
 msgid ""
 "Secundaire zijbalk met ruimte voor widgets. Wordt alleen getoond op pagina's "
 "waar de niet-standaard layout is gekozen"
 msgstr ""
 
-#: functions.php:1209
+#: functions.php:1233
 msgid "Deel op Twitter"
 msgstr ""
 
-#: functions.php:1210
+#: functions.php:1234
 msgid "Deel op Facebook"
 msgstr ""
 
-#: functions.php:1211
+#: functions.php:1235
 msgid "Deel op LinkedIn"
 msgstr ""
 
-#: includes/cpt-acf.php:29 includes/cpt-acf.php:34
-msgid "Dossiers"
+#: includes/class.taxonomy-single-term.php:200
+msgid "None"
 msgstr ""
 
-#: includes/cpt-acf.php:30
+#: includes/class.taxonomy-single-term.php:236
+msgid "Clear"
+msgstr ""
+
+#: includes/class.taxonomy-single-term.php:271
+msgid "Add New"
+msgstr "Nieuwe toevoegen"
+
+#: includes/class.taxonomy-single-term.php:300
+#, php-format
+msgid "There was a problem adding a new %s"
+msgstr ""
+
+#: includes/class.taxonomy-single-term.php:331
+msgid "Cheatin' Huh? Could not verify security token"
+msgstr ""
+
+#: includes/cpt-acf.php:30 includes/cpt-acf.php:35 unused-code.php:84
 msgid "Dossier"
 msgstr ""
 
-#: includes/cpt-acf.php:57 includes/cpt-acf.php:59 includes/cpt-acf.php:75
-msgid "Documenten"
+#: includes/cpt-acf.php:37
+msgid "Alle dossiers"
 msgstr ""
 
-#: includes/cpt-acf.php:58
-msgid "Document"
+#: includes/cpt-acf.php:38
+msgid "Nieuw dossier toevoegen"
 msgstr ""
 
-#: includes/cpt-acf.php:60
-msgid "Alle documenten"
+#: includes/cpt-acf.php:39
+msgid "Voeg nieuw dossier toe"
 msgstr ""
 
-#: includes/cpt-acf.php:61
-msgid "Nieuw document toevoegen"
+#: includes/cpt-acf.php:40
+msgid "Bewerk dossier"
 msgstr ""
 
-#: includes/cpt-acf.php:62
-msgid "Voeg nieuw document toe"
+#: includes/cpt-acf.php:41
+msgid "Nieuw dossier"
 msgstr ""
 
-#: includes/cpt-acf.php:63
-msgid "Bewerk document"
+#: includes/cpt-acf.php:42
+msgid "Bekijk dossier"
 msgstr ""
 
-#: includes/cpt-acf.php:64
-msgid "Nieuw document"
+#: includes/cpt-acf.php:43
+msgid "Zoek dossier"
 msgstr ""
 
-#: includes/cpt-acf.php:65
-msgid "Bekijk document"
+#: includes/cpt-acf.php:44
+msgid "Geen dossiers gevonden"
 msgstr ""
 
-#: includes/cpt-acf.php:66
-msgid "Zoek document"
+#: includes/cpt-acf.php:45
+msgid "Geen dossiers gevonden in de prullenbak"
 msgstr ""
 
-#: includes/cpt-acf.php:67
-msgid "Geen documenten gevonden"
-msgstr ""
-
-#: includes/cpt-acf.php:68
-msgid "Geen documenten gevonden in de prullenbak"
-msgstr ""
-
-#: includes/cpt-acf.php:69
+#: includes/cpt-acf.php:46 includes/cpt-acf.php:108 unused-code.php:123
 msgid "Uitgelichte afbeelding"
 msgstr ""
 
-#: includes/cpt-acf.php:70
+#: includes/cpt-acf.php:47 includes/cpt-acf.php:109 unused-code.php:124
 msgid "Overzichten"
 msgstr ""
 
-#: includes/cpt-acf.php:71
+#: includes/cpt-acf.php:48 includes/cpt-acf.php:110 unused-code.php:125
 msgid "Bijbehorende bestanden"
+msgstr ""
+
+#: includes/cpt-acf.php:96 includes/cpt-acf.php:98 includes/cpt-acf.php:114
+#: unused-code.php:111 unused-code.php:113 unused-code.php:129
+msgid "Documenten"
+msgstr ""
+
+#: includes/cpt-acf.php:97 unused-code.php:112
+msgid "Document"
+msgstr ""
+
+#: includes/cpt-acf.php:99 unused-code.php:114
+msgid "Alle documenten"
+msgstr ""
+
+#: includes/cpt-acf.php:100 unused-code.php:115
+msgid "Nieuw document toevoegen"
+msgstr ""
+
+#: includes/cpt-acf.php:101 unused-code.php:116
+msgid "Voeg nieuw document toe"
+msgstr ""
+
+#: includes/cpt-acf.php:102 unused-code.php:117
+msgid "Bewerk document"
+msgstr ""
+
+#: includes/cpt-acf.php:103 unused-code.php:118
+msgid "Nieuw document"
+msgstr ""
+
+#: includes/cpt-acf.php:104 unused-code.php:119
+msgid "Bekijk document"
+msgstr ""
+
+#: includes/cpt-acf.php:105 unused-code.php:120
+msgid "Zoek document"
+msgstr ""
+
+#: includes/cpt-acf.php:106 unused-code.php:121
+msgid "Geen documenten gevonden"
+msgstr ""
+
+#: includes/cpt-acf.php:107 unused-code.php:122
+msgid "Geen documenten gevonden in de prullenbak"
+msgstr ""
+
+#: includes/cpt-acf.php:408
+msgid "Theme-instellingen"
 msgstr ""
 
 #: includes/example-cmb2.php:122
@@ -512,21 +585,23 @@ msgstr ""
 msgid "JavaScript staat uit"
 msgstr ""
 
-#: includes/widget-banner.php:30
+#: includes/widget-banner-2.php:30 includes/widget-banner.php:30
 msgid ""
 "Mogelijkheid voor het aanmaken van een banner. Kies achtergrondkleur, links, "
 "stijl"
 msgstr ""
 
-#: includes/widget-banner.php:59 includes/widget-home.php:59
+#: includes/widget-banner-2.php:59 includes/widget-banner.php:59
+#: includes/widget-home.php:59
 msgid "Vrije tekst in widget:"
 msgstr ""
 
-#: includes/widget-banner.php:66 includes/widget-home.php:66
+#: includes/widget-banner-2.php:66 includes/widget-banner.php:66
+#: includes/widget-home.php:66
 msgid "Linkt naar pagina:"
 msgstr ""
 
-#: includes/widget-banner.php:138
+#: includes/widget-banner-2.php:138 includes/widget-banner.php:138
 msgctxt "Widget"
 msgid "Hier zou een banner staan, maar er is geen linktekst ingevoerd"
 msgstr ""
@@ -567,6 +642,153 @@ msgstr ""
 #: page_dossiersoverview.php:59
 msgctxt "Standaardtekst als pagina geen tekst heeft."
 msgid "Eh, dit is een pagina zonder tekst"
+msgstr ""
+
+#: unused-code.php:850
+msgctxt "Rijksvideo"
+msgid "Video Player"
+msgstr ""
+
+#: unused-code.php:851
+msgctxt "Rijksvideo"
+msgid "Video"
+msgstr ""
+
+#: unused-code.php:852
+msgctxt "Rijksvideo"
+msgid "Audio"
+msgstr ""
+
+#: unused-code.php:853
+msgctxt "Rijksvideo"
+msgid "Caption"
+msgstr ""
+
+#: unused-code.php:854
+msgctxt "Rijksvideo"
+msgid "Ondertitels"
+msgstr ""
+
+#: unused-code.php:855
+msgctxt "Rijksvideo: voor welke taal heb je ondertitels geupload?"
+msgid "nl"
+msgstr ""
+
+#: unused-code.php:858
+msgctxt "Rijksvideo"
+msgid "Afspelen"
+msgstr ""
+
+#: unused-code.php:859
+msgctxt "Rijksvideo"
+msgid "Geluid uit"
+msgstr ""
+
+#: unused-code.php:860
+msgctxt "Rijksvideo"
+msgid "Schermvullende weergave openen"
+msgstr ""
+
+#: unused-code.php:861
+msgctxt "Rijksvideo"
+msgid "Schermvullende weergave sluiten"
+msgstr ""
+
+#: unused-code.php:862
+msgctxt "Rijksvideo"
+msgid ""
+"Gebruik op- of neer-pijltjestoetsen om het volume harder of zachter te zetten"
+msgstr ""
+
+#: unused-code.php:863
+msgctxt "Rijksvideo"
+msgid "Ondertiteling aan"
+msgstr ""
+
+#: unused-code.php:864
+msgctxt "Rijksvideo"
+msgid "Download deze video"
+msgstr ""
+
+#: unused-code.php:865
+msgctxt "Rijksvideo"
+msgid ""
+"Helaas kan deze video niet worden afgespeeld. Een mogelijk oplossing is de "
+"meest recente versie van uw browser te installeren."
+msgstr ""
+
+#: unused-code.php:867
+msgctxt "Rijksvideo"
+msgid "Video voor Apple Quicktime Player"
+msgstr ""
+
+#: unused-code.php:868
+msgctxt "Rijksvideo"
+msgid "mp4"
+msgstr ""
+
+#: unused-code.php:869
+msgctxt "Rijksvideo"
+msgid " (hoge resolutie)"
+msgstr ""
+
+#: unused-code.php:871
+msgctxt "Rijksvideo"
+msgid "Video voor Windows Media Player"
+msgstr ""
+
+#: unused-code.php:872
+msgctxt "Rijksvideo"
+msgid "wmv"
+msgstr ""
+
+#: unused-code.php:874
+msgctxt "Rijksvideo"
+msgid "Video voor mobiel gebruik"
+msgstr ""
+
+#: unused-code.php:875
+msgctxt "Rijksvideo"
+msgid "3gp"
+msgstr ""
+
+#: unused-code.php:877
+msgctxt "Rijksvideo"
+msgid "Audiospoor"
+msgstr ""
+
+#: unused-code.php:878
+msgctxt "Rijksvideo"
+msgid "mp3"
+msgstr ""
+
+#: unused-code.php:880
+msgctxt "Rijksvideo"
+msgid "Ondertitelingsbestand"
+msgstr ""
+
+#: unused-code.php:881
+msgctxt "Rijksvideo"
+msgid "srt"
+msgstr ""
+
+#: unused-code.php:1061
+msgid "PDFs"
+msgstr ""
+
+#: unused-code.php:1061
+msgid "Manage PDFs"
+msgstr ""
+
+#: unused-code.php:1061
+#, php-format
+msgid "PDF <span class=\"count\">(%s)</span>"
+msgid_plural "PDFs <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#: unused-code.php:1076
+msgid "Voeg video toe aan tekst"
 msgstr ""
 
 #. Theme Name of the plugin/theme
