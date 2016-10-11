@@ -1,17 +1,17 @@
 
 
-/**
- * Rijkshuisstijl (Digitale Overheid) - 04-header.less
- * ----------------------------------------------------------------------------------
- * CSS voor de header
- * ----------------------------------------------------------------------------------
- * @author  Paul van Buuren
- * @license GPL-2.0+
- * @package wp-rijkshuisstijl
- * @version 0.1.7 
- * @desc.   Functionaliteit voor groeperen van dossiers toegevoegd. Eerste opzet RHS-styling
- * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
- */
+//**
+// * Rijkshuisstijl (Digitale Overheid) - 21-header.less
+// * ----------------------------------------------------------------------------------
+// * CSS voor de header
+// * ----------------------------------------------------------------------------------
+// * @author  Paul van Buuren
+// * @license GPL-2.0+
+// * @package wp-rijkshuisstijl
+// * @version 0.1.14
+// * @desc.   CSS styling voor RHS 
+// * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
+// **
 
 
 .siteheader() {
@@ -19,7 +19,6 @@
 	/*
 	Site Header
 	---------------------------------------------------------------------------------------------------- */
-
 @breedte: 70px;
 @hoogte: 108px;
 
@@ -33,24 +32,23 @@
 	
 	.site-header {
 
+
 		.wrap {
+      margin: 0 0 0 50%;
       
-      padding: ( @padding / 2 ) 0 0 0;
-
       .title-area {
-
-//        background-image: url('images/bg-header-mobile.png');
-//        background-image: url('images/bg-header-mobile.svg'), none;
         
-//        background-position: right top;
-//        background-repeat: no-repeat;
-//        background-size: @geweenstebreedte @geweenstehoogte;
+        a {
+          overflow: hidden;
+          margin: 0 0 0 -22px;
+          display: block;
+          
+          img {
+            margin-bottom: 10px;
+          }
 
-//      	width: 100%;
-//    		font-weight: normal;
-//    		padding: 0 @geweenstebreedte 0 @padding;
-//    		margin-right: @padding;
-//    		overflow: hidden;
+        }
+
       }
 
 
@@ -118,7 +116,6 @@
 
 
 		.site-header {
-			padding: 0;
 
 			.search-form {
 				float: none;
@@ -130,29 +127,8 @@
 
 	
     .site-header {
+
       
-        background-position: center top;
-        background-repeat: no-repeat;
-        background-size: contain;
-
-//        background-image: url('images/bg-header-tablet.png');
-//        background-image: url('images/bg-header-tablet.svg'), none;
-
-      .wrap {
-        position: relative;
-
-
-//        .title-area {
-//          padding-top: 0;
-//      		margin-right: 0;
-//          margin-top: @padding;
-//          background: none;
-//        }
-      }
-      
-    	.title-area {
-    		text-align: center;
-    	}
 
       
       .site-description {
@@ -174,13 +150,7 @@
     .site-header {
 
       .wrap {
-        min-height: 20px;
-        margin-top: ( @padding / 2 );
         
-        .site-title a {
-          background-color: rgba(256, 256, 256, .6);
-        }
-
 
         .nav-primary {
           height: @navheight;

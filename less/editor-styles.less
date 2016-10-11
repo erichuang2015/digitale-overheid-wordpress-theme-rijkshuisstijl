@@ -1,29 +1,31 @@
 
-/**
- * Rijkshuisstijl (Digitale Overheid) - editor-styles.less
- * ----------------------------------------------------------------------------------
- * Genereert editor-styles.css, die wordt gebruikt in de back-end WYSIWYG-editor
- * ----------------------------------------------------------------------------------
- * @author  Paul van Buuren
- * @license GPL-2.0+
- * @package wp-rijkshuisstijl
- * @version 0.1.10 
- * @desc.   Dossier overview page, H2 in sidebar visueel onzichtbaar gemaakt 
- * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
- */
+//**
+// * Rijkshuisstijl (Digitale Overheid) - editor-styles.less
+// * ----------------------------------------------------------------------------------
+// * Genereert editor-styles.css, die wordt gebruikt in de back-end WYSIWYG-editor
+// * ----------------------------------------------------------------------------------
+// * @author  Paul van Buuren
+// * @license GPL-2.0+
+// * @package wp-rijkshuisstijl
+// * @version 0.1.14
+// * @desc.   CSS styling voor RHS 
+// * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
+// **
 
 
-@import "mixins.less";          /* colors, sizes */
-@import "text-styles.less";     /* font-styles, shared with admin editor-styles.less */
+@import "01-colors.less";       /* colors */
+@import "02-mixins.less";       /* mixins, sizes */
+@import "03-fonts.less";        /* fonts */
+@import "10-text-styles.less";     /* font-styles, shared with admin editor-styles.less */
 
-.fonts_get_webfonts_relative();
+.03_fonts_get_webfonts_relative();
 
 
 * {
-    .basefont();
+    .10_basefont();
 }
 
-.textstyles();
+.10_textstyles();
 
 .cmb-type-text {
   border: 10px solid red;

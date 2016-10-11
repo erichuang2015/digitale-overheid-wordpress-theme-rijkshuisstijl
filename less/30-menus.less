@@ -1,27 +1,122 @@
 
 
-/**
- * Rijkshuisstijl (Digitale Overheid) - 05-menus.less
- * ----------------------------------------------------------------------------------
- * styling voor de sidebar
- * ----------------------------------------------------------------------------------
- * @author  Paul van Buuren
- * @license GPL-2.0+
- * @package wp-rijkshuisstijl
- * @version 0.1.7 
- * @desc.   Functionaliteit voor groeperen van dossiers toegevoegd. Eerste opzet RHS-styling
- * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
- */
+//**
+// * Rijkshuisstijl (Digitale Overheid) - 30-menus.less
+// * ----------------------------------------------------------------------------------
+// * styling voor de sidebar
+// * ----------------------------------------------------------------------------------
+// * @author  Paul van Buuren
+// * @license GPL-2.0+
+// * @package wp-rijkshuisstijl
+// * @version 0.1.14
+// * @desc.   CSS styling voor RHS 
+// * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
+// **
 
 
 .menus() {
 
+  nav {
+    overflow: hidden;
+    ul, li {
+      list-style: none;
+      padding: 0;
+    }
+    ul {
+      display: block;
+      overflow: hidden;
+      padding-left: 0;
+      margin-top: 1em;
+      margin-bottom: 0;
+      margin-bottom: 0;
+    }
+    li {
+      display: block;
+      float: left;
+      a, span {
+        display: block;
+        padding: .5em .8em;
+      }
+      a {
+        text-decoration: none;
+        color: black;
+        
+        &:active,
+        &:visited {
+          color: black;
+        }
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+      &.current {
+        a, span {
+          background: white;
+        }
+      }
+    }
+
+    &.nav-primary {
+      background: @nav_bg_color;
+      overflow: hidden;
+      
+      li a {
+        color: @nav_a_color_default;
+
+        display: block;
+        height: 44px;
+        padding: 10px 10px 0 10px;
+        margin: 0;
+        background-color: transparent;
+        color: #fff;
+        font-size: 1em;
+        line-height: 1.4em;
+        font-weight: bold;
+            
+      }
+      .sub-menu {
+        background: @nav_li_active_bg;
+        color: @nav_li_active_color;
+        overflow: hidden;
+        border: 1px solid @nav_bg_color;
+        border-top-color: @nav_li_active_bg;
+        transform: translate(-1px, -1px);      
+  
+        a {
+          border: 1px solid @nav_li_active_bg;
+          background: @nav_li_active_bg;
+          color: @nav_submenu_a_color_default;
+          font-size: 16px;
+          padding: 8px 16px;
+        }
+      }
+      li:hover {
+        background: @nav_li_active_bg;
+        a {
+          color: @nav_li_active_color;
+        }
+      }
+  
+
+    .current-menu-ancestor,
+    .current-menu-parent,
+    .current-page-parent,
+    .current_page_parent,
+    .current_page_ancestor,
+    .current-page-ancestor,
+    .current-menu-item {
+        & > a {
+          background: @nav_li_active_bg;
+          color: @nav_li_active_color;
+        }
+      }
+    }
+  }
 	
 	
 	/*
 	Site Navigation
-	---------------------------------------------------------------------------------------------------- */
-	
+	---------------------------------------------------------------------------------------------------- */	
 	.genesis-nav-menu {
 		clear: both;
 		line-height: 1.5;
@@ -145,8 +240,7 @@
 	
 	
 	/* Secondary Navigation
-	--------------------------------------------- */
-	
+	--------------------------------------------- */	
 	.nav-secondary {
 		background-color: @wit;
 	}

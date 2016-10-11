@@ -10,8 +10,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.1.12
- * @desc.   Dossieroverzicht herzien, documentdownload toegevoegd, read-more gewijzigd, breadcrumb gewijzigd 
+ * @version 0.1.14
+ * @desc.   CSS styling voor RHS 
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 

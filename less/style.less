@@ -3,8 +3,8 @@
 	Description: Theme voor ibewustzijnoverheid.nl
 	Author: Paul van Buuren
 	Author URI: https://wbvb.nl/themes/ibewustzijn/
-	Version: 0.1.13
-	Version description: 0.1.13 - Pagina-templates herzien 
+	Version: 0.1.14
+	Version description: 0.1.14 - CSS styling voor RHS 
 
 	Template: genesis
 	Template Version: 2.0.2
@@ -15,202 +15,27 @@
 
 /*
 Imports
+
 ---------------------------------------------------------------------------------------------------- */
-@import "mixins.less";        /* colors, sizes */
-@import "text-styles.less";   /* font-styles, shared with admin editor-styles.less */
-@import "03-elements.less";   /* all things related to the site header */
-@import "04-header.less";     /* all things related to the site header */
-@import "05-menus.less";      /* all things related to navigation menus */
-@import "06-forms.less";      /* forms */
-@import "07-sidebar.less";    /* sidebar styling */
-@import "08-structure.less"; 
+@import "01-colors.less";       /* colors */
+@import "02-mixins.less";       /* mixins, sizes */
+@import "03-fonts.less";        /* fonts */
+@import "04-normalize.less";    /* normalize */
+@import "10-text-styles.less";  /* font-styles, shared with admin editor-styles.less */
+@import "20-elements.less";     /* assorted elements */
+@import "21-header.less";       /* all things related to the site header */
+@import "30-menus.less";        /* all things related to navigation menus */
+@import "40-forms.less";        /* forms */
+@import "50-sidebar.less";      /* sidebar styling */
+@import "60-structure.less"; 
+@import "70-print.less"; 
+@import "99-browserhacks.less"; 
 
 
-.fonts_get_webfonts();
 
-/* Baseline Normalize
-	normalize.css v2.1.2 | MIT License | git.io/normalize
---------------------------------------------- */
+.03_fonts_get_webfonts();
 
-.normalize() {
-    
-  
-  article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, section, summary {
-      display: block
-  }
-  audio, canvas, video {
-      display: inline-block
-  }
-  audio:not([controls]) {
-      display: none;
-      height: 0
-  }
-  [hidden] {
-      display: none
-  }
-  html {
-      font-family: sans-serif;
-      -ms-text-size-adjust: 100%;
-      -webkit-text-size-adjust: 100%
-  }
-  body {
-      margin: 0;
-      padding: 0
-  }
-  
-  h1 {
-      font-size: 1.2em;
-      margin: .67em 0
-  }
-  abbr[title] {
-      border-bottom: 1px dotted
-  }
-  b, strong {
-      font-weight: bold;
-  	font-family: 'Rijksoverheid Sans bold', sans-serif;
-  }
-  dfn {
-      font-style: italic
-  }
-  hr {
-      height: 0
-  }
-  mark {
-      background: #ff0;
-     // color: #000
-  }
-  code, kbd, pre, samp {
-      font-family: monospace, serif;
-      font-size: 1em
-  }
-  pre {
-      white-space: pre-wrap
-  }
-  q {
-      quotes: "\201C" "\201D" "\2018" "\2019"
-  }
-  small {
-      font-size: 80%
-  }
-  sub, sup {
-      font-size: 75%;
-      line-height: 0;
-      position: relative;
-      vertical-align: baseline
-  }
-  sup {
-      top: -0.5em
-  }
-  sub {
-      bottom: -0.25em
-  }
-  img {
-      border: 0
-  }
-  svg:not(:root) {
-      overflow: hidden
-  }
-  figure {
-      margin: 0
-  }
-  fieldset {
-    border:1px solid @lichtgrijs;
-    margin: 0 2px;
-    padding: .35em .625em .75em
-  }
-  legend {
-      border: 0;
-      padding: 0
-  }
-  button, input, select, textarea {
-      font-family: inherit;
-      font-size: 100%;
-      margin: 0
-  }
-  button, input {
-      line-height: normal
-  }
-  button, select {
-      text-transform: none
-  }
-  button, html input[type="button"], input[type="reset"], input[type="submit"] {
-      -webkit-appearance: button;
-      cursor: pointer
-  }
-  button[disabled], html input[disabled] {
-      cursor: default
-  }
-  input[type="checkbox"], input[type="radio"] {
-      padding: 0
-  }
-  input[type="search"] {
-      -webkit-appearance: textfield;
-  }
-  input[type="search"]::-webkit-search-cancel-button, input[type="search"]::-webkit-search-decoration {
-  -webkit-appearance:none
-  }
-  button::-moz-focus-inner, input::-moz-focus-inner {
-  border:0;
-  padding:0
-  }
-  textarea {
-      overflow: auto;
-      vertical-align: top
-  }
-  table {
-      border-collapse: collapse;
-      border-spacing: 0
-  }
-  
-  
-  /* Box Sizing
-  --------------------------------------------- */
-  
-  *,
-  hr,
-  input[type="checkbox"], 
-  input[type="radio"],
-  input[type="search"] {
-  	box-sizing: border-box;
-  }
-  
-  /* Float Clearing
-  --------------------------------------------- */
-  
-  .archive-pagination:before,
-  .clearfix:before,
-  .entry:before,
-  .entry-pagination:before,
-  .footer-widgets:before,
-  .nav-primary:before,
-  .nav-secondary:before,
-  .site-container:before,
-  .site-footer:before,
-  .site-header:before,
-  .site-inner:before,
-  .wrap:before {
-  	content: " ";
-  	display: table;
-  }
-  
-  .archive-pagination:after,
-  .clearfix:after,
-  .entry:after,
-  .entry-pagination:after,
-  .footer-widgets:after,
-  .nav-primary:after,
-  .nav-secondary:after,
-  .site-container:after,
-  .site-footer:after,
-  .site-header:after,
-  .site-inner:after,
-  .wrap:after {
-  	clear: both;
-  	content: " ";
-  	display: table;
-  }
 
-}
 
 /*
 Defaults
@@ -230,24 +55,9 @@ body {
   background-color: @wit;
   background-repeat: no-repeat;
   background-position: center top;
-  .basefont();
+  .10_basefont();
   margin: 0;
   padding: 0
-}
-
-a,
-button,
-input:focus,
-input[type="button"],
-input[type="reset"],
-input[type="submit"],
-textarea:focus,
-.button {
-	-webkit-transition: all 0.1s ease-in-out;
-	-moz-transition:    all 0.1s ease-in-out;
-	-ms-transition:     all 0.1s ease-in-out;
-	-o-transition:      all 0.1s ease-in-out;
-	transition:         all 0.1s ease-in-out;
 }
 
 
@@ -259,20 +69,13 @@ footer {
   }  
   
 }
-.footer-widgets,
-.site-footer {
-  a {
-//    background-image: url('images/icon-arrow-right-white@2x.png');
-//    background-image: url('images/icon-arrow-right-white.svg'), none;
-  }
-}
 
 
 
 /* Text styles, shared with admin CSS
 --------------------------------------------- */
 
-.textstyles();
+.10_textstyles();
 
 
 /* Objects
@@ -310,7 +113,6 @@ textarea {
 input:focus,
 textarea:focus {
 	border-color: darken(@blauw, 20%);
-// color: darken(@blauw, 20%);
 }
 
 ::-moz-placeholder {
@@ -372,146 +174,7 @@ input[type="search"]::-webkit-search-results-button {
 }
 
 
-/*
-Structure and Layout
----------------------------------------------------------------------------------------------------- */
-
-/* Site Containers
---------------------------------------------- */
-
-.site-inner,
-.wrap {
-	margin: 0 auto;
-	max-width: @break_fullwidth;
-	overflow: visible;
-}
-
-.site-inner {
-	clear: both;
-}
-
-/* Column Widths and Positions
---------------------------------------------- */
-
-/* Wrapping div for .content and .sidebar-primary */
-
-.content-sidebar-sidebar .content-sidebar-wrap,
-.sidebar-content-sidebar .content-sidebar-wrap,
-.sidebar-sidebar-content .content-sidebar-wrap {
-	width: ( @break_fullwidth - ( 1 * ( @gutter + @sidebar_width ) ) );
-}
-
-.content-sidebar-sidebar .content-sidebar-wrap {
-	float: left;
-}
-
-.sidebar-content-sidebar .content-sidebar-wrap,
-.sidebar-sidebar-content .content-sidebar-wrap {
-	float: right;
-}
-
-/* Content */
-
-.content {
-	float: right;
-	width: ( @break_fullwidth - ( @gutter + @sidebar_width ) ) ;
-}
-
-.content-sidebar .content,
-.content-sidebar-sidebar .content,
-.sidebar-content-sidebar .content {
-	float: left;
-}
-
-.content-sidebar-sidebar .content,
-.sidebar-content-sidebar .content,
-.sidebar-sidebar-content .content {
-	width: ( @break_fullwidth - ( 2 * ( @gutter + @sidebar_width ) ) );
-}
-
-.full-width-content .content {
-	width: 100%;
-}
-
-/* Primary Sidebar */
-
-.sidebar-primary {
-	float: right;
-	width: @sidebar_width;
-}
-
-.sidebar-content .sidebar-primary,
-.sidebar-sidebar-content .sidebar-primary {
-	float: left;
-}
-
-/* Secondary Sidebar */
-
-.sidebar-secondary {
-	float: left;
-	width: @sidebar_width;
-}
-
-.content-sidebar-sidebar .sidebar-secondary {
-	float: right;
-}
-
-/* Column Classes
-	Link: http://twitter.github.io/bootstrap/assets/css/bootstrap-responsive.css
---------------------------------------------- */
-
-.five-sixths,
-.four-sixths,
-.one-fourth,
-.one-half,
-.one-sixth,
-.one-third,
-.three-fourths,
-.three-sixths,
-.two-fourths,
-.two-sixths,
-.two-thirds {
-	float: left;
-	margin-left: 2.564102564102564%;
-}
-
-.one-half,
-.three-sixths,
-.two-fourths {
-	width: 48.717948717948715%;
-}
-
-.one-third,
-.two-sixths {
-	width: 31.623931623931625%;
-}
-
-.four-sixths,
-.two-thirds {
-	width: 65.81196581196582%;
-}
-
-.one-fourth {
-	width: 23.076923076923077%;
-}
-
-.three-fourths {
-	width: 74.35897435897436%;
-}
-
-.one-sixth {
-	width: 14.52991452991453%;
-}
-
-.five-sixths {
-	width: 82.90598290598291%;
-}
-
-.first {
-	clear: both;
-	margin-left: 0;
-}
-
+.60_structure();
 
 /*
 Common Classes
@@ -534,39 +197,65 @@ Common Classes
 
 
 .search-form {
+  
+  padding: .5em;
+  
+  input[itemprop="query-input"] {
+    width: ~"calc(100% - @{search_submit_width})";
+    height: 24px;
+    border-style: none;
+    padding: 1px;
+  }
+  
+  input[type="submit"] {
+    width: @search_submit_width;
+    height: 24px;
+    background: @nav_li_active_bg;
+    padding: 1px 10px 0 25px;
+    color: @nav_li_active_color;
+    text-transform: none;
 
-    input[itemprop="query-input"] {
-		width: ~"calc(100% - @{search_submit_width})";
-	}
+    .iconaddfill('../images/svg/looking-glass.svg', @nav_li_active_color);
+    background-size: 15px 16px;
+    background-position: 6px center;
+    background-repeat: no-repeat;
 
-    input[type="submit"] {
-    	clip: auto;
-    	height: auto;
-    	position: relative;
-		width: @search_submit_width;
-    	
-    	background-color: @txt;
-        background-image: url('images/search-button.png');	
-        background-position: center center;
-        background-repeat: no-repeat;
-        width: @search_submit_width; 
-        text-indent: -999em;
-        
-        &:hover {
-        	background-color: @txt;
-        }
+
+    &:before {
+      font-weight: normal;
+      font-family: "RO Icons";
+      display: inline-block;
+      vertical-align: middle;
+      speak: none;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      content: "";
+      color: @nav_li_active_color;
+      font-size: 13px;
+      width: 20px;
+      height: 20px;
+      position: absolute;
+      left: 8px;
+      top: 3px;
     }
 
-    input:focus {
-		border-color: @wit;
-	}	
 
-
-    input[type="submit"], 
-    input[type="search"] {
-        -webkit-appearance: none;	
-    	margin-right: -2px;
+    &, &:hover {
+      border-style: none;
     }
+    
+  }
+  
+  input:focus {
+    border-color: @wit;
+  }	
+  
+  
+  input[type="submit"], 
+  input[type="search"] {
+    -webkit-appearance: none;	
+    margin-right: -2px;
+  }
 }
 
 .sticky {
@@ -994,11 +683,6 @@ li.comment {
 Site Footer
 ---------------------------------------------------------------------------------------------------- */
 
-.site-footer {
-	.font-size(14);
-	padding: @padding 0;
-	text-align: center;
-}
 
 
 /*
@@ -1432,9 +1116,6 @@ Media Queries
 
 @media only screen and (max-width: ( @break_fullwidth  - 1 ) ) {
 
-	body {
-//		background-color: @wit;
-	}
 
 	.content,
 	.content-sidebar-sidebar .content,
@@ -1598,23 +1279,7 @@ Media Queries
             }
         }
     }
-
-  .single-fiche .content {
-  
-    .entry-content {
-      width: 60%;
-      float: left;
-    }
-    .entry-footer {
-      width: 38%;
-      float: right;
-    }
-    .pagination {
-      padding-top: 1em;
-      margin-top: 1em;
-    }  
-  
-  } 
+ 
     
 }
 
@@ -1622,37 +1287,10 @@ Media Queries
 /* Modernizr exceptions */
 .no-svg {
 
-
-    .wrap .toggle-menu {
-        background-image: url(images/hamburger.png);
-    }
-
-}
-
-@media only print {
-
-    body, body>div {
-        font-size: 12px;
-    }
-    
-    table {
-        h1, h2, h3, h4, h5, h6 {
-            font-size: 1.4em;
-        }
-    }
-    h1, h2, h3, h4, h5, h6 {
-        font-size: 1.4em;
-    }
-
-
-    .site-inner,
-    .wrap,
-    .content, 
-    .sidebar {
-        margin: 0;
-        width: 100%;
-        max-width: 100%;
-    }
+  .wrap .toggle-menu {
+    background-image: url(images/hamburger.png);
+  }
+  
 }
 
 
@@ -1672,19 +1310,15 @@ Media Queries
   }
 }
 
-.elements();
+.20_elements();
 
 .socialmedia_styling();
 
 .teststructure();
 
-.debugstring {
-  background: yellow !important;
-  border: 1px solid red !important;
-  color: red;
-  font-size: 12px;
-  padding: .5em;
-}
+.70_print();
+
+
 
 .dossieroverzicht {
   border: 1px solid #d3d3d3;

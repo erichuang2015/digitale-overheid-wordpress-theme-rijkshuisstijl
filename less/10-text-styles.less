@@ -1,28 +1,29 @@
 
 
-/**
- * Rijkshuisstijl (Digitale Overheid) - text-styles.less
- * ----------------------------------------------------------------------------------
- * Bevat selectors voor tekstelementen, zowel in front-end css als back-end css
- * ----------------------------------------------------------------------------------
- * @author  Paul van Buuren
- * @license GPL-2.0+
- * @package wp-rijkshuisstijl
- * @version 0.1.10 
- * @desc.   Dossier overview page, H2 in sidebar visueel onzichtbaar gemaakt 
- * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
- */
+//**
+// * Rijkshuisstijl (Digitale Overheid) - 10-text-styles.less
+// * ----------------------------------------------------------------------------------
+// * Bevat selectors voor tekstelementen, zowel in front-end css als back-end css
+// * ----------------------------------------------------------------------------------
+// * @author  Paul van Buuren
+// * @license GPL-2.0+
+// * @package wp-rijkshuisstijl
+// * @version 0.1.14
+// * @desc.   CSS styling voor RHS 
+// * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
+// **
 
 
-.basefont() {
+.10_basefont() {
  // color: @txt;
   font-family: @bodyfont;
   font-size: 16px;
   font-weight: 300;
   line-height: 1.4;    
+  
 }
 
-.textstyles() {
+.10_textstyles() {
 
   a {
     color: @a_inactive; // @txt;
@@ -37,11 +38,6 @@
   	&:focus {
       color: @a_active;
     }
-  }
-  
-  a img {
-  	margin-bottom: -4px;
-  	margin-bottom: -0.4rem;
   }
   
   a:hover {
@@ -164,8 +160,7 @@
 
   
   /* Headings
-  --------------------------------------------- */
-  
+  --------------------------------------------- */  
   h1,
   h2,
   h3,
@@ -207,8 +202,7 @@
 
   
   /* Tables
-  --------------------------------------------- */
-  
+  --------------------------------------------- */  
   table {
   	border-collapse: collapse;
   	border-spacing: 0;
@@ -260,7 +254,7 @@
       	    font-size: 18px;
           }
           td, p, h5, h6 {
-      	    font-size: 16px;
+      	    font-size: 1rem;
           }
           h5, h6 {
       	    margin: 0 0 6px 0;

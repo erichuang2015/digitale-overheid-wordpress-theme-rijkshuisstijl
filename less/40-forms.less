@@ -1,18 +1,17 @@
 
 
-/**
- * Rijkshuisstijl (Digitale Overheid) - 06-forms.less
- * ----------------------------------------------------------------------------------
- * styling voor de sidebar
- * ----------------------------------------------------------------------------------
- * @author  Paul van Buuren
- * @license GPL-2.0+
- * @package wp-rijkshuisstijl
- * @version 0.1.10 
- * @desc.   Dossier overview page, H2 in sidebar visueel onzichtbaar gemaakt 
- * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
- */
-
+//**
+// * Rijkshuisstijl (Digitale Overheid) - 40-forms.less
+// * ----------------------------------------------------------------------------------
+// * styling voor de sidebar
+// * ----------------------------------------------------------------------------------
+// * @author  Paul van Buuren
+// * @license GPL-2.0+
+// * @package wp-rijkshuisstijl
+// * @version 0.1.14
+// * @desc.   CSS styling voor RHS 
+// * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
+//
 
 .formstyling() {
 
@@ -29,7 +28,6 @@
   }
   
   /* contact form 7, cf7 */
-
   .wpcf7-form-control-wrap {
     overflow: hidden;
     display: block;
@@ -59,6 +57,16 @@
 	}
 	
 	@media only screen and (min-width: ( @break_tablet ) ) {
+  	.nav-primary {
+    	li.search {
+      	&:hover {
+        	background: none;
+      	}
+    	}
+    	form.search-form {
+        width: @sidebar_width;
+    	}
+  	}
   	
   	.entry-content {
       .gform_wrapper {

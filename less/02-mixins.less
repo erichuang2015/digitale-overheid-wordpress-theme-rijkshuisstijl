@@ -1,19 +1,18 @@
 
-/**
- * Rijkshuisstijl (Digitale Overheid) - mixins.less
- * ----------------------------------------------------------------------------------
- * Kleuren, mixins, voor LESS-bestanden
- * ----------------------------------------------------------------------------------
- * @author  Paul van Buuren
- * @license GPL-2.0+
- * @package wp-rijkshuisstijl
- * @version 0.1.10 
- * @desc.   Dossier overview page, H2 in sidebar visueel onzichtbaar gemaakt 
- * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
- */
+//**
+// * Rijkshuisstijl (Digitale Overheid) - mixins.less
+// * ----------------------------------------------------------------------------------
+// * Kleuren, mixins, voor LESS-bestanden
+// * ----------------------------------------------------------------------------------
+// * @author  Paul van Buuren
+// * @license GPL-2.0+
+// * @package wp-rijkshuisstijl
+// * @version 0.1.14
+// * @desc.   CSS styling voor RHS 
+// * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
+// **
 
 
-@import "fonts.less";          /* colors, sizes */
 
 @ibgrijs: 			         #E2E7EA;
 @iboranje:			         #CE4C02; // #E17400;
@@ -98,10 +97,10 @@
 }
 
 @widget-area:           ( @break_tablet - ( @logowidth + @padding + 5px ) );
-@search_submit_width:   40px;
+@search_submit_width:   70px;
 
 @sidebar_width:         310px;
-@break_fullwidth:       1020px;
+@break_fullwidth:       1200px;
 @break_tablet:          650px;
 @break_phone:           500px;
 
@@ -382,6 +381,17 @@
 .icon_socmed_icon(@src, @fill-new) {
     @data-uri:          data-uri('image/svg+xml;charset=UTF-8', "@{src}");
     @replace-default:   escape('fill="#00586F"');
+    @replace-new:       escape('fill="@{fill-new}"');
+    @replacesrc1:       replace("@{data-uri}", @replace-default, @replace-new, "g");
+
+    background-image: e(@replacesrc1);
+}
+
+//=========================================================================================================
+
+.iconaddfill(@src, @fill-new) {
+    @data-uri:          data-uri('image/svg+xml;charset=UTF-8', "@{src}");
+    @replace-default:   escape('fill="#000000"');
     @replace-new:       escape('fill="@{fill-new}"');
     @replacesrc1:       replace("@{data-uri}", @replace-default, @replace-new, "g");
 
