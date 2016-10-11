@@ -9,8 +9,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.1.12
- * @desc.   Dossieroverzicht herzien, documentdownload toegevoegd, read-more gewijzigd, breadcrumb gewijzigd 
+ * @version 0.1.13
+ * @desc.   Pagina-templates herzien 
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -63,12 +63,19 @@ define( 'RHSWP_CMB2_TAG_FIELD', 'select_tag');
 define( 'RHSWP_CMB2_TXT_FIELD', 'select_txt');
 
 if ( ! defined( 'RHSWP_CT_DOSSIER' ) ) {
-  define( 'RHSWP_CT_DOSSIER', 'dossiers' );       // slug for custom taxonomy 'dossier'
+  define( 'RHSWP_CT_DOSSIER',   'dossiers' );       // slug for custom taxonomy 'dossier'
 }
 
-define( 'RHSWP_CPT_DOCUMENT', 'document' );     // slug for custom post type 'document'
-define( 'RHSWP_WIDGET_BANNER', 'RHS-WP - banner widget');
-define( 'RHSWP_CSS_BANNER', 'banner-css' ); // slug for custom post type 'document'
+if ( ! defined( 'RHSWP_CPT_DOCUMENT' ) ) {
+  define( 'RHSWP_CPT_DOCUMENT', 'document' );       // slug for custom taxonomy 'document'
+}
+
+if ( ! defined( 'RHSWP_CPT_EVENT' ) ) {
+  define( 'RHSWP_CPT_EVENT',    'event' );       // slug for custom taxonomy 'document'
+}
+
+define( 'RHSWP_WIDGET_BANNER',  'RHS-WP - banner widget');
+define( 'RHSWP_CSS_BANNER',     'banner-css' ); // slug for custom post type 'document'
 
 //========================================================================================================
 

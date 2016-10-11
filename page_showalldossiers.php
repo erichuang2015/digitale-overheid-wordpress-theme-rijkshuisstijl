@@ -9,13 +9,13 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.1.12
- * @desc.   Dossieroverzicht herzien, documentdownload toegevoegd, read-more gewijzigd, breadcrumb gewijzigd 
+ * @version 0.1.13
+ * @desc.   Pagina-templates herzien 
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
 
-//* Template Name: Show all dossiers 
+//* Template Name: 04 - (dossiers) overzicht alle dossiers (met uitgelichte dossiers)
 
 add_action( 'genesis_entry_content', 'rhswp_show_all_dossiers', 15 );
 

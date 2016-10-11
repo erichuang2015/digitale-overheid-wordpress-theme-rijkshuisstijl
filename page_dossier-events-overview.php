@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Rijkshuisstijl (Digitale Overheid) - page_dossier-document-overview.php
+ * Rijkshuisstijl (Digitale Overheid) - page_dossier-events-overview.php
  * ----------------------------------------------------------------------------------
- * Toont de nieuws-pagina van een dossier
+ * Toont de events voor dit dossier
  * ----------------------------------------------------------------------------------
  *
  * @author  Paul van Buuren
@@ -15,7 +15,7 @@
  */
 
 
-//* Template Name: 03 - (dossiers) documenten voor een dossier 
+//* Template Name: 02 - (dossiers) events voor een dossier 
 
 add_action( 'genesis_entry_content', 'rhswp_get_documents_for_dossier', 15 );
 
@@ -33,7 +33,7 @@ function rhswp_get_documents_for_dossier() {
     
     $args = array(
       'posts_per_page'  => -1,
-      'post_type' => RHSWP_CPT_DOCUMENT,
+      'post_type' => RHSWP_CPT_EVENT,
       'tax_query' => array(
         'relation' => 'AND',
         array(
@@ -43,12 +43,11 @@ function rhswp_get_documents_for_dossier() {
         )
       )
     );
-        
 
     
     $posts_array = get_posts( $args ); 
       if ( $posts_array ) {
-        echo '<p>Documenten in het dossier "' . $term->name .'"</p>';  
+        echo '<p>Events in het dossier "' . $term->name .'"</p>';  
     
     
         foreach ( $posts_array as $post ) : setup_postdata( $post ); ?>
@@ -64,7 +63,7 @@ function rhswp_get_documents_for_dossier() {
         
       }
       else {
-        echo _x( "Geen documenten gevonden onder '" . $term->name . "'", 'Op actueelpagina voor een dossier', 'wp-rijkshuisstijl' );
+        echo _x( "Geen events gevonden onder '" . $term->name . "'", 'Op eventspagina voor een dossier', 'wp-rijkshuisstijl' );
       }
     }
 }

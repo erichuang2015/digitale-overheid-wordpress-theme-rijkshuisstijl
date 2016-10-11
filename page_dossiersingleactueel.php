@@ -3,19 +3,19 @@
 /**
  * Rijkshuisstijl (Digitale Overheid) - page_dossiersingleactueel.php
  * ----------------------------------------------------------------------------------
- * Toont de nieuws-pagina van een dossier
+ * Toont de berichtten van een dossier
  * ----------------------------------------------------------------------------------
  *
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.1.12
- * @desc.   Dossieroverzicht herzien, documentdownload toegevoegd, read-more gewijzigd, breadcrumb gewijzigd 
+ * @version 0.1.13
+ * @desc.   Pagina-templates herzien 
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
 
-//* Template Name: Dossiers: berichtenpagina (evt. met filter)
+//* Template Name: 01 - (dossiers) berichtenpagina (evt. met filter)
 
 add_action( 'genesis_entry_content', 'rhswp_get_page_dossiersingleactueel', 15 );
 
@@ -25,42 +25,59 @@ function rhswp_get_page_dossiersingleactueel() {
   global $post;
   
   $terms = get_the_terms( $post->ID , RHSWP_CT_DOSSIER );
+
+  if ( function_exists( 'get_field' ) ) {
+      $filter    = get_field('wil_je_filteren_op_categorie_op_deze_pagina', $post->ID );
+      $filters   = get_field('kies_de_categorie_waarop_je_wilt_filteren', $post->ID );
+  }
+
+  // gewoon filter, zonder dossier
+  $args = array(
+    'posts_per_page'  => -1,
+    'post_type' => 'post',
+  );
+
+  $message          = 'Alle berichten';
+  $currentterm      = '';
+  $currenttermname  = '';
+
   
   if ($terms && ! is_wp_error( $terms ) ) { 
-    
-    
-    $term = array_pop($terms);
-    $currentterm = $term->term_id;
+  
+    $term             = array_pop($terms);
+    $currentterm      = $term->term_id;
+    $currenttermname  = $term->name;
 
-    if ( function_exists( 'get_field' ) ) {
-        $filter    = get_field('wil_je_filteren_op_categorie_op_deze_pagina', $post->ID );
-        $filters   = get_field('kies_de_categorie_waarop_je_wilt_filteren', $post->ID );
-    }
-
-
-$args = array(
+    if ( $currentterm ) {
+      // filter op dossier
+      $args = array(
         'post_type' => 'post',
         'tax_query' => array(
-            'relation' => 'AND',
-            array(
-                'taxonomy' => RHSWP_CT_DOSSIER,
-                'field' => 'term_id',
-                'terms' => $currentterm
-            )
+          'relation' => 'AND',
+          array(
+            'taxonomy' => RHSWP_CT_DOSSIER,
+            'field' => 'term_id',
+            'terms' => $currentterm
+          )
         )
-    );
-        
-
-
-    $message = 'Berichten in het dossier "' . $term->name .'"';
+      );
+    
+      $message = 'Berichten in het dossier "' . $term->name .'"';
+    }
+    
+  }
 
 
     if ( $filter !== 'ja' ) {
     }
     else {
+      
       if ( $filters ) {
     
         $slugs = array();
+        if ( $currenttermname ) {
+          $message = 'Berichten in het dossier "' . $currenttermname .'"';
+        }
         
         foreach( $filters as $filter ): 
           
@@ -71,26 +88,39 @@ $args = array(
     
         endforeach;
 
-
-
-$args = array(
-        'post_type' => 'post',
-        'tax_query' => array(
-            'relation' => 'AND',
-            array(
-                'taxonomy' => RHSWP_CT_DOSSIER,
-                'field' => 'term_id',
-                'terms' => $currentterm
-            ),
-            array(
-                'taxonomy'  => 'category',
-                'field'     => 'slug',
-                'terms'     => $slugs,
-            )
-        )
-    );
+        if ( $currentterm ) {
         
-
+          $args = array(
+              'posts_per_page'  => -1,
+                'post_type' => 'post',
+                'tax_query' => array(
+                    'relation' => 'AND',
+                    array(
+                        'taxonomy' => RHSWP_CT_DOSSIER,
+                        'field' => 'term_id',
+                        'terms' => $currentterm
+                    ),
+                    array(
+                        'taxonomy'  => 'category',
+                        'field'     => 'slug',
+                        'terms'     => $slugs,
+                    )
+                )
+            );
+        }
+        else {
+          $args = array(
+              'posts_per_page'  => -1,
+                'post_type' => 'post',
+                'tax_query' => array(
+                    array(
+                        'taxonomy'  => 'category',
+                        'field'     => 'slug',
+                        'terms'     => $slugs,
+                    )
+                )
+            );
+        }
       }
     }
 
@@ -119,7 +149,6 @@ $args = array(
     else {
       echo _x( "Geen berichten gevonden onder '" . $term->name . "'", 'Op actueelpagina voor een dossier', 'wp-rijkshuisstijl' );
     }
-  }
 }
 
 

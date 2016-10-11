@@ -127,7 +127,7 @@ function rhswp_register_custom_post_types() {
 		"hierarchical"        => false,
 		"rewrite"             => array( "slug" => RHSWP_CPT_DOCUMENT, "with_front" => true ),
 		"query_var"           => true,
-		"supports"            => array( "title", "editor", "thumbnail" ),		
+		"supports"            => array( "title", "editor", "thumbnail", "excerpt" ),		
 		"taxonomies"          => array( "dossiers" ),
 			);
 	register_post_type( RHSWP_CPT_DOCUMENT, $args );
@@ -265,142 +265,221 @@ if( function_exists('acf_add_local_field_group') ):
   	'description' => '',
   ));
 
-//========================================================================================================
-// dit is de oude code, dus die bewaar ik voor nu, maar gebruik deze niet.
-if ( 22 == 33 ) {
-  
+  //========================================================================================================
+  // dit is de oude code, dus die bewaar ik voor nu, maar gebruik deze niet.
+  if ( 22 == 33 ) {
+    
+    acf_add_local_field_group(array (
+    	'key' => 'group_57dfd27420525',
+    	'title' => 'Voor taxonomie: selecteer menu en overzichtpagina',
+    	'fields' => array (
+    		array (
+    			'key' => 'field_57e411ac51413',
+    			'label' => 'Overzichtpagina?',
+    			'name' => 'dossier_overzichtpagina',
+    			'type' => 'post_object',
+    			'instructions' => 'Welke pagina is de overzichtspagina die hoort bij dit dossier?',
+    			'required' => 0,
+    			'conditional_logic' => 0,
+    			'wrapper' => array (
+    				'width' => '',
+    				'class' => '',
+    				'id' => '',
+    			),
+    			'post_type' => array (
+    				0 => 'page',
+    			),
+    			'taxonomy' => array (
+    			),
+    			'allow_null' => 0,
+    			'multiple' => 0,
+    			'return_format' => 'object',
+    			'ui' => 1,
+    		),
+    		array (
+    			'key' => 'field_57e4122051414',
+    			'label' => 'Menu voor dossier',
+    			'name' => 'menu_voor_dossier',
+    			'type' => 'repeater',
+    			'instructions' => '',
+    			'required' => 0,
+    			'conditional_logic' => 0,
+    			'wrapper' => array (
+    				'width' => '',
+    				'class' => '',
+    				'id' => '',
+    			),
+    			'collapsed' => '',
+    			'min' => '',
+    			'max' => '',
+    			'layout' => 'table',
+    			'button_label' => 'Nieuw item toevoegen aan het menu',
+    			'sub_fields' => array (
+    				array (
+    					'key' => 'field_57e4124751415',
+    					'label' => 'Pagina',
+    					'name' => 'dossier_menu_pagina',
+    					'type' => 'post_object',
+    					'instructions' => '',
+    					'required' => 0,
+    					'conditional_logic' => 0,
+    					'wrapper' => array (
+    						'width' => '',
+    						'class' => '',
+    						'id' => '',
+    					),
+    					'post_type' => array (
+    					),
+    					'taxonomy' => array (
+    					),
+    					'allow_null' => 0,
+    					'multiple' => 0,
+    					'return_format' => 'object',
+    					'ui' => 1,
+    				),
+    			),
+    		),
+    	),
+    	'location' => array (
+    		array (
+    			array (
+    				'param' => 'taxonomy',
+    				'operator' => '==',
+    				'value' => RHSWP_CT_DOSSIER,
+    			),
+    		),
+    		array (
+    			array (
+    				'param' => 'user_form',
+    				'operator' => '==',
+    				'value' => 'edit',
+    			),
+    		),
+    	),
+    	'menu_order' => 0,
+    	'position' => 'normal',
+    	'style' => 'default',
+    	'label_placement' => 'top',
+    	'instruction_placement' => 'label',
+    	'hide_on_screen' => '',
+    	'active' => 1,
+    	'description' => '',
+    ));
+  }
+  else {
+    
+    acf_add_local_field_group(array (
+    	'key' => 'group_57f90d0a441e4',
+    	'title' => 'Dossier-informatie',
+    	'fields' => array (
+    		array (
+    			'key' => 'field_57f90d20c2fdf',
+    			'label' => 'Overzichtpagina',
+    			'name' => 'dossier_overzichtpagina',
+    			'type' => 'post_object',
+    			'instructions' => 'Welke pagina is de overzichtspagina die hoort bij dit dossier?',
+    			'required' => 0,
+    			'conditional_logic' => 0,
+    			'wrapper' => array (
+    				'width' => '',
+    				'class' => '',
+    				'id' => '',
+    			),
+    			'post_type' => array (
+    				0 => 'page',
+    			),
+    			'taxonomy' => array (
+    			),
+    			'allow_null' => 0,
+    			'multiple' => 0,
+    			'return_format' => 'object',
+    			'ui' => 1,
+    		),
+    		array (
+    			'key' => 'field_57fa70f9fe7a3',
+    			'label' => 'Toon overzichtspagina in het menu?',
+    			'name' => 'toon_overzichtspagina_in_het_menu',
+    			'type' => 'radio',
+    			'instructions' => '',
+    			'required' => 1,
+    			'conditional_logic' => 0,
+    			'wrapper' => array (
+    				'width' => '',
+    				'class' => '',
+    				'id' => '',
+    			),
+    			'choices' => array (
+    				'ja' => 'Toon wel',
+    				'nee' => 'Toon niet',
+    			),
+    			'allow_null' => 0,
+    			'other_choice' => 0,
+    			'save_other_choice' => 0,
+    			'default_value' => 'ja',
+    			'layout' => 'vertical',
+    			'return_format' => 'value',
+    		),
+    		array (
+    			'key' => 'field_57f90f281dcfb',
+    			'label' => 'Andere pagina\'s in het menu',
+    			'name' => 'menu_pages',
+    			'type' => 'relationship',
+    			'instructions' => '',
+    			'required' => 0,
+    			'conditional_logic' => 0,
+    			'wrapper' => array (
+    				'width' => '',
+    				'class' => '',
+    				'id' => '',
+    			),
+    			'post_type' => array (
+    				0 => 'page',
+    			),
+    			'taxonomy' => array (
+    			),
+    			'filters' => array (
+    				0 => 'search',
+    				1 => 'taxonomy',
+    			),
+    			'elements' => '',
+    			'min' => '',
+    			'max' => '',
+    			'return_format' => 'object',
+    		),
+    	),
+    	'location' => array (
+    		array (
+    			array (
+    				'param' => 'taxonomy',
+    				'operator' => '==',
+    				'value' => 'dossiers',
+    			),
+    		),
+    	),
+    	'menu_order' => 0,
+    	'position' => 'normal',
+    	'style' => 'default',
+    	'label_placement' => 'top',
+    	'instruction_placement' => 'label',
+    	'hide_on_screen' => '',
+    	'active' => 1,
+    	'description' => '',
+    ));
+  }
+
+
   acf_add_local_field_group(array (
-  	'key' => 'group_57dfd27420525',
-  	'title' => 'Voor taxonomie: selecteer menu en overzichtpagina',
+  	'key' => 'group_57fa9232d034a',
+  	'title' => 'Actueelpagina voor een dossier',
   	'fields' => array (
   		array (
-  			'key' => 'field_57e411ac51413',
-  			'label' => 'Overzichtpagina?',
-  			'name' => 'dossier_overzichtpagina',
-  			'type' => 'post_object',
-  			'instructions' => 'Welke pagina is de overzichtspagina die hoort bij dit dossier?',
-  			'required' => 0,
-  			'conditional_logic' => 0,
-  			'wrapper' => array (
-  				'width' => '',
-  				'class' => '',
-  				'id' => '',
-  			),
-  			'post_type' => array (
-  				0 => 'page',
-  			),
-  			'taxonomy' => array (
-  			),
-  			'allow_null' => 0,
-  			'multiple' => 0,
-  			'return_format' => 'object',
-  			'ui' => 1,
-  		),
-  		array (
-  			'key' => 'field_57e4122051414',
-  			'label' => 'Menu voor dossier',
-  			'name' => 'menu_voor_dossier',
-  			'type' => 'repeater',
-  			'instructions' => '',
-  			'required' => 0,
-  			'conditional_logic' => 0,
-  			'wrapper' => array (
-  				'width' => '',
-  				'class' => '',
-  				'id' => '',
-  			),
-  			'collapsed' => '',
-  			'min' => '',
-  			'max' => '',
-  			'layout' => 'table',
-  			'button_label' => 'Nieuw item toevoegen aan het menu',
-  			'sub_fields' => array (
-  				array (
-  					'key' => 'field_57e4124751415',
-  					'label' => 'Pagina',
-  					'name' => 'dossier_menu_pagina',
-  					'type' => 'post_object',
-  					'instructions' => '',
-  					'required' => 0,
-  					'conditional_logic' => 0,
-  					'wrapper' => array (
-  						'width' => '',
-  						'class' => '',
-  						'id' => '',
-  					),
-  					'post_type' => array (
-  					),
-  					'taxonomy' => array (
-  					),
-  					'allow_null' => 0,
-  					'multiple' => 0,
-  					'return_format' => 'object',
-  					'ui' => 1,
-  				),
-  			),
-  		),
-  	),
-  	'location' => array (
-  		array (
-  			array (
-  				'param' => 'taxonomy',
-  				'operator' => '==',
-  				'value' => RHSWP_CT_DOSSIER,
-  			),
-  		),
-  		array (
-  			array (
-  				'param' => 'user_form',
-  				'operator' => '==',
-  				'value' => 'edit',
-  			),
-  		),
-  	),
-  	'menu_order' => 0,
-  	'position' => 'normal',
-  	'style' => 'default',
-  	'label_placement' => 'top',
-  	'instruction_placement' => 'label',
-  	'hide_on_screen' => '',
-  	'active' => 1,
-  	'description' => '',
-  ));
-}
-else {
-  
-  acf_add_local_field_group(array (
-  	'key' => 'group_57f90d0a441e4',
-  	'title' => 'Dossier-informatie',
-  	'fields' => array (
-  		array (
-  			'key' => 'field_57f90d20c2fdf',
-  			'label' => 'Overzichtpagina',
-  			'name' => 'dossier_overzichtpagina',
-  			'type' => 'post_object',
-  			'instructions' => 'Welke pagina is de overzichtspagina die hoort bij dit dossier?',
-  			'required' => 0,
-  			'conditional_logic' => 0,
-  			'wrapper' => array (
-  				'width' => '',
-  				'class' => '',
-  				'id' => '',
-  			),
-  			'post_type' => array (
-  				0 => 'page',
-  			),
-  			'taxonomy' => array (
-  			),
-  			'allow_null' => 0,
-  			'multiple' => 0,
-  			'return_format' => 'object',
-  			'ui' => 1,
-  		),
-  		array (
-  			'key' => 'field_57fa70f9fe7a3',
-  			'label' => 'Toon overzichtspagina in het menu?',
-  			'name' => 'toon_overzichtspagina_in_het_menu',
+  			'key' => 'field_57fa92400aa5c',
+  			'label' => 'Wil je filteren op categorie op deze pagina?',
+  			'name' => 'wil_je_filteren_op_categorie_op_deze_pagina',
   			'type' => 'radio',
-  			'instructions' => '',
+  			'instructions' => 'Als je niet filtert worden alle berichten getoond die aan dit dossier gekoppeld zijn. Als je wilt filteren, kun je kiezen voor een categorie. Dan worden dus alleen die berichten getoond die:
+  - zowel aan dit dossier gekoppeld zijn 
+  - als aan de door jou gekozen categorie',
   			'required' => 1,
   			'conditional_logic' => 0,
   			'wrapper' => array (
@@ -409,63 +488,68 @@ else {
   				'id' => '',
   			),
   			'choices' => array (
-  				'ja' => 'Toon wel',
-  				'nee' => 'Toon niet',
+  				'nee' => 'Nee',
+  				'ja' => 'Ja',
   			),
   			'allow_null' => 0,
   			'other_choice' => 0,
   			'save_other_choice' => 0,
-  			'default_value' => 'ja',
+  			'default_value' => 'nee',
   			'layout' => 'vertical',
   			'return_format' => 'value',
   		),
   		array (
-  			'key' => 'field_57f90f281dcfb',
-  			'label' => 'Andere pagina\'s in het menu',
-  			'name' => 'menu_pages',
-  			'type' => 'relationship',
+  			'key' => 'field_57fa933133d61',
+  			'label' => 'Kies de categorie waarop je wilt filteren',
+  			'name' => 'kies_de_categorie_waarop_je_wilt_filteren',
+  			'type' => 'taxonomy',
   			'instructions' => '',
   			'required' => 0,
-  			'conditional_logic' => 0,
+  			'conditional_logic' => array (
+  				array (
+  					array (
+  						'field' => 'field_57fa92400aa5c',
+  						'operator' => '==',
+  						'value' => 'ja',
+  					),
+  				),
+  			),
   			'wrapper' => array (
   				'width' => '',
   				'class' => '',
   				'id' => '',
   			),
-  			'post_type' => array (
-  				0 => 'page',
-  			),
-  			'taxonomy' => array (
-  			),
-  			'filters' => array (
-  				0 => 'search',
-  				1 => 'taxonomy',
-  			),
-  			'elements' => '',
-  			'min' => '',
-  			'max' => '',
-  			'return_format' => 'object',
+  			'taxonomy' => 'category',
+  			'field_type' => 'checkbox',
+  			'allow_null' => 0,
+  			'add_term' => 1,
+  			'save_terms' => 0,
+  			'load_terms' => 0,
+  			'return_format' => 'id',
+  			'multiple' => 0,
   		),
   	),
   	'location' => array (
   		array (
   			array (
-  				'param' => 'taxonomy',
+  				'param' => 'page_template',
   				'operator' => '==',
-  				'value' => 'dossiers',
+  				'value' => 'page_dossiersingleactueel.php',
   			),
   		),
   	),
   	'menu_order' => 0,
-  	'position' => 'normal',
+  	'position' => 'acf_after_title',
   	'style' => 'default',
   	'label_placement' => 'top',
   	'instruction_placement' => 'label',
   	'hide_on_screen' => '',
   	'active' => 1,
   	'description' => '',
+  	'local' => 'php',
   ));
-}
+
+
 
 
   acf_add_local_field_group(array (

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Rijkshuisstijl (Digitale Overheid) - page_dossiersoverview.php
+ * Rijkshuisstijl (Digitale Overheid) - page_show-child-pages.php
  * ----------------------------------------------------------------------------------
  * Toont alle dossiers
  * ----------------------------------------------------------------------------------
@@ -9,13 +9,13 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.1.7 
- * @desc.   Functionaliteit voor groeperen van dossiers toegevoegd. Eerste opzet RHS-styling
+ * @version 0.1.13
+ * @desc.   Pagina-templates herzien 
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
 
-//* Template Name: Toon onderliggende pagina's
+//* Template Name: 11 - toon onderliggende pagina's
 
 //* Remove standard post content output
 //remove_action( 'genesis_post_content', 'genesis_do_post_content' );

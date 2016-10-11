@@ -9,8 +9,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.1.7 
- * @desc.   Functionaliteit voor groeperen van dossiers toegevoegd. Eerste opzet RHS-styling
+ * @version 0.1.13
+ * @desc.   Pagina-templates herzien 
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -40,6 +40,8 @@ function rhswp_register_dossier_actueel_page_metabox() {
 	/**
 	 * Metabox to be displayed on a single page ID
 	 */
+
+  if ( 22 == 33 ) {
   
   $cmb_dossier_actueel_page = new_cmb2_box( array(
     'id'            => RHSWP_PREFIX_TAG_CAT . 'metabox',
@@ -51,6 +53,7 @@ function rhswp_register_dossier_actueel_page_metabox() {
     'show_names'    => true,
     'closed'        => false,
   ));
+  }
 
   if ( 22 == 33 ) {
    	$cmb_dossier_actueel_page->add_field( array(
@@ -74,6 +77,7 @@ function rhswp_register_dossier_actueel_page_metabox() {
 	) );
   }
 
+  if ( 22 == 33 ) {
   $cmb_dossier_actueel_page->add_field( array(
 		'name'     => __( 'Tag', 'wp-rijkshuisstijl' ),
 		'desc'     => __( 'Kies de tag voor de actueelpagina onder dit dossier.', 'wp-rijkshuisstijl' ),
@@ -87,9 +91,10 @@ function rhswp_register_dossier_actueel_page_metabox() {
           'hide_empty' => false,
       ),
   ) );
+  }
 
   
-  if ( 22 == 22 ) {
+  if ( 22 == 33 ) {
   	$cmb_dossier_actueel_page->add_field( array(
   		'name' => RHSWP_PREFIX_TAG_CAT . RHSWP_CMB2_TXT_FIELD,
   		'desc' => __( 'field description (optional)', 'wp-rijkshuisstijl' ),
