@@ -3,8 +3,8 @@
 	Description: Theme voor ibewustzijnoverheid.nl
 	Author: Paul van Buuren
 	Author URI: https://wbvb.nl/themes/ibewustzijn/
-	Version: 0.1.15
-	Version description: 0.1.15 - SVG images, Kleurcheck, CSS RHS, widgets, code-opschoning 
+	Version: 0.1.16
+	Version description: 0.1.16 - Menu-functionaliteit met een hamburgertje 
 
 	Template: genesis
 	Template Version: 2.0.2
@@ -34,7 +34,7 @@ Imports
 
 
 .03_fonts_get_webfonts();
-
+.04_normalize();
 
 
 /*
@@ -68,6 +68,10 @@ footer {
     clear: both;
   }  
   
+}
+
+*[aria-hidden="true"] {
+    display: none;
 }
 
 
@@ -202,14 +206,15 @@ Common Classes
   
   input[itemprop="query-input"] {
     width: ~"calc(100% - @{search_submit_width})";
-    height: @seachform_element_height;
+    height: @seachform_element_height_normal;
     border-style: none;
     padding: 1px;
+    font-size: 18px;
   }
   
   input[type="submit"] {
     width: @search_submit_width;
-    height: @seachform_element_height;
+    height: @seachform_element_height_normal;
     background: @nav_li_active_bg;
     padding: 1px 10px 1px 25px;
     color: @nav_li_active_color;
@@ -254,6 +259,7 @@ Common Classes
   input[type="submit"], 
   input[type="search"] {
     -webkit-appearance: none;	
+    border-radius: 0;
   }
 }
 

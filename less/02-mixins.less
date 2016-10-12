@@ -7,8 +7,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.1.15
-// * @desc.   SVG images, Kleurcheck, CSS RHS, widgets, code-opschoning 
+// * @version 0.1.16
+// * @desc.   Menu-functionaliteit met een hamburgertje 
 // * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 // **
 
@@ -33,19 +33,12 @@
 @hoogte_tooltip_button_px:   36px;
 
 
-@seachform_element_height: 25px;
+@seachform_element_height_normal:       50px;
+@seachform_element_height_xlscreen:     25px;
 
 
+@menubreakpoint:          900px;
 
-.font-size(@input: 16) {
-    font-size: ( ( ( @input / @basefontsize ) * @basefontsize ) * @pixel );
-//    font-size: ( ( @input / @basefontsize )  * @viewport );
-}
-
-.inputpadding() {
-	padding: ( @padding / 2 );
-	border: 2px solid @lichtgrijs;
-}
 
 @widget-area:           ( @break_tablet - ( @logowidth + @padding + 5px ) );
 @search_submit_width:   70px;
@@ -113,9 +106,11 @@
 }
 
 //=========================================================================================================
+
 .red() {
   border: 1px solid @warning;
 }
+
 //=========================================================================================================
 
 .visuallyhidden() {
@@ -127,6 +122,19 @@
     padding: 0;
     position: absolute;
     width: 1px;
+}
+
+//=========================================================================================================
+
+.visuallyvisual() {
+    border: inherit;
+    clip: auto;
+    height: auto;
+    margin: auto;
+    overflow: auto;
+    padding: inherit;
+    position: inherit;
+    width: auto;
 }
 
 //=========================================================================================================
@@ -258,6 +266,20 @@
 
 //=========================================================================================================
 
+.font-size(@input: 16) {
+    font-size: ( ( ( @input / @basefontsize ) * @basefontsize ) * @pixel );
+//    font-size: ( ( @input / @basefontsize )  * @viewport );
+}
+
+//=========================================================================================================
+
+.inputpadding() {
+	padding: ( @padding / 2 );
+	border: 2px solid @lichtgrijs;
+}
+
+//=========================================================================================================
+
 .icon_socmed_icon(@src, @fill-new) {
     @data-uri:          data-uri('image/svg+xml;charset=UTF-8', "@{src}");
     @replace-default:   escape('fill="#00586F"');
@@ -280,7 +302,7 @@
 
 //=========================================================================================================
 
-.listitem_arrow( @itemcolor: @txt, @fontsize: 16px ) {
+.listitem_arrow( @itemcolor: @txt, @fontsize: 16px, @topdistance: 5px, @leftdistance: 0 ) {
 
 		display: block;
 		position: relative;
@@ -298,8 +320,8 @@
       font-size: @fontsize;
       line-height: @fontsize;
       position: absolute;
-      left: 0;
-      top: 5px;
+      left: @leftdistance;
+      top: @topdistance;
       width: 1.5em;
     }  
 }

@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.1.15
- * @desc.   SVG images, Kleurcheck, CSS RHS, widgets, code-opschoning 
+ * @version 0.1.16
+ * @desc.   Menu-functionaliteit met een hamburgertje 
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -28,8 +28,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Child theme (do not remove)
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "http://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.1.15" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "SVG images, Kleurcheck, CSS RHS, widgets, code-opschoning" );
+define( 'CHILD_THEME_VERSION',              "0.1.16" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Menu-functionaliteit met een hamburgertje" );
 define( 'SHOW_CSS_DEBUG',                   false );
 define( 'ID_ZOEKEN',                        'rhswp-searchform' );
 define( 'GC_TWITTERACCOUNT',                'gebrcentraal' );
@@ -191,9 +191,8 @@ remove_action( 'genesis_after_header', 'genesis_do_nav' );
 
 // Reposition the breadcrumbs
 remove_action( 'genesis_before_loop', 'genesis_do_breadcrumbs' );
-add_action( 'genesis_after_header', 'genesis_do_nav', 12 );
-add_action( 'genesis_after_header', 'genesis_do_breadcrumbs', 14 );
-add_action( 'genesis_after_header', 'rhswp_dossier_title_checker', 16 );
+
+
 
 // Remove the site title
 remove_action( 'genesis_site_title', 'genesis_seo_site_title' );
@@ -204,6 +203,14 @@ remove_action( 'genesis_site_title', 'genesis_seo_site_title' );
 
 remove_action( 'genesis_site_description', 'genesis_seo_site_description' );
 add_action( 'genesis_after_header', 'rhswp_site_description', 10 );
+
+add_action( 'genesis_after_header', 'rhswp_menu_container_start', 12 );
+add_action( 'genesis_after_header', 'genesis_do_nav', 14 );
+add_action( 'genesis_after_header', 'rhswp_menu_container_end', 16 );
+
+add_action( 'genesis_after_header', 'genesis_do_breadcrumbs', 18 );
+add_action( 'genesis_after_header', 'rhswp_dossier_title_checker', 20 );
+
 
 //========================================================================================================
 
@@ -645,14 +652,35 @@ add_action( 'wp_enqueue_scripts', 'rhswp_enqueue_js_scripts' );
 
 function rhswp_enqueue_js_scripts() {
 
-//  if ( ! is_admin() ) {
-//    wp_enqueue_script( 'wbvb-modernista-menu', RHSWP_THEMEFOLDER . '/js/menu.js', '', '', true );
-//  }
+  if ( ! is_admin() ) {
+    wp_enqueue_script( 'wp-rijkshuisstijl-menu', RHSWP_THEMEFOLDER . '/js/min/menu-min.js', '', '', true );
+  }
 
-  
 //  if ( ( is_home() || is_front_page() ) ) {
 //    wp_enqueue_script( 'commentform', RHSWP_THEMEFOLDER . '/js/min/scripts-home-min.js', array( 'jquery' ), '', true );
 //  }
+}
+
+//========================================================================================================
+
+add_filter( 'genesis_attr_nav-primary', 'add_class_to_menu' );
+add_filter( 'genesis_attr_nav-secondary', 'add_class_to_menu' );
+
+function add_class_to_menu( $attributes ) {
+	$attributes['class'] .= ' js-menu';
+	return $attributes;
+}
+
+//========================================================================================================
+
+function rhswp_menu_container_start() {
+	echo '<div id="mobile-menu-container">';
+}
+
+//========================================================================================================
+
+function rhswp_menu_container_end() {
+	echo '</div>';
 }
 
 //========================================================================================================
