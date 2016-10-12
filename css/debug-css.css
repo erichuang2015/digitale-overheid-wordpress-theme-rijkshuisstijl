@@ -1,9 +1,5 @@
-/*!
-* Revenge CSS v 1.0 
-* Copyright 2013, Heydon Pickering: http://www.heydonworks.com
-* Released under Attribution 3.0 Unported license - http://creativecommons.org/licenses/by/3.0/
-* Please leave this comment block intact as attribution
-*/
+/* colors */
+/* colors */
 a:not([href]),
 a[href=""],
 a[href$="#"],
@@ -489,8 +485,8 @@ button.disabled:not([disabled])::after {
 }
 .debugstring {
   background: yellow !important;
-  border: 1px solid red !important;
-  color: red;
+  border: 1px solid #d52b1e !important;
+  color: #d52b1e;
   font-size: 12px;
   padding: .5em;
 }

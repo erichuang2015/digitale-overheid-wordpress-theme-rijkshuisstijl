@@ -46,9 +46,9 @@ class rhswp_banner_widget extends WP_Widget {
                 ) 
             );
 
-        $rhswp_banner_widget_title          = empty( $instance['rhswp_banner_widget_title'] ) ? '' : $instance['rhswp_banner_widget_title'];
-        $rhswp_banner_widget_short_text     = empty( $instance['rhswp_banner_widget_short_text'] ) ? '' : $instance['rhswp_banner_widget_short_text'];
-        $rhswp_banner_widget_page_link      = empty( $instance['rhswp_banner_widget_page_link'] ) ? '' : $instance['rhswp_banner_widget_page_link'];
+        $rhswp_banner_widget_title          = empty( $instance['rhswp_banner_widget_title'] )         ? '' : $instance['rhswp_banner_widget_title'];
+        $rhswp_banner_widget_short_text     = empty( $instance['rhswp_banner_widget_short_text'] )    ? '' : $instance['rhswp_banner_widget_short_text'];
+        $rhswp_banner_widget_page_link      = empty( $instance['rhswp_banner_widget_page_link'] )     ? '' : $instance['rhswp_banner_widget_page_link'];
         $rhswp_banner_widget_page_linktext  = empty( $instance['rhswp_banner_widget_page_linktext'] ) ? '' : $instance['rhswp_banner_widget_page_linktext'];
 
 
@@ -99,9 +99,9 @@ class rhswp_banner_widget extends WP_Widget {
         $text_color     = empty( get_field( 'rhswp_widget_tekstkleur', 'widget_' . $widget_id) ) ? '#000000' : get_field( 'rhswp_widget_tekstkleur', 'widget_' . $widget_id);
          
 
-        $rhswp_banner_widget_title          = empty($instance['rhswp_banner_widget_title']) ? '' : $instance['rhswp_banner_widget_title'] ;
-        $rhswp_banner_widget_short_text     = empty($instance['rhswp_banner_widget_short_text']) ? '' : '<span style="color:' . $text_color . ';">' . $instance['rhswp_banner_widget_short_text'] . '</span>';
-        $rhswp_banner_widget_page_link      = empty($instance['rhswp_banner_widget_page_link']) ? '' : $instance['rhswp_banner_widget_page_link'] ;
+        $rhswp_banner_widget_title          = empty($instance['rhswp_banner_widget_title'])         ? '' : $instance['rhswp_banner_widget_title'] ;
+        $rhswp_banner_widget_short_text     = empty($instance['rhswp_banner_widget_short_text'])    ? '' : '<span style="color:' . $text_color . ';">' . $instance['rhswp_banner_widget_short_text'] . '</span>';
+        $rhswp_banner_widget_page_link      = empty($instance['rhswp_banner_widget_page_link'])     ? '' : $instance['rhswp_banner_widget_page_link'] ;
         $rhswp_banner_widget_page_linktext  = empty($instance['rhswp_banner_widget_page_linktext']) ? '' : $instance['rhswp_banner_widget_page_linktext'] ;
         $linkafter          = '';
         
@@ -117,19 +117,20 @@ class rhswp_banner_widget extends WP_Widget {
           if ( $rhswp_banner_widget_page_link )
           {
               $rhswp_banner_widget_page_link    = get_permalink($rhswp_banner_widget_page_link);
-              $linkbefore     = '<p class="read-more"><a href="' . $rhswp_banner_widget_page_link. '" style="color:' . $text_color . ';">' . $rhswp_banner_widget_page_linktext;
-              $linkafter      = '</a></p>';
-              $before_title  .= '<a href="' . $rhswp_banner_widget_page_link. '" tabindex="-1" style="color:' . $text_color . ';">';
-              $after_title    = '</a>' . $after_title;
+//              $linkbefore     = '<p class="read-more"><a href="' . $rhswp_banner_widget_page_link. '" style="color:' . $text_color . ';">' . $rhswp_banner_widget_page_linktext;
+//              $linkafter      = '</a></p>';
+              $linkbefore  .= '<a href="' . $rhswp_banner_widget_page_link. '" tabindex="-1">';
+              $linkafter    = '</a>';
           }
+ 
+          echo $linkbefore;
   
           if ( $instance['rhswp_banner_widget_title'] !== '') {
               echo $before_title . $instance['rhswp_banner_widget_title'] . $after_title;
           }
   
           echo $rhswp_banner_widget_short_text;
-          echo $linkbefore . $linkafter;
-  
+          echo $linkafter;
           echo '</div>'; 
           echo $after_widget;
 
@@ -166,14 +167,13 @@ function filter_for_RHSWP_WIDGET_BANNER( $params ) {
 	}
 
 
-  $border_color   = empty( get_field( 'rhswp_widget_randkleur', 'widget_' . $widget_id) ) ? '#000000' : get_field( 'rhswp_widget_randkleur', 'widget_' . $widget_id);
   $backgr_color   = empty( get_field( 'rhswp_widget_achtergrondkleur', 'widget_' . $widget_id) ) ? '#ffffff' : get_field( 'rhswp_widget_achtergrondkleur', 'widget_' . $widget_id);
   $text_color     = empty( get_field( 'rhswp_widget_tekstkleur', 'widget_' . $widget_id) ) ? '#000000' : get_field( 'rhswp_widget_tekstkleur', 'widget_' . $widget_id);
 
   
 
   if( $backgr_color ) {
-    $params[0]['before_widget'] .= sprintf('<div style="border: 1px solid %s; background-color: %s; padding: 1em;">', $border_color, $backgr_color);
+    $params[0]['before_widget'] .= sprintf('<div style="background-color: %s; padding: 1em;">', $backgr_color);
     $params[0]['after_widget'] .= '</div>';		
   }
   

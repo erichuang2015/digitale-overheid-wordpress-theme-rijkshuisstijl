@@ -8,15 +8,101 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.1.14
-// * @desc.   CSS styling voor RHS 
+// * @version 0.1.15
+// * @desc.   SVG images, Kleurcheck, CSS RHS, widgets, code-opschoning 
 // * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 // **
 
 
+@import "00-palet.less";       /* colors */
 
-//Donkergroen	wit	39/89/55	#275937	#becdc3	#dfe6e1
+// ========================================================================
+// communicatiekleuren
+@communicatiekleur_vol:           @donkergroen_vol;
+@communicatiekleur_licht:         @donkergroen_licht;
+@communicatiekleur_lichtst:       @donkergroen_lichtst;
+@communicatiekleur_tekst:         @donkergroen_tekst;
+@communicatiekleur_menu_default:  @donkergroen_tekst;
 
-@a_color_default: #01689b;
 
-@footer-a-color-default: #535353;
+// ========================================================================
+// tekstkleuren
+@txt:                             #000;
+@wit:                             #fff;
+
+
+// ========================================================================
+// linkkleuren
+@a_color_default:                 @donkerblauw_vol;
+@a_color_active:                  @rood_vol;
+@a_color_visited:                 @grijs_7;
+
+// ========================================================================
+// menubalk
+@nav_bg_color:                    @communicatiekleur_vol; 
+@nav_a_color_default:             @donkergroen_lichtst;
+@nav_a_color_default_largescreen: red;
+
+@nav_li_active_bg:                @communicatiekleur_lichtst;
+@nav_li_active_color:             @txt;
+
+@nav_submenu_bg_default:          @txt;
+@nav_submenu_a_color_default:     @txt;
+
+@sitedescription_bg_color:        @communicatiekleur_licht; 
+
+// ========================================================================
+// kleuren in de footer
+@footer-a-color-default:          @grijs_7;
+@border_footer_top:               #4E4E4E;
+
+// ========================================================================
+// form-elementen
+@button_bg_default:               @nav_bg_color;
+@button_bg_hover:                 @wit;
+@button_bg_focus:                 yellow;
+
+@button_color_default:            @wit;
+@button_color_hover:              @txt;
+@button_color_focus:              @txt;
+
+@warning:                         @rood_vol;
+
+// ========================================================================
+// kleuren in de footer
+
+@block_border_color:              @communicatiekleur_vol;
+
+
+
+
+// ========================================================================
+
+
+
+
+
+@grijs:                   @grijs_2;
+@lichtgrijs:              lighten( @txt, 80% );
+@gboxshawow_grijs:        lighten( @txt, 60% );
+
+
+@blauw:                   #1C5BB7;
+
+@nav_bg:                  @wit;
+@nav_wrap_bg:       	    lighten(@txt, 20%); // @blauw;
+@nav_wrap_bg_active:      lighten(@nav_wrap_bg, 20%); // @blauw;
+
+@sidebar_bg:              @wit;
+@sidebarwidget:           #F4F4F4;
+@entry_bg:                @wit;
+
+@code:                    #1C5BB7;
+
+@header_color:          @txt; // #210800;
+@header_color_2:        @txt; // @blauw;
+
+@light_gray:  white;
+@blauw3:      black;
+@groen_1:     white;
+

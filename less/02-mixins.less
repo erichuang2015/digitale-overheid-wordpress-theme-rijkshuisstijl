@@ -7,65 +7,17 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.1.14
-// * @desc.   CSS styling voor RHS 
+// * @version 0.1.15
+// * @desc.   SVG images, Kleurcheck, CSS RHS, widgets, code-opschoning 
 // * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 // **
 
-
-
-@ibgrijs: 			         #E2E7EA;
-@iboranje:			         #CE4C02; // #E17400;
-@ibrood:			           #CA2B1B;
-
-@ibblue_medium:		       #4B9ED4;
-@ibblue_dark:		         #275937; // donkergroen
-@ibblue_darkest:		     #0A5294;
-
-// ========================================================================
-@nav_bg_color:                #275937; // donkergroen
-@nav_a_color_default:         white;
-
-@nav_li_active_bg:            #becdc3;
-@nav_li_active_color:         black;
-
-@nav_submenu_bg_default:      black;
-@nav_submenu_a_color_default: black;
-
-
-
-@button_bg_default: @nav_bg_color;
-@button_bg_hover: white;
-@button_bg_focus: yellow;
-
-@button_color_default: white;
-@button_color_hover: black;
-@button_color_focus: black;
 
 
 // ========================================================================
 
 @strokeheight: 		       43px;
 
-@txt:                     #000;
-@wit:                     #fff;
-
-@grijs:                   #767676;
-@lichtgrijs:              lighten( @txt, 80% );
-@gboxshawow_grijs:        lighten( @txt, 60% );
-
-
-@blauw:                   #1C5BB7;
-
-@nav_bg:                  @wit;
-@nav_wrap_bg:       	    lighten(@txt, 20%); // @blauw;
-@nav_wrap_bg_active:      lighten(@nav_wrap_bg, 20%); // @blauw;
-
-@sidebar_bg:              @wit;
-@sidebarwidget:           #F4F4F4;
-@entry_bg:                @wit;
-
-@code:                    #1C5BB7;
 
 @pixel:                   1px;
 @viewport:                1vw;
@@ -80,10 +32,9 @@
 @hoogte_tooltip_button:   36;
 @hoogte_tooltip_button_px:   36px;
 
-@a_hover:                 green;
-@a_inactive:              @ibblue_darkest;
-@a_active:                red;
-@a_visited:               rebeccapurple;
+
+@seachform_element_height: 25px;
+
 
 
 .font-size(@input: 16) {
@@ -119,16 +70,14 @@
 @headerimage_height:    150px;
 @headerimage_height_1:  400px;
 
-@submenu-width:         250px;
+@submenu-width:         500px;
+@submenu-a-width:       250px;
 
 
-@headerfont:			     'Rijksoverheid Sans regular', Helvetica, Arial, sans-serif;
 @bodyfont: 				     'Rijksoverheid Sans regular', Helvetica, Arial, sans-serif;
 @fontstrong:			     'Rijksoverheid Sans bold', Helvetica, Arial, sans-serif;
+@headerfont:			     @fontstrong;
 
-
-@header_color:          @txt; // #210800;
-@header_color_2:        @txt; // @blauw;
 
 @fontsize_title_h1:     ( 2.6 * @basefontsize );
 @fontsize_title_h2:     ( 2 * @basefontsize );
@@ -165,26 +114,10 @@
 
 //=========================================================================================================
 .red() {
-  border: 1px solid red;
+  border: 1px solid @warning;
 }
 //=========================================================================================================
 
-.ficheborder() {
-	margin-left: 3px;
-	padding: 0;
-	box-shadow: 2px 2px 4px lighten(@gboxshawow_grijs, 20%),
-				2px -2px 4px lighten(@gboxshawow_grijs, 20%),
-				-2px 2px 4px lighten(@gboxshawow_grijs, 20%),
-				-2px -2px 4px lighten(@gboxshawow_grijs, 20%);
-
-	h3, h2, h1 {
-		margin-top: 0;
-		margin-bottom: ( @padding / 2 );
-	}
-	
-
-}
-//=========================================================================================================
 .visuallyhidden() {
     border: 0;
     clip: rect(0 0 0 0);
@@ -219,68 +152,16 @@
 
 .subjectindicator() {
 }
-.xsubjectindicator() {
-
-  @indicator_width: 30px;    
-    
-	&[class*="onderwerpen-bewust"],
-	&[class*="onderwerpen-vaardig"],
-	&[class*="onderwerpen-veilig"] {
-    	.entry-header {
-        	position: relative;
-        	width: 100%;
-        	overflow: hidden;
-        	clear: both;
-        	
-        	&:after {
-            	box-sizing: border-box;
-            	text-align: center;
-            	position: absolute;
-            	right: 0;
-            	top: 0;
-            	width: @indicator_width;
-            	content: '';
-            	display: inline-block;
-            	background: blue;
-            // color: white;
-            	float: right;
-            	padding: 0;
-            	font-size: 10px;
-        	}
-            .entry-title {
-            	margin-right: @indicator_width;
-            }
-        	
-    	}
-	}
-	&[class*="onderwerpen-vaardig"] .entry-header {
-    	&:after {
-        	content: 'vaardig';
-        	background: red;
-    	}
-	}
-	&[class*="onderwerpen-bewust"] .entry-header {
-    	&:after {
-        	background: yellow;
-        // color: @txt;
-        	content: 'bewust';
-    	}
-	}
-	&[class*="onderwerpen-veilig"] .entry-header {
-    	&:after {
-        	background: green;
-        	content: 'veilig';
-    	}
-	}
-}
 
 //=========================================================================================================
 
-@light_gray:  white;
-@blauw3:      black;
-@groen_1:     white;
-
 .socialmedia_styling() {
+
+  .sharing {
+    h2 {
+      font-size: 95%;
+    }    
+  }
 
   .social-media {
 
@@ -318,63 +199,62 @@
       }
       .twitter {
         background: url('images/icon-twitter.png') no-repeat center center;
-        .icon_socmed_icon('../images/icon-twitter.svg', @blauw3);
+        .icon_socmed_icon('../images/svg/icon-twitter.svg', @blauw3);
         background-size: 18px 15px;
 
         &:hover,
         &:active,
         &:focus {
-          .icon_socmed_icon('../images/icon-twitter.svg', @groen_1);
+          .icon_socmed_icon('../images/svg/icon-twitter.svg', @groen_1);
         }
       }
       .facebook {
         background: url('images/icon-facebook.png') no-repeat center center;
-        .icon_socmed_icon('../images/icon-facebook.svg', @blauw3);
+        .icon_socmed_icon('../images/svg/icon-facebook.svg', @blauw3);
         background-size: 10px 18px;
 
         &:hover,
         &:active,
         &:focus {
-          .icon_socmed_icon('../images/icon-facebook.svg', @groen_1);
+          .icon_socmed_icon('../images/svg/icon-facebook.svg', @groen_1);
         }
       }
       .googleplus {
         background: url('images/icon-googleplus.png') no-repeat center center;
-        .icon_socmed_icon('../images/icon-googleplus.svg', @blauw3);
+        .icon_socmed_icon('../images/svg/icon-googleplus.svg', @blauw3);
         background-size: 18px 16px;
 
         &:hover,
         &:active,
         &:focus {
-          .icon_socmed_icon('../images/icon-googleplus.svg', @groen_1);
+          .icon_socmed_icon('../images/svg/icon-googleplus.svg', @groen_1);
         }
       }
       .personallink {
         background: url('images/icon-personallink.png') no-repeat center center;
-        .icon_socmed_icon('../images/icon-personallink.svg', @blauw3);
+        .icon_socmed_icon('../images/svg/icon-personallink.svg', @blauw3);
         background-size: 18px 16px;
 
         &:hover,
         &:active,
         &:focus {
-          .icon_socmed_icon('../images/icon-personallink.svg', @groen_1);
+          .icon_socmed_icon('../images/svg/icon-personallink.svg', @groen_1);
         }
       }
       .linkedin {
         background: url('images/icon-linkedin.png') no-repeat center center;
-        .icon_socmed_icon('../images/icon-linkedin.svg', @blauw3);
+        .icon_socmed_icon('../images/svg/icon-linkedin.svg', @blauw3);
         background-size: 18px 17px;
 
         &:hover,
         &:active,
         &:focus {
-          .icon_socmed_icon('../images/icon-linkedin.svg', @groen_1);
+          .icon_socmed_icon('../images/svg/icon-linkedin.svg', @groen_1);
         }
       }
     }
   }
 }
-
 
 //=========================================================================================================
 
@@ -399,3 +279,29 @@
 }
 
 //=========================================================================================================
+
+.listitem_arrow( @itemcolor: @txt, @fontsize: 16px ) {
+
+		display: block;
+		position: relative;
+  
+    &:before {
+      font-weight: normal;
+      font-family: "RO Icons";
+      display: inline-block;
+      vertical-align: middle;
+      content: "";
+      speak: none;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      color: @itemcolor;
+      font-size: @fontsize;
+      line-height: @fontsize;
+      position: absolute;
+      left: 0;
+      top: 5px;
+      width: 1.5em;
+    }  
+}
+          		
+        

@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.1.14
-// * @desc.   CSS styling voor RHS 
+// * @version 0.1.15
+// * @desc.   SVG images, Kleurcheck, CSS RHS, widgets, code-opschoning 
 // * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 // **
 
@@ -26,17 +26,18 @@
 .10_textstyles() {
 
   a {
-    color: @a_inactive; // @txt;
-  	text-decoration: underline;
+    color: @a_color_default; // @txt;
+  	text-decoration: none;
   
   	&:visited {
-      color: @a_visited;
+      color: @a_color_visited;
     }
 
   	&:hover,
   	&:active,
   	&:focus {
-      color: @a_active;
+    	text-decoration: underline;
+      color: @a_color_active;
     }
   }
   
@@ -78,9 +79,15 @@
   	top: ( -1 * @padding );
   }
   
-  .entry-content code {
-  	background-color: @grijs;
-  // color: @txt;
+  .entry-content {
+    pre,
+    code {
+    	background-color: @grijs;
+    	padding: 0 .5em;
+    }
+    pre {
+    	padding: .5em;
+    }
   }
   
   cite {
@@ -89,34 +96,31 @@
   
 
   dl {
-      display: block;
-      overflow: hidden;
-      clear: both;
-      padding-bottom: 0;
-      padding-top: 0;
-      margin-top: 0;
-      
-      dt, dd {
-//            padding: ( @padding / 2 ) 0;
-      }
-      dt {
-          font-weight: bold;
-      	font-family: 'Rijksoverheid Sans bold', sans-serif;
-          display: inline-block;
-          max-width: 40%;
-          float: left;
-      }
-      dd {
-          display: inline-block;
-          width: 55%;
-          float: right;
-      }
-      
-      & + dl {
-        padding-top: @padding;
-          border-top-style: none;
-          border-top: 1px solid @lichtgrijs;
-      }
+    display: block;
+    overflow: hidden;
+    clear: both;
+    padding-bottom: 0;
+    padding-top: 0;
+    margin-top: 0;
+    
+    dt {
+      font-weight: bold;
+      font-family: @fontstrong;
+      display: inline-block;
+      max-width: 40%;
+      float: left;
+    }
+    dd {
+      display: inline-block;
+      width: 55%;
+      float: right;
+    }
+    
+    & + dl {
+      padding-top: @padding;
+      border-top-style: none;
+      border-top: 1px solid @lichtgrijs;
+    }
   }
   dl + dl {
     margin-top: 1em;
@@ -167,11 +171,10 @@
   h4,
   h5,
   h6 {
-  // color: @header_color;
-  	font-weight: 700; 
-  	line-height: 1.2;
-  	margin: ( @gutter / 2 ) 0 ( @gutter / 4 );
-      font-family: @headerfont;
+    font-weight: 700; 
+    line-height: 1.2;
+    margin: ( @gutter / 2 ) 0 ( @gutter / 4 );
+    font-family: @headerfont;
   }
   
   h1 {
@@ -240,42 +243,51 @@
   }
   
   .entry-content {
-      
-      .teammembers, table {
-  
-      	td, p, h1, h2, h3, h4, h5, h6 {
-              font-family: @bodyfont;
-              font-weight: normal;
-              line-height: 1.4;
-              margin: 0;
-              padding: 0;
-      	}
-      	h1, h2, h3, h4 {
-      	    font-size: 18px;
-          }
-          td, p, h5, h6 {
-      	    font-size: 1rem;
-          }
-          h5, h6 {
-      	    margin: 0 0 6px 0;
-      	    font-style: italic;
-          }
-         	
-      	&, li {
-          	list-style: none;
-          	padding-left: 0;
-          	margin-left: 0;
-      	}
-          li {
-              margin-bottom: 1em;
-          }
-  
-          td {
-          	padding: 0 ( @padding / 4 ) ( @padding ) 0;
-          }
-
+    
+    ul {
+      padding-left: 0;
+      &, li {
+        list-style: none;
       }
-
+      li {
+        margin-left: 0;
+    		padding-left: 1.5em;
+    		.listitem_arrow( @txt, 12px );
+      }
+    }    
+    .teammembers, table {
+      
+      td, p, h1, h2, h3, h4, h5, h6 {
+        font-family: @bodyfont;
+        font-weight: normal;
+        line-height: 1.4;
+        margin: 0;
+        padding: 0;
+      }
+      h1, h2, h3, h4 {
+        font-size: 18px;
+      }
+      td, p, h5, h6 {
+        font-size: 16px;
+      }
+      h5, h6 {
+        margin: 0 0 6px 0;
+        font-style: italic;
+      }
+      
+      &, li {
+        list-style: none;
+        padding-left: 0;
+        margin-left: 0;
+      }
+      li {
+        margin-bottom: 1em;
+      }
+      
+      td {
+        padding: 0 ( @padding / 4 ) ( @padding ) 0;
+      }
+    }
   }
 
 

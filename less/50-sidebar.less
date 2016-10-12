@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.1.14
-// * @desc.   CSS styling voor RHS 
+// * @version 0.1.15
+// * @desc.   SVG images, Kleurcheck, CSS RHS, widgets, code-opschoning 
 // * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 // **
 
@@ -18,29 +18,45 @@
 .sidebar_css() {
 
 
-		.widget {
-			ul, li {
-				padding-left: 0;
-				margin-left: 0;
-				list-style: none;
-			}		
-			li {
-  			margin-top: .2em;
-  			margin-bottom: .5em;
-			}
-			ul ul {
-  			margin-top: .5em;
-				margin-left: 1em;
-				li {
-  				margin-top: 0;
-				}
-			}	
+	.widget {
+
+  	
+		ul, li {
+			padding-left: 0;
+			margin-left: 0;
+			list-style: none;
+		}		
+		li {
+			margin-top: .2em;
+			margin-bottom: .5em;
 		}
+		ul ul {
+			margin-top: .5em;
+			margin-left: 1em;
+			li {
+				margin-top: 0;
+			}
+		}	
+	}
 
 
 	aside.sidebar {
+  	.widget {
+      margin-top: 1em;
+      border-top: 3px solid @block_border_color;
+  	}
+  	
   	.widget + .widget {
-    	margin-top: 1em;
+      margin-top: 2em;
+  	}
+  	
+  	.widget.banner {
+    	border-top-style: none;
+    	
+    	.widget-wrap {
+      	border: 3px solid @grijs_3;
+    	}
+    	
   	}
 	}
 	.sidebar {
@@ -54,8 +70,16 @@
 	}
 
 	.page-link-widget.widget {
-    background: @ibgrijs;
+    background: @grijs_1;
   }
+
+  .widget_nav_menu {
+  	a {
+  		padding-left: 1.5em;
+  		.listitem_arrow( @a_color_default, 16px );
+  	}     
+  }
+
 
 	.page-link-widget {
   	padding: @padding;
@@ -86,11 +110,13 @@
 
   /*
   Footer Widgets
-  ---------------------------------------------------------------------------------------------------- */  .site-footer {
+  ---------------------------------------------------------------------------------------------------- */  
+  
+  .site-footer {
     overflow: hidden;
-    background-color: #e6e6e6;
-    border-top: 3px solid #4E4E4E;
-    color: @footer-a-color-default;
+    background-color: @grijs_2;
+    border-top: 3px solid @border_footer_top;
+    color: @grijs_7;
     
     .widget_nav_menu {
     	li {
@@ -100,12 +126,13 @@
       	}
       	a {
           &, &:before {
-            color: @footer-a-color-default;
+            color: @grijs_7;
           }	
         }	
         &.current-menu-item {
           a {
             font-weight: bold;
+            font-family: @fontstrong;
             text-decoration: underline;
           }
         }
@@ -154,31 +181,6 @@
       margin-right: @padding;
     }
     
-    .widget_nav_menu {
-    	a {
-    		display: block;
-    		padding-left: 1.5em;
-    		position: relative;
-    		
-        &:before {
-          font-weight: normal;
-          font-family: "RO Icons";
-          display: inline-block;
-          vertical-align: middle;
-          content: "";
-          speak: none;
-          -webkit-font-smoothing: antialiased;
-          -moz-osx-font-smoothing: grayscale;
-          color: @a_color_default;
-          font-size: 16px;
-          line-height: 16px;
-          position: absolute;
-          left: 0;
-          top: 5px;
-          width: 1.5em;
-        }    			
-    	}     
-    }
     
     
     

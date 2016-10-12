@@ -5,15 +5,14 @@
  * ----------------------------------------------------------------------------------
  * verantwoordelijk voor eventuele sidebars. Er zit extra functionaliteit in
  * de zijbalk voor het tonen van contextuele info.
- * bijvoorbeeld voor een single fiche; hier wordt metadata getoond.
  * Deze functionaliteit komt uit rhswp_sidebar_context_widgets()
  * ----------------------------------------------------------------------------------
  *
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.1.4 
- * @desc.   Widgets toegevoegd, widgetruimtes opgeschoond
+ * @version 0.1.15
+ * @desc.   SVG images, Kleurcheck, CSS RHS, widgets, code-opschoning 
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 

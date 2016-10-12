@@ -8,41 +8,53 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.1.14
-// * @desc.   CSS styling voor RHS 
+// * @version 0.1.15
+// * @desc.   SVG images, Kleurcheck, CSS RHS, widgets, code-opschoning 
 // * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 // **
 
 
 .20_elements() {
 
-  #payoff {
+  .block {
+    margin-top: 2em;
+    border-top: 3px solid @block_border_color;
+    clear: both;
+  }  
 
+  #payoff {
+    
     clear: both;
     position: relative;
-
     margin-right: auto;
     margin-left: auto;
     padding-left: 15px;
     padding-right: 15px;
     max-width: 1200px;
 
-
     .wrapper {
-        position: absolute;
-        display: table;
-        top: auto;
-        bottom: 0;
-        left: 50%;
-        margin: 0 0 0 -22px;
-        padding: 0;
-        border-left: 44px solid #154273;
-        width: 270px;
-        height: 31px;
-        background: 0;
-        z-index: 999;
+      position: absolute;
+      display: table;
+      top: auto;
+      bottom: 0;
+      left: 50%;
+      margin: 0 0 0 -22px;
+      padding: 0;
+      border-left: 44px solid @rijksblauw;
+      width: 270px;
+      height: 31px;
+      background: 0;
+      z-index: 999;
     }    
-    
   }
-
+  
+  noscript {
+    padding: .5em;
+    background: @wit;
+    color: @txt;
+    display: block;
+    width: 100%;
+    text-align: center;
+  }
+  
 }

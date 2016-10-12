@@ -3,8 +3,8 @@
 	Description: Theme voor ibewustzijnoverheid.nl
 	Author: Paul van Buuren
 	Author URI: https://wbvb.nl/themes/ibewustzijn/
-	Version: 0.1.14
-	Version description: 0.1.14 - CSS styling voor RHS 
+	Version: 0.1.15
+	Version description: 0.1.15 - SVG images, Kleurcheck, CSS RHS, widgets, code-opschoning 
 
 	Template: genesis
 	Template Version: 2.0.2
@@ -198,20 +198,20 @@ Common Classes
 
 .search-form {
   
-  padding: .5em;
+  padding: 0;
   
   input[itemprop="query-input"] {
     width: ~"calc(100% - @{search_submit_width})";
-    height: 24px;
+    height: @seachform_element_height;
     border-style: none;
     padding: 1px;
   }
   
   input[type="submit"] {
     width: @search_submit_width;
-    height: 24px;
+    height: @seachform_element_height;
     background: @nav_li_active_bg;
-    padding: 1px 10px 0 25px;
+    padding: 1px 10px 1px 25px;
     color: @nav_li_active_color;
     text-transform: none;
 
@@ -254,7 +254,6 @@ Common Classes
   input[type="submit"], 
   input[type="search"] {
     -webkit-appearance: none;	
-    margin-right: -2px;
   }
 }
 
@@ -285,7 +284,10 @@ Common Classes
 //		height: @strokeheight;
 	}
 	nav {
-		padding: ( @padding / 2 ) 0;
+
+    span {
+  		padding: ( @padding / 2 ) 0;
+    }
 		
 		a {
   	  color: @txt;
@@ -938,106 +940,6 @@ box-shadow: 2px 2px 4px lighten(@gboxshawow_grijs, 20%);
 
 
 
-.fiche-block, 
-.archive article.fiche,
-.search article.fiche,
-.post-type-archive-fiche article.fiche  {
-  .ficheborder();
-  padding: @padding;
-  .subjectindicator();
-}	
-
-.search article.fiche {
-    margin-bottom: @padding;
-}
-
-
-
-
-
-.fiche-block, 
-.post-type-archive-fiche article.fiche  {
-	a {
-	// color: @txt;
-		text-decoration: none;
-		display: block;
-		width: 100%;
-		height: 100%;
-		border-color: @wit;
-		
-		&:active,
-		&:hover,
-		&:focus {
-			border-color: @txt;
-		}
-	}
-}
-
-.mediumblauw, .donkerblauw {
-	background: @ibblue_dark;
-	overflow: hidden;
-	&, a {
-    // color: @wit;
-	}
-}
-.donkerblauw {
-	background: @ibblue_darkest;
-}
-
-
-.bestuurslaag-block,
-.thema-block {
-	a {
-		background: @ibblue_dark;
-		min-height: 120px;
-	    border: 1px solid @ibblue_dark;
-	}
-} 
-
-.collection li {
-    border-radius: @blockradius;
-}   
-
-.content {
-	.bestuurslaag-block,
-	.thema-block {
-		a {
-			font-size: 120%;
-		}
-	}    
-}
-
-.bestuurslaag-block {
-    a {
-    	background: @ibblue_darkest;
-    	border-color: @ibblue_darkest;
-    }
-}
-
-
-.thema-block.donkerblauw {
-	a {
-		background: @ibblue_darkest;
-		border-color: @ibblue_darkest;
-	}    
-}    
-
-.bestuurslaag-block,
-.thema-block,
-.thema-block.donkerblauw {
-	a {
-		&:active,
-		&:hover,
-		&:focus {
-			background: none;
-			border-color: black;
-		// color: @txt;
-		}
-
-	}
-}
-
-
 
 
 .formstyling();
@@ -1045,30 +947,7 @@ box-shadow: 2px 2px 4px lighten(@gboxshawow_grijs, 20%);
 .menus();
 .sidebar_css();
 
-.single-fiche .content {
-  .ficheborder();
-	padding: @padding;
-
-  margin: @padding 0 @padding @padding;
-  border-radius: @blockradius;
-  
-  .entry-header {
-    border-bottom: 1px solid @lichtgrijs;
-    margin-bottom: 2em;
-  }
-  article {
-    .subjectindicator();				    
-  }
-  .entry-footer,
-  .entry-content {
-//    float: left;
-  }
-  .pagination {
-    padding-top: 1em;
-    margin-top: 1em;
-  }  
-
-} 
+ 
 
 /*
 Media Queries
@@ -1185,7 +1064,7 @@ Media Queries
 
     .wrap .toggle-menu {
 //        background-image: url(images/hamburger.png);
-//        background-image: url(images/hamburger.svg), none;
+//        background-image: url(images/svg/hamburger.svg), none;
         top: @padding;
         right: @padding;
         width: 45px;

@@ -4,7 +4,6 @@
  * Rijkshuisstijl (Digitale Overheid) - cpt-acf.php
  * -------------------------------------------------------------------------------------------------------
  * Definities van:
- *  - custom post type voor fiche
  *  - custom taxonomies: CTAX_thema / CTAX_contentsoort 
  *  - Advanced Custom Fields voor diverse plekken
  * -------------------------------------------------------------------------------------------------------
@@ -12,8 +11,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.1.12
- * @desc.   Dossieroverzicht herzien, documentdownload toegevoegd, read-more gewijzigd, breadcrumb gewijzigd 
+ * @version 0.1.15
+ * @desc.   SVG images, Kleurcheck, CSS RHS, widgets, code-opschoning 
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 

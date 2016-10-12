@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.1.14
-// * @desc.   CSS styling voor RHS 
+// * @version 0.1.15
+// * @desc.   SVG images, Kleurcheck, CSS RHS, widgets, code-opschoning 
 // * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 // **
 
@@ -19,62 +19,33 @@
 	/*
 	Site Header
 	---------------------------------------------------------------------------------------------------- */
-@breedte: 70px;
-@hoogte: 108px;
-
-@geweenstebreedte: 30px;
-@geweenstehoogte: ( ( @geweenstebreedte / @breedte) * @hoogte );
-
-
-@minheight: 175px;
-@navheight: 40px;
 
 	
-	.site-header {
-
-
-		.wrap {
-      margin: 0 0 0 50%;
-      
+  .site-header {
+  
+  	.wrap {
       .title-area {
         
         a {
           overflow: hidden;
-          margin: 0 0 0 -22px;
           display: block;
-          
+          padding: 0 0 0 50%;
           img {
-            margin-bottom: 10px;
+            margin: 0 0 10px -22px;
           }
-
         }
-
       }
-
-
-		}
-
-		.search-form {
-			margin: @padding auto ;
-			float: right;
-			margin-top: @padding;
-		}
-	}
+  	}
+  }
 		
-@sitetitlesize: 16px;	
 	
 	.site-title {
-		.font-size( ( 3.2 * @basefontsize ) );
 		line-height: 1;
 		margin: 0;
 		.headerlinkstyling();
-    font-size: ( @sitetitlesize * 1.5 );
 		
 		a {
   		display: inline-block;
-  		padding-left: ( @sitetitlesize * 2 );
-//  		background-image: url('images/slotje.png');
-//      background-image: url('images/slotje.svg'), none;
   		background-repeat: no-repeat;
   		background-position: left center;
   		background-size: contain;
@@ -88,10 +59,11 @@
 	.site-description {
     font-weight: 300;
     line-height: 1;
-    margin: ( @padding / 2 ) 0;
-    padding: 0;
+    margin: 0;
+    padding: ( @padding / 4 ) 0;
     font-family: @bodyfont;
-    font-size: 80%;
+    font-size: 120%;
+    background-color: @sitedescription_bg_color;
     
     span {
       overflow: hidden;
@@ -114,12 +86,7 @@
 
 	@media only screen and (max-width: ( @break_fullwidth  - 1 ) ) {
 
-
 		.site-header {
-
-			.search-form {
-				float: none;
-			}
 		}
 	}
 
@@ -128,12 +95,8 @@
 	
     .site-header {
 
-      
-
-      
       .site-description {
         margin-top: @padding;
-        font-size: ( @sitetitlesize * 1 );
         
         span {
           display: block;
@@ -150,26 +113,13 @@
     .site-header {
 
       .wrap {
-        
 
         .nav-primary {
-          height: @navheight;
           position: absolute;
           right: 0;
           top: 0;
         }
-        
       }
-
-      .site-title {
-        font-size: ( @sitetitlesize * 2 );
-      }
-
-      .site-description {
-        font-size: ( @sitetitlesize * 1.2 );
-      }
-
-      
     }
 	}
 }
