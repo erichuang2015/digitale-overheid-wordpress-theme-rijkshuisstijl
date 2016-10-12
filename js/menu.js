@@ -7,8 +7,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.1.16
-// * @desc.   Menu-functionaliteit met een hamburgertje 
+// * @version 0.1.17
+// * @desc.   Menu-functionaliteit bug-fixes 
 // * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 
 // Vars
@@ -22,6 +22,7 @@ var header      = document.querySelector('#mobile-menu-container'),
 function hideMenuButton(document, window, undefined) {
 
   header.classList.remove('menu-met-js');
+  header.classList.remove('active');
   header.classList.add('geen-menu-button');
   menu.setAttribute('aria-hidden', 'false');
 
