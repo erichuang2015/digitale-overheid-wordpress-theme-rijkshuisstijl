@@ -9,8 +9,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.2.1
- * @desc.   Widget voor paginalinks 
+ * @version 0.2.4
+ * @desc.   Context widget added 
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -119,9 +119,9 @@ class rhswp_news_widget extends WP_Widget {
     
                 if ( $currentcat_id == $categorie ) 
                 {
-                    dodebug("currentcat " . $currentcat_id);
-                    dodebug("categorie " . $categorie);
-                    dodebug("WOEPS! " . $categorie . "=" . $currentcat_id);
+                    dodebug("rhswp_news_widget: currentcat " . $currentcat_id);
+                    dodebug("rhswp_news_widget: categorie " . $categorie);
+                    dodebug("rhswp_news_widget: WOEPS! " . $categorie . "=" . $currentcat_id);
                 }
             }
         }

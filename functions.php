@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.2.3
- * @desc.   Dossier check refined, page styles added 
+ * @version 0.2.4
+ * @desc.   Context widget added 
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -28,8 +28,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Child theme (do not remove)
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "http://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.2.3" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Dossier check refined, page styles added" );
+define( 'CHILD_THEME_VERSION',              "0.2.4" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Context widget added" );
 define( 'SHOW_CSS_DEBUG',                   false );
 define( 'ID_ZOEKEN',                        'rhswp-searchform' );
 define( 'GC_TWITTERACCOUNT',                'gebrcentraal' );
@@ -519,10 +519,87 @@ function rhswp_single_post_meta_data($post_meta) {
 //========================================================================================================
 
 // action for writing extra info in the alt-sidebar
-add_action( 'wbvb_sidebar_alt_title', 'rhswp_sidebar_context_widgets' );
+add_action( 'rhswp_primary_sidebar_first_action', 'rhswp_sidebar_context_widgets' );
 
+function rhswp_sidebar_context_taxonomies() {
+
+    global $post;
+  
+    $terms        = get_the_terms( $post->ID , RHSWP_CT_DOSSIER );
+
+    if ( $terms && ! is_wp_error( $terms ) ) { 
+        echo '<br><a href="/' . RHSWP_CT_DOSSIER . '/"><strong>alles onder ' . RHSWP_CT_DOSSIER . '</strong></a>';
+
+        foreach ( $terms as $term ) {
+          echo '<br><a href="' . get_term_link( $term->term_id ) . '"><strong>' . RHSWP_CT_DOSSIER . ': ' . $term->name . '</strong></a>';
+        }
+    }
+
+    $terms        = get_the_terms( $post->ID , 'category' );
+
+    if ( $terms && ! is_wp_error( $terms ) ) { 
+
+        foreach ( $terms as $term ) {
+          echo '<br><a href="' . get_term_link( $term->term_id ) . '"><strong>Categorie: ' . $term->name . '</strong></a>';
+        }
+    }
+
+}
+  
 function rhswp_sidebar_context_widgets() {
-//  echo 'hooooiiii';
+  if ( WP_DEBUG ) {
+
+    global $post;
+    
+    $context  = rhswp_get_context_info();
+    $posttype = get_post_type();
+
+    echo '<div id="debug_context_info" class="widget context-info">
+    <div class="widget-wrap">
+    <h3 class="widgettitle">Context debug info</h3>
+    <div class="menu-footer-quicklinks-container">';
+
+    echo '<p>paginatype: ' . $context;
+
+    if ( $posttype ) {
+      
+      if ( 'page' == $context ) {
+
+        $parentID     = wp_get_post_parent_id( $post->ID );
+        $parent       = get_post( $parentID );
+        
+        echo '<br>posttype: <strong>' . $posttype . '</strong>';
+        echo '<br>template: <strong>' . basename( get_page_template() ) . '</strong>';
+        if ( $parent && ( $parent->ID !== $post->ID ) ) {
+          echo '<br>parent: <a href="' . get_permalink( $parent->ID ) . '"><strong>' . get_the_title( $parent->ID ) . '</strong></a>';
+        }
+        else {
+          echo '<br>Pagina heeft geen parent';
+        }
+        echo '</p>';
+        
+      }
+      elseif ( 'tax' == $context ) {
+
+        rhswp_sidebar_context_taxonomies();
+
+      }
+      elseif ( 'single' == $context ) {
+
+        echo '<br>posttype: <strong>' . $posttype . '</strong>';
+        rhswp_sidebar_context_taxonomies();
+
+      }
+      else {
+        echo '<br>posttype: <a href="/' . $posttype . '/"><strong>' . $posttype . '</strong></a></p>';
+      }
+    }
+
+
+    
+    echo '</div></div></div>';    
+    
+  }
 }
 
 //========================================================================================================
@@ -1214,5 +1291,44 @@ function rhswp_site_description() {
 }
 
 //========================================================================================================
+
+function rhswp_get_context_info() {
+  
+  global $wp_query;
+
+  if ( $wp_query->is_page ) {
+      $loop = is_front_page() ? 'front' : 'page';
+  } elseif ( $wp_query->is_home ) {
+      $loop = 'home';
+  } elseif ( $wp_query->is_single ) {
+      $loop = ( $wp_query->is_attachment ) ? 'attachment' : 'single';
+  } elseif ( $wp_query->is_category ) {
+      $loop = 'category';
+  } elseif ( $wp_query->is_tag ) {
+      $loop = 'tag';
+  } elseif ( $wp_query->is_tax ) {
+      $loop = 'tax';
+  } elseif ( $wp_query->is_archive ) {
+      if ( $wp_query->is_day ) {
+          $loop = 'day';
+      } elseif ( $wp_query->is_month ) {
+          $loop = 'month';
+      } elseif ( $wp_query->is_year ) {
+          $loop = 'year';
+      } elseif ( $wp_query->is_author ) {
+          $loop = 'author';
+      } else {
+          $loop = 'archive';
+      }
+  } elseif ( $wp_query->is_search ) {
+      $loop = 'search';
+  } elseif ( $wp_query->is_404 ) {
+      $loop = 'notfound';
+  }
+  
+  return $loop ;
+
+}
+
 
 

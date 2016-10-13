@@ -11,8 +11,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.1.15
- * @desc.   SVG images, Kleurcheck, CSS RHS, widgets, code-opschoning 
+ * @version 0.2.4
+ * @desc.   Context widget added 
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -26,7 +26,8 @@ genesis_markup( array(
 do_action( 'genesis_before_sidebar_widget_area' );
 
 // paginaspecifieke widget
-do_action( 'wbvb_sidebar_alt_title' );
+do_action( 'rhswp_primary_sidebar_first_action' );
+
 do_action( 'genesis_sidebar' );
 do_action( 'genesis_after_sidebar_widget_area' );
 
