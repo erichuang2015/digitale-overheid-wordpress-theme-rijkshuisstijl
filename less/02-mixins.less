@@ -7,11 +7,10 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.1.16
-// * @desc.   Menu-functionaliteit met een hamburgertje 
+// * @version 0.2.2
+// * @desc.   Widget voor paginalinks - bugfixes 
 // * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 // **
-
 
 
 // ========================================================================
@@ -304,26 +303,32 @@
 
 .listitem_arrow( @itemcolor: @txt, @fontsize: 16px, @topdistance: 5px, @leftdistance: 0 ) {
 
-		display: block;
-		position: relative;
+  display: block;
+  position: relative;
   
-    &:before {
-      font-weight: normal;
-      font-family: "RO Icons";
-      display: inline-block;
-      vertical-align: middle;
-      content: "";
-      speak: none;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      color: @itemcolor;
-      font-size: @fontsize;
-      line-height: @fontsize;
-      position: absolute;
-      left: @leftdistance;
-      top: @topdistance;
-      width: 1.5em;
-    }  
+  &:before {
+    font-weight: normal;
+    font-family: "RO Icons";
+    display: inline-block;
+    vertical-align: middle;
+    content: "";
+    speak: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: @itemcolor;
+    font-size: @fontsize;
+    line-height: @fontsize;
+    position: absolute;
+    left: @leftdistance;
+    top: @topdistance;
+    width: 1.5em;
+  }  
+}
+.listitem_arrow_extern() {
+
+  &:before {
+    content: "";
+  }  
 }
           		
         

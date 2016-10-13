@@ -9,8 +9,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.2.1
- * @desc.   Widget voor paginalinks 
+ * @version 0.2.2
+ * @desc.   Widget voor paginalinks - bugfixes
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -255,7 +255,7 @@ class rhswp_pagelinks_widget extends WP_Widget {
   
   $widget_ops = array(
   	'classname'   => 'page-links',
-  	'description' => __( 'Mogelijkheid voor het tonen van de bijbehorende links die je op pagina / berichtniveau hebt ingevoerd.', 'wp-rijkshuisstijl' ),
+  	'description' => _x( 'Mogelijkheid voor het tonen van de bijbehorende links die je op pagina / berichtniveau hebt ingevoerd.', 'paginalinkswidget', 'wp-rijkshuisstijl' ),
   );
   
   parent::__construct( RHSWP_WIDGET_PAGELINKS_ID, RHSWP_WIDGET_PAGELINKS_DESC, $widget_ops );
@@ -273,10 +273,13 @@ class rhswp_pagelinks_widget extends WP_Widget {
   
       $rhswp_pagelinks_widget_title          = empty( $instance['rhswp_pagelinks_widget_title'] )         ? '' : $instance['rhswp_pagelinks_widget_title'];
   
+
+      echo '<p>' . _x( 'Dit widget doet pas iets als je op pagina- of berichtniveau links hebt toegevoegd. Die links worden dan op deze plaats getoond.</p><p>De titel hieronder wordt getoond als op pagina-niveau geen titel is ingevoerd.', 'paginalinkswidget', 'wp-rijkshuisstijl' );
+
   
       ?>
   
-      <p><label for="<?php echo $this->get_field_id('rhswp_pagelinks_widget_title'); ?>">Titel: <input id="<?php echo $this->get_field_id('rhswp_pagelinks_widget_title'); ?>" name="<?php echo $this->get_field_name('rhswp_pagelinks_widget_title'); ?>" type="text" value="<?php echo esc_attr($rhswp_pagelinks_widget_title); ?>" /></label></p>  
+        <br><label for="<?php echo $this->get_field_id('rhswp_pagelinks_widget_title'); ?>"><?php echo _x( 'Titel', 'paginalinkswidget', 'wp-rijkshuisstijl' ) ?><input id="<?php echo $this->get_field_id('rhswp_pagelinks_widget_title'); ?>" name="<?php echo $this->get_field_name('rhswp_pagelinks_widget_title'); ?>" type="text" value="<?php echo esc_attr($rhswp_pagelinks_widget_title); ?>" /></label></p>  
       <?php      
           
   }
@@ -316,7 +319,7 @@ class rhswp_pagelinks_widget extends WP_Widget {
           $widgettitle = $instance['rhswp_pagelinks_widget_title'];
         }
         else {
-          $widgettitle = __( 'Extra links voor ', 'wp-rijkshuisstijl' ) . get_the_title();
+          $widgettitle = _x( 'Extra links voor ', 'paginalinkswidget', 'wp-rijkshuisstijl' ) . get_the_title();
         }
       
       }
@@ -325,23 +328,6 @@ class rhswp_pagelinks_widget extends WP_Widget {
 
         echo $before_widget;
         echo $before_title . $widgettitle . $after_title;
-
-/*
-VolgordeLabelNaamSoort
-1
-Externe link? *
-externe_link Radio button
-2
-URL voor externe link *
-url_extern URL
-3
-Interne link *
-interne_link Post object
-4
-Linktekst voor externe link *
-linktekst_voor_externe_link Tekst
-*/        
-        
 
         if( have_rows(RHSWP_WIDGET_PAGELINKS_ID . '_widget_links') ) {
           
@@ -358,7 +344,7 @@ linktekst_voor_externe_link Tekst
             if( 'ja' == $externe_link ) {
               // externe link dus
               if ( $linktekst_voor_externe_link && $url_extern ) {
-                $content = '<li><a href="' . $url_extern . '">' . $linktekst_voor_externe_link . '</a></li>';
+                $content = '<li><a href="' . $url_extern . '" class="extern">' . $linktekst_voor_externe_link . '</a></li>';
               }
             }
             else {
@@ -383,7 +369,7 @@ linktekst_voor_externe_link Tekst
   
         }
         else {
-          echo __( 'Er zijn geen extra links ingevoerd.', 'wp-rijkshuisstijl' );
+          echo _x( 'Er zijn geen extra links ingevoerd.', 'paginalinkswidget', 'wp-rijkshuisstijl' );
         }
 
         echo $after_widget;

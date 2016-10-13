@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.2.1
-// * @desc.   Widget voor paginalinks 
+// * @version 0.2.2
+// * @desc.   Widget voor paginalinks - bugfixes 
 // * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 // **
 
@@ -89,6 +89,9 @@
       		color: @a_color_active;
     		}
   		}
+  	}
+  	a.extern {
+      .listitem_arrow_extern();
   	}     
   }
 
