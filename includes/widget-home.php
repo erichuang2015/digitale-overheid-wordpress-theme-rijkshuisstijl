@@ -10,8 +10,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.1.4 
- * @desc.   Widgets toegevoegd, widgetruimtes opgeschoond
+ * @version 0.2.1
+ * @desc.   Widget voor paginalinks 
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -31,7 +31,7 @@ class rhswp_page_widget extends WP_Widget {
 			'description' => __( 'Korte tekst met verwijzing naar een pagina.', 'wp-rijkshuisstijl' ),
 		);
 
-		parent::__construct( 'rhswp_page_widget', 'RHS-WP - pagina-link widget', $widget_ops );
+		parent::__construct( 'rhswp_page_widget', RHSWP_WIDGET_LINK_TO_SINGLE_PAGE, $widget_ops );
 
 	}
 	

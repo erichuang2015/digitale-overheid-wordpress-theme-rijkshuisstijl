@@ -9,8 +9,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.1.14
- * @desc.   CSS styling voor RHS 
+ * @version 0.2.1
+ * @desc.   Widget voor paginalinks 
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -31,7 +31,7 @@ class rhswp_news_widget extends WP_Widget {
     			'description' => __( 'Mogelijkheid voor tonen van nieuwsberichten uit een bepaalde categorie', 'wp-rijkshuisstijl' ),
     		);
     
-    		parent::__construct( 'rhswp_news_widget', 'RHS-WP - Berichtenwidget (per categorie)', $widget_ops );
+    		parent::__construct( 'rhswp_news_widget', '(DO) Berichtenwidget (per categorie)', $widget_ops );
 
 
     }

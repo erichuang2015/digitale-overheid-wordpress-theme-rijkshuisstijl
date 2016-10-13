@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.1.21
- * @desc.   Submenu bugfix 
+ * @version 0.2.1
+ * @desc.   Widget voor paginalinks 
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -28,8 +28,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Child theme (do not remove)
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "http://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.1.21" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Submenu bugfix" );
+define( 'CHILD_THEME_VERSION',              "0.2.1" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Widget voor paginalinks" );
 define( 'SHOW_CSS_DEBUG',                   false );
 define( 'ID_ZOEKEN',                        'rhswp-searchform' );
 define( 'GC_TWITTERACCOUNT',                'gebrcentraal' );
@@ -61,7 +61,11 @@ if ( ! defined( 'RHSWP_CPT_DOCUMENT' ) ) {
 if ( ! defined( 'RHSWP_CPT_EVENT' ) ) {
   define( 'RHSWP_CPT_EVENT',                'event' );       // slug for custom taxonomy 'document'
 }
-define( 'RHSWP_WIDGET_BANNER',              'RHS-WP - banner widget');
+define( 'RHSWP_WIDGET_BANNER',              '(DO) banner widget');
+define( 'RHSWP_WIDGET_PAGELINKS_ID',        'rhswp_pagelinks_widget');
+define( 'RHSWP_WIDGET_PAGELINKS_DESC',      '(DO) paginalinks widget');
+define( 'RHSWP_WIDGET_LINK_TO_SINGLE_PAGE', '(DO) verwijs naar een pagina');
+
 define( 'RHSWP_CSS_BANNER',                 'banner-css' ); // slug for custom post type 'document'
 
 //========================================================================================================
@@ -75,7 +79,7 @@ include_once( RHSWP_FOLDER . '/includes/metadata-boxes.php' );
 // Include for admin functions
 include_once( RHSWP_FOLDER . '/includes/admin-helper-functions.php' );
 
-// Include for admin functions
+// Include for dossier functions
 include_once( RHSWP_FOLDER . '/includes/dossier-helper-functions.php' );
 
 //========================================================================================================
@@ -121,6 +125,7 @@ include_once( RHSWP_FOLDER . '/includes/cpt-acf.php' );
 require_once( RHSWP_FOLDER . '/includes/widget-home.php' );
 require_once( RHSWP_FOLDER . '/includes/widget-banner.php' );
 require_once( RHSWP_FOLDER . '/includes/widget-newswidget.php' );
+require_once( RHSWP_FOLDER . '/includes/widget-paginalinks.php' );
 
 // Add support for 3-column footer widgets
 add_theme_support( 'genesis-footer-widgets', 3 );
