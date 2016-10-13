@@ -10,8 +10,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.1.14
- * @desc.   CSS styling voor RHS 
+ * @version 0.1.21
+ * @desc.   Submenu bugfix 
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -43,7 +43,7 @@ function rhswp_dossier_title_checker( ) {
       $term             = array_pop($terms);
       $overzichtspagina = '';
   
-      echo '<div class="here-be-dragons"><div class="wrap">'; 
+      echo '<div class="dossier-overview"><div class="wrap">'; 
       
       if ( function_exists( 'get_field' ) ) {
 
@@ -138,7 +138,7 @@ function rhswp_dossier_title_checker( ) {
   
       
       if ( $overzichtspagina || $subpaginas ) {
-        echo '<nav><ul>' . $overzichtspagina  .  $subpaginas;    
+        echo '<nav class="collapsible"><ul>' . $overzichtspagina  .  $subpaginas;    
         echo '</ul></nav>';    
       }
   
