@@ -3,8 +3,8 @@
 	Description: Theme voor ibewustzijnoverheid.nl
 	Author: Paul van Buuren
 	Author URI: https://wbvb.nl/themes/ibewustzijn/
-	Version: 0.2.2
-	Version description: 0.2.2 - Widget voor paginalinks - bugfixes 
+	Version: 0.2.3
+	Version description: 0.2.3 - Dossier check refined, page styles added 
 
 	Template: genesis
 	Template Version: 2.0.2
@@ -28,7 +28,8 @@ Imports
 @import "40-forms.less";        /* forms */
 @import "50-sidebar.less";      /* sidebar styling */
 @import "60-structure.less"; 
-@import "70-print.less"; 
+@import "70-pagetypes.less"; 
+@import "80-print.less"; 
 @import "99-browserhacks.less"; 
 
 
@@ -1201,18 +1202,17 @@ Media Queries
 
 .teststructure();
 
-.70_print();
+.70_pagetypes();
+
+.80_print();
 
 
 
-.dossieroverzicht {
-  border: 1px solid #d3d3d3;
-  background: #f1f1f1;
-  padding: 1em;
-  margin-bottom: 1em;
-  
-  p {
-    margin-bottom: 0;
-    text-indent: 1em;
-  }
+
+.debugstring {
+  background: yellow !important;
+  border: 1px solid @warning !important;
+  color: @warning;
+  font-size: 12px;
+  padding: .5em;
 }

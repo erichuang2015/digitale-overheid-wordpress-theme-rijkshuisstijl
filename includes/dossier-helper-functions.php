@@ -10,8 +10,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.1.21
- * @desc.   Submenu bugfix 
+ * @version 0.2.3
+ * @desc.   Dossier check refined, page styles added 
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -39,7 +39,44 @@ function rhswp_dossier_title_checker( ) {
       'maxlength'     => 50,
     );
 
-    if ($terms && ! is_wp_error( $terms ) ) { 
+        global $wp_query;
+    
+
+        if ( $wp_query->is_page ) {
+            $loop = is_front_page() ? 'front' : 'page';
+        } elseif ( $wp_query->is_home ) {
+            $loop = 'home';
+        } elseif ( $wp_query->is_single ) {
+            $loop = ( $wp_query->is_attachment ) ? 'attachment' : 'single';
+        } elseif ( $wp_query->is_category ) {
+            $loop = 'category';
+        } elseif ( $wp_query->is_tag ) {
+            $loop = 'tag';
+        } elseif ( $wp_query->is_tax ) {
+            $loop = 'tax';
+        } elseif ( $wp_query->is_archive ) {
+            if ( $wp_query->is_day ) {
+                $loop = 'day';
+            } elseif ( $wp_query->is_month ) {
+                $loop = 'month';
+            } elseif ( $wp_query->is_year ) {
+                $loop = 'year';
+            } elseif ( $wp_query->is_author ) {
+                $loop = 'author';
+            } else {
+                $loop = 'archive';
+            }
+        } elseif ( $wp_query->is_search ) {
+            $loop = 'search';
+        } elseif ( $wp_query->is_404 ) {
+            $loop = 'notfound';
+        }
+    
+//        dodebug( 'paginatype: ' . $loop );
+
+
+
+    if ($terms && ! is_wp_error( $terms ) && ( 'archive' !== $loop ) ) { 
       $term             = array_pop($terms);
       $overzichtspagina = '';
   

@@ -483,13 +483,6 @@ button.disabled:not([disabled])::after {
 [data-toggle="dropdown"]:not([aria-haspopup])::after {
   content: 'Indicate the hidden menu with aria-haspopup' !important;
 }
-.debugstring {
-  background: yellow !important;
-  border: 1px solid #d52b1e !important;
-  color: #d52b1e;
-  font-size: 12px;
-  padding: .5em;
-}
 h1,
 h2,
 h3,
