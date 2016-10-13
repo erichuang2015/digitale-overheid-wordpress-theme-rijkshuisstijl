@@ -7,12 +7,12 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.1.17
-// * @desc.   Menu-functionaliteit bug-fixes 
+// * @version 0.1.18
+// * @desc.   Menu-functionaliteit bug-fixes (2) 
 // * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 
 // Vars
-var header      = document.querySelector('#mobile-menu-container'),
+var header      = document.querySelector('#menu-container'),
     menu        = document.querySelector('.nav-primary'),
     menuButton  = document.querySelector('.menu-button');
 

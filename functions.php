@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.1.17
- * @desc.   Menu-functionaliteit bug-fixes 
+ * @version 0.1.18
+ * @desc.   Menu-functionaliteit bug-fixes (2) 
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -28,8 +28,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Child theme (do not remove)
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "http://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.1.17" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Menu-functionaliteit bug-fixes" );
+define( 'CHILD_THEME_VERSION',              "0.1.18" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Menu-functionaliteit bug-fixes (2)" );
 define( 'SHOW_CSS_DEBUG',                   false );
 define( 'ID_ZOEKEN',                        'rhswp-searchform' );
 define( 'GC_TWITTERACCOUNT',                'gebrcentraal' );
@@ -192,24 +192,22 @@ remove_action( 'genesis_after_header', 'genesis_do_nav' );
 // Reposition the breadcrumbs
 remove_action( 'genesis_before_loop', 'genesis_do_breadcrumbs' );
 
-
-
-// Remove the site title
-remove_action( 'genesis_site_title', 'genesis_seo_site_title' );
-add_action( 'genesis_site_title', 'rhswp_append_site_logo' );
-
 // Remove the site title
 remove_action( 'genesis_site_title', 'genesis_seo_site_title' );
 
+// Remove the site title
+remove_action( 'genesis_site_title', 'genesis_seo_site_title' );
 remove_action( 'genesis_site_description', 'genesis_seo_site_description' );
-add_action( 'genesis_after_header', 'rhswp_site_description', 10 );
 
-add_action( 'genesis_after_header', 'rhswp_menu_container_start', 12 );
-add_action( 'genesis_after_header', 'genesis_do_nav', 14 );
-add_action( 'genesis_after_header', 'rhswp_menu_container_end', 16 );
+add_action( 'genesis_site_title',   'rhswp_append_site_logo' );
 
-add_action( 'genesis_after_header', 'genesis_do_breadcrumbs', 18 );
-add_action( 'genesis_after_header', 'rhswp_dossier_title_checker', 20 );
+add_action( 'genesis_after_header', 'rhswp_site_description',       10 );
+add_action( 'genesis_after_header', 'rhswp_site_description',       10 );
+add_action( 'genesis_after_header', 'rhswp_menu_container_start',   12 );
+add_action( 'genesis_after_header', 'genesis_do_nav',               14 );
+add_action( 'genesis_after_header', 'rhswp_menu_container_end',     16 );
+add_action( 'genesis_after_header', 'genesis_do_breadcrumbs',       18 );
+add_action( 'genesis_after_header', 'rhswp_dossier_title_checker',  20 );
 
 
 //========================================================================================================
@@ -674,7 +672,7 @@ function add_class_to_menu( $attributes ) {
 //========================================================================================================
 
 function rhswp_menu_container_start() {
-	echo '<div id="mobile-menu-container">';
+	echo '<div id="menu-container">';
 }
 
 //========================================================================================================
