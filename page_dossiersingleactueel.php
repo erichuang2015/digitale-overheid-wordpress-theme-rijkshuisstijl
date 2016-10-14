@@ -9,8 +9,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.3.2
- * @desc.   Dossier check revised - bugfixes 
+ * @version 0.3.3
+ * @desc.   Paging op page-templates 
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -19,6 +19,10 @@
 
 
 add_action( 'genesis_entry_content', 'rhswp_get_page_dossiersingleactueel', 15 );
+
+// Remove the standard pagination, so we don't get two sets
+remove_action( 'genesis_after_endwhile', 'genesis_posts_nav' );
+
 
 
 genesis();
@@ -29,6 +33,7 @@ function rhswp_get_page_dossiersingleactueel() {
 
     
     global $post;
+    global $wp_query;
     
     $terms            = get_the_terms( $post->ID , RHSWP_CT_DOSSIER );
     $currentpageid    = $post->ID;
@@ -103,47 +108,47 @@ function rhswp_get_page_dossiersingleactueel() {
           if ( $currentterm ) {
           
             $args = array(
-                'posts_per_page'  => -1,
-                  'post_type' => 'post',
-                  'tax_query' => array(
-                      'relation' => 'AND',
-                      array(
-                          'taxonomy' => RHSWP_CT_DOSSIER,
-                          'field' => 'term_id',
-                          'terms' => $currentterm
-                      ),
-                      array(
-                          'taxonomy'  => 'category',
-                          'field'     => 'slug',
-                          'terms'     => $slugs,
-                      )
+                'post_type' => 'post',
+                'tax_query' => array(
+                  'relation' => 'AND',
+                  array(
+                    'taxonomy' => RHSWP_CT_DOSSIER,
+                    'field' => 'term_id',
+                    'terms' => $currentterm
+                  ),
+                  array(
+                    'taxonomy'  => 'category',
+                    'field'     => 'slug',
+                    'terms'     => $slugs,
                   )
+                )
               );
           }
           else {
             $args = array(
-                'posts_per_page'  => -1,
-                  'post_type' => 'post',
-                  'tax_query' => array(
-                      array(
-                          'taxonomy'  => 'category',
-                          'field'     => 'slug',
-                          'terms'     => $slugs,
-                      )
-                  )
-              );
+              'post_type' => 'post',
+              'tax_query' => array(
+                array(
+                  'taxonomy'  => 'category',
+                  'field'     => 'slug',
+                  'terms'     => $slugs,
+                )
+              )
+            );
           }
         }
       }
   
   
-      $the_query = new WP_Query( $args );
-      
-      if ( $the_query->have_posts() ) {
-        echo '<p>' . $message . '.</p>';  
+    $wp_query = new WP_Query( $args );
+    
+    if( $wp_query->have_posts() ) {
   
-      	while ( $the_query->have_posts() ) {
-      		$the_query->the_post();
+
+//        echo '<p>' . $message . '.</p>';  
+  
+      	while ( $wp_query->have_posts() ) {
+      		$wp_query->the_post();
 
           if ( $currentsite && $currentpage ) {
             
@@ -162,15 +167,20 @@ function rhswp_get_page_dossiersingleactueel() {
       		
           ?>
   
-          <article>
+          <section>
             <h2><a href="<?php echo $theurl ?>"><?php the_title(); ?></a></h2>
             <?php the_excerpt() ?>
             <?php the_category( ', ' ) ?>
             <?php echo get_the_term_list( $post->ID, RHSWP_CT_DOSSIER, 'Dossiers: ', ', ' )  ?>
-          </article>
+          </section>
+
         <?php
         }      
-        wp_reset_postdata();
+
+        genesis_posts_nav();
+
+        wp_reset_query();        
+
         
         
       }

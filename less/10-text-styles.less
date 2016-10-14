@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.1.20
-// * @desc.   List item bugfix 
+// * @version 0.3.3
+// * @desc.   Paging op page-templates 
 // * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 // **
 
@@ -243,21 +243,23 @@
   }
   
   .entry-content {
+    *:not(.pagination) {      
+      ul {
+        padding-left: 0;
+        &, li {
+          list-style: none;
+        }
+        li {
+          margin-left: 0;
+      		padding-left: 1.5em;
+      		.listitem_arrow( @txt, 12px );
+      		a {
+        		padding-left: 1em;
+      		}
+        }
+      }    
+    }
     
-    ul {
-      padding-left: 0;
-      &, li {
-        list-style: none;
-      }
-      li {
-        margin-left: 0;
-    		padding-left: 1.5em;
-    		.listitem_arrow( @txt, 12px );
-    		a {
-      		padding-left: 1em;
-    		}
-      }
-    }    
     .teammembers, table {
       
       td, p, h1, h2, h3, h4, h5, h6 {

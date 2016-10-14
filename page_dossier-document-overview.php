@@ -9,81 +9,92 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.3.2
- * @desc.   Dossier check revised - bugfixes 
+ * @version 0.3.3
+ * @desc.   Paging op page-templates 
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
 
 //* Template Name: 03 - (dossiers) documenten voor een dossier 
 
-add_action( 'genesis_entry_content', 'rhswp_get_documents_for_dossier', 15 );
+//add_action( 'genesis_entry_content', 'rhswp_get_documents_for_dossier', 15 );
 
-genesis();
+
+
+// Remove the standard pagination, so we don't get two sets
+remove_action( 'genesis_after_endwhile', 'genesis_posts_nav' );
+
 
 function rhswp_get_documents_for_dossier() {
-  global $post;
-
   
-  $terms = get_the_terms( $post->ID , RHSWP_CT_DOSSIER );
+  global $post;
+  global $wp_query;
+
+  $terms            = get_the_terms( $post->ID , RHSWP_CT_DOSSIER );
   $currentpage      = get_permalink();
   $currentsite      = get_site_url();
+  $paged            = ( get_query_var('paged') ) ? get_query_var('paged') : 1;
 
   if ($terms && ! is_wp_error( $terms ) ) { 
     
     $term = array_pop($terms);
     
     $args = array(
-      'posts_per_page'  => -1,
-      'post_type' => RHSWP_CPT_DOCUMENT,
-      'tax_query' => array(
-        'relation' => 'AND',
+      'post_type'       => RHSWP_CPT_DOCUMENT,
+      'paged'           => $paged,
+      'posts_per_page'  => get_option('posts_per_page'),
+      'tax_query'       => array(
+        'relation'      => 'AND',
         array(
-          'taxonomy' => RHSWP_CT_DOSSIER,
-          'field' => 'term_id',
-          'terms' => $term->term_id
+          'taxonomy'    => RHSWP_CT_DOSSIER,
+          'field'       => 'term_id',
+          'terms'       => $term->term_id
         )
       )
     );
         
-
+    $wp_query = new WP_Query( $args );
     
-    $posts_array = get_posts( $args ); 
-      if ( $posts_array ) {
-        echo '<p>Documenten in het dossier "' . $term->name .'"</p>';  
+    if( $wp_query->have_posts() ) {
     
-    
-        foreach ( $posts_array as $post ) : setup_postdata( $post ); 
+//        echo '<p>Documenten in het dossier "' . $term->name .'"</p>';  
 
-          if ( $currentsite && $currentpage ) {
-            
-            $postpermalink  = get_the_permalink();
-            $postpermalink  = str_replace( $currentsite, '', $postpermalink);
-            $postpermalink  = '/' . $post->post_name;
-
-            $crumb          = str_replace( $currentsite, '', $currentpage);
-            
-            $theurl         = $currentsite . $crumb  . RHSWP_DOSSIERDOCUMENTCONTEXT . $postpermalink;
-
-          }
-          else {
-            $theurl         = get_the_permalink();
-          }
-      		
+          while( $wp_query->have_posts() ): 
+            $wp_query->the_post(); 
+            global $post;
+  
+            if ( $currentsite && $currentpage ) {
+              
+              $postpermalink  = get_the_permalink();
+              $postpermalink  = str_replace( $currentsite, '', $postpermalink);
+              $postpermalink  = '/' . $post->post_name;
+  
+              $crumb          = str_replace( $currentsite, '', $currentpage);
+              
+              $theurl         = $currentsite . $crumb  . RHSWP_DOSSIERDOCUMENTCONTEXT . $postpermalink;
+  
+            }
+            else {
+              $theurl         = get_the_permalink();
+            }
+        		
         
           ?>
   
-          <article>
+          <section>
             <h2><a href="<?php echo $theurl ?>"><?php the_title(); ?></a></h2>
             <?php the_excerpt() ?>
             <?php the_category( ', ' ) ?>
             <?php echo get_the_term_list( $post->ID, RHSWP_CT_DOSSIER, 'Dossiers: ', ', ' )  ?>
-          </article>
+          </section>
 
         <?php
-        endforeach; 
-        
-        wp_reset_postdata();
+
+    		endwhile;
+    		
+        genesis_posts_nav();
+
+        wp_reset_query();        
         
         
       }
@@ -92,5 +103,9 @@ function rhswp_get_documents_for_dossier() {
       }
     }
 }
+
+add_action( 'genesis_after_entry', 'rhswp_get_documents_for_dossier' );
+
+genesis();
 
 
