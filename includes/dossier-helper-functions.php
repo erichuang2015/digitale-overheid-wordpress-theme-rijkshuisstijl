@@ -10,8 +10,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.3.1
- * @desc.   Dossier check revised 
+ * @version 0.3.2
+ * @desc.   Dossier check revised - bugfixes 
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -23,6 +23,10 @@ function rhswp_dossier_title_checker( ) {
   global $wp_query;
   
   $currentID = 0;
+  
+  if ( is_posts_page() ) {
+    return;
+  }
   
   if ( taxonomy_exists( RHSWP_CT_DOSSIER ) ) {
       
@@ -45,25 +49,31 @@ function rhswp_dossier_title_checker( ) {
     $loop     = rhswp_get_context_info();
 
 
-    if ( get_query_var( RHSWP_DOSSIERCONTEXT ) ) {
-      $url = get_query_var( RHSWP_DOSSIERCONTEXT );
-      $contextpageID = url_to_postid( $url );
-      
-//      dodebug('Er is een context: '  . $url . '<br>CurrentID is: '  . $currentID . '<br>contextpageID is: '  . $contextpageID );
-
-      $terms        = get_the_terms( $contextpageID , RHSWP_CT_DOSSIER );
-
-      $args['markerforclickableactivepage'] = $contextpageID;
-
-      if ($terms && ! is_wp_error( $terms ) ) { 
-        $term             = array_pop($terms);
+    if ( 'single' == $loop ) {
+      if ( get_query_var( RHSWP_DOSSIERPOSTCONTEXT ) ) {
+        $url = get_query_var( RHSWP_DOSSIERPOSTCONTEXT );
+        $contextpageID = url_to_postid( $url );
+        
+  //      dodebug('Er is een context: '  . $url . '<br>CurrentID is: '  . $currentID . '<br>contextpageID is: '  . $contextpageID );
+  
+        $terms        = get_the_terms( $contextpageID , RHSWP_CT_DOSSIER );
+  
+        $args['markerforclickableactivepage'] = $contextpageID;
+  
+        if ($terms && ! is_wp_error( $terms ) ) { 
+          $term             = array_pop($terms);
+        }
+  
       }
-
+    }
+    elseif ( 'category' == $loop ) {
+      return;
+      
     }
     elseif ( 'tax' == $loop ) {
 
       $currentID    = get_queried_object()->term_id;
-      $term        = get_term( $currentID, RHSWP_CT_DOSSIER );
+      $term         = get_term( $currentID, RHSWP_CT_DOSSIER );
 
     }
     else {

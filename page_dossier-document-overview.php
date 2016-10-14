@@ -9,8 +9,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.1.13
- * @desc.   Pagina-templates herzien 
+ * @version 0.3.2
+ * @desc.   Dossier check revised - bugfixes 
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -26,6 +26,8 @@ function rhswp_get_documents_for_dossier() {
 
   
   $terms = get_the_terms( $post->ID , RHSWP_CT_DOSSIER );
+  $currentpage      = get_permalink();
+  $currentsite      = get_site_url();
 
   if ($terms && ! is_wp_error( $terms ) ) { 
     
@@ -51,11 +53,33 @@ function rhswp_get_documents_for_dossier() {
         echo '<p>Documenten in het dossier "' . $term->name .'"</p>';  
     
     
-        foreach ( $posts_array as $post ) : setup_postdata( $post ); ?>
+        foreach ( $posts_array as $post ) : setup_postdata( $post ); 
+
+          if ( $currentsite && $currentpage ) {
+            
+            $postpermalink  = get_the_permalink();
+            $postpermalink  = str_replace( $currentsite, '', $postpermalink);
+            $postpermalink  = '/' . $post->post_name;
+
+            $crumb          = str_replace( $currentsite, '', $currentpage);
+            
+            $theurl         = $currentsite . $crumb  . RHSWP_DOSSIERDOCUMENTCONTEXT . $postpermalink;
+
+          }
+          else {
+            $theurl         = get_the_permalink();
+          }
+      		
+        
+          ?>
+  
           <article>
-            <h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
+            <h2><a href="<?php echo $theurl ?>"><?php the_title(); ?></a></h2>
             <?php the_excerpt() ?>
+            <?php the_category( ', ' ) ?>
+            <?php echo get_the_term_list( $post->ID, RHSWP_CT_DOSSIER, 'Dossiers: ', ', ' )  ?>
           </article>
+
         <?php
         endforeach; 
         

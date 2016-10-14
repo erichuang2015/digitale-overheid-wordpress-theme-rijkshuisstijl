@@ -74,3 +74,103 @@ function dodebug2($file = '', $extra = '') {
   }
 }
 
+//========================================================================================================
+
+function dovardump($data) {
+    echo '<hr><pre>';
+    print_r($data);
+    echo '</pre><hr>';
+}        
+
+
+//========================================================================================================
+
+function rhswp_admin_display_wpquery_in_context() {
+  global $wp_query;
+  dovardump($wp_query->query);
+//  dovardump($wp_query);
+  
+}    
+
+//========================================================================================================
+
+//add_action( 'wp_head', 'rhswp_admin_dump_wpquery', 4 );
+
+function rhswp_admin_dump_wpquery() {
+  global $wp_query;
+  dovardump($wp_query->query);
+//  dovardump($wp_query);
+  
+}    
+
+//========================================================================================================
+
+function admin_append_editor_styles() {
+    add_editor_style(RHSWP_THEMEFOLDER . '/css/editor-styles.css');
+}
+add_action( 'init', 'admin_append_editor_styles' );
+
+//========================================================================================================
+
+function rhswp_admin_debug_css() {
+  if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
+    wp_enqueue_style( 'debug-css', RHSWP_THEMEFOLDER . '/css/debug-css.css', array(), CHILD_THEME_VERSION );
+    wp_enqueue_style( 'header-counter-css', RHSWP_THEMEFOLDER . '/css/header.css', array(), CHILD_THEME_VERSION );
+  }
+}
+if ( WP_DEBUG ) {
+    add_action( 'wp_enqueue_scripts', 'rhswp_admin_debug_css' );
+}
+
+//========================================================================================================
+
+if ( SHOW_CSS_DEBUG ) {
+  //* Add role to header
+  add_filter('genesis_attr_site-header', 'rhswp_add_attribute_role_banner');
+  
+  function rhswp_add_attribute_role_banner($attributes) {
+  	$attributes['role'] .= 'banner';
+  	return $attributes;
+  }
+  
+  
+//========================================================================================================
+
+  
+  //* Add role to footer
+  add_filter('genesis_attr_site-footer', 'rhswp_add_attribute_role_contentinfo');
+  
+  function rhswp_add_attribute_role_contentinfo($attributes) {
+    $attributes['role'] .= 'contentinfo';
+    return $attributes;
+  }
+}
+
+//========================================================================================================
+
+add_action('admin_head', 'my_custom_fonts');
+
+function my_custom_fonts() {
+  echo '<style>
+  .cmb2-wrap .cmb-row {
+    margin: 0 !important;
+    border-bottom-style: none  !important;
+    padding-top: 0 !important;
+  }
+  .cmb2-text-url,
+  .cmb2-text-url input.cmb2-text-medium{
+    width: 100% !important;
+  }
+  </style>';
+}
+
+//========================================================================================================
+
+function is_posts_page() {
+	return ( is_home() && 'page' == get_option( 'show_on_front' ) );
+}
+
+//========================================================================================================
+
+
+

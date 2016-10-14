@@ -9,8 +9,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.3.1
- * @desc.   Dossier check revised 
+ * @version 0.3.2
+ * @desc.   Dossier check revised - bugfixes 
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -153,7 +153,7 @@ function rhswp_get_page_dossiersingleactueel() {
 
             $crumb          = str_replace( $currentsite, '', $currentpage);
             
-            $theurl         = $currentsite . $crumb  . RHSWP_DOSSIERCONTEXT . $postpermalink;
+            $theurl         = $currentsite . $crumb  . RHSWP_DOSSIERPOSTCONTEXT . $postpermalink;
           
           }
           else {
