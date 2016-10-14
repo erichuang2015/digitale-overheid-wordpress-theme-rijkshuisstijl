@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.2.4
- * @desc.   Context widget added 
+ * @version 0.3.1
+ * @desc.   Dossier check revised 
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -28,8 +28,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Child theme (do not remove)
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "http://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.2.4" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Context widget added" );
+define( 'CHILD_THEME_VERSION',              "0.3.1" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Dossier check revised" );
 define( 'SHOW_CSS_DEBUG',                   false );
 define( 'ID_ZOEKEN',                        'rhswp-searchform' );
 define( 'GC_TWITTERACCOUNT',                'gebrcentraal' );
@@ -67,6 +67,11 @@ define( 'RHSWP_WIDGET_PAGELINKS_DESC',      '(DO) paginalinks widget');
 define( 'RHSWP_WIDGET_LINK_TO_SINGLE_PAGE', '(DO) verwijs naar een pagina');
 
 define( 'RHSWP_CSS_BANNER',                 'banner-css' ); // slug for custom post type 'document'
+
+define( 'RHSWP_PAGE_SEPARATOR',             'paginaatje' );
+define( 'RHSWP_DOSSIERCONTEXT',             'dossiercontext' );
+define( 'RHSWP_DOSSIERCONTEXT_OPTION',      RHSWP_DOSSIERCONTEXT . CHILD_THEME_VERSION );
+
 
 //========================================================================================================
 
@@ -550,7 +555,9 @@ function rhswp_sidebar_context_widgets() {
   if ( WP_DEBUG ) {
 
     global $post;
-    
+
+rhswp_admin_display_wpquery_in_context();
+
     $context  = rhswp_get_context_info();
     $posttype = get_post_type();
 
@@ -1296,6 +1303,7 @@ function rhswp_get_context_info() {
   
   global $wp_query;
 
+
   if ( $wp_query->is_page ) {
       $loop = is_front_page() ? 'front' : 'page';
   } elseif ( $wp_query->is_home ) {
@@ -1331,4 +1339,74 @@ function rhswp_get_context_info() {
 }
 
 
+//========================================================================================================
+
+// zorg voor de mogelijkheid voor context van berichten. Dit doen we door een url met
+// 2 gedeeltes:
+//  1: pagina waarop het bericht vermeld staat
+//  2: de slug van het bericht
+// deze twee gedeeltes komen in de URL terug en worden van elkaar gescheiden door RHSWP_DOSSIERCONTEXT
+//
+// dus in deze URL
+// <domainname>/wanneer/voortgang/actueel/dossiercontext/optimaal-digitaal-partner-van-alert-online-2/
+// zit 'optimaal-digitaal-partner-van-alert-online-2' als slug van het bericht
+// en '/wanneer/voortgang/actueel/' als context
+//
+
+//========================================================================================================
+
+add_action( 'init', 'rhswp_add_rewrite_rules');
+
+function rhswp_add_rewrite_rules() {
+
+  add_rewrite_rule( '(.+?)(/' . RHSWP_DOSSIERCONTEXT . '/)(.+?)/?$', 'index.php?name=$matches[3]&' . RHSWP_DOSSIERCONTEXT . '=$matches[1]', 'top');
+
+}
+
+//========================================================================================================
+
+add_action( 'init', 'rhswp_flush_check', 99);
+
+function rhswp_flush_check() {
+  $check = get_option( RHSWP_DOSSIERCONTEXT_OPTION );
+
+  if ( !$check == RHSWP_DOSSIERCONTEXT ) {
+    dodebug('Wel spoelen');
+    flush_rewrite_rules();
+    delete_option( RHSWP_DOSSIERCONTEXT_OPTION );
+    add_option( RHSWP_DOSSIERCONTEXT_OPTION, RHSWP_DOSSIERCONTEXT );
+  }
+
+}
+
+//========================================================================================================
+
+add_action( 'query_vars', 'rhswp_add_query_vars' );
+
+function rhswp_add_query_vars($vars) {
+	$vars[] = RHSWP_DOSSIERCONTEXT;
+	return $vars;
+}
+
+//========================================================================================================
+
+function rhswp_admin_display_wpquery_in_context() {
+  global $wp_query;
+  dovardump($wp_query->query);
+//  dovardump($wp_query);
+  
+}    
+
+//========================================================================================================
+
+//add_action( 'wp_head', 'rhswp_admin_dump_wpquery', 4 );
+
+function rhswp_admin_dump_wpquery() {
+  global $wp_query;
+  dovardump($wp_query->query);
+//  dovardump($wp_query);
+  
+}    
+
+//========================================================================================================
 

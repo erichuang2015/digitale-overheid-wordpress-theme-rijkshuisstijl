@@ -3,8 +3,8 @@
 	Description: Theme voor ibewustzijnoverheid.nl
 	Author: Paul van Buuren
 	Author URI: https://wbvb.nl/themes/ibewustzijn/
-	Version: 0.2.4
-	Version description: 0.2.4 - Context widget added 
+	Version: 0.3.1
+	Version description: 0.3.1 - Dossier check revised 
 
 	Template: genesis
 	Template Version: 2.0.2
@@ -1210,9 +1210,14 @@ Media Queries
 
 
 .debugstring {
-  background: yellow !important;
-  border: 1px solid @warning !important;
+  background: yellow;
+  border: 1px solid @warning;
   color: @warning;
   font-size: 12px;
   padding: .5em;
+  margin: 0 1em;
+  font-weight: bold;
+}
+p.debugstring + p.debugstring {
+  border-top-style: none;
 }

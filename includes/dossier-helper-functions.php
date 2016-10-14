@@ -10,8 +10,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.2.4
- * @desc.   Context widget added 
+ * @version 0.3.1
+ * @desc.   Dossier check revised 
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -20,30 +20,73 @@
 function rhswp_dossier_title_checker( ) {
 
   global $post;
+  global $wp_query;
   
-  $currentID = $post->ID;
+  $currentID = 0;
   
   if ( taxonomy_exists( RHSWP_CT_DOSSIER ) ) {
       
-    $terms        = get_the_terms( $currentID , RHSWP_CT_DOSSIER );
-    $parentID     = wp_get_post_parent_id( $post->ID );
-    $parent       = get_post( $parentID );
   
-    $subpaginas   = '';
-    $shownalready = '';
-    $dossier_overzichtpagina = '';
+    $subpaginas               = '';
+    $shownalready             = '';
+    $dossier_overzichtpagina  = '';
   
     $args = array(
+      'markerforclickableactivepage' => '',
       'currentpageid' => '',
       'preferedtitle' => '',
       'maxlength'     => 50,
     );
 
 
-    $loop = rhswp_get_context_info();
+    // checken of dit een post is en is_single() en of in de URL de juiste dossier-contetxt is meegegeven.
+    
+    $posttype = get_post_type();
+    $loop     = rhswp_get_context_info();
 
-    if ($terms && ! is_wp_error( $terms ) && ( 'archive' !== $loop ) ) { 
-      $term             = array_pop($terms);
+
+    if ( get_query_var( RHSWP_DOSSIERCONTEXT ) ) {
+      $url = get_query_var( RHSWP_DOSSIERCONTEXT );
+      $contextpageID = url_to_postid( $url );
+      
+//      dodebug('Er is een context: '  . $url . '<br>CurrentID is: '  . $currentID . '<br>contextpageID is: '  . $contextpageID );
+
+      $terms        = get_the_terms( $contextpageID , RHSWP_CT_DOSSIER );
+
+      $args['markerforclickableactivepage'] = $contextpageID;
+
+      if ($terms && ! is_wp_error( $terms ) ) { 
+        $term             = array_pop($terms);
+      }
+
+    }
+    elseif ( 'tax' == $loop ) {
+
+      $currentID    = get_queried_object()->term_id;
+      $term        = get_term( $currentID, RHSWP_CT_DOSSIER );
+
+    }
+    else {
+
+      $currentID    = $post->ID;
+      $terms        = get_the_terms( $currentID , RHSWP_CT_DOSSIER );
+      $parentID     = wp_get_post_parent_id( $post->ID );
+      $parent       = get_post( $parentID );
+
+      if ($terms && ! is_wp_error( $terms ) ) { 
+        $term             = array_pop($terms);
+      }
+      
+      if ( is_single() && 'post' == $posttype ) {
+        dodebug('ja, is single en post');
+      }
+    }    
+
+
+
+    // dossiercontext tonen als
+    // er een taxonomie bekend is en het geen archief is
+    if ( $term && ( 'archive' !== $loop ) ) { 
       $overzichtspagina = '';
   
       echo '<div class="dossier-overview"><div class="wrap">'; 
@@ -178,7 +221,7 @@ function rhswp_dossier_get_pagelink( $theobject, $args ) {
     $maxlength = 50;
   }
   
-//  dovardump($theobject);
+//  dovardump($args);
 
   if ( strlen( $maxposttitle ) > $maxlength ) {
     $maxposttitle = substr( $maxposttitle, 0, $maxlength) . ' (...)';
@@ -189,6 +232,9 @@ function rhswp_dossier_get_pagelink( $theobject, $args ) {
 
   if ( $currentpageid == $theobjectid ) {
     return '<li class="current"><span>' . $maxposttitle . '</span></li>';
+  }
+  elseif ( $args['markerforclickableactivepage'] == $theobjectid ) {
+    return '<li class="current"><a href="' . get_permalink( $theobjectid ) . '">' . $maxposttitle . '</a></li>';
   }
   else {
     return '<li><a href="' . get_permalink( $theobjectid ) . '">' . $maxposttitle . '</a></li>';
