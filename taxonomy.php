@@ -9,8 +9,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.1.0 
- * @desc.   Eerste opzet theme, code licht opgeschoond
+ * @version 0.4.1
+ * @desc.   Theme-check, carrousel en extra pagina-layout 
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -37,15 +37,13 @@ remove_action( 'genesis_before_loop', 'genesis_do_taxonomy_title_description', 1
 
 
 add_action( 'genesis_before_loop', 'rhswp_add_taxonomy_description', 15 );
-add_action( 'genesis_before_loop', 'start_flex', 16 );
-add_action( 'genesis_after_loop', 'end_flex', 16 );
 
-function start_flex() {
-    echo '<div class="flex">';
-}
-
-function end_flex() {
-    echo '</div>';
+if ( rhswp_extra_contentblokken_checker() ) {
+  // Remove default Genesis loop
+  remove_action( 'genesis_loop', 'genesis_do_loop' );
+  
+  add_action( 'genesis_before_loop', 'rhswp_write_extra_contentblokken', 16 );
+  
 }
 
 genesis();

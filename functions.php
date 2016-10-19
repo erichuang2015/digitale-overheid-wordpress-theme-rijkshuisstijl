@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.3.3
- * @desc.   Paging op page-templates 
+ * @version 0.4.1
+ * @desc.   Theme-check, carrousel en extra pagina-layout 
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -28,8 +28,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Child theme (do not remove)
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "http://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.3.3" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Paging op page-templates" );
+define( 'CHILD_THEME_VERSION',              "0.4.1" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Theme-check, carrousel en extra pagina-layout" );
 define( 'SHOW_CSS_DEBUG',                   false );
 define( 'ID_ZOEKEN',                        'rhswp-searchform' );
 define( 'GC_TWITTERACCOUNT',                'gebrcentraal' );
@@ -61,6 +61,10 @@ if ( ! defined( 'RHSWP_CPT_DOCUMENT' ) ) {
 if ( ! defined( 'RHSWP_CPT_EVENT' ) ) {
   define( 'RHSWP_CPT_EVENT',                'event' );       // slug for custom taxonomy 'document'
 }
+if ( ! defined( 'RHSWP_CPT_SLIDER' ) ) {
+  define( 'RHSWP_CPT_SLIDER',               'slidertje' );       // slug for custom taxonomy 'dossier'
+}
+
 define( 'RHSWP_WIDGET_BANNER',              '(DO) banner widget');
 define( 'RHSWP_WIDGET_PAGELINKS_ID',        'rhswp_pagelinks_widget');
 define( 'RHSWP_WIDGET_PAGELINKS_DESC',      '(DO) paginalinks widget');
@@ -73,6 +77,11 @@ define( 'RHSWP_DOSSIERPOSTCONTEXT',         'dossierpostcontext' );
 define( 'RHSWP_DOSSIEREVENTCONTEXT',        'dossiereventcontext' );
 define( 'RHSWP_DOSSIERDOCUMENTCONTEXT',     'dossierdocumentcontext' );
 define( 'RHSWP_DOSSIERPOSTCONTEXT_OPTION',  RHSWP_DOSSIERPOSTCONTEXT . CHILD_THEME_VERSION );
+
+add_image_size( 'Carrousel (preview: 400px wide)', 400, 200, false );
+add_image_size( 'Carrousel (full width: 1200px wide)', 1200, 400, false );
+add_image_size( 'featured-post-widget', 420, 200, false );
+
 
 
 //========================================================================================================
@@ -179,6 +188,10 @@ add_filter( 'excerpt_more',               'rhswp_get_read_more_link');
 
 function rhswp_get_read_more_link( $thepermalink  ) {
   
+  if ( ! is_archive() ) {
+    return;
+  }
+  
   if (!$thepermalink) {
     $thepermalink = get_permalink();
   }
@@ -219,6 +232,8 @@ add_action( 'genesis_after_header', 'genesis_do_nav',               14 );
 add_action( 'genesis_after_header', 'rhswp_menu_container_end',     16 );
 add_action( 'genesis_after_header', 'genesis_do_breadcrumbs',       18 );
 add_action( 'genesis_after_header', 'rhswp_dossier_title_checker',  20 );
+add_action( 'genesis_after_header', 'rhswp_caroussel_checker',      22 );
+
 
 //========================================================================================================
 
@@ -818,7 +833,7 @@ function rhswp_register_extra_menu() {
 //add_action( 'init', 'rhswp_register_extra_menu' );
 
 // Unregister secondary navigation menu
-add_theme_support( 'genesis-menus', array( 'primary' => __( 'Primary Navigation Menu', 'genesis' ) ) );
+add_theme_support( 'genesis-menus', array( 'primary' => __( 'Primary Navigation Menu', 'wp-rijkshuisstijl' ) ) );
 
 //========================================================================================================
 
@@ -1288,4 +1303,346 @@ function rhswp_dossiercontext_add_query_vars($vars) {
 }
 
 //========================================================================================================
+
+
+
+function rhswp_extra_contentblokken_checker() {
+  global $post;
+
+  if ( is_page() ) {
+    $theid          = get_the_ID();
+    $contentblokken = get_field('extra_contentblokken', $theid );
+  }
+  elseif ( is_tax() ) {
+    $theid          = RHSWP_CT_DOSSIER . '_' . get_queried_object()->term_id;
+    $contentblokken = get_field('extra_contentblokken', $theid );
+  }
+  
+  if( $contentblokken ) {
+    return true;
+  }
+  else {
+    return false;
+  }  
+  
+}
+
+function rhswp_write_extra_contentblokken() {
+  global $post;
+  
+  if ( function_exists( 'get_field' ) ) {
+
+    if ( is_page() || is_tax() ) {
+
+      $currentterm      = '';
+
+      if ( is_page() ) {
+        $theid          = get_the_ID();
+        $contentblokken = get_field('extra_contentblokken', $theid );
+      }
+      elseif ( is_tax() ) {
+        $theid          = RHSWP_CT_DOSSIER . '_' . get_queried_object()->term_id;
+        $contentblokken = get_field('extra_contentblokken', $theid );
+        $currentterm    = get_queried_object()->term_id;
+      }
+
+     
+      if( $contentblokken ) {
+
+        foreach( $contentblokken as $row ) {
+  
+          $titel                = esc_html( $row['extra_contentblok_title'] );
+          $type_block           = esc_html( $row['extra_contentblok_type_block'] );
+          $algemeen_links       = $row['extra_contentblok_algemeen_links'];
+          $categoriefilter      = esc_html( $row['extra_contentblok_categoriefilter'] );
+          $chosen_category      = $row['extra_contentblok_chosen_category'];
+          $maxnr_posts          = esc_html( $row['extra_contentblok_maxnr_posts'] );
+          $with_featured_image  = esc_html( $row['extra_contentblok_maxnr_posts_with_featured_image'] );
+
+
+
+          echo '<div class="block">';
+
+          
+          if ( 'algemeen' == $type_block ) {
+            if ( $algemeen_links ) {
+              
+              if ( $titel ) {
+                echo '<h2>' . $titel . '</h2>';
+              }
+              echo '<ul class="links">';
+
+              foreach ( $algemeen_links as $itemid ) {
+                $title = get_the_title( $itemid );
+                if ( $title ) {
+                  echo '<li>';
+                  echo '<a href="';
+                  echo get_permalink( $itemid );
+                  echo '">';
+                  echo $title;
+                  echo '</a></li>';
+                }
+              }
+              
+              echo '</ul>';
+            }
+
+                        
+
+          }
+          elseif ( 'berichten' == $type_block ) {
+            if ( $titel ) {
+              echo '<h2>' . $titel . '</h2>';
+            }
+            else {
+              echo '<h2>' . __( 'Geen titel ingevoerd', 'wp-rijkshuisstijl' ) . '</h2>';
+            }
+
+            if ( $currentterm ) {
+            
+              $args = array(
+                'post_type'       => 'post',
+                'post_status'     => 'publish',
+                'posts_per_page'  => $maxnr_posts,
+                'tax_query' => array(
+                  array(
+                    'taxonomy' => RHSWP_CT_DOSSIER,
+                    'field' => 'term_id',
+                    'terms' => $currentterm
+                  ),
+                )
+              );
+                
+            }
+            else {
+
+              $args = array(
+                'post_type'       => 'post',
+                'post_status'     => 'publish',
+                'posts_per_page'  => $maxnr_posts
+              );
+            }            
+            
+            if ( $categoriefilter == 'nee' ) {
+            }
+            else {
+
+              $slugs = array();
+              if ( $chosen_category ) {
+
+                foreach( $chosen_category as $filter ): 
+
+                  $terminfo = get_term_by( 'id', $filter, 'category' );
+                  $slugs[] = $terminfo->slug;
+            
+                endforeach;
+
+                if ( $currentterm ) {
+                
+                  $args = array(
+                    'post_type' => 'post',
+                    'tax_query' => array(
+                      'relation' => 'AND',
+                      array(
+                        'taxonomy' => RHSWP_CT_DOSSIER,
+                        'field' => 'term_id',
+                        'terms' => $currentterm
+                      ),
+                      array(
+                        'taxonomy'  => 'category',
+                        'field'     => 'slug',
+                        'terms'     => $slugs,
+                      )
+                    )
+                  );
+                    
+                }
+                else {
+                  
+                  $args = array(
+                    'post_type' => 'post',
+                    'post_status'     => 'publish',
+                    'posts_per_page'  => $maxnr_posts,
+                    'tax_query' => array(
+                      array(
+                        'taxonomy'  => 'category',
+                        'field'     => 'slug',
+                        'terms'     => $slugs,
+                      )
+                    )
+                  );
+                  
+                }
+              } 
+            }
+            
+            // Assign predefined $args to your query
+            $sidebarposts = new WP_query();
+            $sidebarposts->query($args);
+            if ( $sidebarposts->have_posts() ) {
+
+              $postcounter = 0;
+
+              while ($sidebarposts->have_posts()) : $sidebarposts->the_post();
+                $postcounter++;
+
+                $doimage = false;
+                
+
+                do_action( 'genesis_before_entry' );
+
+                if ( 
+                  ( ( intval( $with_featured_image ) > 0 && ( $postcounter <= $with_featured_image ) )
+                  || ( $with_featured_image == 'alle' ) )
+                  && has_post_thumbnail()
+                  ) {
+                    $doimage = true;
+                }
+                else {
+                  add_filter( 'genesis_attr_entry', 'be_remove_image_alignment' );
+                }
+
+                $permalink = get_permalink();
+                $excerpt = get_the_excerpt( $post );
+
+
+                
+
+//dovardump( genesis_attr( 'entry' ) );                
+                
+                printf( '<article %s>', genesis_attr( 'entry' ) );
+
+                if ( $doimage ) {
+                  printf( '<div class="article-container"><div class="article-visual"><a href="%s" tabindex="-1">%s</a></div>', get_permalink(), get_the_post_thumbnail( $post->ID, 'featured-post-widget' ) );
+                  printf( '<div class="article-excerpt"><a href="%s"><h3>%s</h3>%s</a></div></div>', get_permalink(), get_the_title(), $excerpt );
+                }
+                else {
+                  printf( '<a href="%s"><h3>%s</h3>%s</a>', get_permalink(), get_the_title(), $excerpt );
+                }
+
+                
+                echo '</article>';
+                
+                do_action( 'genesis_after_entry' );
+
+              endwhile;
+            }
+            // RESET THE QUERY
+            wp_reset_query();
+    
+
+          }
+          else {
+            if ( $titel ) {
+              echo '<h2>' . $titel . ' / ' . $type_block . '</h2>';
+            }
+            else {
+              echo '<h2>' . __( 'Geen titel ingevoerd', 'wp-rijkshuisstijl' ) . ' / ' . $type_block . '</h2>';
+            }
+          }
+          echo '</div>';
+
+}
+
+      }
+      else {
+        dodebug('geen blokken gevonden');
+      }
+    }
+  }
+}
+
+
+
+
+//========================================================================================================
+
+function rhswp_caroussel_checker() {
+  
+  global $post;
+  
+  if ( function_exists( 'get_field' ) ) {
+
+    $carousselcheck = get_post_meta( get_the_ID(), 'carrousel_tonen_op_deze_pagina', true );
+
+    if ( 'ja' == $carousselcheck ) {
+      
+      $carouselid = get_post_meta( get_the_ID(), 'kies_carrousel', true );
+      $fotos      = get_post_meta( $carouselid, 'carrousel_items', true );
+
+      
+      if( $fotos ) {
+
+        $itemcounter = 'items0';
+
+        echo '<div class="slider"><div class="wrap">';
+        if ( $fotos > 1 ) {
+//          echo '<button class="carouselControl" type="button">Pauzeer diashow</button>';
+          $itemcounter = 'items' . $fotos ;
+        }
+        echo '<h2>Uitgelicht</h2><ul class="' . $itemcounter . '">';
+
+        for( $i = 0; $i < $fotos; $i++ ) {
+          
+          $image  = get_post_meta( $carouselid, 'carrousel_items_' . $i . '_carrousel_item_photo', true );
+          $titel  = esc_html( get_post_meta( $carouselid, 'carrousel_items_' . $i . '_carrousel_item_title', true ) );
+          $text   = esc_html( get_post_meta( $carouselid, 'carrousel_items_' . $i . '_carrousel_item_short_text', true ) );
+          $link   = get_post_meta( $carouselid, 'carrousel_items_' . $i . '_carrousel_item_link', true );
+          $link_start = '';
+          $link_end   = '';
+
+
+          echo '<li>';   	
+          
+          if ( $link ) {
+            $linkid = array_pop($link);
+            $link_start= '<a href="' . get_permalink( $linkid ) . '" tabindex="-1">';   	
+            $link_end   = '</a>';
+          }
+          else {
+            $link_start= '<span class="img-container">';   	
+            $link_end   = '</span>';
+          }
+
+          echo $link_start;   		
+
+          if ( $image ) {
+
+            echo wp_get_attachment_image( $image, $size );
+
+          }
+          if ( $titel || $text ) {
+
+            echo '<div class="caption">';   		
+            
+            if ( $titel ) {
+              echo '<h3>' .  $titel . '</h3>';   		
+            }
+            if ( $text ) {
+              echo '<p>' .  $text . '</p>';   		
+            }
+          
+            echo '</div>';   		
+            
+          }
+            
+          echo $link_end;   		
+          
+          echo '</li>';   	
+          
+        }        
+
+        echo '</ul></div></div>';
+        
+      }
+    }
+  }  
+}
+
+//========================================================================================================
+
+function be_remove_image_alignment( $attributes ) {
+  $attributes['class'] = str_replace( 'has-post-thumbnail', '', $attributes['class'] );
+	return $attributes;
+}
 

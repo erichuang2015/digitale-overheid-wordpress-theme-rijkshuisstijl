@@ -9,8 +9,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.1.13
- * @desc.   Pagina-templates herzien 
+ * @version 0.4.1
+ * @desc.   Theme-check, carrousel en extra pagina-layout 
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -63,7 +63,7 @@ function rhswp_get_documents_for_dossier() {
         
       }
       else {
-        echo _x( "Geen events gevonden onder '" . $term->name . "'", 'Op eventspagina voor een dossier', 'wp-rijkshuisstijl' );
+        echo _x( 'Geen evenementen gevonden', 'page_dossier-events-overview', 'wp-rijkshuisstijl' );
       }
     }
 }

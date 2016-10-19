@@ -1,13 +1,14 @@
 /*!
-	Theme Name: Rijkshuisstijl (Digitale Overheid) (v0.1.0)
+	Theme Name: Rijkshuisstijl (Digitale Overheid)
 	Description: Theme voor ibewustzijnoverheid.nl
 	Author: Paul van Buuren
 	Author URI: https://wbvb.nl/themes/ibewustzijn/
-	Version: 0.3.3
-	Version description: 0.3.3 - Paging op page-templates 
+	Version: 0.4.1
+  Version description: 0.4.1 - Theme-check, carrousel en extra pagina-layout 
+  Text Domain: wp-rijkshuisstijl
 
 	Template: genesis
-	Template Version: 2.0.2
+	Template Version: 2.4.2
 
 	License: GPL-2.0+
 	License URI: http://www.opensource.org/licenses/gpl-license.php
@@ -447,8 +448,9 @@ Content Area
 .prev-next-navigation {
 	padding: 0 @padding;
 }
+
 .entry + .entry {
-	padding-top: @padding;
+//	padding-top: @padding;
 }
 
 
@@ -1220,4 +1222,13 @@ Media Queries
 }
 p.debugstring + p.debugstring {
   border-top-style: none;
+}
+
+
+main {
+  &:target,
+  &:focus {
+    display: block;
+    padding: 1em !important;
+  }
 }

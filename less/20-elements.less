@@ -8,19 +8,341 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.1.15
-// * @desc.   SVG images, Kleurcheck, CSS RHS, widgets, code-opschoning 
+// * @version 0.4.1
+// * @desc.   Theme-check, carrousel en extra pagina-layout 
 // * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 // **
 
 
 .20_elements() {
 
+  .sticky {
+    background: grey;    
+  }
+  .bypostauthor {
+    background: grey;    
+  }
+
   .block {
     margin-top: 2em;
     border-top: 3px solid @block_border_color;
     clear: both;
-  }  
+    ul {
+      margin-left: 0;
+      padding-left: 0;
+      ul {
+        margin-left: 1em;
+      }
+    }
+  }
+
+  .block .links,
+  .sidebar .widget.page-links,
+  .sidebar .widget_nav_menu {
+    li {
+      list-style: none;
+      margin-left: 0;
+      padding-left: 0;
+    }
+  	a {
+  		padding-left: 1.5em;
+  		.listitem_arrow( @a_color_default, 16px );
+
+  		&:visited {
+    		&:before {
+      		color: @a_color_visited;
+    		}
+  		}
+  		&:hover {
+    		&:before {
+      		color: @a_color_active;
+    		}
+  		}
+  	}
+  	a.extern {
+      .listitem_arrow_extern();
+  	}     
+  }
+
+  .slider {
+
+    .wrap {
+      position: relative;
+      margin: 1em auto;
+    }
+    h2 {
+      .visuallyhidden();
+    }
+
+    button {
+      position: absolute;
+      top: 1em;
+      right: 1em;
+    }
+    
+    .caption {
+      position: absolute;
+      display: block;
+      left: 0;
+      top: @slider_li_minheight - ( @slider_li_title_minheight + 16px ); 
+      z-index: 999;
+      background-color: @grijs_4;
+      background-color: rgba(red(@grijs_4), green(@grijs_4), blue(@grijs_4), 0.7);
+          
+      padding: 1em;
+    }
+    
+    ul, ol {
+      margin: 0;
+      padding: 0;
+      
+      li {
+        position: relative;
+        min-height: @slider_li_minheight;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      .x {
+      &.items2 {
+        .caption {
+          width: 50%;
+        }
+        li:nth-of-type(2) {
+          .caption {
+            left: 50%;
+          }
+        }
+      }
+      &.items3 {
+        .caption {
+          width: 33.3%;
+        }
+        li:nth-of-type(2) {
+          .caption {
+            left: 33.3%;
+          }
+        }
+        li:nth-of-type(3) {
+          .caption {
+            left: 66.6%;
+          }
+        }
+      }
+      &.items4 {
+        .caption {
+          width: 25%;
+        }
+        li:nth-of-type(2) {
+          .caption {
+            left: 25%;
+          }
+        }
+        li:nth-of-type(3) {
+          .caption {
+            left: 50%;
+          }
+        }
+        li:nth-of-type(4) {
+          .caption {
+            left: 75%;
+          }
+        }
+      }
+      &.items5 {
+        .caption {
+          width: 20%;
+        }
+        li:nth-of-type(2) {
+          .caption {
+            left: 20%;
+          }
+        }
+        li:nth-of-type(3) {
+          .caption {
+            left: 40%;
+          }
+        }
+        li:nth-of-type(4) {
+          .caption {
+            left: 60%;
+          }
+        }
+        li:nth-of-type(5) {
+          .caption {
+            left: 80%;
+          }
+        }
+      }
+      }
+      li {
+        width: 100%;
+        float: left;
+        display: block;
+        a, .img-container {
+          margin: 0 .5em;
+        }
+        .caption {
+          width: 100%;
+        }
+        &:first-of-type {
+          a, .img-container {
+            margin: 0 .5em 0 0;
+          }
+        }
+        &:last-of-type {
+          a, .img-container {
+            margin: 0 0 0 .5em;
+          }
+        }
+      }
+      &.items2 {
+        li {
+          width: 50%;
+        }
+      }
+      &.items3 {
+        li {
+          width: 33.3%;
+        }
+      }
+      &.items4 {
+        li {
+          width: 25%;
+        }
+      }
+      &.items5 {
+        li {
+          width: 20%;
+        }
+      }
+    }
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    a, .img-container {
+      position: absolute;
+      left: 0;
+      bottom: 0; 
+      right: 0;
+      top: 0;
+      display: block;
+      overflow: hidden;
+      color: @wit;
+      background-color: @grijs_4;
+ 
+      &:hover,
+      &:active,
+      &:focus {
+        text-decoration: underline;
+        color: @wit;
+        
+        .caption {
+          bottom: 0;
+          top: auto;
+        }
+      }
+    }
+    h3 {
+      min-height: @slider_li_title_minheight;
+    }
+    h3, p {
+      padding: 0;
+      margin: 0;
+    }
+  }
+
+  
+  .block {
+
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+
+    h2 {
+      width: 100%;
+    }
+    
+        
+    article {
+	    flex-grow: 1;
+      float: left;
+
+      max-width: @floatleft_width;
+
+      overflow: hidden;
+      padding: 0 1em 0 0;
+      margin-bottom: 2em;
+      h3 {
+        padding: 0;
+        min-height: 6rem;
+      }
+      
+      a {
+        display: block;
+        overflow: hidden;
+        height: 100%;
+        padding: 0;
+        margin: 0;
+
+        &:focus {
+//          padding: 1em;
+          margin: 1px;
+        }
+      }
+
+      .article-container {
+        padding: 0;
+        overflow: hidden;
+        background: @grijs_1;
+        height: 100%;
+        display: block;
+      }
+    }
+    article.has-post-thumbnail {
+      max-width: 100%;
+      width: 100%;
+      
+      h3 {
+        min-height: 1rem;
+      }
+    }
+    .article-visual,
+    .article-excerpt {
+      float: left;
+      &, img {
+        padding: 0;
+        margin: 0;
+      }
+      
+    }
+    .article-visual {
+      padding-right: .5em;      
+      width: @floatleft_width;
+
+
+      img {
+        margin: 0;
+//        height: auto;
+//        width: 100%;
+      }
+    }
+    .article-excerpt {
+      padding-left: .5em;      
+      padding-right: 1em;      
+      width: ~"calc(100% - @{floatleft_width})";
+      
+      
+    }
+    
+    .post-thumbnail-bg-gray {
+      overflow: hidden;
+      padding: 0;
+      margin: 0 0 1em 0;
+    }   
+  }
 
   #payoff {
     

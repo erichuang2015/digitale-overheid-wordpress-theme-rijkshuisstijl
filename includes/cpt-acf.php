@@ -11,8 +11,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.1.15
- * @desc.   SVG images, Kleurcheck, CSS RHS, widgets, code-opschoning 
+ * @version 0.4.1
+ * @desc.   Theme-check, carrousel en extra pagina-layout 
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -953,6 +953,544 @@ if( function_exists('acf_add_local_field_group') ):
     	'description' => '',
     ));
 
+
+  
+  acf_add_local_field_group(array (
+  	'key' => 'group_5804cc93cdcc6',
+  	'title' => 'Extra layout opties (carrousel, blokken)',
+  	'fields' => array (
+  		array (
+  			'key' => 'field_5804ccac137a5',
+  			'label' => 'Carrousel tonen op deze pagina?',
+  			'name' => 'carrousel_tonen_op_deze_pagina',
+  			'type' => 'radio',
+  			'instructions' => '',
+  			'required' => 1,
+  			'conditional_logic' => 0,
+  			'wrapper' => array (
+  				'width' => '',
+  				'class' => '',
+  				'id' => '',
+  			),
+  			'choices' => array (
+  				'ja' => 'Ja',
+  				'nee' => 'Nee',
+  			),
+  			'allow_null'        => 0,
+  			'other_choice'      => 0,
+  			'save_other_choice' => 0,
+  			'default_value'     => 'nee',
+  			'layout'            => 'horizontal',
+  			'return_format'     => 'value',
+  		),
+  		array (
+  			'key' => 'field_5804cd037c566',
+  			'label' => 'Kies carrousel',
+  			'name' => 'kies_carrousel',
+  			'type' => 'post_object',
+  			'instructions' => '',
+  			'required' => 1,
+  			'conditional_logic' => array (
+  				array (
+  					array (
+  						'field' => 'field_5804ccac137a5',
+  						'operator' => '==',
+  						'value' => 'ja',
+  					),
+  				),
+  			),
+  			'wrapper' => array (
+  				'width' => '',
+  				'class' => '',
+  				'id' => '',
+  			),
+  			'post_type' => array (
+  				0 => RHSWP_CPT_SLIDER,
+  			),
+  			'taxonomy' => array (
+  			),
+  			'allow_null' => 0,
+  			'multiple' => 0,
+  			'return_format' => 'object',
+  			'ui' => 1,
+  		),
+  		array (
+  			'key' => 'field_5804cd3ef7829',
+  			'label' => 'Extra contentblokken',
+  			'name' => 'extra_contentblokken',
+  			'type' => 'repeater',
+  			'instructions' => '',
+  			'required' => 0,
+  			'conditional_logic' => 0,
+  			'wrapper' => array (
+  				'width' => '',
+  				'class' => '',
+  				'id' => '',
+  			),
+  			'collapsed' => 'field_5804cd67f782a',
+  			'min' => '',
+  			'max' => '',
+  			'layout' => 'row',
+  			'button_label' => 'Nieuw blok toevoegen',
+  			'sub_fields' => array (
+  				array (
+  					'key' => 'field_5804cd67f782a',
+  					'label' => 'extra_contentblok_title',
+  					'name' => 'extra_contentblok_title',
+  					'type' => 'text',
+  					'instructions' => '',
+  					'required' => 1,
+  					'conditional_logic' => 0,
+  					'wrapper' => array (
+  						'width' => '',
+  						'class' => '',
+  						'id' => '',
+  					),
+  					'default_value' => '',
+  					'placeholder' => '',
+  					'prepend' => '',
+  					'append' => '',
+  					'maxlength' => '',
+  				),
+  				array (
+  					'key' => 'field_5804cde25e99a',
+  					'label' => 'extra_contentblok_type_block',
+  					'name' => 'extra_contentblok_type_block',
+  					'type' => 'radio',
+  					'instructions' => '',
+  					'required' => 1,
+  					'conditional_logic' => 0,
+  					'wrapper' => array (
+  						'width' => '',
+  						'class' => '',
+  						'id' => '',
+  					),
+  					'choices' => array (
+  						'algemeen' => 'algemeen',
+  						'berichten' => 'berichten',
+  					),
+  					'allow_null' => 0,
+  					'other_choice' => 0,
+  					'save_other_choice' => 0,
+  					'default_value' => 'algemeen',
+  					'layout' => 'vertical',
+  					'return_format' => 'value',
+  				),
+  				array (
+  					'key' => 'field_5804cd7bf782b',
+  					'label' => 'extra_contentblok_algemeen_links',
+  					'name' => 'extra_contentblok_algemeen_links',
+  					'type' => 'relationship',
+  					'instructions' => '',
+  					'required' => 1,
+  					'conditional_logic' => array (
+  						array (
+  							array (
+  								'field' => 'field_5804cde25e99a',
+  								'operator' => '==',
+  								'value' => 'algemeen',
+  							),
+  						),
+  					),
+  					'wrapper' => array (
+  						'width' => '',
+  						'class' => '',
+  						'id' => '',
+  					),
+  					'post_type' => array (
+  					),
+  					'taxonomy' => array (
+  					),
+  					'filters' => array (
+  						0 => 'search',
+  						1 => 'post_type',
+  						2 => 'taxonomy',
+  					),
+  					'elements' => array (
+  						0 => 'featured_image',
+  					),
+  					'min' => '',
+  					'max' => '',
+  					'return_format' => 'object',
+  				),
+  				array (
+  					'key' => 'field_5804d01355657',
+  					'label' => 'Wil je filteren op categorie?',
+  					'name' => 'extra_contentblok_categoriefilter',
+  					'type' => 'radio',
+  					'instructions' => 'Als deze pagina een dossier heeft, worden berichten sowieso gefilterd op het dossier.',
+  					'required' => 1,
+  					'conditional_logic' => array (
+  						array (
+  							array (
+  								'field' => 'field_5804cde25e99a',
+  								'operator' => '==',
+  								'value' => 'berichten',
+  							),
+  						),
+  					),
+  					'wrapper' => array (
+  						'width' => '',
+  						'class' => '',
+  						'id' => '',
+  					),
+  					'choices' => array (
+  						'ja' => 'Ja, toon alleen berichten uit een bepaalde categorie.',
+  						'nee' => 'Neen, toon alle berichten.',
+  					),
+  					'allow_null' => 0,
+  					'other_choice' => 0,
+  					'save_other_choice' => 0,
+  					'default_value' => 'nee',
+  					'layout' => 'vertical',
+  					'return_format' => 'value',
+  				),
+  				array (
+  					'key' => 'field_5804d0ae7e521',
+  					'label' => 'kies categorie',
+  					'name' => 'extra_contentblok_chosen_category',
+  					'type' => 'taxonomy',
+  					'instructions' => '',
+  					'required' => 1,
+  					'conditional_logic' => array (
+  						array (
+  							array (
+  								'field' => 'field_5804cde25e99a',
+  								'operator' => '==',
+  								'value' => 'berichten',
+  							),
+  							array (
+  								'field' => 'field_5804d01355657',
+  								'operator' => '==',
+  								'value' => 'ja',
+  							),
+  						),
+  					),
+  					'wrapper' => array (
+  						'width' => '',
+  						'class' => '',
+  						'id' => '',
+  					),
+  					'taxonomy' => 'category',
+  					'field_type' => 'checkbox',
+  					'allow_null' => 0,
+  					'add_term' => 1,
+  					'save_terms' => 0,
+  					'load_terms' => 0,
+  					'return_format' => 'id',
+  					'multiple' => 0,
+  				),
+  				array (
+  					'key' => 'field_5804d1f49c89c',
+  					'label' => 'Maximum aantal berichten',
+  					'name' => 'extra_contentblok_maxnr_posts',
+  					'type' => 'select',
+  					'instructions' => '',
+  					'required' => 1,
+  					'conditional_logic' => array (
+  						array (
+  							array (
+  								'field' => 'field_5804cde25e99a',
+  								'operator' => '==',
+  								'value' => 'berichten',
+  							),
+  						),
+  					),
+  					'wrapper' => array (
+  						'width' => '',
+  						'class' => '',
+  						'id' => '',
+  					),
+  					'choices' => array (
+  						1 => '1',
+  						2 => '2',
+  						3 => '3',
+  						4 => '4',
+  						5 => '5',
+  						6 => '6',
+  						7 => '7',
+  						8 => '8',
+  						9 => '9',
+  						10 => '10',
+  						11 => '11',
+  						12 => '12',
+  						13 => '13',
+  						14 => '14',
+  						15 => '15',
+  						16 => '16',
+  						17 => '17',
+  						18 => '18',
+  						19 => '19',
+  						20 => '20',
+  					),
+  					'default_value' => array (
+  						0 => 6,
+  					),
+  					'allow_null' => 0,
+  					'multiple' => 0,
+  					'ui' => 0,
+  					'ajax' => 0,
+  					'return_format' => 'value',
+  					'placeholder' => '',
+  				),
+  				array (
+  					'key' => 'field_5804d943476f2',
+  					'label' => 'Aantal berichten met afbeelding',
+  					'name' => 'extra_contentblok_maxnr_posts_with_featured_image',
+  					'type' => 'select',
+  					'instructions' => '',
+  					'required' => 1,
+  					'conditional_logic' => array (
+  						array (
+  							array (
+  								'field' => 'field_5804cde25e99a',
+  								'operator' => '==',
+  								'value' => 'berichten',
+  							),
+  						),
+  					),
+  					'wrapper' => array (
+  						'width' => '',
+  						'class' => '',
+  						'id' => '',
+  					),
+  					'choices' => array (
+  						0 => 'geen',
+  						1 => '1',
+  						2 => '2',
+  						3 => '3',
+  						4 => '4',
+  						5 => '5',
+  						'alle' => 'Alle berichten tonen met uitgelichte afbeelding',
+  					),
+  					'default_value' => array (
+  						0 => 1,
+  					),
+  					'allow_null' => 0,
+  					'multiple' => 0,
+  					'ui' => 0,
+  					'ajax' => 0,
+  					'return_format' => 'value',
+  					'placeholder' => '',
+  				),
+  			),
+  		),
+  	),
+  	'location' => array (
+  		array (
+  			array (
+  				'param' => 'post_type',
+  				'operator' => '==',
+  				'value' => 'page',
+  			),
+  		),
+  		array (
+  			array (
+  				'param' => 'taxonomy',
+  				'operator' => '==',
+  				'value' => RHSWP_CT_DOSSIER,
+  			),
+  		),
+  	),
+  	'menu_order' => 0,
+  	'position' => 'normal',
+  	'style' => 'default',
+  	'label_placement' => 'top',
+  	'instruction_placement' => 'label',
+  	'hide_on_screen' => '',
+  	'active' => 1,
+  	'description' => '',
+  ));
+
+
+
+endif;
+
+//========================================================================================================
+
+add_action( 'init', 'cptui_register_my_cpts' );
+function cptui_register_my_cpts() {
+
+
+	$labels = array(
+		"name"                  => __( 'Sliders', 'wp-rijkshuisstijl' ),
+		"singular_name"         => __( 'Slider', 'wp-rijkshuisstijl' ),
+		"menu_name"             => __( 'Sliders', 'wp-rijkshuisstijl' ),
+		"all_items"             => __( 'Alle sliders', 'wp-rijkshuisstijl' ),
+		"add_new"               => __( 'Nieuwe slider toevoegen', 'wp-rijkshuisstijl' ),
+		"add_new_item"          => __( 'Voeg nieuwe slider toe', 'wp-rijkshuisstijl' ),
+		"edit_item"             => __( 'Bewerke slider', 'wp-rijkshuisstijl' ),
+		"new_item"              => __( 'Nieuwe slider', 'wp-rijkshuisstijl' ),
+		"view_item"             => __( 'Bekijk slider', 'wp-rijkshuisstijl' ),
+		"search_items"          => __( 'Zoek slider', 'wp-rijkshuisstijl' ),
+		"not_found"             => __( 'Geen sliders gevonden', 'wp-rijkshuisstijl' ),
+		"not_found_in_trash"    => __( 'Geen sliders gevonden in de prullenbak', 'wp-rijkshuisstijl' ),
+		"featured_image"        => __( 'Uitgelichte afbeelding', 'wp-rijkshuisstijl' ),
+		"archives"              => __( 'Overzichten', 'wp-rijkshuisstijl' ),
+		"uploaded_to_this_item" => __( 'Bijbehorende bestanden', 'wp-rijkshuisstijl' ),
+		);
+
+	$args = array(
+		"label"                 => __( 'Sliders', '' ),
+		"labels"                => $labels,
+		"description"           => "Foto\'s en links. Toe te voegen aan pagina\'s en taxonomieen op Digitale Overheid",
+		"public"                => true,
+		"publicly_queryable"    => false,
+		"show_ui"               => true,
+		"show_in_rest"          => false,
+		"rest_base"             => "",
+		"has_archive"           => false,
+		"show_in_menu"          => true,
+		"exclude_from_search"   => false,
+		"capability_type"       => "post",
+		"map_meta_cap"          => true,
+		"hierarchical"          => false,
+		"rewrite"               => array( "slug" => "carrousel", "with_front" => false ),
+		"query_var"             => false,
+		"supports"              => array( "title", "excerpt", "revisions" ),					);
+	register_post_type( RHSWP_CPT_SLIDER, $args );
+
+// End of cptui_register_my_cpts()
+}
+
+if( function_exists('acf_add_local_field_group') ):
+
+acf_add_local_field_group(array (
+	'key' => 'group_5804da997fa03',
+	'title' => 'content voor carrousel',
+	'fields' => array (
+		array (
+			'key' => 'field_5804daa4dc66c',
+			'label' => "Voeg foto's en teksten toe (carrousel_items)",
+			'name' => 'carrousel_items',
+			'type' => 'repeater',
+			'instructions' => '',
+			'required' => 1,
+			'conditional_logic' => 0,
+			'wrapper' => array (
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'collapsed' => '',
+			'min' => '1',
+			'max' => '5',
+			'layout' => 'block',
+			'button_label' => 'Nieuwe foto',
+			'sub_fields' => array (
+				array (
+					'key' => 'field_5804dabbdc66d',
+					'label' => 'foto',
+					'name' => 'carrousel_item_photo',
+					'type' => 'image',
+					'instructions' => '',
+					'required' => 1,
+					'conditional_logic' => 0,
+					'wrapper' => array (
+						'width' => '',
+						'class' => '',
+						'id' => '',
+					),
+					'return_format' => 'array',
+					'preview_size' => 'medium_large',
+					'library' => 'all',
+					'min_width' => '',
+					'min_height' => '',
+					'min_size' => '',
+					'max_width' => '',
+					'max_height' => '',
+					'max_size' => '',
+					'mime_types' => '',
+				),
+				array (
+					'key'   => 'field_5804dc3bdc66e',
+					'label' => 'carrousel_item_title',
+					'name'  => 'carrousel_item_title',
+					'type'  => 'text',
+					'instructions' => '',
+					'required' => 0,
+					'conditional_logic' => 0,
+					'wrapper' => array (
+						'width' => '',
+						'class' => '',
+						'id' => '',
+					),
+					'default_value' => '',
+					'placeholder' => '',
+					'prepend' => '',
+					'append' => '',
+					'maxlength' => '',
+				),
+				array (
+					'key' => 'field_5804dc41dc66f',
+					'label' => 'carrousel_item_short_text',
+					'name' => 'carrousel_item_short_text',
+					'type' => 'textarea',
+					'instructions' => '',
+					'required' => 0,
+					'conditional_logic' => 0,
+					'wrapper' => array (
+						'width' => '',
+						'class' => '',
+						'id' => '',
+					),
+					'default_value' => '',
+					'placeholder' => '',
+					'maxlength' => '',
+					'rows' => '',
+					'new_lines' => 'wpautop',
+				),
+				array (
+					'key' => 'field_5804dc47dc670',
+					'label' => 'link',
+					'name' => 'carrousel_item_link',
+					'type' => 'relationship',
+					'instructions' => '',
+					'required' => 0,
+					'conditional_logic' => 0,
+					'wrapper' => array (
+						'width' => '',
+						'class' => '',
+						'id' => '',
+					),
+					'post_type' => array (
+						0 => 'post',
+						1 => 'page',
+						2 => 'event',
+					),
+					'taxonomy' => array (
+					),
+					'filters' => array (
+						0 => 'search',
+						1 => 'post_type',
+						2 => 'taxonomy',
+					),
+					'elements' => '',
+					'min' => '',
+					'max' => 1,
+					'return_format' => 'object',
+				),
+			),
+		),
+	),
+	'location' => array (
+		array (
+			array (
+				'param' => 'post_type',
+				'operator' => '==',
+				'value' => RHSWP_CPT_SLIDER,
+			),
+		),
+	),
+	'menu_order' => 0,
+	'position' => 'normal',
+	'style' => 'default',
+	'label_placement' => 'top',
+	'instruction_placement' => 'label',
+	'hide_on_screen' => '',
+	'active' => 1,
+	'description' => '',
+));
 
 endif;
 

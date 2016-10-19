@@ -1,5 +1,20 @@
 <?php
 
+/**
+ * Rijkshuisstijl (Digitale Overheid) - class.taxonomy-single-term.php
+ * -------------------------------------------------------------------------------------------------------
+ * Removes and replaces the built-in taxonomy metabox with <select> or series of <input type="radio" />
+ * -------------------------------------------------------------------------------------------------------
+ *
+ * @author  Paul van Buuren
+ * @license GPL-2.0+
+ * @package wp-rijkshuisstijl
+ * @version 0.4.1
+ * @desc.   Theme-check, carrousel en extra pagina-layout 
+ * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
+ */
+
+
 if ( ! class_exists( 'Taxonomy_Single_Term' ) ) :
 /**
  * Removes and replaces the built-in taxonomy metabox with <select> or series of <input type="radio" />
@@ -197,7 +212,7 @@ class Taxonomy_Single_Term {
 		?>
 		<select style="display:block;width:100%;margin-top:12px;" name="<?php echo $this->namefield; ?>" id="<?php echo $this->slug; ?>checklist" class="form-no-clear">
 			<?php if ( ! $this->force_selection ) : ?>
-				<option value="0"><?php echo esc_html( apply_filters( 'taxonomy_single_term_select_none', __( 'None' ) ) ); ?></option>
+				<option value="0"><?php echo esc_html( apply_filters( 'taxonomy_single_term_select_none', __( 'Geen', 'wp-rijkshuisstijl' ) ) ); ?></option>
 			<?php endif;
 	}
 
@@ -233,7 +248,7 @@ class Taxonomy_Single_Term {
 		?>
 		</ul>
 		<p style="margin-bottom:0;float:left;width:50%;">
-			<a class="button" id="taxonomy-<?php echo $this->slug; ?>-trigger-clear" href="#"><?php _e( 'Clear' ); ?></a>
+			<a class="button" id="taxonomy-<?php echo $this->slug; ?>-trigger-clear" href="#"><?php _e( 'Wissen', 'wp-rijkshuisstijl' ); ?></a>
 		</p>
 		<script type="text/javascript">
 			jQuery(document).ready(function($){
@@ -268,7 +283,7 @@ class Taxonomy_Single_Term {
 	public function terms_adder_button() {
 		?>
 		<p style="margin-bottom:0;float:right;width:50%;text-align:right;">
-			<a class="button-secondary" id="taxonomy-<?php echo $this->slug; ?>-new" href="#"<?php if ( 'radio' == $this->input_element ) : ?> style="display:inline-block;margin-top:0.4em;"<?php endif; ?>><?php _e( 'Add New' ); ?></a>
+			<a class="button-secondary" id="taxonomy-<?php echo $this->slug; ?>-new" href="#"<?php if ( 'radio' == $this->input_element ) : ?> style="display:inline-block;margin-top:0.4em;"<?php endif; ?>><?php _e( 'Toevoegen', 'wp-rijkshuisstijl' ); ?></a>
 		</p>
 		<script type="text/javascript">
 			jQuery(document).ready(function($){
@@ -297,7 +312,7 @@ class Taxonomy_Single_Term {
 								<?php endif; ?>
 								$('#<?php echo $this->slug; ?>checklist').append( response.data );
 							} else {
-								window.alert( '<?php printf( __( 'There was a problem adding a new %s' ), esc_attr( $this->taxonomy()->labels->singular_name ) ); ?>: ' + "\n" + response.data );
+								window.alert( '<?php printf( __( 'Het lukte niet om %s toe te voegen', 'wp-rijkshuisstijl' ), esc_attr( $this->taxonomy()->labels->singular_name ) ); ?>: ' + "\n" + response.data );
 							}
 						});
 					}
@@ -328,7 +343,7 @@ class Taxonomy_Single_Term {
 		}
 
 		if( !wp_verify_nonce( $nonce, 'taxonomy_' . $taxonomy, '_add_term' ) ) {
-			wp_send_json_error( __( "Cheatin' Huh? Could not verify security token" ) );
+			wp_send_json_error( __( "Kon security-token niet valideren. Sorry.", 'wp-rijkshuisstijl' ) );
 		}
 
 		if( term_exists( $term_name, $taxonomy ) ) {

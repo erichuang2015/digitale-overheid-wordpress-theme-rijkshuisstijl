@@ -9,38 +9,33 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.1.13
- * @desc.   Pagina-templates herzien 
+ * @version 0.4.1
+ * @desc.   Theme-check, carrousel en extra pagina-layout 
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
 
 //* Template Name: 11 - toon onderliggende pagina's
 
-//* Remove standard post content output
-//remove_action( 'genesis_post_content', 'genesis_do_post_content' );
-//remove_action( 'genesis_entry_content', 'genesis_do_post_content' );
-
 add_action( 'genesis_entry_content', 'rhswp_get_page_dossiersoverview', 15 );
 
 genesis();
 
 function rhswp_get_page_dossiersoverview() {
+
   global $post;
-
-// echo '<h1>Dossiers: overzicht van alle dossiers (rhswp_get_page_dossiersoverview: ' . $post->ID . ')</h1>';  
-
-$args = array( 
+  
+  $args = array( 
         'child_of' => $post->ID, 
         'parent' => $post->ID,
         'hierarchical' => 0,
         'sort_column' => 'menu_order', 
         'sort_order' => 'asc'
-);
-$mypages = get_pages( $args );
-
+  );
+  $mypages = get_pages( $args );
+  
   foreach( $mypages as $post ) {
-
+  
     echo '<section>';
     echo '<header><h2 class="entry-title"><a href="';
     the_permalink();
@@ -48,7 +43,7 @@ $mypages = get_pages( $args );
     the_title();
     echo '</a></h2></header>';
     echo '<div>';
-
+  
     if (  has_excerpt( $post->ID ) ) {
       $text = get_the_excerpt( $post->ID );
     } 
@@ -62,9 +57,6 @@ $mypages = get_pages( $args );
     echo rhswp_get_read_more_link( get_permalink() );
     echo '</div>';
     echo '</section>';
+
   }  
-
-
-
-  
 }
