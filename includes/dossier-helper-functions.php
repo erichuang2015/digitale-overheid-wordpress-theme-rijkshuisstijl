@@ -10,8 +10,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.3.2
- * @desc.   Dossier check revised - bugfixes 
+ * @version 0.4.2
+ * @desc.   Theme-check, carrousel en extra pagina-layout - bugfixes
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -47,6 +47,7 @@ function rhswp_dossier_title_checker( ) {
     
     $posttype = get_post_type();
     $loop     = rhswp_get_context_info();
+    $term     = '';
 
 
     if ( 'single' == $loop ) {

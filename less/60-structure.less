@@ -7,8 +7,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.4.1
-// * @desc.   Theme-check, carrousel en extra pagina-layout 
+// * @version 0.4.2
+// * @desc.   Theme-check, carrousel en extra pagina-layout - bugfixes
 // * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 //
 
@@ -53,8 +53,7 @@
   
   .content {
   	float: right;
-//  	width: ( @break_fullwidth - ( @gutter + @sidebar_width ) ) ;
-width: 66%;
+    width: 66%;
   }
   
   .content-sidebar .content,
@@ -77,7 +76,8 @@ width: 66%;
   
   .sidebar-primary {
   	float: right;
-  	width: @sidebar_width;
+    width: 33%;
+    padding-left: 3em;
   }
   
   .sidebar-content .sidebar-primary,

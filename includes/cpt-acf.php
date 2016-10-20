@@ -11,8 +11,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.4.1
- * @desc.   Theme-check, carrousel en extra pagina-layout 
+ * @version 0.4.2
+ * @desc.   Theme-check, carrousel en extra pagina-layout - bugfixes
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -137,21 +137,21 @@ function rhswp_register_custom_post_types() {
   */  
 
 	$labels = array(
-		"name"                  => "Relevante links",
-		"singular_name"         => "Relevante link",
-		"menu_name"             => "Relevante links",
-		"all_items"             => "Alle relevante links",
-		"add_new"               => "Nieuwe toevoegen",
-		"add_new_item"          => "Nieuw relevante link toevoegen",
-		"edit"                  => "Bewerken?",
-		"edit_item"             => "Bewerk relevante link",
-		"new_item"              => "Nieuw relevante link",
-		"view"                  => "Toon",
-		"view_item"             => "Bekijk relevante link",
-		"search_items"          => "Zoek relevante link",
-		"not_found"             => "Niet gevonden",
-		"not_found_in_trash"    => "Geen relevante links gevonden in de prullenbak",
-		"parent"                => "Hoofd",
+		"name"                  => __( 'Relevante links', 'wp-rijkshuisstijl' ),
+		"singular_name"         => __( 'Relevante link', 'wp-rijkshuisstijl' ),
+		"menu_name"             => __( 'Relevante links', 'wp-rijkshuisstijl' ),
+		"all_items"             => __( 'Alle Relevante links', 'wp-rijkshuisstijl' ),
+		"add_new"               => __( 'Nieuwe link toevoegen', 'wp-rijkshuisstijl' ),
+		"add_new_item"          => __( 'Voeg nieuwe link toe', 'wp-rijkshuisstijl' ),
+		"edit_item"             => __( 'Bewerk relevante link', 'wp-rijkshuisstijl' ),
+		"new_item"              => __( 'Nieuwe link', 'wp-rijkshuisstijl' ),
+		"view_item"             => __( 'Bekijk relevante link', 'wp-rijkshuisstijl' ),
+		"search_items"          => __( 'Zoek relevante link', 'wp-rijkshuisstijl' ),
+		"not_found"             => __( 'Geen relevante links gevonden', 'wp-rijkshuisstijl' ),
+		"not_found_in_trash"    => __( 'Geen relevante links gevonden in de prullenbak', 'wp-rijkshuisstijl' ),
+		"featured_image"        => __( 'Uitgelichte afbeelding', 'wp-rijkshuisstijl' ),
+		"archives"              => __( 'Overzichten', 'wp-rijkshuisstijl' ),
+		"uploaded_to_this_item" => __( 'Bijbehorende bestanden', 'wp-rijkshuisstijl' ),
 		);
 
 	$args = array(
@@ -187,11 +187,11 @@ if( function_exists('acf_add_local_field_group') ):
   	'title' => 'Document',
   	'fields' => array (
   		array (
-  			'key' => 'field_57e8f1821cab5',
-  			'label' => 'Bijbehorend document',
-  			'name' => 'rhswp_document_upload',
-  			'type' => 'file',
-  			'instructions' => '',
+  			'key'     => 'field_57e8f1821cab5',
+  			'label'   => __( 'Bijbehorend document', 'wp-rijkshuisstijl' ),
+  			'name'    => 'rhswp_document_upload',
+  			'type'    => 'file',
+  			'instructions'   => '',
   			'required' => 1,
   			'conditional_logic' => 0,
   			'wrapper' => array (
@@ -207,10 +207,10 @@ if( function_exists('acf_add_local_field_group') ):
   		),
   		array (
   			'key' => 'field_57faa99195748',
-  			'label' => 'Bestandstype',
+  			'label'   => __( 'Bestandstype', 'wp-rijkshuisstijl' ),
   			'name' => 'rhswp_document_filetype',
   			'type' => 'text',
-  			'instructions' => 'Denk aan: PDF, Word-document, tekstbestand',
+  			'instructions'   => __( 'Denk aan: PDF, Word-document, tekstbestand', 'wp-rijkshuisstijl' ),
   			'required' => 0,
   			'conditional_logic' => 0,
   			'wrapper' => array (
@@ -226,10 +226,10 @@ if( function_exists('acf_add_local_field_group') ):
   		),
   		array (
   			'key' => 'field_57faa9a013f5f',
-  			'label' => 'Document-grootte',
+  			'label'   => __( 'Document-grootte', 'wp-rijkshuisstijl' ),
   			'name' => 'rhswp_document_filesize',
   			'type' => 'text',
-  			'instructions' => 'bijvoorbeeld: 372KB, of: 2MB',
+        'instructions'   => __( 'bijvoorbeeld: 372KB, of: 2MB', 'wp-rijkshuisstijl' ),  			
   			'required' => 0,
   			'conditional_logic' => 0,
   			'wrapper' => array (
@@ -274,10 +274,10 @@ if( function_exists('acf_add_local_field_group') ):
     	'fields' => array (
     		array (
     			'key' => 'field_57e411ac51413',
-    			'label' => 'Overzichtpagina?',
+    			'label'   => __( 'Welke overzichtpagina hier hierbij?', 'wp-rijkshuisstijl' ),
     			'name' => 'dossier_overzichtpagina',
     			'type' => 'post_object',
-    			'instructions' => 'Welke pagina is de overzichtspagina die hoort bij dit dossier?',
+          'instructions'   => __( 'Welke pagina is de overzichtspagina die hoort bij dit dossier? Deze pagina is belangrijk, omdat we hiermee de verdere structuur van het dossier kunnen bepalen.', 'wp-rijkshuisstijl' ),  			
     			'required' => 0,
     			'conditional_logic' => 0,
     			'wrapper' => array (
@@ -297,10 +297,10 @@ if( function_exists('acf_add_local_field_group') ):
     		),
     		array (
     			'key' => 'field_57e4122051414',
-    			'label' => 'Menu voor dossier',
+    			'label'   => __( 'Menu voor dossier', 'wp-rijkshuisstijl' ),
     			'name' => 'menu_voor_dossier',
     			'type' => 'repeater',
-    			'instructions' => '',
+    			'instructions'   => '',
     			'required' => 0,
     			'conditional_logic' => 0,
     			'wrapper' => array (
@@ -316,10 +316,10 @@ if( function_exists('acf_add_local_field_group') ):
     			'sub_fields' => array (
     				array (
     					'key' => 'field_57e4124751415',
-    					'label' => 'Pagina',
+        			'label'   => __( 'Pagina', 'wp-rijkshuisstijl' ),
     					'name' => 'dossier_menu_pagina',
     					'type' => 'post_object',
-    					'instructions' => '',
+    					'instructions'   => '',
     					'required' => 0,
     					'conditional_logic' => 0,
     					'wrapper' => array (
@@ -373,10 +373,10 @@ if( function_exists('acf_add_local_field_group') ):
     	'fields' => array (
     		array (
     			'key' => 'field_57f90d20c2fdf',
-    			'label' => 'Overzichtpagina',
+    			'label'   => __( 'Overzichtspagina', 'wp-rijkshuisstijl' ),
     			'name' => 'dossier_overzichtpagina',
     			'type' => 'post_object',
-    			'instructions' => 'Welke pagina is de overzichtspagina die hoort bij dit dossier?',
+          'instructions'   => __( 'Welke pagina is de overzichtspagina die hoort bij dit dossier? Deze pagina is belangrijk, omdat we hiermee de verdere structuur van het dossier kunnen bepalen.', 'wp-rijkshuisstijl' ),  			
     			'required' => 0,
     			'conditional_logic' => 0,
     			'wrapper' => array (
@@ -396,10 +396,10 @@ if( function_exists('acf_add_local_field_group') ):
     		),
     		array (
     			'key' => 'field_57fa70f9fe7a3',
-    			'label' => 'Toon overzichtspagina in het menu?',
+    			'label'   => __( 'Toon overzichtspagina in het menu?', 'wp-rijkshuisstijl' ),
     			'name' => 'toon_overzichtspagina_in_het_menu',
     			'type' => 'radio',
-    			'instructions' => '',
+    			'instructions'   => '',
     			'required' => 1,
     			'conditional_logic' => 0,
     			'wrapper' => array (
@@ -420,10 +420,10 @@ if( function_exists('acf_add_local_field_group') ):
     		),
     		array (
     			'key' => 'field_57f90f281dcfb',
-    			'label' => 'Andere pagina\'s in het menu',
+    			'label'   => __( 'Andere pagina\'s in het menu', 'wp-rijkshuisstijl' ),
     			'name' => 'menu_pages',
     			'type' => 'relationship',
-    			'instructions' => '',
+    			'instructions'   => '',
     			'required' => 0,
     			'conditional_logic' => 0,
     			'wrapper' => array (
@@ -473,12 +473,13 @@ if( function_exists('acf_add_local_field_group') ):
   	'fields' => array (
   		array (
   			'key' => 'field_57fa92400aa5c',
-  			'label' => 'Wil je filteren op categorie op deze pagina?',
+  			'label'   => __( 'Wil je filteren op categorie op deze pagina?', 'wp-rijkshuisstijl' ),
   			'name' => 'wil_je_filteren_op_categorie_op_deze_pagina',
   			'type' => 'radio',
-  			'instructions' => 'Als je niet filtert worden alle berichten getoond die aan dit dossier gekoppeld zijn. Als je wilt filteren, kun je kiezen voor een categorie. Dan worden dus alleen die berichten getoond die:
+        'instructions'   => __( 'Als je niet filtert worden alle berichten getoond die aan dit dossier gekoppeld zijn. Als je wilt filteren, kun je kiezen voor een categorie. Dan worden dus alleen die berichten getoond die:
   - zowel aan dit dossier gekoppeld zijn 
-  - als aan de door jou gekozen categorie',
+  - als aan de door jou gekozen categorie', 'wp-rijkshuisstijl' ),  			
+
   			'required' => 1,
   			'conditional_logic' => 0,
   			'wrapper' => array (
@@ -499,10 +500,10 @@ if( function_exists('acf_add_local_field_group') ):
   		),
   		array (
   			'key' => 'field_57fa933133d61',
-  			'label' => 'Kies de categorie waarop je wilt filteren',
+  			'label'   => __( 'Kies de categorie waarop je wilt filteren', 'wp-rijkshuisstijl' ),
   			'name' => 'kies_de_categorie_waarop_je_wilt_filteren',
   			'type' => 'taxonomy',
-  			'instructions' => '',
+  			'instructions'   => '',
   			'required' => 0,
   			'conditional_logic' => array (
   				array (
@@ -557,10 +558,10 @@ if( function_exists('acf_add_local_field_group') ):
   	'fields' => array (
   		array (
   			'key' => 'field_57e4e9d8216a4',
-  			'label' => 'Randkleur',
+  			'label'   => __( 'Randkleur', 'wp-rijkshuisstijl' ),
   			'name' => 'rhswp_widget_randkleur',
   			'type' => 'color_picker',
-  			'instructions' => '',
+  			'instructions'   => '',
   			'required' => 1,
   			'conditional_logic' => 0,
   			'wrapper' => array (
@@ -572,10 +573,10 @@ if( function_exists('acf_add_local_field_group') ):
   		),
   		array (
   			'key' => 'field_57e4ea1a06fbd',
-  			'label' => 'Achtergrondkleur',
+  			'label'   => __( 'Achtergrondkleur', 'wp-rijkshuisstijl' ),
   			'name' => 'rhswp_widget_achtergrondkleur',
   			'type' => 'color_picker',
-  			'instructions' => '',
+  			'instructions'   => '',
   			'required' => 1,
   			'conditional_logic' => 0,
   			'wrapper' => array (
@@ -587,10 +588,10 @@ if( function_exists('acf_add_local_field_group') ):
   		),
   		array (
   			'key' => 'field_57e4ea5206fbe',
-  			'label' => 'Tekstkleur',
+  			'label'   => __( 'Tekstkleur', 'wp-rijkshuisstijl' ),
   			'name' => 'rhswp_widget_tekstkleur',
   			'type' => 'color_picker',
-  			'instructions' => '',
+  			'instructions'   => '',
   			'required' => 0,
   			'conditional_logic' => 0,
   			'wrapper' => array (
@@ -651,11 +652,11 @@ if( function_exists('register_field_group') ):
       'fields' => array (
         array (
           'key' => 'field_54e610433e1d0',
-          'label' => 'Social-media-dingetjes',
+    			'label'   => __( 'Toon social-media-opties wel of niet', 'wp-rijkshuisstijl' ),
           'name' => 'socialmedia_icoontjes',
           'prefix' => '',
           'type' => 'radio',
-          'instructions' => '',
+          'instructions'   => '',
           'required' => 0,
           'conditional_logic' => 0,
           'wrapper' => array (
@@ -664,8 +665,8 @@ if( function_exists('register_field_group') ):
             'id' => '',
           ),
           'choices' => array (
-            SOC_MED_YES => 'Toon socialmedia-icoontjes',
-            SOC_MED_NO => 'Verberg socialmedia-icoontjes',
+      			SOC_MED_YES   => __( 'Ja, toon socialmedia-icoontjes', 'wp-rijkshuisstijl' ),
+      			SOC_MED_NO   => __( 'Nee, verberg socialmedia-icoontjes', 'wp-rijkshuisstijl' ),
           ),
           'other_choice' => 0,
           'save_other_choice' => 0,
@@ -713,10 +714,10 @@ if( function_exists('register_field_group') ):
   	'fields' => array (
   		array (
   			'key' => 'field_57dbb4bb70f6f',
-  			'label' => 'Alternatieve paginatitel gebruiken?',
+  			'label'   => __( 'Alternatieve paginatitel gebruiken?', 'wp-rijkshuisstijl' ),
   			'name' => 'alternatieve_paginatitel_gebruiken',
   			'type' => 'radio',
-  			'instructions' => 'De paginatitel wordt standaard gebruikt voor ondermeer verwijzingen in menu\'s en in de &lt;title&gt;. Het kan zijn dat je voor de duidelijkheid een andere tekst wilt tonen in de &lt;h1&gt;. Als je hier \'JA\' kiest, kun je een alternatieve paginatitel invoeren.',
+        'instructions'   => __( 'De paginatitel wordt standaard gebruikt voor ondermeer verwijzingen in menu\'s en in de &lt;title&gt;. Het kan zijn dat je voor de duidelijkheid een andere tekst wilt tonen in de &lt;h1&gt;. Als je hier \'JA\' kiest, kun je een alternatieve paginatitel invoeren.', 'wp-rijkshuisstijl' ),  			
   			'required' => 1,
   			'conditional_logic' => 0,
   			'wrapper' => array (
@@ -736,10 +737,10 @@ if( function_exists('register_field_group') ):
   		),
   		array (
   			'key' => 'field_57dbb54b70f70',
-  			'label' => 'Alternatieve paginatitel',
+  			'label'   => __( 'Alternatieve paginatitel', 'wp-rijkshuisstijl' ),
   			'name' => 'alternatieve_paginatitel',
   			'type' => 'text',
-  			'instructions' => '',
+  			'instructions'   => '',
   			'required' => 1,
   			'conditional_logic' => array (
   				array (
@@ -802,10 +803,10 @@ if( function_exists('acf_add_local_field_group') ):
     	'fields' => array (
     		array (
     			'key' => 'field_57f50cf4234e6',
-    			'label' => 'Uitgelichte dossiers',
+    			'label'   => __( 'Uitgelichte dossiers', 'wp-rijkshuisstijl' ),
     			'name' => 'uitgelichte_dossiers',
     			'type' => 'taxonomy',
-    			'instructions' => 'De dossiers die je hier kiest worden bovenaan de pagina getoond met speciale layout.',
+          'instructions'   => __( 'De dossiers die je hier kiest worden bovenaan de pagina getoond met speciale layout.', 'wp-rijkshuisstijl' ),  			
     			'required' => 0,
     			'conditional_logic' => 0,
     			'wrapper' => array (
@@ -848,10 +849,10 @@ if( function_exists('acf_add_local_field_group') ):
     	'fields' => array (
     		array (
     			'key' => 'field_57f509b68989b',
-    			'label' => 'Dossier-overzichtspagina',
+    			'label'   => __( 'Overzichtspagina voor dossier', 'wp-rijkshuisstijl' ),
     			'name' => 'dossier_overzichtspagina',
     			'type' => 'post_object',
-    			'instructions' => '',
+    			'instructions'   => '',
     			'required' => 1,
     			'conditional_logic' => 0,
     			'wrapper' => array (
@@ -899,10 +900,10 @@ if( function_exists('acf_add_local_field_group') ):
     	'fields' => array (
     		array (
     			'key' => 'field_572227cb69fc1',
-    			'label' => 'URL voor relevante link',
+    			'label'   => __( 'URL voor relevante link', 'wp-rijkshuisstijl' ),
     			'name' => 'url_voor_relevante_link',
     			'type' => 'url',
-    			'instructions' => '',
+    			'instructions'   => '',
     			'required' => 1,
     			'conditional_logic' => 0,
     			'wrapper' => array (
@@ -915,10 +916,10 @@ if( function_exists('acf_add_local_field_group') ):
     		),
     		array (
     			'key' => 'field_572227e269fc2',
-    			'label' => 'Linktekst',
+    			'label'   => __( 'Linktekst', 'wp-rijkshuisstijl' ),
     			'name' => 'linktekst_voor_relevante_link',
     			'type' => 'text',
-    			'instructions' => '',
+    			'instructions'   => '',
     			'required' => 0,
     			'conditional_logic' => 0,
     			'wrapper' => array (
@@ -953,7 +954,6 @@ if( function_exists('acf_add_local_field_group') ):
     	'description' => '',
     ));
 
-
   
   acf_add_local_field_group(array (
   	'key' => 'group_5804cc93cdcc6',
@@ -961,10 +961,10 @@ if( function_exists('acf_add_local_field_group') ):
   	'fields' => array (
   		array (
   			'key' => 'field_5804ccac137a5',
-  			'label' => 'Carrousel tonen op deze pagina?',
+  			'label'   => __( 'Carrousel tonen op deze pagina?', 'wp-rijkshuisstijl' ),
   			'name' => 'carrousel_tonen_op_deze_pagina',
   			'type' => 'radio',
-  			'instructions' => '',
+  			'instructions'   => '',
   			'required' => 1,
   			'conditional_logic' => 0,
   			'wrapper' => array (
@@ -985,10 +985,10 @@ if( function_exists('acf_add_local_field_group') ):
   		),
   		array (
   			'key' => 'field_5804cd037c566',
-  			'label' => 'Kies carrousel',
+  			'label'   => __( 'Kies bijbehorende carrousel', 'wp-rijkshuisstijl' ),
   			'name' => 'kies_carrousel',
   			'type' => 'post_object',
-  			'instructions' => '',
+  			'instructions'   => '',
   			'required' => 1,
   			'conditional_logic' => array (
   				array (
@@ -1016,10 +1016,10 @@ if( function_exists('acf_add_local_field_group') ):
   		),
   		array (
   			'key' => 'field_5804cd3ef7829',
-  			'label' => 'Extra contentblokken',
+  			'label'   => __( 'Extra contentblokken', 'wp-rijkshuisstijl' ),
   			'name' => 'extra_contentblokken',
   			'type' => 'repeater',
-  			'instructions' => '',
+  			'instructions'   => '',
   			'required' => 0,
   			'conditional_logic' => 0,
   			'wrapper' => array (
@@ -1035,10 +1035,10 @@ if( function_exists('acf_add_local_field_group') ):
   			'sub_fields' => array (
   				array (
   					'key' => 'field_5804cd67f782a',
-  					'label' => 'extra_contentblok_title',
+      			'label'   => __( 'Titel boven extra contentblok', 'wp-rijkshuisstijl' ),
   					'name' => 'extra_contentblok_title',
   					'type' => 'text',
-  					'instructions' => '',
+  					'instructions'   => '',
   					'required' => 1,
   					'conditional_logic' => 0,
   					'wrapper' => array (
@@ -1054,10 +1054,10 @@ if( function_exists('acf_add_local_field_group') ):
   				),
   				array (
   					'key' => 'field_5804cde25e99a',
-  					'label' => 'extra_contentblok_type_block',
+      			'label'   => __( 'Wat wil je tonen in dit extra contentblok?', 'wp-rijkshuisstijl' ),
   					'name' => 'extra_contentblok_type_block',
   					'type' => 'radio',
-  					'instructions' => '',
+  					'instructions'   => '',
   					'required' => 1,
   					'conditional_logic' => 0,
   					'wrapper' => array (
@@ -1066,8 +1066,8 @@ if( function_exists('acf_add_local_field_group') ):
   						'id' => '',
   					),
   					'choices' => array (
-  						'algemeen' => 'algemeen',
-  						'berichten' => 'berichten',
+  						'algemeen' => __( 'Algemeen: zowel pagina\'s als berichten in de volgorde die ik bepaal', 'wp-rijkshuisstijl' ),
+  						'berichten' => __( 'Alleen berichten; nieuwe berichten worden automatisch toegevoegd', 'wp-rijkshuisstijl' ),
   					),
   					'allow_null' => 0,
   					'other_choice' => 0,
@@ -1078,10 +1078,10 @@ if( function_exists('acf_add_local_field_group') ):
   				),
   				array (
   					'key' => 'field_5804cd7bf782b',
-  					'label' => 'extra_contentblok_algemeen_links',
+      			'label'   => __( 'Links in je contentblok', 'wp-rijkshuisstijl' ),
   					'name' => 'extra_contentblok_algemeen_links',
   					'type' => 'relationship',
-  					'instructions' => '',
+  					'instructions'   => '',
   					'required' => 1,
   					'conditional_logic' => array (
   						array (
@@ -1115,10 +1115,10 @@ if( function_exists('acf_add_local_field_group') ):
   				),
   				array (
   					'key' => 'field_5804d01355657',
-  					'label' => 'Wil je filteren op categorie?',
+      			'label'   => __( 'Wil je de berichten filteren op categorie?', 'wp-rijkshuisstijl' ),
   					'name' => 'extra_contentblok_categoriefilter',
   					'type' => 'radio',
-  					'instructions' => 'Als deze pagina een dossier heeft, worden berichten sowieso gefilterd op het dossier.',
+            'instructions'   => __( 'Als deze pagina een dossier heeft, worden berichten sowieso gefilterd op het dossier.', 'wp-rijkshuisstijl' ),  			
   					'required' => 1,
   					'conditional_logic' => array (
   						array (
@@ -1147,10 +1147,10 @@ if( function_exists('acf_add_local_field_group') ):
   				),
   				array (
   					'key' => 'field_5804d0ae7e521',
-  					'label' => 'kies categorie',
+      			'label'   => __( 'Kies de categorie', 'wp-rijkshuisstijl' ),
   					'name' => 'extra_contentblok_chosen_category',
   					'type' => 'taxonomy',
-  					'instructions' => '',
+  					'instructions'   => '',
   					'required' => 1,
   					'conditional_logic' => array (
   						array (
@@ -1182,10 +1182,10 @@ if( function_exists('acf_add_local_field_group') ):
   				),
   				array (
   					'key' => 'field_5804d1f49c89c',
-  					'label' => 'Maximum aantal berichten',
+      			'label'   => __( 'Maximum aantal berichten', 'wp-rijkshuisstijl' ),
   					'name' => 'extra_contentblok_maxnr_posts',
   					'type' => 'select',
-  					'instructions' => '',
+  					'instructions'   => '',
   					'required' => 1,
   					'conditional_logic' => array (
   						array (
@@ -1235,10 +1235,10 @@ if( function_exists('acf_add_local_field_group') ):
   				),
   				array (
   					'key' => 'field_5804d943476f2',
-  					'label' => 'Aantal berichten met afbeelding',
+      			'label'   => __( 'Toon hoeveel berichten met hun uitgelichte afbeelding', 'wp-rijkshuisstijl' ),
   					'name' => 'extra_contentblok_maxnr_posts_with_featured_image',
   					'type' => 'select',
-  					'instructions' => '',
+  					'instructions'   => '',
   					'required' => 1,
   					'conditional_logic' => array (
   						array (
@@ -1313,25 +1313,25 @@ function cptui_register_my_cpts() {
 
 
 	$labels = array(
-		"name"                  => __( 'Sliders', 'wp-rijkshuisstijl' ),
-		"singular_name"         => __( 'Slider', 'wp-rijkshuisstijl' ),
-		"menu_name"             => __( 'Sliders', 'wp-rijkshuisstijl' ),
-		"all_items"             => __( 'Alle sliders', 'wp-rijkshuisstijl' ),
-		"add_new"               => __( 'Nieuwe slider toevoegen', 'wp-rijkshuisstijl' ),
-		"add_new_item"          => __( 'Voeg nieuwe slider toe', 'wp-rijkshuisstijl' ),
-		"edit_item"             => __( 'Bewerke slider', 'wp-rijkshuisstijl' ),
-		"new_item"              => __( 'Nieuwe slider', 'wp-rijkshuisstijl' ),
-		"view_item"             => __( 'Bekijk slider', 'wp-rijkshuisstijl' ),
-		"search_items"          => __( 'Zoek slider', 'wp-rijkshuisstijl' ),
-		"not_found"             => __( 'Geen sliders gevonden', 'wp-rijkshuisstijl' ),
-		"not_found_in_trash"    => __( 'Geen sliders gevonden in de prullenbak', 'wp-rijkshuisstijl' ),
+		"name"                  => __( 'Carrousels', 'wp-rijkshuisstijl' ),
+		"singular_name"         => __( 'Carrousel', 'wp-rijkshuisstijl' ),
+		"menu_name"             => __( 'Carrousels', 'wp-rijkshuisstijl' ),
+		"all_items"             => __( 'Alle carrousels', 'wp-rijkshuisstijl' ),
+		"add_new"               => __( 'Nieuwe carrousel toevoegen', 'wp-rijkshuisstijl' ),
+		"add_new_item"          => __( 'Voeg nieuwe carrousel toe', 'wp-rijkshuisstijl' ),
+		"edit_item"             => __( 'Bewerk carrousel', 'wp-rijkshuisstijl' ),
+		"new_item"              => __( 'Nieuwe carrousel', 'wp-rijkshuisstijl' ),
+		"view_item"             => __( 'Bekijk carrousel', 'wp-rijkshuisstijl' ),
+		"search_items"          => __( 'Zoek carrousel', 'wp-rijkshuisstijl' ),
+		"not_found"             => __( 'Geen carrousels gevonden', 'wp-rijkshuisstijl' ),
+		"not_found_in_trash"    => __( 'Geen carrousels gevonden in de prullenbak', 'wp-rijkshuisstijl' ),
 		"featured_image"        => __( 'Uitgelichte afbeelding', 'wp-rijkshuisstijl' ),
 		"archives"              => __( 'Overzichten', 'wp-rijkshuisstijl' ),
 		"uploaded_to_this_item" => __( 'Bijbehorende bestanden', 'wp-rijkshuisstijl' ),
 		);
 
 	$args = array(
-		"label"                 => __( 'Sliders', '' ),
+		"label"                 => __( 'Carrousels', '' ),
 		"labels"                => $labels,
 		"description"           => "Foto\'s en links. Toe te voegen aan pagina\'s en taxonomieen op Digitale Overheid",
 		"public"                => true,
@@ -1355,142 +1355,211 @@ function cptui_register_my_cpts() {
 
 if( function_exists('acf_add_local_field_group') ):
 
-acf_add_local_field_group(array (
-	'key' => 'group_5804da997fa03',
-	'title' => 'content voor carrousel',
-	'fields' => array (
-		array (
-			'key' => 'field_5804daa4dc66c',
-			'label' => "Voeg foto's en teksten toe (carrousel_items)",
-			'name' => 'carrousel_items',
-			'type' => 'repeater',
-			'instructions' => '',
-			'required' => 1,
-			'conditional_logic' => 0,
-			'wrapper' => array (
-				'width' => '',
-				'class' => '',
-				'id' => '',
-			),
-			'collapsed' => '',
-			'min' => '1',
-			'max' => '5',
-			'layout' => 'block',
-			'button_label' => 'Nieuwe foto',
-			'sub_fields' => array (
-				array (
-					'key' => 'field_5804dabbdc66d',
-					'label' => 'foto',
-					'name' => 'carrousel_item_photo',
-					'type' => 'image',
-					'instructions' => '',
-					'required' => 1,
-					'conditional_logic' => 0,
-					'wrapper' => array (
-						'width' => '',
-						'class' => '',
-						'id' => '',
-					),
-					'return_format' => 'array',
-					'preview_size' => 'medium_large',
-					'library' => 'all',
-					'min_width' => '',
-					'min_height' => '',
-					'min_size' => '',
-					'max_width' => '',
-					'max_height' => '',
-					'max_size' => '',
-					'mime_types' => '',
-				),
-				array (
-					'key'   => 'field_5804dc3bdc66e',
-					'label' => 'carrousel_item_title',
-					'name'  => 'carrousel_item_title',
-					'type'  => 'text',
-					'instructions' => '',
-					'required' => 0,
-					'conditional_logic' => 0,
-					'wrapper' => array (
-						'width' => '',
-						'class' => '',
-						'id' => '',
-					),
-					'default_value' => '',
-					'placeholder' => '',
-					'prepend' => '',
-					'append' => '',
-					'maxlength' => '',
-				),
-				array (
-					'key' => 'field_5804dc41dc66f',
-					'label' => 'carrousel_item_short_text',
-					'name' => 'carrousel_item_short_text',
-					'type' => 'textarea',
-					'instructions' => '',
-					'required' => 0,
-					'conditional_logic' => 0,
-					'wrapper' => array (
-						'width' => '',
-						'class' => '',
-						'id' => '',
-					),
-					'default_value' => '',
-					'placeholder' => '',
-					'maxlength' => '',
-					'rows' => '',
-					'new_lines' => 'wpautop',
-				),
-				array (
-					'key' => 'field_5804dc47dc670',
-					'label' => 'link',
-					'name' => 'carrousel_item_link',
-					'type' => 'relationship',
-					'instructions' => '',
-					'required' => 0,
-					'conditional_logic' => 0,
-					'wrapper' => array (
-						'width' => '',
-						'class' => '',
-						'id' => '',
-					),
-					'post_type' => array (
-						0 => 'post',
-						1 => 'page',
-						2 => 'event',
-					),
-					'taxonomy' => array (
-					),
-					'filters' => array (
-						0 => 'search',
-						1 => 'post_type',
-						2 => 'taxonomy',
-					),
-					'elements' => '',
-					'min' => '',
-					'max' => 1,
-					'return_format' => 'object',
-				),
-			),
-		),
-	),
-	'location' => array (
-		array (
-			array (
-				'param' => 'post_type',
-				'operator' => '==',
-				'value' => RHSWP_CPT_SLIDER,
-			),
-		),
-	),
-	'menu_order' => 0,
-	'position' => 'normal',
-	'style' => 'default',
-	'label_placement' => 'top',
-	'instruction_placement' => 'label',
-	'hide_on_screen' => '',
-	'active' => 1,
-	'description' => '',
-));
+  
+  acf_add_local_field_group(array (
+  	'key' => 'group_5804da997fa03',
+  	'title' => 'content voor carrousel',
+  	'fields' => array (
+  		array (
+  			'key' => 'field_5804daa4dc66c',
+  			'label' => "Voeg foto's en teksten toe (carrousel_items)",
+  			'name' => 'carrousel_items',
+  			'type' => 'repeater',
+  			'instructions'   => '',
+  			'required' => 1,
+  			'conditional_logic' => 0,
+  			'wrapper' => array (
+  				'width' => '',
+  				'class' => '',
+  				'id' => '',
+  			),
+  			'collapsed' => '',
+  			'min' => '1',
+  			'max' => '5',
+  			'layout' => 'block',
+  			'button_label' => 'Nieuwe foto',
+  			'sub_fields' => array (
+  				array (
+  					'key' => 'field_5804dabbdc66d',
+      			'label'   => __( 'Afbeelding bij dit item', 'wp-rijkshuisstijl' ),
+  					'name' => 'carrousel_item_photo',
+  					'type' => 'image',
+  					'instructions'   => '',
+  					'required' => 1,
+  					'conditional_logic' => 0,
+  					'wrapper' => array (
+  						'width' => '',
+  						'class' => '',
+  						'id' => '',
+  					),
+  					'return_format' => 'array',
+  					'preview_size' => 'medium_large',
+  					'library' => 'all',
+  					'min_width' => '',
+  					'min_height' => '',
+  					'min_size' => '',
+  					'max_width' => '',
+  					'max_height' => '',
+  					'max_size' => '',
+  					'mime_types' => '',
+  				),
+  				array (
+  					'key'   => 'field_5804dc3bdc66e',
+      			'label'   => __( 'Titel bij dit item', 'wp-rijkshuisstijl' ),
+  					'name'  => 'carrousel_item_title',
+  					'type'  => 'text',
+  					'instructions'   => '',
+  					'required' => 0,
+  					'conditional_logic' => 0,
+  					'wrapper' => array (
+  						'width' => '',
+  						'class' => '',
+  						'id' => '',
+  					),
+  					'default_value' => '',
+  					'placeholder' => '',
+  					'prepend' => '',
+  					'append' => '',
+  					'maxlength' => '',
+  				),
+  				array (
+  					'key' => 'field_5804dc41dc66f',
+      			'label'   => __( 'Korte tekst bij dit item', 'wp-rijkshuisstijl' ),
+  					'name' => 'carrousel_item_short_text',
+  					'type' => 'textarea',
+  					'instructions'   => '',
+  					'required' => 0,
+  					'conditional_logic' => 0,
+  					'wrapper' => array (
+  						'width' => '',
+  						'class' => '',
+  						'id' => '',
+  					),
+  					'default_value' => '',
+  					'placeholder' => '',
+  					'maxlength' => '',
+  					'rows' => '',
+  					'new_lines' => 'wpautop',
+  				),
+  
+  				array (
+  					'key' => 'field_5808c01e6c841',
+      			'label'   => __( 'Soort link', 'wp-rijkshuisstijl' ),
+  					'name' => 'carrousel_item_link_type',
+  					'type' => 'radio',
+  					'instructions' => 'Keuze: link naar een dossier of naar een pagina / bericht?',
+  					'required' => 1,
+  					'conditional_logic' => 0,
+  					'wrapper' => array (
+  						'width' => '',
+  						'class' => '',
+  						'id' => '',
+  					),
+  					'choices' => array (
+  						'pagina'  => __( 'Naar een pagina / bericht', 'wp-rijkshuisstijl' ),
+  						'dossier' => __( 'Naar een dossier', 'wp-rijkshuisstijl' ),
+  					),
+  					'allow_null' => 0,
+  					'other_choice' => 0,
+  					'save_other_choice' => 0,
+  					'default_value' => 'pagina',
+  					'layout' => 'horizontal',
+  					'return_format' => 'value',
+  				),
+  				array (
+  					'key' => 'field_5804dc47dc670',
+      			'label'   => __( 'Kies een pagina of bericht:', 'wp-rijkshuisstijl' ),
+  					'name' => 'carrousel_item_link_page',
+  					'type' => 'relationship',
+  					'instructions' => '',
+  					'required' => 0,
+  					'conditional_logic' => array (
+  						array (
+  							array (
+  								'field' => 'field_5808c01e6c841',
+  								'operator' => '==',
+  								'value' => 'pagina',
+  							),
+  						),
+  					),
+  					'wrapper' => array (
+  						'width' => '',
+  						'class' => '',
+  						'id' => '',
+  					),
+  					'post_type' => array (
+  						0 => 'post',
+  						1 => 'page',
+  						2 => 'event',
+  					),
+  					'taxonomy' => array (
+  					),
+  					'filters' => array (
+  						0 => 'search',
+  						1 => 'post_type',
+  						2 => 'taxonomy',
+  					),
+  					'elements' => '',
+  					'min' => '',
+  					'max' => 1,
+  					'return_format' => 'object',
+  				),
+  				array (
+  					'key' => 'field_5808bfe86c840',
+      			'label'   => __( 'Kies een dossier:', 'wp-rijkshuisstijl' ),
+  					'name' => 'carrousel_item_link_dossier',
+  					'type' => 'taxonomy',
+  					'instructions' => '',
+  					'required' => 0,
+  					'conditional_logic' => array (
+  						array (
+  							array (
+  								'field' => 'field_5808c01e6c841',
+  								'operator' => '==',
+  								'value' => 'dossier',
+  							),
+  						),
+  					),
+  					'wrapper' => array (
+  						'width' => '',
+  						'class' => '',
+  						'id' => '',
+  					),
+  					'taxonomy' => 'dossiers',
+  					'field_type' => 'radio',
+  					'allow_null' => 0,
+  					'add_term' => 1,
+  					'save_terms' => 0,
+  					'load_terms' => 0,
+  					'return_format' => 'id',
+  					'multiple' => 0,
+  				),
+
+  			),
+  		),
+  	),
+  	'location' => array (
+  		array (
+  			array (
+  				'param' => 'post_type',
+  				'operator' => '==',
+  				'value' => RHSWP_CPT_SLIDER,
+  			),
+  		),
+  	),
+  	'menu_order' => 0,
+  	'position' => 'normal',
+  	'style' => 'default',
+  	'label_placement' => 'top',
+  	'instruction_placement' => 'label',
+    'hide_on_screen' => array (
+      0 => 'wpseo_meta',
+      1 => 'wpseo'
+    ),
+  	'active' => 1,
+  	'description' => '',
+  ));
+    
 
 endif;
 

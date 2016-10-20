@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.4.1
- * @desc.   Theme-check, carrousel en extra pagina-layout 
+ * @version 0.4.2
+ * @desc.   Theme-check, carrousel en extra pagina-layout - bugfixes
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -28,8 +28,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Child theme (do not remove)
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "http://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.4.1" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Theme-check, carrousel en extra pagina-layout" );
+define( 'CHILD_THEME_VERSION',              "0.4.2" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Theme-check, carrousel en extra pagina-layout - bugfixes" );
 define( 'SHOW_CSS_DEBUG',                   false );
 define( 'ID_ZOEKEN',                        'rhswp-searchform' );
 define( 'GC_TWITTERACCOUNT',                'gebrcentraal' );
@@ -80,7 +80,7 @@ define( 'RHSWP_DOSSIERPOSTCONTEXT_OPTION',  RHSWP_DOSSIERPOSTCONTEXT . CHILD_THE
 
 add_image_size( 'Carrousel (preview: 400px wide)', 400, 200, false );
 add_image_size( 'Carrousel (full width: 1200px wide)', 1200, 400, false );
-add_image_size( 'featured-post-widget', 420, 200, false );
+add_image_size( 'featured-post-widget', 400, 250, false );
 
 
 
@@ -1499,25 +1499,21 @@ function rhswp_write_extra_contentblokken() {
                     $doimage = true;
                 }
                 else {
-                  add_filter( 'genesis_attr_entry', 'be_remove_image_alignment' );
+//                  add_filter( 'genesis_attr_entry', 'be_remove_image_alignment' );
                 }
 
-                $permalink = get_permalink();
-                $excerpt = get_the_excerpt( $post );
+                $permalink  = get_permalink();
+                $excerpt    = get_the_excerpt( $post );
+                $postdate   = get_the_date( );
 
-
-                
-
-//dovardump( genesis_attr( 'entry' ) );                
-                
                 printf( '<article %s>', genesis_attr( 'entry' ) );
 
                 if ( $doimage ) {
                   printf( '<div class="article-container"><div class="article-visual"><a href="%s" tabindex="-1">%s</a></div>', get_permalink(), get_the_post_thumbnail( $post->ID, 'featured-post-widget' ) );
-                  printf( '<div class="article-excerpt"><a href="%s"><h3>%s</h3>%s</a></div></div>', get_permalink(), get_the_title(), $excerpt );
+                  printf( '<div class="article-excerpt"><a href="%s"><h3>%s</h3><p>%s</p><p class="meta">%s</p></a></div></div>', get_permalink(), get_the_title(), $excerpt, $postdate );
                 }
                 else {
-                  printf( '<a href="%s"><h3>%s</h3>%s</a>', get_permalink(), get_the_title(), $excerpt );
+                  printf( '<a href="%s"><h3>%s</h3><p>%s</p><p class="meta">%s</p></a>', get_permalink(), get_the_title(), $excerpt, $postdate );
                 }
 
                 
@@ -1541,9 +1537,7 @@ function rhswp_write_extra_contentblokken() {
             }
           }
           echo '</div>';
-
-}
-
+        }
       }
       else {
         dodebug('geen blokken gevonden');
@@ -1561,42 +1555,69 @@ function rhswp_caroussel_checker() {
   
   global $post;
   
+  
   if ( function_exists( 'get_field' ) ) {
 
-    $carousselcheck = get_post_meta( get_the_ID(), 'carrousel_tonen_op_deze_pagina', true );
+    $carousselcheck = '';
+
+    if ( is_page() ) {
+      $theid          = get_the_ID();
+      $carousselcheck = get_field('carrousel_tonen_op_deze_pagina', $theid );
+    }
+    elseif ( is_tax() ) {
+      $theid          = RHSWP_CT_DOSSIER . '_' . get_queried_object()->term_id;
+      $carousselcheck = get_field('carrousel_tonen_op_deze_pagina', $theid );
+      $currentterm    = get_queried_object()->term_id;
+    }
+
+   
+    
 
     if ( 'ja' == $carousselcheck ) {
       
-      $carouselid = get_post_meta( get_the_ID(), 'kies_carrousel', true );
-      $fotos      = get_post_meta( $carouselid, 'carrousel_items', true );
+      $carouselid     = get_field('kies_carrousel', $theid );
+      $carouseltitle  = get_the_title( $theid );
+      $fotos          = get_field('carrousel_items', $carouselid );
 
-      
+
       if( $fotos ) {
 
-        $itemcounter = 'items0';
+        $itemcounter = 'items' . count( $fotos ) ;
 
-        echo '<div class="slider"><div class="wrap">';
-        if ( $fotos > 1 ) {
+        echo '<div class="slider" role="complementary">';
+        echo '<div class="wrap">';
+
+        echo '<p class="visuallyhidden">' . $carouseltitle . '</p>';
+        
+        if ( count( $fotos ) > 1 ) {
 //          echo '<button class="carouselControl" type="button">Pauzeer diashow</button>';
-          $itemcounter = 'items' . $fotos ;
         }
-        echo '<h2>Uitgelicht</h2><ul class="' . $itemcounter . '">';
+        
+        echo '<ul class="' . $itemcounter . '">';
 
-        for( $i = 0; $i < $fotos; $i++ ) {
+        foreach( $fotos as $row ) {
           
-          $image  = get_post_meta( $carouselid, 'carrousel_items_' . $i . '_carrousel_item_photo', true );
-          $titel  = esc_html( get_post_meta( $carouselid, 'carrousel_items_' . $i . '_carrousel_item_title', true ) );
-          $text   = esc_html( get_post_meta( $carouselid, 'carrousel_items_' . $i . '_carrousel_item_short_text', true ) );
-          $link   = get_post_meta( $carouselid, 'carrousel_items_' . $i . '_carrousel_item_link', true );
           $link_start = '';
           $link_end   = '';
+
+          $image    = $row[ 'carrousel_item_photo' ];
+          $titel    = esc_html( $row[ 'carrousel_item_title' ] );
+          $text     = $row[ 'carrousel_item_short_text' ];
+          $type     = $row[ 'carrousel_item_link_type' ];
+          $link     = $row[ 'carrousel_item_link_page' ];
+          $dossier  = $row[ 'carrousel_item_link_dossier' ];
+          $size     = 'Carrousel (full width: 1200px wide)';
 
 
           echo '<li>';   	
           
-          if ( $link ) {
+          if ( $link && $type == 'pagina' ) {
             $linkid = array_pop($link);
             $link_start= '<a href="' . get_permalink( $linkid ) . '" tabindex="-1">';   	
+            $link_end   = '</a>';
+          }
+          elseif ( $dossier && $type == 'dossier' ) {
+            $link_start= '<a href="' . get_term_link( $dossier ) . '" tabindex="-1">';   	
             $link_end   = '</a>';
           }
           else {
@@ -1607,8 +1628,12 @@ function rhswp_caroussel_checker() {
           echo $link_start;   		
 
           if ( $image ) {
+//            echo wp_get_attachment_image( $image, $size );
+            $thumb = $image['sizes'][ $size ];
+            $width = $image['sizes'][ $size . '-width' ];
+            $height = $image['sizes'][ $size . '-height' ];
+            echo '<img src="' . $thumb . '" alt="" width="' . $width . '" height="' . $height . '" />';
 
-            echo wp_get_attachment_image( $image, $size );
 
           }
           if ( $titel || $text ) {
@@ -1616,10 +1641,10 @@ function rhswp_caroussel_checker() {
             echo '<div class="caption">';   		
             
             if ( $titel ) {
-              echo '<h3>' .  $titel . '</h3>';   		
+              echo '<p class="caption-title">' .  $titel . '</p>';   		
             }
             if ( $text ) {
-              echo '<p>' .  $text . '</p>';   		
+              echo $text;   		
             }
           
             echo '</div>';   		

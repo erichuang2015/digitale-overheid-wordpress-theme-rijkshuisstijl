@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.4.1
-// * @desc.   Theme-check, carrousel en extra pagina-layout 
+// * @version 0.4.2
+// * @desc.   Theme-check, carrousel en extra pagina-layout - bugfixes
 // * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 // **
 
@@ -64,7 +64,40 @@
   	}     
   }
 
+  .block .links {
+    width: 100%;
+    li {
+      display: block;
+      width: 50%;
+      float: left;
+      a {
+        padding-top: .5em;
+        padding-bottom: .5em;
+        line-height: 1.2;
+        
+        &:before {
+          top: 9px;
+          left: 3px;
+        }
+      }
+    }
+    li:nth-child(odd) {
+      clear: left;
+    }
+    li:nth-child(even) {
+      clear: right;
+    }
+  }
+  
+
   .slider {
+
+    .carouselControl {
+      position: absolute;
+      top: 1em;
+      right: 1em;
+      z-index: 999;
+    }
 
     .wrap {
       position: relative;
@@ -87,9 +120,21 @@
       top: @slider_li_minheight - ( @slider_li_title_minheight + 16px ); 
       z-index: 999;
       background-color: @grijs_4;
-      background-color: rgba(red(@grijs_4), green(@grijs_4), blue(@grijs_4), 0.7);
-          
+      background-color: rgba(red(@grijs_7), green(@grijs_7), blue(@grijs_7), 0.7);
       padding: 1em;
+
+      .caption-title, p {
+        padding: 0;
+        margin: 0;
+      }
+      .caption-title {
+        font-family: @headerfont;
+        display: block;
+        font-size: 105%;
+        min-height: @slider_li_title_minheight;
+//        letter-spacing: 1px;
+      }      
+      
     }
     
     ul, ol {
@@ -245,13 +290,6 @@
         }
       }
     }
-    h3 {
-      min-height: @slider_li_title_minheight;
-    }
-    h3, p {
-      padding: 0;
-      margin: 0;
-    }
   }
 
   
@@ -261,10 +299,27 @@
     flex-flow: row wrap;
     justify-content: flex-start;
 
-    h2 {
+    h2,
+    h3 {
       width: 100%;
+      margin-top: .75em;
     }
-    
+    h2 {
+      margin-bottom: .5em;
+    }
+    a {
+
+      &:hover,
+      &:active,
+      &:focus {
+        text-decoration: none;
+        
+        h3 {
+          text-decoration: underline;
+        }
+      }
+      
+    }
         
     article {
 	    flex-grow: 1;
@@ -286,10 +341,20 @@
         height: 100%;
         padding: 0;
         margin: 0;
+        p {
+          color: @txt;
+        }
+        .meta {
+          color: @a_color_visited;
+        }
+        h3 {
+          color: @donkerblauw_vol;
+        }
+        
 
         &:focus {
 //          padding: 1em;
-          margin: 1px;
+//          margin: 1px;
         }
       }
 
@@ -321,10 +386,14 @@
     .article-visual {
       padding-right: .5em;      
       width: @floatleft_width;
-
+      text-decoration: none;
+      a {
+        vertical-align: bottom;
+      }
 
       img {
         margin: 0;
+        display: block;
 //        height: auto;
 //        width: 100%;
       }
