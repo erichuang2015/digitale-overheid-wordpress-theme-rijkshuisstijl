@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.6.5
- * @desc.   News widget aangepast (banner-border weg)
+ * @version 0.6.6
+ * @desc.   Widget title: class always widgettitle (not: widget-title)
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -25,8 +25,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Child theme (do not remove)
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "http://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.6.5" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "News widget aangepast (banner-border weg)" );
+define( 'CHILD_THEME_VERSION',              "0.6.6" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Widget title: class always widgettitle (not: widget-title)" );
 define( 'SHOW_CSS_DEBUG',                   false );
 define( 'ID_ZOEKEN',                        'rhswp-searchform' );
 define( 'GC_TWITTERACCOUNT',                'gebrcentraal' );
@@ -741,7 +741,7 @@ genesis_register_sidebar(
             'xhtml' => '</div></div>' . "\n",
             'echo'  => false
         ) ),
-        'before_title'  => '<h2 class="widget-title widgettitle">',
+        'before_title'  => '<h2 class="widgettitle">',
         'after_title'   => "</h2>\n",
     )
 );

@@ -9,8 +9,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.6.5
- * @desc.   News widget aangepast (banner-border weg)
+ * @version 0.6.6
+ * @desc.   Widget title: class always widgettitle (not: widget-title)
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -186,7 +186,7 @@ class rhswp_news_widget extends WP_Widget {
             $category_link = get_category_link( $categorie );        
 
             echo $before_widget;
-            echo '<h3 class="widget-title">'. $rhswp_news_title . '</h3>'; 
+            echo '<h3 class="widgettitle">'. $rhswp_news_title . '</h3>'; 
 
             echo '<div class="flex">';
 
