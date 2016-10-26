@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.4.3
- * @desc.   Carrousel, js-actions
+ * @version 0.5.1
+ * @desc.   Carrousel, js-actions - bugfixes
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -25,8 +25,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Child theme (do not remove)
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "http://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.4.3" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Carrousel, js-actions" );
+define( 'CHILD_THEME_VERSION',              "0.5.1" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Carrousel, js-actions - bugfixes" );
 define( 'SHOW_CSS_DEBUG',                   false );
 define( 'ID_ZOEKEN',                        'rhswp-searchform' );
 define( 'GC_TWITTERACCOUNT',                'gebrcentraal' );

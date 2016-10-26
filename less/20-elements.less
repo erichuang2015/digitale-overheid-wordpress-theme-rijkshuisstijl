@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.4.3
-// * @desc.   Carrousel, js-actions
+// * @version 0.5.1
+// * @desc.   Carrousel, js-actions - bugfixes
 // * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 // **
 
@@ -70,12 +70,6 @@
 
 
 
-  .sticky {
-    background: grey;    
-  }
-  .bypostauthor {
-    background: grey;    
-  }
 
   .block {
     margin-top: 2em;
@@ -429,10 +423,18 @@
       }
     }
 
-    @media only screen and (max-width: ( @break_tablet ) ) {
+    @media only screen and (max-width: ( @break_fullwidth  - 1 ) ) {
+      
+      .breadcrumb,
+      .dossier-overview .entry-title {
+        padding-left: @padding;
+      }
       
       .tabs {
 
+        .selected span, a {
+          padding-left: @padding;
+        }
         .selected span {
           display: block;
           background-image: url('images/icon-arrow-up.svg');
@@ -464,7 +466,10 @@
             }            
         }
       }
+    }
       
+
+    @media only screen and (max-width: ( @break_tablet ) ) {
       .slider {
         .caption {
           padding-left: 1em;

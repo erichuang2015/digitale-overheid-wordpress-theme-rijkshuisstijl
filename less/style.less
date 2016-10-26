@@ -3,8 +3,8 @@
 	Description: Theme voor ibewustzijnoverheid.nl
 	Author: Paul van Buuren
 	Author URI: https://wbvb.nl/themes/ibewustzijn/
-	Version: 0.4.3
-  Version description: 0.4.3 - Carrousel, js-actions 
+	Version: 0.5.1
+  Version description: 0.5.1 - Carrousel, js-actions - bugfixes 
   Text Domain: wp-rijkshuisstijl
 
 	Template: genesis
@@ -265,8 +265,12 @@ Common Classes
   }
 }
 
-.sticky {
-}
+  .sticky {
+    background: grey;    
+  }
+  .bypostauthor {
+    background: grey;    
+  }
 
 .widget_calendar table {
 	width: 100%;
@@ -288,13 +292,14 @@ Common Classes
 
 .breadcrumb {
 	padding: 0;
+	font-size: 80%;
 	.wrap {
 //		height: @strokeheight;
 	}
 	nav {
 
     span {
-  		padding: ( @padding / 2 ) 0;
+  		padding: ( @padding / 1.5 ) 0;
     }
 		
 		a {
@@ -672,19 +677,11 @@ li.comment {
 	display: none;
 }
 
-.bypostauthor {
-}
 
 .form-allowed-tags {
 	.font-size(14);
 	padding: @padding;
 }
-
-
-
-
-
-
 
 
 
