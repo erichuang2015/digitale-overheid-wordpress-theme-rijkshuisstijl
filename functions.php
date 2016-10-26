@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.6.2
- * @desc.   Bugfix: Footerwidgets weer zichtbaar
+ * @version 0.6.3
+ * @desc.   Remove Genesis SEO in-post options
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -25,8 +25,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Child theme (do not remove)
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "http://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.6.2" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Bugfix: Footerwidgets weer zichtbaar" );
+define( 'CHILD_THEME_VERSION',              "0.6.3" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Remove Genesis SEO in-post options" );
 define( 'SHOW_CSS_DEBUG',                   false );
 define( 'ID_ZOEKEN',                        'rhswp-searchform' );
 define( 'GC_TWITTERACCOUNT',                'gebrcentraal' );
@@ -137,6 +137,9 @@ include_once( RHSWP_FOLDER . '/includes/cpt-acf.php' );
 
 //* Remove inpost layouts
 remove_theme_support( 'genesis-inpost-layouts' );
+
+//* Remove Genesis in-post SEO Settings
+remove_action( 'admin_menu', 'genesis_add_inpost_seo_box' );
 
 //========================================================================================================
 
