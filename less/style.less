@@ -3,8 +3,8 @@
 	Description: Theme voor ibewustzijnoverheid.nl
 	Author: Paul van Buuren
 	Author URI: https://wbvb.nl/themes/ibewustzijn/
-	Version: 0.6.6
-  Version description: 0.6.6 - Widget title: class always widgettitle (not: widget-title) 
+	Version: 0.6.7
+  Version description: 0.6.7 - Widget title: less padding between widgets 
   Text Domain: wp-rijkshuisstijl
 
 	Template: genesis
@@ -1067,90 +1067,60 @@ Media Queries
 
 @media only screen and (min-width: ( @break_tablet ) ) {
 
-
-	    
-
-    .sidebar {
-
-		.bestuurslaag-block,
-		.thema-block {
-			display: block;
-			margin-right: 0;
-			width: 100%;
-			a {
-				min-height: auto;
-			}
-		}
-
-        .widget {
-            clear: both;
-            float: none;
-
-    		& + .widget {
-        		padding-top: @padding;
-    		}
-             
-            article {
-                float: left;
-                width: 28%;
-                
-                img.entry-image {
-                    margin-bottom: ( @padding / 2 );
-                }
-            }
-
-            .entry + .entry {
-            	padding-top: 0;
-            }
-
-
-            
+  .sidebar {
+    .widget {
+      clear: both;
+      float: none;
+      
+      article {
+        float: left;
+        width: 28%;
+        
+        img.entry-image {
+          margin-bottom: ( @padding / 2 );
         }
+      }
+      
+      .entry + .entry {
+        padding-top: 0;
+      }
     }
-
-
-    
+  }
 }
 
 @media only screen and (min-width: ( @break_fullwidth  - 1 )) {
+  
+  .footer-widgets {
+    padding: 0;
+    margin-top: @padding;
+  }
 
-    .footer-widgets {
-	    padding: 0;
-	    margin-top: @padding;
-    	.wrap {
-    	}
-    }
-
-
-    .sidebar {
-
-        .widget {
-            clear: both;
-            float: none;
-             
-            article {
-                float: none;
-                width: auto;
-
-                img.entry-image {
-                    margin: @padding 0 ( @padding / 2 ) 0;
-                }
-                
-                .alignleft {
-                    img.entry-image {
-                        margin:  0 ( @padding / 2 ) 0 0;
-                    }
-                }
-
-            }
-
-            .entry + .entry {
-            	padding-top: 0;
-            }
-        }
-    }
- 
+  .sidebar {
     
+    .widget {
+      clear: both;
+      float: none;
+      
+      article {
+        float: none;
+        width: auto;
+        
+        img.entry-image {
+          margin: @padding 0 ( @padding / 2 ) 0;
+        }
+        
+        .alignleft {
+          img.entry-image {
+            margin:  0 ( @padding / 2 ) 0 0;
+          }
+        }
+      }
+      
+      .entry + .entry {
+        padding-top: 0;
+      }
+    }
+  }
 }
 
 
