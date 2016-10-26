@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.6.1
- * @desc.   Editor CSS: beperkingen en waarschuwingen
+ * @version 0.6.2
+ * @desc.   Bugfix: Footerwidgets weer zichtbaar
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -25,8 +25,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Child theme (do not remove)
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "http://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.6.1" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Editor CSS: beperkingen en waarschuwingen" );
+define( 'CHILD_THEME_VERSION',              "0.6.2" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Bugfix: Footerwidgets weer zichtbaar" );
 define( 'SHOW_CSS_DEBUG',                   false );
 define( 'ID_ZOEKEN',                        'rhswp-searchform' );
 define( 'GC_TWITTERACCOUNT',                'gebrcentraal' );

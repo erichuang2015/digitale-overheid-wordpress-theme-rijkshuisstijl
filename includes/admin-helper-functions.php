@@ -9,8 +9,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.1.14
- * @desc.   CSS styling voor RHS 
+ * @version 0.6.2
+ * @desc.   Bugfix: Footerwidgets weer zichtbaar
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -132,11 +132,7 @@ if ( SHOW_CSS_DEBUG ) {
   	$attributes['role'] .= 'banner';
   	return $attributes;
   }
-  
-  
-//========================================================================================================
 
-  
   //* Add role to footer
   add_filter('genesis_attr_site-footer', 'rhswp_add_attribute_role_contentinfo');
   
