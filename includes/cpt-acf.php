@@ -11,8 +11,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.4.2
- * @desc.   Theme-check, carrousel en extra pagina-layout - bugfixes
+ * @version 0.4.3
+ * @desc.   Carrousel, js-actions
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -797,6 +797,8 @@ endif;
 
 if( function_exists('acf_add_local_field_group') ):
 
+    //====================================================================================================
+    // uitgelichte dossiers op de dossieroverzichtspagina
     acf_add_local_field_group(array (
     	'key' => 'group_57f50ce2004e6',
     	'title' => 'Dossieroverzicht: selecteer uitgelichte dossiers',
@@ -892,8 +894,8 @@ if( function_exists('acf_add_local_field_group') ):
     
 
     
-    // advanced custom fields
-    
+    //====================================================================================================
+    // extra info voor relevante links onder aan de pagina
     acf_add_local_field_group(array (
     	'key' => 'group_572227c314a62',
     	'title' => 'Extra info voor relevante link',
@@ -955,71 +957,110 @@ if( function_exists('acf_add_local_field_group') ):
     ));
 
   
+
+  //====================================================================================================
+  // Wel of niet tonen caroussel?
+    acf_add_local_field_group(array (
+    	'key' => 'group_5804cc93cdcc6',
+    	'title' => 'Carrousel tonen op pagina / dossier?',
+    	'fields' => array (
+    		array (
+    			'key' => 'field_5804ccac137a5',
+    			'label' => 'Carrousel tonen op pagina / dossier?',
+    			'name' => 'carrousel_tonen_op_deze_pagina',
+    			'type' => 'radio',
+    			'instructions' => '',
+    			'required' => 1,
+    			'conditional_logic' => 0,
+    			'wrapper' => array (
+    				'width' => '',
+    				'class' => '',
+    				'id' => '',
+    			),
+    			'choices' => array (
+    				'ja' => 'Ja',
+    				'nee' => 'Nee',
+    			),
+    			'allow_null' => 0,
+    			'other_choice' => 0,
+    			'save_other_choice' => 0,
+    			'default_value' => 'nee',
+    			'layout' => 'horizontal',
+    			'return_format' => 'value',
+    		),
+    		array (
+    			'key' => 'field_5804cd037c566',
+    			'label' => 'Kies carrousel',
+    			'name' => 'kies_carrousel',
+    			'type' => 'post_object',
+    			'instructions' => '',
+    			'required' => 1,
+    			'conditional_logic' => array (
+    				array (
+    					array (
+    						'field' => 'field_5804ccac137a5',
+    						'operator' => '==',
+    						'value' => 'ja',
+    					),
+    				),
+    			),
+    			'wrapper' => array (
+    				'width' => '',
+    				'class' => '',
+    				'id' => '',
+    			),
+    			'post_type' => array (
+    				0 => RHSWP_CPT_SLIDER,
+    			),
+    			'taxonomy' => array (
+    			),
+    			'allow_null' => 0,
+    			'multiple' => 0,
+    			'return_format' => 'object',
+    			'ui' => 1,
+    		),
+    	),
+    	'location' => array (
+    		array (
+    			array (
+    				'param' => 'post_type',
+    				'operator' => '==',
+    				'value' => 'page',
+    			),
+    		),
+    		array (
+    			array (
+    				'param' => 'taxonomy',
+    				'operator' => '==',
+    				'value' => 'dossiers',
+    			),
+    		),
+    	),
+    	'menu_order' => 0,
+    	'position' => 'normal',
+    	'style' => 'default',
+    	'label_placement' => 'top',
+    	'instruction_placement' => 'label',
+    	'hide_on_screen' => '',
+    	'active' => 1,
+    	'description' => '',
+    ));
+    
+
+  //====================================================================================================
+  // extra contentblocks onderaan een pagina.
+  // - of vrij ingevoerde links
+  // - of berichten (algemeen of gefilterd op categorie)
   acf_add_local_field_group(array (
-  	'key' => 'group_5804cc93cdcc6',
-  	'title' => 'Extra layout opties (carrousel, blokken)',
+  	'key' => 'group_5804cc93cxac6',
+  	'title' => 'Extra content-blokken',
   	'fields' => array (
   		array (
-  			'key' => 'field_5804ccac137a5',
-  			'label'   => __( 'Carrousel tonen op deze pagina?', 'wp-rijkshuisstijl' ),
-  			'name' => 'carrousel_tonen_op_deze_pagina',
-  			'type' => 'radio',
-  			'instructions'   => '',
-  			'required' => 1,
-  			'conditional_logic' => 0,
-  			'wrapper' => array (
-  				'width' => '',
-  				'class' => '',
-  				'id' => '',
-  			),
-  			'choices' => array (
-  				'ja' => 'Ja',
-  				'nee' => 'Nee',
-  			),
-  			'allow_null'        => 0,
-  			'other_choice'      => 0,
-  			'save_other_choice' => 0,
-  			'default_value'     => 'nee',
-  			'layout'            => 'horizontal',
-  			'return_format'     => 'value',
-  		),
-  		array (
-  			'key' => 'field_5804cd037c566',
-  			'label'   => __( 'Kies bijbehorende carrousel', 'wp-rijkshuisstijl' ),
-  			'name' => 'kies_carrousel',
-  			'type' => 'post_object',
-  			'instructions'   => '',
-  			'required' => 1,
-  			'conditional_logic' => array (
-  				array (
-  					array (
-  						'field' => 'field_5804ccac137a5',
-  						'operator' => '==',
-  						'value' => 'ja',
-  					),
-  				),
-  			),
-  			'wrapper' => array (
-  				'width' => '',
-  				'class' => '',
-  				'id' => '',
-  			),
-  			'post_type' => array (
-  				0 => RHSWP_CPT_SLIDER,
-  			),
-  			'taxonomy' => array (
-  			),
-  			'allow_null' => 0,
-  			'multiple' => 0,
-  			'return_format' => 'object',
-  			'ui' => 1,
-  		),
-  		array (
   			'key' => 'field_5804cd3ef7829',
-  			'label'   => __( 'Extra contentblokken', 'wp-rijkshuisstijl' ),
+  			'label'   => __( 'Voeg 1 of meer blokken toe', 'wp-rijkshuisstijl' ),
   			'name' => 'extra_contentblokken',
   			'type' => 'repeater',
-  			'instructions'   => '',
+  			'instructions'   => __( 'Deze blokken bestaan uit berichten of uit links. Links moet je handmatig toevoegen. Berichten worden automatisch geselecteerd.', 'wp-rijkshuisstijl' ),
   			'required' => 0,
   			'conditional_logic' => 0,
   			'wrapper' => array (
@@ -1078,10 +1119,10 @@ if( function_exists('acf_add_local_field_group') ):
   				),
   				array (
   					'key' => 'field_5804cd7bf782b',
-      			'label'   => __( 'Links in je contentblok', 'wp-rijkshuisstijl' ),
+            'label'   => __( 'Links in je contentblok', 'wp-rijkshuisstijl' ),
   					'name' => 'extra_contentblok_algemeen_links',
-  					'type' => 'relationship',
-  					'instructions'   => '',
+  					'type' => 'repeater',
+  					'instructions' => '',
   					'required' => 1,
   					'conditional_logic' => array (
   						array (
@@ -1097,23 +1138,49 @@ if( function_exists('acf_add_local_field_group') ):
   						'class' => '',
   						'id' => '',
   					),
-  					'post_type' => array (
-  					),
-  					'taxonomy' => array (
-  					),
-  					'filters' => array (
-  						0 => 'search',
-  						1 => 'post_type',
-  						2 => 'taxonomy',
-  					),
-  					'elements' => array (
-  						0 => 'featured_image',
-  					),
+  					'collapsed' => '',
   					'min' => '',
   					'max' => '',
-  					'return_format' => 'object',
-  				),
-  				array (
+  					'layout' => 'table',
+  					'button_label' => 'Nieuwe regel',
+  					'sub_fields' => array (
+  						array (
+  							'key' => 'field_580ddadb4597b',
+                'label'   => __( 'Linktekst', 'wp-rijkshuisstijl' ),
+  							'name' => 'extra_contentblok_algemeen_links_linktekst',
+  							'type' => 'text',
+  							'instructions' => '',
+  							'required' => 1,
+  							'conditional_logic' => 0,
+  							'wrapper' => array (
+  								'width' => '',
+  								'class' => '',
+  								'id' => '',
+  							),
+  							'default_value' => '',
+  							'placeholder' => '',
+  							'prepend' => '',
+  							'append' => '',
+  							'maxlength' => '',
+  						),
+  						array (
+  							'key' => 'field_580ddb0e4597c',
+  							'label' => 'Link',
+  							'name' => 'extra_contentblok_algemeen_links_url',
+  							'type' => 'url',
+  							'instructions' => '',
+  							'required' => 1,
+  							'conditional_logic' => 0,
+  							'wrapper' => array (
+  								'width' => '',
+  								'class' => '',
+  								'id' => '',
+  							),
+  							'default_value' => '',
+  							'placeholder' => '',
+  						),
+  					),
+  				),  				array (
   					'key' => 'field_5804d01355657',
       			'label'   => __( 'Wil je de berichten filteren op categorie?', 'wp-rijkshuisstijl' ),
   					'name' => 'extra_contentblok_categoriefilter',
@@ -1303,7 +1370,6 @@ if( function_exists('acf_add_local_field_group') ):
   ));
 
 
-
 endif;
 
 //========================================================================================================
@@ -1362,7 +1428,7 @@ if( function_exists('acf_add_local_field_group') ):
   	'fields' => array (
   		array (
   			'key' => 'field_5804daa4dc66c',
-  			'label' => "Voeg foto's en teksten toe (carrousel_items)",
+  			'label' => "Voeg foto's en teksten toe",
   			'name' => 'carrousel_items',
   			'type' => 'repeater',
   			'instructions'   => '',
@@ -1439,7 +1505,7 @@ if( function_exists('acf_add_local_field_group') ):
   					'placeholder' => '',
   					'maxlength' => '',
   					'rows' => '',
-  					'new_lines' => 'wpautop',
+  					'new_lines' => 'None',
   				),
   
   				array (

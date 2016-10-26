@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.1.21
-// * @desc.   Submenu bugfix 
+// * @version 0.4.3
+// * @desc.   Carrousel, js-actions
 // * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 // **
 
@@ -54,9 +54,11 @@
           text-decoration: underline;
         }
       }
-      &.current {
+      &.selected {
         a, span {
           background: white;
+          font-weight: bold;
+          font-family: @fontstrong;
         }
       }
     }
@@ -100,7 +102,7 @@
         position: absolute;
         left: 1em;
         right: 1em;
-        top: 0;
+        top: 2.5em;
       }
     }
   }
@@ -108,13 +110,13 @@
     nav {
       border-bottom: 1px solid @communicatiekleur_licht;
       
-      .current {
+      .selected {
         span {
           display: block;
         }
       }
       
-      a, .current span {
+      a, .selected span {
         padding: 5px 10px;
         border-top: 1px solid @communicatiekleur_licht;
         color: @txt;
@@ -564,13 +566,13 @@
           float: left;
         }
         
-        .current {
+        .selected {
           span {
             display: block;
           }
         }
         
-        a, .current span {
+        a, .selected span {
           padding: 5px 10px;
           border-top-style: none;
           color: @txt;

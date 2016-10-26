@@ -10,10 +10,12 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.4.2
- * @desc.   Theme-check, carrousel en extra pagina-layout - bugfixes
+ * @version 0.4.3
+ * @desc.   Carrousel, js-actions
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
+
+$tellertje = 0;
 
 //========================================================================================================
 
@@ -21,6 +23,8 @@ function rhswp_dossier_title_checker( ) {
 
   global $post;
   global $wp_query;
+  global $tellertje;
+  
   
   $currentID = 0;
   
@@ -48,6 +52,7 @@ function rhswp_dossier_title_checker( ) {
     $posttype = get_post_type();
     $loop     = rhswp_get_context_info();
     $term     = '';
+    $tellertje = 1;
 
 
     if ( 'single' == $loop ) {
@@ -141,7 +146,7 @@ function rhswp_dossier_title_checker( ) {
 
           $args['currentpageid'] = $term->term_id;
 
-          $overzichtspagina = '<li class="current"><span>' .  _x( 'Overzicht', 'Standaardlabel voor het menu in de dossiers', 'wp-rijkshuisstijl' ) . '</span></li>';
+          $overzichtspagina = '<li class="selected"><span>' .  _x( 'Overzicht', 'Standaardlabel voor het menu in de dossiers', 'wp-rijkshuisstijl' ) . '</span></li>';
 
         }        
         else {
@@ -195,7 +200,13 @@ function rhswp_dossier_title_checker( ) {
   
       
       if ( $overzichtspagina || $subpaginas ) {
-        echo '<nav class="collapsible"><ul>' . $overzichtspagina  .  $subpaginas;    
+        if ( $tellertje > 1 ) {
+          echo '<p class="screen-reader-text">';
+          echo sprintf( __( 'Dit dossier bevat %s items.', 'wp-rijkshuisstijl' ), $tellertje );
+          echo '</p>';
+        }
+
+        echo '<nav class="collapsible"><ul class="tabs">' . $overzichtspagina  .  $subpaginas;    
         echo '</ul></nav>';    
       }
   
@@ -210,6 +221,10 @@ function rhswp_dossier_title_checker( ) {
 //========================================================================================================
 
 function rhswp_dossier_get_pagelink( $theobject, $args ) {
+
+  global $tellertje;
+  
+  $tellertje++;
 
   if ( $args['currentpageid'] ) {
     $currentpageid = $args['currentpageid'];
@@ -242,10 +257,10 @@ function rhswp_dossier_get_pagelink( $theobject, $args ) {
 
 
   if ( $currentpageid == $theobjectid ) {
-    return '<li class="current"><span>' . $maxposttitle . '</span></li>';
+    return '<li class="selected"><span>' . $maxposttitle . '</span></li>';
   }
   elseif ( $args['markerforclickableactivepage'] == $theobjectid ) {
-    return '<li class="current"><a href="' . get_permalink( $theobjectid ) . '">' . $maxposttitle . '</a></li>';
+    return '<li class="selected"><a href="' . get_permalink( $theobjectid ) . '">' . $maxposttitle . '</a></li>';
   }
   else {
     return '<li><a href="' . get_permalink( $theobjectid ) . '">' . $maxposttitle . '</a></li>';

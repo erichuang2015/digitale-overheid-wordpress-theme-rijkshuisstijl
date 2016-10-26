@@ -8,38 +8,35 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.4.2
- * @desc.   Theme-check, carrousel en extra pagina-layout - bugfixes
+ * @version 0.4.3
+ * @desc.   Carrousel, js-actions
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
 //========================================================================================================
 
-    
-    
-
-// Start the engine
+// Start Genesis engine
 include_once( get_template_directory() . '/lib/init.php' );
 
 //========================================================================================================
 
-// constanten
+// Constants
 
 // Child theme (do not remove)
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "http://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.4.2" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Theme-check, carrousel en extra pagina-layout - bugfixes" );
+define( 'CHILD_THEME_VERSION',              "0.4.3" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Carrousel, js-actions" );
 define( 'SHOW_CSS_DEBUG',                   false );
 define( 'ID_ZOEKEN',                        'rhswp-searchform' );
 define( 'GC_TWITTERACCOUNT',                'gebrcentraal' );
 define( 'SOC_MED_NO',                       'socmed_nee' );
 define( 'SOC_MED_YES',                      'socmed_ja' );
 
-$siteURL =  get_stylesheet_directory_uri();
-$siteURL =  preg_replace('|https://|i', '//', $siteURL );
-$siteURL =  preg_replace('|http://|i', '//', $siteURL );
-define( 'RHSWP_THEMEFOLDER', $siteURL );
+$siteURL      =  get_stylesheet_directory_uri();
+$siteURL      =  preg_replace('|https://|i', '//', $siteURL );
+$siteURL      =  preg_replace('|http://|i', '//', $siteURL );
+define( 'RHSWP_THEMEFOLDER',                 $siteURL );
 
 $sharedfolder = get_stylesheet_directory();
 $sharedfolder = preg_replace('|genesis|i','wp-rijkshuisstijl',$sharedfolder);
@@ -52,6 +49,7 @@ define( 'RHSWP_HOME_WIDGET_AREA',           'home-widget-area' );
 define( 'RHSWP_PREFIX_TAG_CAT',             'rhswp_dossier_select_tag_category');
 define( 'RHSWP_CMB2_TAG_FIELD',             'select_tag');
 define( 'RHSWP_CMB2_TXT_FIELD',             'select_txt');
+
 if ( ! defined( 'RHSWP_CT_DOSSIER' ) ) {
   define( 'RHSWP_CT_DOSSIER',               'dossiers' );       // slug for custom taxonomy 'dossier'
 }
@@ -66,8 +64,8 @@ if ( ! defined( 'RHSWP_CPT_SLIDER' ) ) {
 }
 
 define( 'RHSWP_WIDGET_BANNER',              '(DO) banner widget');
-define( 'RHSWP_WIDGET_PAGELINKS_ID',        'rhswp_pagelinks_widget');
 define( 'RHSWP_WIDGET_PAGELINKS_DESC',      '(DO) paginalinks widget');
+define( 'RHSWP_WIDGET_PAGELINKS_ID',        'rhswp_pagelinks_widget');
 define( 'RHSWP_WIDGET_LINK_TO_SINGLE_PAGE', '(DO) verwijs naar een pagina');
 
 define( 'RHSWP_CSS_BANNER',                 'banner-css' ); // slug for custom post type 'document'
@@ -78,11 +76,11 @@ define( 'RHSWP_DOSSIEREVENTCONTEXT',        'dossiereventcontext' );
 define( 'RHSWP_DOSSIERDOCUMENTCONTEXT',     'dossierdocumentcontext' );
 define( 'RHSWP_DOSSIERPOSTCONTEXT_OPTION',  RHSWP_DOSSIERPOSTCONTEXT . CHILD_THEME_VERSION );
 
+//========================================================================================================
+
 add_image_size( 'Carrousel (preview: 400px wide)', 400, 200, false );
 add_image_size( 'Carrousel (full width: 1200px wide)', 1200, 400, false );
 add_image_size( 'featured-post-widget', 400, 250, false );
-
-
 
 //========================================================================================================
 
@@ -137,6 +135,11 @@ include_once( RHSWP_FOLDER . '/includes/cpt-acf.php' );
 
 //========================================================================================================
 
+//* Remove inpost layouts
+remove_theme_support( 'genesis-inpost-layouts' );
+
+//========================================================================================================
+
 // voor de widgets
 require_once( RHSWP_FOLDER . '/includes/widget-home.php' );
 require_once( RHSWP_FOLDER . '/includes/widget-banner.php' );
@@ -162,6 +165,12 @@ add_action( 'genesis_loop', 'rhswp_add_title_to_blog_page', 1 );
 
 //========================================================================================================
 
+// ** Prevent Genesis Accessible from hooking
+
+remove_action ( 'genesis_before_header', 'genwpacc_skip_links' );
+
+//========================================================================================================
+
 function rhswp_add_title_to_blog_page() {
   if ( is_home() && 'page' == get_option( 'show_on_front' ) ) {
     $actueelpageid    = get_option( 'page_for_posts' );
@@ -176,7 +185,7 @@ function rhswp_add_title_to_blog_page() {
 add_action( 'init', 'rhswp_add_excerpts_to_pages' );
 
 function rhswp_add_excerpts_to_pages() {
-     add_post_type_support( 'page', 'excerpt' );
+  add_post_type_support( 'page', 'excerpt' );
 }
 
 // Add Read More Link to Excerpts
@@ -234,7 +243,6 @@ add_action( 'genesis_after_header', 'genesis_do_breadcrumbs',       18 );
 add_action( 'genesis_after_header', 'rhswp_dossier_title_checker',  20 );
 add_action( 'genesis_after_header', 'rhswp_caroussel_checker',      22 );
 
-
 //========================================================================================================
 
 // thumbnails even for pages
@@ -279,6 +287,10 @@ function rhswp_append_search_box_to_menu( $menu, $args ) {
 
 //========================================================================================================
 
+add_filter( 'genesis_single_crumb',   'rhswp_breadcrumb_add_newspage', 10, 2 );
+add_filter( 'genesis_page_crumb',     'rhswp_breadcrumb_add_newspage', 10, 2 );
+add_filter( 'genesis_archive_crumb',  'rhswp_breadcrumb_add_newspage', 10, 2 );
+
 function rhswp_breadcrumb_add_newspage( $crumb, $args ) {
 
   $span_before_start  = '<span class="breadcrumb-link-wrap" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">';  
@@ -311,19 +323,12 @@ function rhswp_breadcrumb_add_newspage( $crumb, $args ) {
       
       return $crumb;
       
-
-//      return $needle . $span_before_start . '<a href="' . get_term_link( $term ) . '">' . $term->name .'</a>' . $span_before_end . $args['sep'] . ' |' . $crumb . '|';
-      
     }
     else {
   		return $crumb;
     }
 	}
 }
-
-add_filter( 'genesis_single_crumb',   'rhswp_breadcrumb_add_newspage', 10, 2 );
-add_filter( 'genesis_page_crumb',     'rhswp_breadcrumb_add_newspage', 10, 2 );
-add_filter( 'genesis_archive_crumb',  'rhswp_breadcrumb_add_newspage', 10, 2 );
 
 //========================================================================================================
 
@@ -454,22 +459,24 @@ function get_words($sentence, $count = 10) {
 
 //========================================================================================================
 
+add_filter( 'excerpt_length', 'rhswp_custom_excerpt_length', 999 );
+
 // Filter except length to 35 words.
 // tn custom excerpt length
 
 function rhswp_custom_excerpt_length( $length ) {
-$length = 35;
-if ( get_option( 'excerpt_length' ) !== false ) {
+  $length = 35;
+  if ( get_option( 'excerpt_length' ) !== false ) {
     // The option already exists, so we just update it.
     update_option( 'excerpt_length', $length );
-} else {
+  }
+  else {
     // The option hasn't been added yet. We'll add it
     add_option( 'excerpt_length', $length );
-}
-wp_cache_delete ( 'alloptions', 'options' );
+  }
+  wp_cache_delete ( 'alloptions', 'options' );
   return $length;
 }
-add_filter( 'excerpt_length', 'rhswp_custom_excerpt_length', 999 );
 
 //========================================================================================================
 
@@ -663,14 +670,21 @@ function rhswp_get_sitemap_content() {
     <ul>
         <?php wp_list_pages( 'exclude=78,80&title_li=' ); ?>
     </ul>
-    <h2><?php _e( 'Recent Posts:', 'wp-rijkshuisstijl' ); ?></h2>
-    <ul>
-        <?php wp_get_archives( 'type=postbypost&limit=10' ); ?>
-    </ul>
   </section>
   <?php
   rhswp_show_customtax_terms( RHSWP_CT_DOSSIER, __( 'Dossiers', 'wp-rijkshuisstijl' ) . ":" );
-    
+  rhswp_show_customtax_terms( 'category', __( 'Categorieën', 'wp-rijkshuisstijl' ) . ":" );
+  
+  $maxnr_posts = 12;
+  
+  ?>        
+  <section>
+    <h2><?php echo $maxnr_posts .  __( ' laatste berichten', 'wp-rijkshuisstijl' ); ?></h2>
+    <ul>
+        <?php wp_get_archives( 'type=postbypost&limit=' . $maxnr_posts ); ?>
+    </ul>
+  </section>
+  <?php
     
 }
 
@@ -738,6 +752,10 @@ function rhswp_enqueue_js_scripts() {
 
   if ( ! is_admin() ) {
     wp_enqueue_script( 'wp-rijkshuisstijl-menu', RHSWP_THEMEFOLDER . '/js/min/menu-min.js', '', '', true );
+  }
+
+  if ( ! is_admin() ) {
+    wp_enqueue_script( 'slider2', RHSWP_THEMEFOLDER . '/js/carousel-actions.js', array( 'jquery' ), '', true );
   }
 
 //  if ( ( is_home() || is_front_page() ) ) {
@@ -1373,11 +1391,12 @@ function rhswp_write_extra_contentblokken() {
               echo '<ul class="links">';
 
               foreach ( $algemeen_links as $itemid ) {
-                $title = get_the_title( $itemid );
-                if ( $title ) {
+                $title  = $itemid['extra_contentblok_algemeen_links_linktekst'];
+                $url    = $itemid['extra_contentblok_algemeen_links_url'];
+                if ( $title && $url ) {
                   echo '<li>';
                   echo '<a href="';
-                  echo get_permalink( $itemid );
+                  echo $url;
                   echo '">';
                   echo $title;
                   echo '</a></li>';
@@ -1571,87 +1590,113 @@ function rhswp_caroussel_checker() {
     }
 
    
-    
 
     if ( 'ja' == $carousselcheck ) {
       
-      $carouselid     = get_field('kies_carrousel', $theid );
-      $carouseltitle  = get_the_title( $theid );
-      $fotos          = get_field('carrousel_items', $carouselid );
+      $getcarousel    = get_field('kies_carrousel', $theid );
+
+      
+      $carouselid       = $getcarousel->ID;
+      $carouseltitle    = $getcarousel->post_title;
+      $carrousel_items  = get_field( 'carrousel_items', $carouselid );
 
 
-      if( $fotos ) {
+      if( have_rows('carrousel_items', $carouselid ) ) {
 
-        $itemcounter = 'items' . count( $fotos ) ;
+        $itemcounter = 'items' . count( $carrousel_items ) ;
 
         echo '<div class="slider" role="complementary">';
         echo '<div class="wrap">';
 
         echo '<p class="visuallyhidden">' . $carouseltitle . '</p>';
         
-        if ( count( $fotos ) > 1 ) {
+        if ( count( $carrousel_items ) > 1 ) {
 //          echo '<button class="carouselControl" type="button">Pauzeer diashow</button>';
         }
         
-        echo '<ul class="' . $itemcounter . '">';
+        echo '<ul class="carousel" id="carousel" data-slidecount="' . $itemcounter . '">';
 
-        foreach( $fotos as $row ) {
+        $slidecounter = 0;
+
+        foreach( $carrousel_items as $row ) {
           
-          $link_start = '';
-          $link_end   = '';
+          $slidecounter++;
+          
+          $link_img_start     = '';
+          $link_end           = '';
+          $link_caption_start = '';         
+          $link_caption_end   = ''; 
 
           $image    = $row[ 'carrousel_item_photo' ];
           $titel    = esc_html( $row[ 'carrousel_item_title' ] );
-          $text     = $row[ 'carrousel_item_short_text' ];
+          $text     = esc_html( $row[ 'carrousel_item_short_text' ] );
           $type     = $row[ 'carrousel_item_link_type' ];
           $link     = $row[ 'carrousel_item_link_page' ];
           $dossier  = $row[ 'carrousel_item_link_dossier' ];
           $size     = 'Carrousel (full width: 1200px wide)';
 
-
-          echo '<li>';   	
+          $selected = '';
           
-          if ( $link && $type == 'pagina' ) {
-            $linkid = array_pop($link);
-            $link_start= '<a href="' . get_permalink( $linkid ) . '" tabindex="-1">';   	
-            $link_end   = '</a>';
-          }
-          elseif ( $dossier && $type == 'dossier' ) {
-            $link_start= '<a href="' . get_term_link( $dossier ) . '" tabindex="-1">';   	
-            $link_end   = '</a>';
+          if ( $slidecounter == 1 ) {
+            $selected = ' class="slide selected"';
           }
           else {
-            $link_start= '<span class="img-container">';   	
-            $link_end   = '</span>';
+            $selected = ' class="slide"';
+          }
+          
+          echo '<li' . $selected . '>';   	
+          
+          if ( $link && $type == 'pagina' ) {
+            $linkid         = array_pop($link);
+            $link_img_start     = '<a href="' . get_permalink( $linkid ) . '" tabindex="-1" class="img-container">';   	
+            $link_end           = '</a>';
+
+            $link_caption_start = '<a href="' . get_permalink( $dossier ) . '" class="caption">';   	
+            $link_caption_end   = '</a>';   	
+          }
+          elseif ( $dossier && $type == 'dossier' ) {
+            $link_img_start     = '<a href="' . get_term_link( $dossier ) . '" tabindex="-1" class="img-container">';   	
+            $link_end           = '</a>';
+
+            $link_caption_start = '<a href="' . get_term_link( $dossier ) . '" class="caption">';   	
+            $link_caption_end   = '</a>';   	
+
+          }
+          else {
+            $link_img_start     = '<span class="img-container">';   	
+            $link_end           = '</span>';
+
+            $link_caption_start = '<div class="class="caption">';   	
+            $link_caption_end   = '</div>';   	
           }
 
-          echo $link_start;   		
 
           if ( $image ) {
-//            echo wp_get_attachment_image( $image, $size );
             $thumb = $image['sizes'][ $size ];
             $width = $image['sizes'][ $size . '-width' ];
             $height = $image['sizes'][ $size . '-height' ];
+
+            echo $link_img_start;   		
             echo '<img src="' . $thumb . '" alt="" width="' . $width . '" height="' . $height . '" />';
+            echo $link_end;   		
 
 
           }
           if ( $titel || $text ) {
 
-            echo '<div class="caption">';   		
+            echo $link_caption_start;   		
             
             if ( $titel ) {
               echo '<p class="caption-title">' .  $titel . '</p>';   		
             }
             if ( $text ) {
-              echo $text;   		
+              echo '<p class="caption-text">' .  $text . '</p>';   		
             }
-          
-            echo '</div>';   		
+
+            echo $link_caption_end;   		
             
           }
             
-          echo $link_end;   		
           
           echo '</li>';   	
           
