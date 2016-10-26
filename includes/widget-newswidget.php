@@ -9,8 +9,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.2.4
- * @desc.   Context widget added 
+ * @version 0.6.5
+ * @desc.   News widget aangepast (banner-border weg)
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -27,7 +27,7 @@ class rhswp_news_widget extends WP_Widget {
 
 
     		$widget_ops = array(
-    			'classname'   => 'banner news-widget',
+    			'classname'   => 'news-widget',
     			'description' => __( 'Mogelijkheid voor tonen van nieuwsberichten uit een bepaalde categorie', 'wp-rijkshuisstijl' ),
     		);
     
