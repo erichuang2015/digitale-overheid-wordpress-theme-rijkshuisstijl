@@ -7,8 +7,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.6.1
-// * @desc.   Editor CSS: beperkingen en waarschuwingen
+// * @version 0.6.8
+// * @desc.   Editor styles: <div> warning added
 // * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 // **
 
@@ -26,7 +26,7 @@
 
 @waarschuwingh1: 'Deze tekst bevat een H1 als titel-tag. Die is gereserveerd voor de paginatitel. Gebruik alleen H2 of lager, alsjeblieft.';
 
-
+@waarschuwinghdiv: 'Er zitten <div>-tags in deze tekst. Misschien is dat je bedoeling, maar vaak levert dit ongewenste layout op. Probeer de tekst zonder extra layout in te voeren, bijvoorbeeld via het "tekst"-tabje.';
 
 
 .03_fonts_get_webfonts_relative();
@@ -98,24 +98,38 @@ a {
 }
 
 h1 {
+  background: red !important;
+  color: white !important;
+  padding: .1em;
+  display: inline-block;
   
-    background: red !important;
-    color: white !important;
-    padding: .1em;
+  &:before { 
+    background: yellow url('../images/waarschuwing.svg') no-repeat .4em .4em !important;
+    content: @waarschuwingh1;
+    display: block;
+    padding: .4em .4em .4em 24px;
+    font-family: sans-serif;
+    font-size: 10px;
+    line-height: 16px;
+    width:  180px;
+    border: 1px solid black;
+    float: left;
+    color: black !important;
+  }
+}
+
+div {
+    padding: .2em;
+    border: 1px solid @grijs_7;
+  
+  &:before { 
+    content: @waarschuwinghdiv;
     display: inline-block;
-  
-    &:before { 
-        background: yellow url('../images/waarschuwing.svg') no-repeat .4em .4em !important;
-        content: @waarschuwingh1;
-        display: block;
-        padding: .4em .4em .4em 24px;
-        font-family: sans-serif;
-        font-size: 10px;
-        line-height: 16px;
-        width:  180px;
-        border: 1px solid black;
-        float: left;
-        color: black !important;
-    }
-  
+    float: none;
+    clear: both;
+    font-size: 80%;
+    color: @grijs_7;
+    border-bottom: 1px solid @grijs_7;
+    margin-bottom: 1em;
+  }
 }

@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.6.7
- * @desc.   Widget title: less padding between widgets
+ * @version 0.6.8
+ * @desc.   Editor styles: <div> warning added
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -25,8 +25,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Child theme (do not remove)
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "http://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.6.7" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Widget title: less padding between widgets" );
+define( 'CHILD_THEME_VERSION',              "0.6.8" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Editor styles: <div> warning added" );
 define( 'SHOW_CSS_DEBUG',                   false );
 define( 'ID_ZOEKEN',                        'rhswp-searchform' );
 define( 'GC_TWITTERACCOUNT',                'gebrcentraal' );
