@@ -11,8 +11,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.4.3
- * @desc.   Carrousel, js-actions
+ * @version 0.6.4
+ * @desc.   (temporary) remove relevante links CPT
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -131,7 +131,8 @@ function rhswp_register_custom_post_types() {
 			);
 	register_post_type( RHSWP_CPT_DOCUMENT, $args );
 
-
+if ( 22 == 33 ) {
+  
   /* 
   * Relevante links
   */  
@@ -171,6 +172,7 @@ function rhswp_register_custom_post_types() {
 		"supports"              => array( "title", "editor", "excerpt", "revisions", "thumbnail" ),				
 	);
 	register_post_type( RHSWP_LINK_CPT, $args );
+}
 
 
 
