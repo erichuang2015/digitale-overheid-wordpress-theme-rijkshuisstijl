@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.5.1
- * @desc.   Carrousel, js-actions - bugfixes
+ * @version 0.6.1
+ * @desc.   Editor CSS: beperkingen en waarschuwingen
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -25,8 +25,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Child theme (do not remove)
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "http://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.5.1" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Carrousel, js-actions - bugfixes" );
+define( 'CHILD_THEME_VERSION',              "0.6.1" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Editor CSS: beperkingen en waarschuwingen" );
 define( 'SHOW_CSS_DEBUG',                   false );
 define( 'ID_ZOEKEN',                        'rhswp-searchform' );
 define( 'GC_TWITTERACCOUNT',                'gebrcentraal' );
@@ -832,16 +832,12 @@ function admin_set_tinymce_options( $settings ) {
      
     $settings['toolbar1'] = 'formatselect,italic,bullist,numlist,blockquote,|,link,unlink,|,spellchecker,|,removeformat,cleanup,|,alignleft,alignright,undo,redo,outdent,indent,hr,fullscreen';
     $settings['toolbar2'] = '';
-    $settings['block_formats'] = 'Tussenkop niveau 2=h2;Tussenkop niveau 3=h3;Tussenkop niveau 4=h4;Paragraaf=p;Citaat=q';
+    $settings['block_formats'] = 'Tussenkop niveau 2=h2;Tussenkop niveau 3=h3;Tussenkop niveau 4=h4;Tussenkop niveau 5=h5;Tussenkop niveau 6=h6;Paragraaf=p;Citaat=q';
 
-//            {title: "Streamer", block: "aside", classes: "pullquote"},
-
-//    		{title: "Interviewvraag", inline: "i", classes: "interview"}
-    
     return $settings;
 }
  
-//add_filter('tiny_mce_before_init', 'admin_set_tinymce_options');
+add_filter('tiny_mce_before_init', 'admin_set_tinymce_options');
 
 //========================================================================================================
 

@@ -7,8 +7,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.1.15
-// * @desc.   SVG images, Kleurcheck, CSS RHS, widgets, code-opschoning 
+// * @version 0.6.1
+// * @desc.   Editor CSS: beperkingen en waarschuwingen
 // * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 // **
 
@@ -17,6 +17,17 @@
 @import "02-mixins.less";       /* mixins, sizes */
 @import "03-fonts.less";        /* fonts */
 @import "10-text-styles.less";     /* font-styles, shared with admin editor-styles.less */
+
+@waarschuwing: 'deze tekst bevat nog verkeerde opmaakcode. Selecteer de tekst en klik op de gum-knop om dit weg te halen';
+@waarschuwingbold: 'Deze tekst is vet. Als je een tussenkopje wil maken, gebruik dan h2, h3, h4. Vette tekst leidt erg af; van harte afgeraden.';
+@waarschuwingunderlined: 'Onderstreepte tekst impliceert een link. Niet gebruiken, alsjeblieft.';
+
+@waarschuwingfont: 'deze tekst bevat opmaakcode voor een ander lettertype. Selecteer de tekst en klik op de gum-knop om dit weg te halen';
+
+@waarschuwingh1: 'Deze tekst bevat een H1 als titel-tag. Die is gereserveerd voor de paginatitel. Gebruik alleen H2 of lager, alsjeblieft.';
+
+
+
 
 .03_fonts_get_webfonts_relative();
 
@@ -29,4 +40,82 @@
 
 .cmb-type-text {
   border: 10px solid @warning;
+}
+
+
+strong, 
+b, 
+span[style*="font"], 
+span[style*="underline"], 
+u {
+    background: red !important;
+    color: white !important;
+    padding: .1em;
+}
+strong, b {
+    font-weight: bold;
+}
+strong,
+b, 
+span[style*="color"], 
+span[style*="font"], 
+span[style*="underline"], u  {
+  
+    background: red !important;
+    color: white !important;
+    padding: .1em;
+    display: inline-block;
+  
+    &:before { 
+        background: yellow url('../images/opmaak-verwijderen.png') no-repeat .4em .4em !important;
+        content: @waarschuwing;
+        display: block;
+        padding: .4em .4em .4em 42px;
+        font-family: sans-serif;
+        font-size: 10px;
+        line-height: 16px;
+        width:  180px;
+        border: 1px solid black;
+        float: left;
+        color: black !important;
+    }
+}
+span[style*="color"]:before { 
+    content: @waarschuwingfont;
+}
+span[style*="font"]:before { 
+    content: @waarschuwing;
+}
+span[style*="underline"]:before, u:before {
+    content: @waarschuwingunderlined;
+}
+strong:before, b:before {
+    content: @waarschuwingbold;
+}
+
+a {
+  text-decoration: underline !important;
+}
+
+h1 {
+  
+    background: red !important;
+    color: white !important;
+    padding: .1em;
+    display: inline-block;
+  
+    &:before { 
+        background: yellow url('../images/waarschuwing.svg') no-repeat .4em .4em !important;
+        content: @waarschuwingh1;
+        display: block;
+        padding: .4em .4em .4em 24px;
+        font-family: sans-serif;
+        font-size: 10px;
+        line-height: 16px;
+        width:  180px;
+        border: 1px solid black;
+        float: left;
+        color: black !important;
+    }
+  
 }
