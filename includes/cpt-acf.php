@@ -11,8 +11,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.6.4
- * @desc.   (temporary) remove relevante links CPT
+ * @version 0.6.9
+ * @desc.   Renamed 'overzichtspagina' to 'inhoudspagina' in dossier
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -276,10 +276,10 @@ if( function_exists('acf_add_local_field_group') ):
     	'fields' => array (
     		array (
     			'key' => 'field_57e411ac51413',
-    			'label'   => __( 'Welke overzichtpagina hier hierbij?', 'wp-rijkshuisstijl' ),
+    			'label'   => __( 'Welke inhoudspagina hier hierbij?', 'wp-rijkshuisstijl' ),
     			'name' => 'dossier_overzichtpagina',
     			'type' => 'post_object',
-          'instructions'   => __( 'Welke pagina is de overzichtspagina die hoort bij dit dossier? Deze pagina is belangrijk, omdat we hiermee de verdere structuur van het dossier kunnen bepalen.', 'wp-rijkshuisstijl' ),  			
+          'instructions'   => __( 'Welke pagina beschrijft de inhoud van dit dossier? Deze pagina is belangrijk, omdat we hiermee de verdere structuur van het dossier kunnen bepalen.', 'wp-rijkshuisstijl' ),  			
     			'required' => 0,
     			'conditional_logic' => 0,
     			'wrapper' => array (
@@ -375,10 +375,10 @@ if( function_exists('acf_add_local_field_group') ):
     	'fields' => array (
     		array (
     			'key' => 'field_57f90d20c2fdf',
-    			'label'   => __( 'Overzichtspagina', 'wp-rijkshuisstijl' ),
+    			'label'   => __( 'Inhoudspagina', 'wp-rijkshuisstijl' ),
     			'name' => 'dossier_overzichtpagina',
     			'type' => 'post_object',
-          'instructions'   => __( 'Welke pagina is de overzichtspagina die hoort bij dit dossier? Deze pagina is belangrijk, omdat we hiermee de verdere structuur van het dossier kunnen bepalen.', 'wp-rijkshuisstijl' ),  			
+          'instructions'   => __( 'Welke pagina beschrijft de inhoud van dit dossier? Deze pagina is belangrijk, omdat we hiermee de verdere structuur van het dossier kunnen bepalen.', 'wp-rijkshuisstijl' ),  			
     			'required' => 0,
     			'conditional_logic' => 0,
     			'wrapper' => array (
@@ -398,7 +398,7 @@ if( function_exists('acf_add_local_field_group') ):
     		),
     		array (
     			'key' => 'field_57fa70f9fe7a3',
-    			'label'   => __( 'Toon overzichtspagina in het menu?', 'wp-rijkshuisstijl' ),
+    			'label'   => __( 'Toon inhoudspagina in het menu?', 'wp-rijkshuisstijl' ),
     			'name' => 'toon_overzichtspagina_in_het_menu',
     			'type' => 'radio',
     			'instructions'   => '',
@@ -853,7 +853,7 @@ if( function_exists('acf_add_local_field_group') ):
     	'fields' => array (
     		array (
     			'key' => 'field_57f509b68989b',
-    			'label'   => __( 'Overzichtspagina voor dossier', 'wp-rijkshuisstijl' ),
+    			'label'   => __( 'Inhoudspagina voor dossier', 'wp-rijkshuisstijl' ),
     			'name' => 'dossier_overzichtspagina',
     			'type' => 'post_object',
     			'instructions'   => '',
@@ -964,11 +964,11 @@ if( function_exists('acf_add_local_field_group') ):
   // Wel of niet tonen caroussel?
     acf_add_local_field_group(array (
     	'key' => 'group_5804cc93cdcc6',
-    	'title' => 'Carrousel tonen op pagina / dossier?',
+    	'title' => 'Carrousel',
     	'fields' => array (
     		array (
     			'key' => 'field_5804ccac137a5',
-    			'label' => 'Carrousel tonen op pagina / dossier?',
+    			'label'   => __( 'Wil je hier een carrousel tonen?', 'wp-rijkshuisstijl' ),
     			'name' => 'carrousel_tonen_op_deze_pagina',
     			'type' => 'radio',
     			'instructions' => '',
@@ -992,7 +992,7 @@ if( function_exists('acf_add_local_field_group') ):
     		),
     		array (
     			'key' => 'field_5804cd037c566',
-    			'label' => 'Kies carrousel',
+    			'label'   => __( 'Welke carrousel wil je tonen?', 'wp-rijkshuisstijl' ),
     			'name' => 'kies_carrousel',
     			'type' => 'post_object',
     			'instructions' => '',

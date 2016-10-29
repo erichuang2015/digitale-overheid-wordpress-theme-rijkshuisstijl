@@ -10,8 +10,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.4.3
- * @desc.   Carrousel, js-actions
+ * @version 0.6.9
+ * @desc.   Renamed 'overzichtspagina' to 'inhoudspagina' in dossier
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -103,7 +103,7 @@ function rhswp_dossier_title_checker( ) {
     // dossiercontext tonen als
     // er een taxonomie bekend is en het geen archief is
     if ( $term && ( 'archive' !== $loop ) ) { 
-      $overzichtspagina = '';
+      $dossierinhoudpagina = '';
   
       echo '<div class="dossier-overview"><div class="wrap">'; 
       
@@ -123,7 +123,7 @@ function rhswp_dossier_title_checker( ) {
           $parentID = $dossier_overzichtpagina->ID;
 
           if ( $tonen !== 'nee' ) {
-            // we mogen de overzichtspagina tonen
+            // we mogen de inhoudspagina tonen
 
             $shownalready = $dossier_overzichtpagina->ID;
             $parentID     = $dossier_overzichtpagina->ID;
@@ -146,13 +146,13 @@ function rhswp_dossier_title_checker( ) {
 
           $args['currentpageid'] = $term->term_id;
 
-          $overzichtspagina = '<li class="selected"><span>' .  _x( 'Overzicht', 'Standaardlabel voor het menu in de dossiers', 'wp-rijkshuisstijl' ) . '</span></li>';
+          $dossierinhoudpagina = '<li class="selected"><span>' .  _x( 'Overzicht', 'Standaardlabel voor het menu in de dossiers', 'wp-rijkshuisstijl' ) . '</span></li>';
 
         }        
         else {
           // dit is een andere pagina, 
 
-          $overzichtspagina = '<li><a href="' . get_term_link( $term ) . '">' . _x( 'Overzicht', 'Standaardlabel voor het menu in de dossiers', 'wp-rijkshuisstijl' ) . '</a></li>';
+          $dossierinhoudpagina = '<li><a href="' . get_term_link( $term ) . '">' . _x( 'Overzicht', 'Standaardlabel voor het menu in de dossiers', 'wp-rijkshuisstijl' ) . '</a></li>';
 
         }
         
@@ -199,14 +199,14 @@ function rhswp_dossier_title_checker( ) {
       }
   
       
-      if ( $overzichtspagina || $subpaginas ) {
+      if ( $dossierinhoudpagina || $subpaginas ) {
         if ( $tellertje > 1 ) {
           echo '<p class="screen-reader-text">';
           echo sprintf( __( 'Dit dossier bevat %s items.', 'wp-rijkshuisstijl' ), $tellertje );
           echo '</p>';
         }
 
-        echo '<nav class="collapsible"><ul class="tabs">' . $overzichtspagina  .  $subpaginas;    
+        echo '<nav class="collapsible"><ul class="tabs">' . $dossierinhoudpagina  .  $subpaginas;    
         echo '</ul></nav>';    
       }
   
