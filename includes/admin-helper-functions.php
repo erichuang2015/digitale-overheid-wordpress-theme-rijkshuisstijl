@@ -9,8 +9,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.6.2
- * @desc.   Bugfix: Footerwidgets weer zichtbaar
+ * @version 0.6.31
+ * @desc.   New custom post type for dossiers
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -89,14 +89,17 @@ function rhswp_admin_display_wpquery_in_context() {
 
 
   global $wp_query;
-  dodebug('post meta:');
 
-$prefix = 'rhswp_dossierlinks_';	 
+  $meta = get_post_meta( get_the_ID(), RHSWP_DOSSIER_SEMITAX . '_post_radio', true);
 
-  $meta = get_post_meta( get_the_ID(), $prefix . '_post_radio', true);
-  
-  
-  dovardump( $meta );
+  if ( $meta ) {
+    dodebug('post meta:');
+    dovardump( $meta );
+  }
+
+  dovardump($wp_query->query['berichten']);
+//  dovardump($wp_query);
+
   
   dodebug('wp_query->query:');
   dovardump($wp_query->query);

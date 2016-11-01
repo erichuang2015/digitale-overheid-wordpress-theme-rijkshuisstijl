@@ -9,7 +9,7 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.6.17
+ * @version 0.6.31
  * @desc.   New custom post type for dossiers
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
@@ -38,66 +38,130 @@ add_action( 'genesis_after_loop', 'rhswp_write_extra_contentblokken', 10 );
 add_action( 'genesis_after_loop', 'rhswp_write_filtered_content', 10 );
 
 genesis();
+
+// Remove the standard pagination, so we don't get two sets
+remove_action( 'genesis_after_endwhile', 'genesis_posts_nav' );
+
     
 function rhswp_write_filtered_content() {
-
-
-$prefix = 'rhswp_dossierlinks_';	 
-
-
-
-$slugs = array( 'nieuws' );
-
-$dossiernummer = array( 761, 760 );
-
-
-$dossierslug  = 'nou-dit-dan';
-$categoryslug = 'nieuws';
-
-    $args = array(
-      'post_type' => 'post',
-      'post_status'     => 'publish',
-      'posts_per_page'  => -1,
-
-      'meta_query' => array(
-        array(
-            'key'     => $prefix . '_post_radio',
-            'value'   => $dossierslug,
-            'compare' => 'like'
-        )
-      ),
-      
-      'tax_query' => array(
-        array(
-          'taxonomy'  => 'category',
-          'field'     => 'slug',
-          'terms'     => $categoryslug,
-        )
-      )
-    );
-
-    $sidebarposts = new WP_query();
-    $sidebarposts->query($args);
-    if ( $sidebarposts->have_posts() ) {
-
-      echo '<ul>';
   
-      $postcounter = 0;
+  global $wp_query;
+
+
+
+  $args = array(
+    'post_type'       => 'post',
+    'post_status'     => 'publish',
+    'paged'           => $paged,
+    'posts_per_page'  => get_option('posts_per_page'),
+  );  
+
   
-      while ($sidebarposts->have_posts()) : $sidebarposts->the_post();
-      
-        echo '<li>' . get_the_title() . '</li>';
-
-      endwhile;
-
-      echo '</ul>';
-      
-    }
-    // RESET THE QUERY
-    wp_reset_query();
+  $title = '';
+  
+  if ( $wp_query->query['berichten'] ) {
+  
+    $dossierslug  = esc_html( $wp_query->query['name'] );
+    $selector     = esc_html( $wp_query->query[RHSWP_DOSSIERPOSTCONTEXT] );
     
-//query_posts($args); while (have_posts()) : the_post(); 
+    if ( $selector == RHSWP_DOSSIERDOCUMENTCONTEXT ) {
+      // select documents
+      $args = array(
+        'post_type'       => RHSWP_CPT_DOCUMENT,
+        'post_status'     => 'publish',
+        'paged'           => $paged,
+        'posts_per_page'  => get_option('posts_per_page'),
+      
+        'meta_query' => array(
+          array(
+              'key'     => RHSWP_DOSSIER_SEMITAX . '_post_radio',
+              'value'   => $dossierslug,
+              'compare' => 'like'
+          )
+        ));
+        
+        $obj = get_post_type_object( RHSWP_CPT_DOCUMENT );
+        $title = $obj->labels->name;              
+        
+    }
+    elseif ( $selector == RHSWP_DOSSIEREVENTCONTEXT ) {
+      // select event
+      $args = array(
+        'post_type'       => RHSWP_CPT_EVENT,
+        'post_status'     => 'publish',
+        'paged'           => $paged,
+        'posts_per_page'  => get_option('posts_per_page'),
+      
+        'meta_query' => array(
+          array(
+              'key'     => RHSWP_DOSSIER_SEMITAX . '_post_radio',
+              'value'   => $dossierslug,
+              'compare' => 'like'
+          )
+        ));      
 
-//get_query_var( RHSWP_DOSSIERPOSTCONTEXT );
+        $obj = get_post_type_object( RHSWP_CPT_EVENT );
+        $title = $obj->labels->name;              
+
+    }
+    else {
+
+      $my_category = get_term_by( 'slug', $selector, 'category' );
+    
+      if ( $my_category ) { 
+        
+        $title = $my_category->name;
+        
+        $args = array(
+          'post_type'       => 'post',
+          'post_status'     => 'publish',
+          'paged'           => $paged,
+          'posts_per_page'  => get_option('posts_per_page'),
+        
+          'meta_query' => array(
+            array(
+                'key'     => RHSWP_DOSSIER_SEMITAX . '_post_radio',
+                'value'   => $dossierslug,
+                'compare' => 'like'
+            )
+          ),
+          'tax_query' => array(
+            array(
+              'taxonomy'  => 'category',
+              'field'     => 'slug',
+              'terms'     => $selector,
+            )
+          ));
+          
+      }
+    }  
+  }
+
+  $wp_query = new WP_Query( $args );
   
+  if( $wp_query->have_posts() ) {
+  
+    if ( $title ) {
+      echo '<h2>' . $title . '</h2>';
+    }
+
+    echo '<ul>';
+
+    while( $wp_query->have_posts() ): 
+      $wp_query->the_post(); 
+      global $post;
+
+      echo '<li><a href="' . get_the_permalink  () . '">' . get_the_title() . '</a></li>';
+
+    endwhile;
+
+    echo '</ul>';
+
+    genesis_posts_nav();
+    
+  }
+  // RESET THE QUERY
+  wp_reset_query();
+        
+    
 }

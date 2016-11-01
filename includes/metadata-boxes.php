@@ -9,7 +9,7 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.6.17
+ * @version 0.6.31
  * @desc.   New custom post type for dossiers
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
@@ -41,12 +41,10 @@ function rhswp_register_dossier_actueel_page_metabox() {
 	 * Metabox to be displayed on a single page ID
 	 */
 
-$prefix = 'rhswp_dossierlinks_';	 
-
     
     $cmb_dossier_actueel_page = new_cmb2_box( 
       array(
-        'id'            => $prefix . 'metabox_page',
+        'id'            => RHSWP_DOSSIER_SEMITAX . 'metabox_page',
         'title'         => __( 'Dossiers', 'wp-rijkshuisstijl' ),
         'object_types'  => array( 'page' ), // Post type
         'context'       => 'side', //  'normal', 'advanced', or 'side'
@@ -58,14 +56,14 @@ $prefix = 'rhswp_dossierlinks_';
     
    	$cmb_dossier_actueel_page->add_field( array(
   		'name'        => __( 'Aanwezige dossiers', 'wp-rijkshuisstijl' ),
-  		'id'          => $prefix . '_page_radio',
+  		'id'          => RHSWP_DOSSIER_SEMITAX . '_page_radio',
   		'type'        => 'radio',
       'options_cb'  => 'get_dossierx_options',
   	) );
 
   
     $cmb_dossier_actueel_post = new_cmb2_box( array(
-      'id'            => $prefix . 'metabox_post',
+      'id'            => RHSWP_DOSSIER_SEMITAX . 'metabox_post',
       'title'         => __( 'Dossiers', 'wp-rijkshuisstijl' ),
       'object_types'  => array( 'post', RHSWP_CPT_DOCUMENT, RHSWP_CPT_EVENT ), // Post type
       'context'       => 'side', //  'normal', 'advanced', or 'side'
@@ -76,23 +74,10 @@ $prefix = 'rhswp_dossierlinks_';
   
    	$cmb_dossier_actueel_post->add_field( array(
   		'name'        => __( 'Aanwezige dossiers', 'wp-rijkshuisstijl' ),
-  		'id'          => $prefix . '_post_radio',
+  		'id'          => RHSWP_DOSSIER_SEMITAX . '_post_radio',
   		'type'        => 'multicheck',
       'options_cb'  => 'get_dossierx_options',
   	) );
-
-    // Regular text field
-    $cmb_dossier_actueel_post->add_field( array(
-        'name'       => __( 'Test Text', 'cmb2' ),
-        'desc'       => __( 'field description (optional)', 'cmb2' ),
-        'id'         => $prefix . 'text',
-        'type'       => 'text',
-        'show_on_cb' => 'cmb2_hide_if_no_cats', // function should return a bool value
-        // 'sanitization_cb' => 'my_custom_sanitization', // custom sanitization callback parameter
-        // 'escape_cb'       => 'my_custom_escaping',  // custom escaping callback parameter
-        // 'on_front'        => false, // Optionally designate a field to wp-admin only
-        // 'repeatable'      => true,
-    ) );
       	
   
   // Callback function

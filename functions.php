@@ -8,7 +8,7 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.6.17
+ * @version 0.6.31
  * @desc.   New custom post type for dossiers
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
@@ -25,7 +25,7 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Child theme (do not remove)
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "http://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.6.17" );
+define( 'CHILD_THEME_VERSION',              "0.6.31" );
 define( 'CHILD_THEME_VERSION_DESCRIPTION',  "New custom post type for dossiers" );
 define( 'SHOW_CSS_DEBUG',                   false );
 define( 'ID_ZOEKEN',                        'rhswp-searchform' );
@@ -80,11 +80,15 @@ define( 'RHSWP_WIDGET_LINK_TO_SINGLE_PAGE', '(DO) verwijs naar een pagina');
 define( 'RHSWP_CSS_BANNER',                 'banner-css' ); // slug for custom post type 'document'
 
 define( 'RHSWP_PAGE_SEPARATOR',             'paginaatje' );
-define( 'RHSWP_DOSSIERPOSTCONTEXT_KEY',     'aadasdz' );
+define( 'RHSWP_KEY_DOSSIERPOSTCONTEXT',     '123456789' );
 define( 'RHSWP_DOSSIERPOSTCONTEXT',         'berichten' );
 define( 'RHSWP_DOSSIEREVENTCONTEXT',        'agenda' );
 define( 'RHSWP_DOSSIERDOCUMENTCONTEXT',     'documenten' );
-define( 'RHSWP_DOSSIERPOSTCONTEXT_OPTION',  RHSWP_DOSSIERPOSTCONTEXT . CHILD_THEME_VERSION . RHSWP_DOSSIERPOSTCONTEXT_KEY );
+define( 'RHSWP_OPTION_DOSSIERPOSTCONTEXT',  RHSWP_DOSSIERPOSTCONTEXT . CHILD_THEME_VERSION . RHSWP_KEY_DOSSIERPOSTCONTEXT );
+
+define( 'RHSWP_DOSSIER_SEMITAX',            'rhswp_dossierlinks_' );
+
+
 
 //========================================================================================================
 
@@ -313,7 +317,10 @@ function rhswp_breadcrumb_add_newspage( $crumb, $args ) {
   $span_between_start = '<span itemprop="name">';  
   $span_before_end    = '</span>';  
   
-	if ( is_singular( 'post' ) || is_date() || is_category() ) {
+  if ( RHSWP_CPT_DOSSIER == get_post_type() ) {
+		return $crumb . $args['sep'] . 'gezellig';
+  }
+	elseif ( is_singular( 'post' ) || is_date() || is_category() ) {
 		return '<a href="' . get_permalink( get_option( 'page_for_posts' ) ) . '">' . get_the_title( get_option( 'page_for_posts' ) ) .'</a> ' . $args['sep'] . ' ' . $crumb;
 	}
 	else {
@@ -411,6 +418,7 @@ function rhswp_breadcrumb_args( $args ) {
     
     $args['labels']['post_type']        = '';
     $args['labels']['404']              = __( "404 - Pagina niet gevonden", 'wp-rijkshuisstijl' );
+
     return $args;
     
 }
@@ -1322,25 +1330,30 @@ add_action( 'init', 'rhswp_dossiercontext_add_rewrite_rules');
 
 function rhswp_dossiercontext_add_rewrite_rules() {
 
-//  add_rewrite_rule( '(.+?)(/' . RHSWP_DOSSIERPOSTCONTEXT . '/)(.+?)/?$', 'index.php?name=$matches[3]&' . RHSWP_DOSSIERPOSTCONTEXT . '=$matches[1]', 'top');
-
   // ==========================
   // for posts 
-  add_rewrite_rule( '(dossierx1\/)(.+?)(/' . RHSWP_DOSSIERPOSTCONTEXT . '/)(.+?)/?$', 'index.php?dossierx1=$matches[2]&' . RHSWP_DOSSIERPOSTCONTEXT . '=$matches[4]', 'top');
-//  add_rewrite_rule( '(dossierx1\/)(.+?)(/' . RHSWP_DOSSIERPOSTCONTEXT . ')/?$', 'index.php??dossierx1=$matches[2]', 'top');
+  add_rewrite_rule( 
+    "dossierx1/([^/]+)/berichten/([^/]+)/page/([0-9]{1,})/?$",
+    'index.php?dossierx1=$matches[1]&berichten=$matches[2]&paged=$matches[3]', 
+    'top'
+  );
+  add_rewrite_rule( 
+    "dossierx1/([^/]+)/berichten/([^/]+)/?$",
+    'index.php?dossierx1=$matches[1]&berichten=$matches[2]', 
+    'top'
+  );
+
+//add_rewrite_rule( 'region/([^/]+)/type/([^/]+)/page/([0-9]{1,})/?', 'index.php?taxonomy=region&term=$matches[1]&post_type=$matches[2]&paged=$matches[3]', 'top' );
+    
+  // ==========================
+  // for events 
+  add_rewrite_rule( '(dossierx1\/)(.+?)/(' . RHSWP_DOSSIEREVENTCONTEXT . ')/?$', 'index.php?dossierx1=$matches[2]&berichten=$matches[3]', 'top');
 
   // ==========================
   // for events 
-//  add_rewrite_rule( '(dossierx1\/)(.+?)(/' . RHSWP_DOSSIEREVENTCONTEXT . '/)(.+?)/?$', 'index.php?dossierx1=$matches[2]&view=$matches[3]', 'top');
-  add_rewrite_rule( '(dossierx1\/)(.+?)(/' . RHSWP_DOSSIEREVENTCONTEXT . ')/?$', 'index.php?dossierx1=$matches[2]&view=' . RHSWP_DOSSIEREVENTCONTEXT, 'top');
-
-  // ==========================
-  // for events 
-//  add_rewrite_rule( '(dossierx1\/)(.+?)(/' . RHSWP_DOSSIERDOCUMENTCONTEXT . '/)(.+?)/?$', 'index.php?dossierx1=$matches[2]&view=$matches[3]', 'top');
-  add_rewrite_rule( '(dossierx1\/)(.+?)(/' . RHSWP_DOSSIERDOCUMENTCONTEXT . ')/?$', 'index.php?dossierx1=$matches[2]&view=' . RHSWP_DOSSIEREVENTCONTEXT, 'top');
-
+  add_rewrite_rule( '(dossierx1\/)(.+?)/(' . RHSWP_DOSSIERDOCUMENTCONTEXT . ')/?$', 'index.php?dossierx1=$matches[2]&berichten=$matches[3]', 'top');
   
-//  add_rewrite_rule( '(.+?)(/' . RHSWP_DOSSIERDOCUMENTCONTEXT . '/)(.+?)/?$', 'index.php?document=$matches[3]&' . RHSWP_DOSSIERPOSTCONTEXT . '=$matches[1]', 'top');
+//  add_rewrite_rule( '(.+?)(/' . RHSWP_DOSSIERDOCUMENTCONTEXT . '/)(.+?)/?$', 'index.php?document=$matches[3]&berichten=$matches[1]', 'top');
   // to do:
   // add rule for events
 
@@ -1352,13 +1365,13 @@ add_action( 'init', 'rhswp_dossiercontext_flush_check', 99);
 
 function rhswp_dossiercontext_flush_check() {
 
-  $check = get_option( RHSWP_DOSSIERPOSTCONTEXT_OPTION );
+  $check = get_option( RHSWP_OPTION_DOSSIERPOSTCONTEXT );
 
   if ( !$check == RHSWP_DOSSIERPOSTCONTEXT ) {
     dodebug('Wel spoelen');
     flush_rewrite_rules();
-    delete_option( RHSWP_DOSSIERPOSTCONTEXT_OPTION );
-    add_option( RHSWP_DOSSIERPOSTCONTEXT_OPTION, RHSWP_DOSSIERPOSTCONTEXT );
+    delete_option( RHSWP_OPTION_DOSSIERPOSTCONTEXT );
+    add_option( RHSWP_OPTION_DOSSIERPOSTCONTEXT, RHSWP_DOSSIERPOSTCONTEXT );
   }
 
 }
