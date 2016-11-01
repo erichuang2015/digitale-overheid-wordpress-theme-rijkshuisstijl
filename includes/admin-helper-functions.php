@@ -9,8 +9,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.6.2
- * @desc.   Bugfix: Footerwidgets weer zichtbaar
+ * @version 0.6.10
+ * @desc.   Various small code and CSS bugfixes
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -88,8 +88,6 @@ function dovardump($data) {
 function rhswp_admin_display_wpquery_in_context() {
   global $wp_query;
   dovardump($wp_query->query);
-//  dovardump($wp_query);
-  
 }    
 
 //========================================================================================================

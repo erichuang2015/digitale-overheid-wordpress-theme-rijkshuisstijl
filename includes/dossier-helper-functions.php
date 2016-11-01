@@ -10,8 +10,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.6.9
- * @desc.   Renamed 'overzichtspagina' to 'inhoudspagina' in dossier
+ * @version 0.6.10
+ * @desc.   Various small code and CSS bugfixes
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 

@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.6.9
- * @desc.   Renamed 'overzichtspagina' to 'inhoudspagina' in dossier
+ * @version 0.6.10
+ * @desc.   Various small code and CSS bugfixes
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -25,8 +25,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Child theme (do not remove)
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "http://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.6.9" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Renamed 'overzichtspagina' to 'inhoudspagina' in dossier" );
+define( 'CHILD_THEME_VERSION',              "0.6.10" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Various small code and CSS bugfixes" );
 define( 'SHOW_CSS_DEBUG',                   false );
 define( 'ID_ZOEKEN',                        'rhswp-searchform' );
 define( 'GC_TWITTERACCOUNT',                'gebrcentraal' );
@@ -62,6 +62,7 @@ if ( ! defined( 'RHSWP_CPT_EVENT' ) ) {
 if ( ! defined( 'RHSWP_CPT_SLIDER' ) ) {
   define( 'RHSWP_CPT_SLIDER',               'slidertje' );       // slug for custom taxonomy 'dossier'
 }
+
 
 define( 'RHSWP_WIDGET_BANNER',              '(DO) banner widget');
 define( 'RHSWP_WIDGET_PAGELINKS_DESC',      '(DO) paginalinks widget');
@@ -1506,6 +1507,7 @@ function rhswp_write_extra_contentblokken() {
 
                 $doimage = false;
                 
+                $classattr = genesis_attr( 'entry' );
 
                 do_action( 'genesis_before_entry' );
 
@@ -1517,14 +1519,14 @@ function rhswp_write_extra_contentblokken() {
                     $doimage = true;
                 }
                 else {
-//                  add_filter( 'genesis_attr_entry', 'be_remove_image_alignment' );
+                  $classattr = str_replace( 'has-post-thumbnail', '', $classattr );
                 }
 
                 $permalink  = get_permalink();
                 $excerpt    = get_the_excerpt( $post );
                 $postdate   = get_the_date( );
 
-                printf( '<article %s>', genesis_attr( 'entry' ) );
+                printf( '<article %s>', $classattr );
 
                 if ( $doimage ) {
                   printf( '<div class="article-container"><div class="article-visual"><a href="%s" tabindex="-1">%s</a></div>', get_permalink(), get_the_post_thumbnail( $post->ID, 'featured-post-widget' ) );
