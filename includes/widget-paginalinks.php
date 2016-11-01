@@ -9,8 +9,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.2.2
- * @desc.   Widget voor paginalinks - bugfixes
+ * @version 0.6.11
+ * @desc.   Various small code and CSS bugfixes - widget, archive-loop
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -292,92 +292,100 @@ class rhswp_pagelinks_widget extends WP_Widget {
    
   function widget($args, $instance) {
   
-  
-    extract($args, EXTR_SKIP);
-  
-    $rhswp_pagelinks_widget_title          = empty($instance['rhswp_pagelinks_widget_title']) ? '' : $instance['rhswp_pagelinks_widget_title'] ;
-  
-    $text_color     = empty( get_field( 'rhswp_widget_tekstkleur', 'widget_' . $widget_id) ) ? '#000000' : get_field( 'rhswp_widget_tekstkleur', 'widget_' . $widget_id);
-     
-  
-    $rhswp_pagelinks_widget_title          = empty($instance['rhswp_pagelinks_widget_title'])         ? '' : $instance['rhswp_pagelinks_widget_title'] ;
 
-    global $post;
 
-    $widgettitle = '';
-
-    if ( function_exists( 'get_field' ) ) {
-      
-      $toon_extra_links         = get_field(RHSWP_WIDGET_PAGELINKS_ID . '_widget_show_extra_links', $post->ID );
-      $widgettitle              = get_field(RHSWP_WIDGET_PAGELINKS_ID . '_widget_title', $post->ID );
-      $links                    = get_field(RHSWP_WIDGET_PAGELINKS_ID . '_widget_links', $post->ID );
-      
-      
-      if ( !$widgettitle ) {
-      
-        if ( $instance['rhswp_pagelinks_widget_title'] !== '') {
-          $widgettitle = $instance['rhswp_pagelinks_widget_title'];
+    if ( is_page() || is_single() ) {
+  
+      extract($args, EXTR_SKIP);
+    
+      $rhswp_pagelinks_widget_title          = empty($instance['rhswp_pagelinks_widget_title']) ? '' : $instance['rhswp_pagelinks_widget_title'] ;
+    
+      $text_color     = empty( get_field( 'rhswp_widget_tekstkleur', 'widget_' . $widget_id) ) ? '#000000' : get_field( 'rhswp_widget_tekstkleur', 'widget_' . $widget_id);
+       
+    
+      $rhswp_pagelinks_widget_title          = empty($instance['rhswp_pagelinks_widget_title'])         ? '' : $instance['rhswp_pagelinks_widget_title'] ;
+  
+      global $post;
+  
+      $widgettitle = '';
+  
+      if ( function_exists( 'get_field' ) ) {
+        
+        $toon_extra_links         = get_field(RHSWP_WIDGET_PAGELINKS_ID . '_widget_show_extra_links', $post->ID );
+        $widgettitle              = get_field(RHSWP_WIDGET_PAGELINKS_ID . '_widget_title', $post->ID );
+        $links                    = get_field(RHSWP_WIDGET_PAGELINKS_ID . '_widget_links', $post->ID );
+        
+        
+        if ( !$widgettitle ) {
+        
+          if ( $instance['rhswp_pagelinks_widget_title'] !== '') {
+            $widgettitle = $instance['rhswp_pagelinks_widget_title'];
+          }
+          else {
+            $widgettitle = _x( 'Extra links voor ', 'paginalinkswidget', 'wp-rijkshuisstijl' ) . get_the_title();
+          }
+        
         }
-        else {
-          $widgettitle = _x( 'Extra links voor ', 'paginalinkswidget', 'wp-rijkshuisstijl' ) . get_the_title();
-        }
-      
-      }
-
-      if ( 'ja' == $toon_extra_links ) {
-
-        echo $before_widget;
-        echo $before_title . $widgettitle . $after_title;
-
-        if( have_rows(RHSWP_WIDGET_PAGELINKS_ID . '_widget_links') ) {
-          
-          echo '<ul>';
-
-          while( have_rows(RHSWP_WIDGET_PAGELINKS_ID . '_widget_links') ): the_row(); 
+  
+        if ( 'ja' == $toon_extra_links ) {
+  
+          echo $before_widget;
+          echo $before_title . $widgettitle . $after_title;
+  
+          if( have_rows(RHSWP_WIDGET_PAGELINKS_ID . '_widget_links') ) {
             
-            // vars
-            $externe_link                 = get_sub_field('externe_link');
-            $url_extern                   = get_sub_field('url_extern');
-            $linktekst_voor_externe_link  = get_sub_field('linktekst_voor_externe_link');
-            $content = '';
+            echo '<ul>';
   
-            if( 'ja' == $externe_link ) {
-              // externe link dus
-              if ( $linktekst_voor_externe_link && $url_extern ) {
-                $content = '<li><a href="' . $url_extern . '" class="extern">' . $linktekst_voor_externe_link . '</a></li>';
-              }
-            }
-            else {
-              // interne link
-              $interne_link  = get_sub_field('interne_link');
-
-            foreach ( $interne_link as $linkobject ) {
+            while( have_rows(RHSWP_WIDGET_PAGELINKS_ID . '_widget_links') ): the_row(); 
               
-              $content .= '<li><a href="' . get_permalink( $linkobject->ID ) . '">' . $linkobject->post_title . '</a></li>';
-
-            }
+              // vars
+              $externe_link                 = get_sub_field('externe_link');
+              $url_extern                   = get_sub_field('url_extern');
+              $linktekst_voor_externe_link  = get_sub_field('linktekst_voor_externe_link');
+              $content = '';
+    
+              if( 'ja' == $externe_link ) {
+                // externe link dus
+                if ( $linktekst_voor_externe_link && $url_extern ) {
+                  $content = '<li><a href="' . $url_extern . '" class="extern">' . $linktekst_voor_externe_link . '</a></li>';
+                }
+              }
+              else {
+                // interne link
+                $interne_link  = get_sub_field('interne_link');
+  
+              foreach ( $interne_link as $linkobject ) {
+                
+                $content .= '<li><a href="' . get_permalink( $linkobject->ID ) . '">' . $linkobject->post_title . '</a></li>';
+  
+              }
+              
+  
+  
+              }
+    
+              echo $content; 
             
-
-
-            }
+            endwhile; 
   
-            echo $content; 
-          
-          endwhile; 
-
-          echo '</ul>';
+            echo '</ul>';
+    
+          }
+          else {
+            echo _x( 'Er zijn geen extra links ingevoerd.', 'paginalinkswidget', 'wp-rijkshuisstijl' );
+          }
   
+          echo $after_widget;
+        
         }
         else {
-          echo _x( 'Er zijn geen extra links ingevoerd.', 'paginalinkswidget', 'wp-rijkshuisstijl' );
+          // do nothing
         }
-
-        echo $after_widget;
+      }
       
-      }
-      else {
-        // do nothing
-      }
+    }
+    else {
+      
     }
   }
 }

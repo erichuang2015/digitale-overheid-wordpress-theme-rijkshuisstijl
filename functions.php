@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.6.10
- * @desc.   Various small code and CSS bugfixes
+ * @version 0.6.11
+ * @desc.   Various small code and CSS bugfixes - widget, archive-loop
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -25,9 +25,9 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Child theme (do not remove)
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "http://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.6.10" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Various small code and CSS bugfixes" );
-define( 'SHOW_CSS_DEBUG',                   false );
+define( 'CHILD_THEME_VERSION',              "0.6.11" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Various small code and CSS bugfixes - widget, archive-loop" );
+define( 'SHOW_CSS_DEBUG',                   true );
 define( 'ID_ZOEKEN',                        'rhswp-searchform' );
 define( 'GC_TWITTERACCOUNT',                'gebrcentraal' );
 define( 'SOC_MED_NO',                       'socmed_nee' );
@@ -356,7 +356,7 @@ function rhswp_breadcrumb_args( $args ) {
     $args['labels']['category']         = '';
     $args['labels']['date']             = '';
 
-    $args['labels']['tag']              = __( "Label", 'wp-rijkshuisstijl' );
+    $args['labels']['tag']              = __( "Tags", 'wp-rijkshuisstijl' ) . $separator;
     $args['labels']['search']           = __( "Zoekresultaat", 'wp-rijkshuisstijl' );
     $args['labels']['tax']              = '';
     
@@ -427,30 +427,39 @@ function rhswp_add_taxonomy_description() {
     if ( ! is_category() && ! is_tag() && ! is_tax() )
         return;
 
-//    if ( get_query_var( 'paged' ) >= 2 )
+    $prefix = '';
 
-//        return;
+    if ( is_tag() ) {
+      $prefix = __( "Tag", 'wp-rijkshuisstijl' ) . ': ';  
+    }
+
     $term = is_tax() ? get_term_by( 'slug', get_query_var( 'term' ), get_query_var( 'taxonomy' ) ) : $wp_query->get_queried_object();
     if ( ! $term || ! isset( $term->meta ) )
         return;
+        
     $headline   = '';
     $intro_text = '';
-    if ( $term->name )
-        $headline = sprintf( '<h1 class="archive-title">%s</h1>', strip_tags( $term->name ) );
+    if ( $term->name ) {
+        $headline = sprintf( '<h1 class="archive-title">%s</h1>', $prefix . strip_tags( $term->name ) );
+    }
         
-    if ( isset( $term->meta['headline'] ) && $term->meta['headline'] )
-        $headline = sprintf( '<h1 class="archive-title">%s</h1>', strip_tags( $term->meta['headline'] ) );
+    if ( isset( $term->meta['headline'] ) && $term->meta['headline'] ) {
+        $headline = sprintf( '<h1 class="archive-title">%s</h1>', $prefix . strip_tags( $term->meta['headline'] ) );
+    }
         
-    if ( isset( $term->meta['intro_text'] ) && $term->meta['intro_text'] )
+    if ( isset( $term->meta['intro_text'] ) && $term->meta['intro_text'] ) {
         $intro_text = apply_filters( 'genesis_term_intro_text_output', $term->meta['intro_text'] );
+    }
+        
     if ( $term->description ) {
         $intro_text = apply_filters( 'genesis_term_intro_text_output', $term->description );
     }
+
     if ( $headline || $intro_text ) {
         printf( '<div class="taxonomy-description">%s</div>', $headline . $intro_text );
     }
     else {
-        echo '';
+        return;
     }
 }
 
@@ -1523,13 +1532,14 @@ function rhswp_write_extra_contentblokken() {
                 }
 
                 $permalink  = get_permalink();
-                $excerpt    = get_the_excerpt( $post );
+                $excerpt    = wp_strip_all_tags( get_the_excerpt( $post ) );
                 $postdate   = get_the_date( );
 
                 printf( '<article %s>', $classattr );
 
                 if ( $doimage ) {
-                  printf( '<div class="article-container"><div class="article-visual"><a href="%s" tabindex="-1">%s</a></div>', get_permalink(), get_the_post_thumbnail( $post->ID, 'featured-post-widget' ) );
+//                  printf( '<div class="article-container"><div class="article-visual"><a href="%s" tabindex="-1">%s</a></div>', get_permalink(), get_the_post_thumbnail( $post->ID, 'featured-post-widget' ) );
+                  printf( '<div class="article-container"><div class="article-visual">%s</div>', get_the_post_thumbnail( $post->ID, 'featured-post-widget' ) );
                   printf( '<div class="article-excerpt"><a href="%s"><h3>%s</h3><p>%s</p><p class="meta">%s</p></a></div></div>', get_permalink(), get_the_title(), $excerpt, $postdate );
                 }
                 else {

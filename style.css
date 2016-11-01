@@ -3,8 +3,8 @@
 	Description: Theme voor ibewustzijnoverheid.nl
 	Author: Paul van Buuren
 	Author URI: https://wbvb.nl/themes/ibewustzijn/
-	Version: 0.6.10
-  Version description: 0.6.10 - Various small code and CSS bugfixes 
+	Version: 0.6.11
+  Version description: 0.6.11 - Various small code and CSS bugfixes - widget, archive-loop 
   Text Domain: wp-rijkshuisstijl
 
 	Template: genesis
@@ -410,7 +410,7 @@ h6 {
   font-weight: 700;
   line-height: 1.2;
   margin: 8px 0 4px;
-  font-family: 'Rijksoverheid Sans bold', Helvetica, Arial, sans-serif;
+  font-family: 'Rijksoverheid Sans regular', Helvetica, Arial, sans-serif;
 }
 h1 {
   font-size: 31.2px;
@@ -908,7 +908,6 @@ Common Classes
 /* Titles
 --------------------------------------------- */
 .entry-title {
-  font-size: 31.2px;
   line-height: 1;
 }
 .archive-title {
@@ -1499,8 +1498,6 @@ nav.nav-primary a {
   margin: 0;
   display: block;
   text-decoration: none;
-  font-weight: bold;
-  font-family: 'Rijksoverheid Sans bold', Helvetica, Arial, sans-serif;
   padding: 10px 15px;
   font-size: 18px;
   line-height: 1.4em;
@@ -1529,92 +1526,6 @@ nav.nav-primary .search-form {
   padding: 5px 10px;
   border-top: 1px solid #becdc3;
   color: #000;
-}
-.genesis-nav-menu.x {
-  clear: both;
-  line-height: 1.5;
-  margin: 0 0;
-}
-.genesis-nav-menu.x ul {
-  margin: 0;
-  padding: 0;
-}
-.genesis-nav-menu.x ul li {
-  margin: 0;
-  padding: 0;
-}
-.genesis-nav-menu.x .menu-item {
-  display: inline-block;
-  text-align: left;
-}
-.genesis-nav-menu.x a {
-  border: none;
-  display: block;
-  padding: 4px 8px;
-  text-decoration: none;
-  font-size: 12px;
-}
-.genesis-nav-menu.x a:hover,
-.genesis-nav-menu.x a:active,
-.genesis-nav-menu.x a:focus {
-  text-decoration: underline;
-}
-.genesis-nav-menu.x li:hover,
-.genesis-nav-menu.x .current-menu-item > a,
-.genesis-nav-menu.x .sub-menu .current-menu-item > a:hover {
-  text-decoration: underline;
-}
-.genesis-nav-menu.x .current-menu-item > a {
-  font-weight: 700;
-  font-family: 'Rijksoverheid Sans bold', Helvetica, Arial, sans-serif;
-}
-.genesis-nav-menu.x .sub-menu {
-  left: -9999px;
-  opacity: 0;
-  position: absolute;
-  width: 500px;
-  z-index: 99;
-}
-.genesis-nav-menu.x .sub-menu .sub-menu {
-  margin: -54px 0 0 199px;
-}
-.genesis-nav-menu.x .sub-menu a {
-  border: 1px solid #666666;
-  background: white;
-  border-top: none;
-  font-size: 14px;
-  position: relative;
-  width: 500px;
-}
-.genesis-nav-menu.x .menu-item:hover {
-  position: static;
-}
-.genesis-nav-menu.x .menu-item:hover > .sub-menu {
-  left: auto;
-  opacity: 1;
-}
-.genesis-nav-menu.x > .first > a {
-  padding-left: 0;
-}
-.genesis-nav-menu.x > .last > a {
-  padding-right: 0;
-}
-.genesis-nav-menu.x > .right {
-  display: inline-block;
-  float: right;
-  list-style-type: none;
-  padding: 32px 0;
-  text-transform: uppercase;
-}
-.genesis-nav-menu.x > .right > a {
-  display: inline;
-  padding: 0;
-}
-.genesis-nav-menu.x > .rss > a {
-  margin-left: 48px;
-}
-.genesis-nav-menu.x > .search {
-  padding: 0;
 }
 @media only screen and (max-width: 900px) {
   .dojs nav.nav-primary ul li {
@@ -1823,6 +1734,8 @@ nav.nav-primary .search-form {
   .single nav.nav-primary .current-menu-item > a {
     background: #dfe6e1;
     color: #000;
+    font-weight: bold;
+    font-family: 'Rijksoverheid Sans bold', Helvetica, Arial, sans-serif;
   }
   .blog nav.nav-primary .current-menu-item > a {
     background: #dfe6e1;
@@ -1906,7 +1819,7 @@ aside.sidebar .widget.banner .widget-wrap {
 }
 .page-link-widget h2,
 .page-link-widget h3 {
-  font-family: 'Rijksoverheid Sans bold', Helvetica, Arial, sans-serif;
+  font-family: 'Rijksoverheid Sans regular', Helvetica, Arial, sans-serif;
   font-size: 21.6px;
   text-transform: none;
   margin-top: 0;
