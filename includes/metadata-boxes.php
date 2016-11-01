@@ -9,8 +9,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.1.13
- * @desc.   Pagina-templates herzien 
+ * @version 0.6.17
+ * @desc.   New custom post type for dossiers
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -41,67 +41,85 @@ function rhswp_register_dossier_actueel_page_metabox() {
 	 * Metabox to be displayed on a single page ID
 	 */
 
-  if ( 22 == 33 ) {
-  
-  $cmb_dossier_actueel_page = new_cmb2_box( array(
-    'id'            => RHSWP_PREFIX_TAG_CAT . 'metabox',
-    'title'         => __( 'Bijbehorende tag / categorie', 'wp-rijkshuisstijl' ),
-    'object_types'  => array( 'page', ), // Post type
-    'show_on_cb'    => 'rhswp_check_page_templates',
-    'context'       => 'normal',
-    'priority'      => 'high',
-    'show_names'    => true,
-    'closed'        => false,
-  ));
-  }
+$prefix = 'rhswp_dossierlinks_';	 
 
-  if ( 22 == 33 ) {
+    
+    $cmb_dossier_actueel_page = new_cmb2_box( 
+      array(
+        'id'            => $prefix . 'metabox_page',
+        'title'         => __( 'Dossiers', 'wp-rijkshuisstijl' ),
+        'object_types'  => array( 'page' ), // Post type
+        'context'       => 'side', //  'normal', 'advanced', or 'side'
+        'priority'      => 'high',
+        'show_names'    => true,
+        'closed'        => false,
+      )
+    );
+    
    	$cmb_dossier_actueel_page->add_field( array(
-  		'name'     => __( 'Test Taxonomy Radio', 'wp-rijkshuisstijl' ),
-  		'desc'     => __( 'field description (optional)', 'wp-rijkshuisstijl' ),
-  		'id'       => RHSWP_PREFIX_TAG_CAT . 'select_category_radio',
-  		'type'     => 'taxonomy_radio',
-  		'taxonomy' => 'category', // Taxonomy Slug
+  		'name'        => __( 'Aanwezige dossiers', 'wp-rijkshuisstijl' ),
+  		'id'          => $prefix . '_page_radio',
+  		'type'        => 'radio',
+      'options_cb'  => 'get_dossierx_options',
   	) );
-  }
-  if ( 22 == 33 ) {
- 	$cmb_dossier_actueel_page->add_field( array(
-		'name'     => __( 'Tag', 'wp-rijkshuisstijl' ),
-		'desc'     => __( 'field description (optional)', 'wp-rijkshuisstijl' ) . ' / "' . RHSWP_PREFIX_TAG_CAT . RHSWP_CMB2_TAG_FIELD . '"',
-		'id'       => RHSWP_PREFIX_TAG_CAT . RHSWP_CMB2_TAG_FIELD . 'XXX',
-		'type'     => 'taxonomy_radio',
-		'taxonomy' => 'post_tag', // Taxonomy Slug
-    'text'      => array(
-        'no_terms_text' => __( 'Er zijn geen tags toegevoegd.', 'wp-rijkshuisstijl' )
-    ),  		
-	) );
-  }
-
-  if ( 22 == 33 ) {
-  $cmb_dossier_actueel_page->add_field( array(
-		'name'     => __( 'Tag', 'wp-rijkshuisstijl' ),
-		'desc'     => __( 'Kies de tag voor de actueelpagina onder dit dossier.', 'wp-rijkshuisstijl' ),
-		'id'       => RHSWP_PREFIX_TAG_CAT . RHSWP_CMB2_TAG_FIELD,
-    'type'           => 'radio',
-      // Use a callback to avoid performance hits on pages where this field is not displayed (including the front-end).
-      'options_cb'     => 'cmb2_get_term_options',
-      // Same arguments you would pass to `get_terms`.
-      'get_terms_args' => array(
-          'taxonomy'   => 'post_tag',
-          'hide_empty' => false,
-      ),
-  ) );
-  }
 
   
-  if ( 22 == 33 ) {
-  	$cmb_dossier_actueel_page->add_field( array(
-  		'name' => RHSWP_PREFIX_TAG_CAT . RHSWP_CMB2_TXT_FIELD,
-  		'desc' => __( 'field description (optional)', 'wp-rijkshuisstijl' ),
-  		'id'   => RHSWP_PREFIX_TAG_CAT . RHSWP_CMB2_TXT_FIELD,
-  		'type' => 'text',
+    $cmb_dossier_actueel_post = new_cmb2_box( array(
+      'id'            => $prefix . 'metabox_post',
+      'title'         => __( 'Dossiers', 'wp-rijkshuisstijl' ),
+      'object_types'  => array( 'post', RHSWP_CPT_DOCUMENT, RHSWP_CPT_EVENT ), // Post type
+      'context'       => 'side', //  'normal', 'advanced', or 'side'
+      'priority'      => 'high',
+      'show_names'    => true,
+      'closed'        => false,
+    ));
+  
+   	$cmb_dossier_actueel_post->add_field( array(
+  		'name'        => __( 'Aanwezige dossiers', 'wp-rijkshuisstijl' ),
+  		'id'          => $prefix . '_post_radio',
+  		'type'        => 'multicheck',
+      'options_cb'  => 'get_dossierx_options',
   	) );
+
+    // Regular text field
+    $cmb_dossier_actueel_post->add_field( array(
+        'name'       => __( 'Test Text', 'cmb2' ),
+        'desc'       => __( 'field description (optional)', 'cmb2' ),
+        'id'         => $prefix . 'text',
+        'type'       => 'text',
+        'show_on_cb' => 'cmb2_hide_if_no_cats', // function should return a bool value
+        // 'sanitization_cb' => 'my_custom_sanitization', // custom sanitization callback parameter
+        // 'escape_cb'       => 'my_custom_escaping',  // custom escaping callback parameter
+        // 'on_front'        => false, // Optionally designate a field to wp-admin only
+        // 'repeatable'      => true,
+    ) );
+      	
+  
+  // Callback function
+  function get_dossierx_options( $field ) {
+    
+    $args = array(
+      'posts_per_page'   => -1,
+      'orderby'          => 'name',
+      'order'            => 'ASC',
+      'post_type'        => RHSWP_CPT_DOSSIER,
+      'post_status'      => 'publish',
+      'suppress_filters' => true 
+    );
+    
+    $posts_array = get_posts( $args );
+    
+    $thereturn = array();
+    
+    foreach ( $posts_array as $post ) : 
+      setup_postdata( $post ); 
+      $thereturn[$post->post_name] = get_the_title( $post->ID );
+    endforeach; 
+    
+    return $thereturn;
+    
   }
+
 }
 
 

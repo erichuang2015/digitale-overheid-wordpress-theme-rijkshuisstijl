@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.6.9
- * @desc.   Renamed 'overzichtspagina' to 'inhoudspagina' in dossier
+ * @version 0.6.17
+ * @desc.   New custom post type for dossiers
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -25,8 +25,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Child theme (do not remove)
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "http://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.6.9" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Renamed 'overzichtspagina' to 'inhoudspagina' in dossier" );
+define( 'CHILD_THEME_VERSION',              "0.6.17" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "New custom post type for dossiers" );
 define( 'SHOW_CSS_DEBUG',                   false );
 define( 'ID_ZOEKEN',                        'rhswp-searchform' );
 define( 'GC_TWITTERACCOUNT',                'gebrcentraal' );
@@ -50,17 +50,26 @@ define( 'RHSWP_PREFIX_TAG_CAT',             'rhswp_dossier_select_tag_category')
 define( 'RHSWP_CMB2_TAG_FIELD',             'select_tag');
 define( 'RHSWP_CMB2_TXT_FIELD',             'select_txt');
 
+define( 'BOOL_JA_VAL',                      'ja');
+define( 'BOOL_JA_LABEL',                    'Ja');
+define( 'BOOL_NEE_VAL',                     'nee');
+define( 'BOOL_NEE_LABEL',                   'Nee');
+
+
 if ( ! defined( 'RHSWP_CT_DOSSIER' ) ) {
   define( 'RHSWP_CT_DOSSIER',               'dossiers' );       // slug for custom taxonomy 'dossier'
 }
+if ( ! defined( 'RHSWP_CPT_DOSSIER' ) ) {
+  define( 'RHSWP_CPT_DOSSIER',              'dossierx1' );    // slug for custom post type 'dossier'
+}
 if ( ! defined( 'RHSWP_CPT_DOCUMENT' ) ) {
-  define( 'RHSWP_CPT_DOCUMENT',             'document' );       // slug for custom taxonomy 'document'
+  define( 'RHSWP_CPT_DOCUMENT',             'document' );       // slug for custom post type 'document'
 }
 if ( ! defined( 'RHSWP_CPT_EVENT' ) ) {
-  define( 'RHSWP_CPT_EVENT',                'event' );       // slug for custom taxonomy 'document'
+  define( 'RHSWP_CPT_EVENT',                'event' );          // slug for custom post type 'event' from event manager plugin
 }
 if ( ! defined( 'RHSWP_CPT_SLIDER' ) ) {
-  define( 'RHSWP_CPT_SLIDER',               'slidertje' );       // slug for custom taxonomy 'dossier'
+  define( 'RHSWP_CPT_SLIDER',               'slidertje' );      // slug for custom post type 'slider'
 }
 
 define( 'RHSWP_WIDGET_BANNER',              '(DO) banner widget');
@@ -71,10 +80,11 @@ define( 'RHSWP_WIDGET_LINK_TO_SINGLE_PAGE', '(DO) verwijs naar een pagina');
 define( 'RHSWP_CSS_BANNER',                 'banner-css' ); // slug for custom post type 'document'
 
 define( 'RHSWP_PAGE_SEPARATOR',             'paginaatje' );
-define( 'RHSWP_DOSSIERPOSTCONTEXT',         'dossierpostcontext' );
-define( 'RHSWP_DOSSIEREVENTCONTEXT',        'dossiereventcontext' );
-define( 'RHSWP_DOSSIERDOCUMENTCONTEXT',     'dossierdocumentcontext' );
-define( 'RHSWP_DOSSIERPOSTCONTEXT_OPTION',  RHSWP_DOSSIERPOSTCONTEXT . CHILD_THEME_VERSION );
+define( 'RHSWP_DOSSIERPOSTCONTEXT_KEY',     'aadasdz' );
+define( 'RHSWP_DOSSIERPOSTCONTEXT',         'berichten' );
+define( 'RHSWP_DOSSIEREVENTCONTEXT',        'agenda' );
+define( 'RHSWP_DOSSIERDOCUMENTCONTEXT',     'documenten' );
+define( 'RHSWP_DOSSIERPOSTCONTEXT_OPTION',  RHSWP_DOSSIERPOSTCONTEXT . CHILD_THEME_VERSION . RHSWP_DOSSIERPOSTCONTEXT_KEY );
 
 //========================================================================================================
 
@@ -109,7 +119,7 @@ $custom_tax_mb->set( 'metabox_title', __( 'Dossiers', 'wp-rijkshuisstijl' ) );
 $custom_tax_mb->set( 'indented', false );
 
 // Allows adding of new terms from the metabox
-$custom_tax_mb->set( 'allow_new_terms', true );
+$custom_tax_mb->set( 'allow_new_terms', false );
 
 // Priority of the metabox placement.
 $custom_tax_mb->set( 'priority', 'low' );
@@ -132,6 +142,9 @@ add_filter( 'get_the_author_genesis_author_box_archive', '__return_false' );
 
 // Include for ACF custom fields and custom post types
 include_once( RHSWP_FOLDER . '/includes/cpt-acf.php' );
+
+// Include for ACF custom fields and custom post types
+include_once( RHSWP_FOLDER . '/includes/cpt-acf-temp.php' );
 
 //========================================================================================================
 
@@ -358,6 +371,8 @@ function rhswp_breadcrumb_args( $args ) {
     $args['labels']['tag']              = __( "Label", 'wp-rijkshuisstijl' );
     $args['labels']['search']           = __( "Zoekresultaat", 'wp-rijkshuisstijl' );
     $args['labels']['tax']              = '';
+
+//dossierx1    
     
     if ( isset( $wp_query->query_vars['taxonomy'] ) ) {
         
@@ -426,9 +441,6 @@ function rhswp_add_taxonomy_description() {
     if ( ! is_category() && ! is_tag() && ! is_tax() )
         return;
 
-//    if ( get_query_var( 'paged' ) >= 2 )
-
-//        return;
     $term = is_tax() ? get_term_by( 'slug', get_query_var( 'term' ), get_query_var( 'taxonomy' ) ) : $wp_query->get_queried_object();
     if ( ! $term || ! isset( $term->meta ) )
         return;
@@ -565,6 +577,7 @@ function rhswp_sidebar_context_widgets() {
 
     global $post;
 
+    echo 'rhswp_admin_display_wpquery_in_context:<br>';
     rhswp_admin_display_wpquery_in_context();
 
     $context  = rhswp_get_context_info();
@@ -687,7 +700,29 @@ function rhswp_get_sitemap_content() {
         <?php wp_get_archives( 'type=postbypost&limit=' . $maxnr_posts ); ?>
     </ul>
   </section>
-  <?php
+        <?php 
+          $args = array(
+            'orderby'       => 'name',            
+            'order'         => 'ASC',
+            'post_type'     => RHSWP_CPT_DOSSIER
+          );
+          
+          $posts_array = get_posts( $args ); 
+        
+          if ( $posts_array ) {
+
+            echo '<section><h2>' .  __( RHSWP_CPT_DOSSIER, 'wp-rijkshuisstijl' ) . '</h2><ul>';
+        
+            foreach ( $posts_array as $post ) : 
+              setup_postdata( $post ); 
+              echo '<li><a href="' . get_the_permalink( $post->ID ) . '">' . get_the_title( $post->ID ) . '</a></li>';
+            endforeach; 
+
+            echo '</ul></section>';
+                
+          }
+          wp_reset_postdata();
+          
     
 }
 
@@ -1117,7 +1152,7 @@ function rhswp_filter_alternative_title( $postid = 0,  $title = '' ) {
   if ( function_exists( 'get_field' ) ) {
     
       $alternatieve_paginatitel_gebruiken    = get_field('alternatieve_paginatitel_gebruiken', $postid );
-      if ( strtolower($alternatieve_paginatitel_gebruiken) == 'ja' ) {
+      if ( strtolower($alternatieve_paginatitel_gebruiken) == BOOL_JA_VAL ) {
         
         $alternatieve_paginatitel    = get_field('alternatieve_paginatitel', $postid );
         
@@ -1287,8 +1322,25 @@ add_action( 'init', 'rhswp_dossiercontext_add_rewrite_rules');
 
 function rhswp_dossiercontext_add_rewrite_rules() {
 
-  add_rewrite_rule( '(.+?)(/' . RHSWP_DOSSIERPOSTCONTEXT . '/)(.+?)/?$', 'index.php?name=$matches[3]&' . RHSWP_DOSSIERPOSTCONTEXT . '=$matches[1]', 'top');
-  add_rewrite_rule( '(.+?)(/' . RHSWP_DOSSIERDOCUMENTCONTEXT . '/)(.+?)/?$', 'index.php?document=$matches[3]&' . RHSWP_DOSSIERPOSTCONTEXT . '=$matches[1]', 'top');
+//  add_rewrite_rule( '(.+?)(/' . RHSWP_DOSSIERPOSTCONTEXT . '/)(.+?)/?$', 'index.php?name=$matches[3]&' . RHSWP_DOSSIERPOSTCONTEXT . '=$matches[1]', 'top');
+
+  // ==========================
+  // for posts 
+  add_rewrite_rule( '(dossierx1\/)(.+?)(/' . RHSWP_DOSSIERPOSTCONTEXT . '/)(.+?)/?$', 'index.php?dossierx1=$matches[2]&' . RHSWP_DOSSIERPOSTCONTEXT . '=$matches[4]', 'top');
+//  add_rewrite_rule( '(dossierx1\/)(.+?)(/' . RHSWP_DOSSIERPOSTCONTEXT . ')/?$', 'index.php??dossierx1=$matches[2]', 'top');
+
+  // ==========================
+  // for events 
+//  add_rewrite_rule( '(dossierx1\/)(.+?)(/' . RHSWP_DOSSIEREVENTCONTEXT . '/)(.+?)/?$', 'index.php?dossierx1=$matches[2]&view=$matches[3]', 'top');
+  add_rewrite_rule( '(dossierx1\/)(.+?)(/' . RHSWP_DOSSIEREVENTCONTEXT . ')/?$', 'index.php?dossierx1=$matches[2]&view=' . RHSWP_DOSSIEREVENTCONTEXT, 'top');
+
+  // ==========================
+  // for events 
+//  add_rewrite_rule( '(dossierx1\/)(.+?)(/' . RHSWP_DOSSIERDOCUMENTCONTEXT . '/)(.+?)/?$', 'index.php?dossierx1=$matches[2]&view=$matches[3]', 'top');
+  add_rewrite_rule( '(dossierx1\/)(.+?)(/' . RHSWP_DOSSIERDOCUMENTCONTEXT . ')/?$', 'index.php?dossierx1=$matches[2]&view=' . RHSWP_DOSSIEREVENTCONTEXT, 'top');
+
+  
+//  add_rewrite_rule( '(.+?)(/' . RHSWP_DOSSIERDOCUMENTCONTEXT . '/)(.+?)/?$', 'index.php?document=$matches[3]&' . RHSWP_DOSSIERPOSTCONTEXT . '=$matches[1]', 'top');
   // to do:
   // add rule for events
 
@@ -1299,6 +1351,7 @@ function rhswp_dossiercontext_add_rewrite_rules() {
 add_action( 'init', 'rhswp_dossiercontext_flush_check', 99);
 
 function rhswp_dossiercontext_flush_check() {
+
   $check = get_option( RHSWP_DOSSIERPOSTCONTEXT_OPTION );
 
   if ( !$check == RHSWP_DOSSIERPOSTCONTEXT ) {
@@ -1349,11 +1402,15 @@ function rhswp_write_extra_contentblokken() {
   
   if ( function_exists( 'get_field' ) ) {
 
-    if ( is_page() || is_tax() ) {
+    if ( is_page() || is_tax() || RHSWP_CPT_DOSSIER == get_post_type() ) {
 
       $currentterm      = '';
 
       if ( is_page() ) {
+        $theid          = get_the_ID();
+        $contentblokken = get_field('extra_contentblokken', $theid );
+      }
+      elseif ( RHSWP_CPT_DOSSIER == get_post_type() ) {
         $theid          = get_the_ID();
         $contentblokken = get_field('extra_contentblokken', $theid );
       }
@@ -1441,7 +1498,7 @@ function rhswp_write_extra_contentblokken() {
               );
             }            
             
-            if ( $categoriefilter == 'nee' ) {
+            if ( $categoriefilter == BOOL_NEE_VAL ) {
             }
             else {
 
@@ -1590,7 +1647,7 @@ function rhswp_caroussel_checker() {
 
    
 
-    if ( 'ja' == $carousselcheck ) {
+    if ( BOOL_JA_VAL == $carousselcheck ) {
       
       $getcarousel    = get_field('kies_carrousel', $theid );
 
@@ -1653,6 +1710,7 @@ function rhswp_caroussel_checker() {
             $link_caption_start = '<a href="' . get_permalink( $dossier ) . '" class="caption">';   	
             $link_caption_end   = '</a>';   	
           }
+/*          
           elseif ( $dossier && $type == 'dossier' ) {
             $link_img_start     = '<a href="' . get_term_link( $dossier ) . '" tabindex="-1" class="img-container">';   	
             $link_end           = '</a>';
@@ -1661,6 +1719,7 @@ function rhswp_caroussel_checker() {
             $link_caption_end   = '</a>';   	
 
           }
+*/
           else {
             $link_img_start     = '<span class="img-container">';   	
             $link_end           = '</span>';

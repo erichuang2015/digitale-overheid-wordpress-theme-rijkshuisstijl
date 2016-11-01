@@ -11,8 +11,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.6.9
- * @desc.   Renamed 'overzichtspagina' to 'inhoudspagina' in dossier
+ * @version 0.6.17
+ * @desc.   New custom post type for dossiers
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -21,7 +21,7 @@
 
 //========================================================================================================
 
-add_action( 'init', 'rhswp_register_my_taxes' );
+//add_action( 'init', 'rhswp_register_my_taxes' );
 
 function rhswp_register_my_taxes() {
 	$labels = array(
@@ -271,105 +271,6 @@ if( function_exists('acf_add_local_field_group') ):
   if ( 22 == 33 ) {
     
     acf_add_local_field_group(array (
-    	'key' => 'group_57dfd27420525',
-    	'title' => 'Voor taxonomie: selecteer menu en overzichtpagina',
-    	'fields' => array (
-    		array (
-    			'key' => 'field_57e411ac51413',
-    			'label'   => __( 'Welke inhoudspagina hier hierbij?', 'wp-rijkshuisstijl' ),
-    			'name' => 'dossier_overzichtpagina',
-    			'type' => 'post_object',
-          'instructions'   => __( 'Welke pagina beschrijft de inhoud van dit dossier? Deze pagina is belangrijk, omdat we hiermee de verdere structuur van het dossier kunnen bepalen.', 'wp-rijkshuisstijl' ),  			
-    			'required' => 0,
-    			'conditional_logic' => 0,
-    			'wrapper' => array (
-    				'width' => '',
-    				'class' => '',
-    				'id' => '',
-    			),
-    			'post_type' => array (
-    				0 => 'page',
-    			),
-    			'taxonomy' => array (
-    			),
-    			'allow_null' => 0,
-    			'multiple' => 0,
-    			'return_format' => 'object',
-    			'ui' => 1,
-    		),
-    		array (
-    			'key' => 'field_57e4122051414',
-    			'label'   => __( 'Menu voor dossier', 'wp-rijkshuisstijl' ),
-    			'name' => 'menu_voor_dossier',
-    			'type' => 'repeater',
-    			'instructions'   => '',
-    			'required' => 0,
-    			'conditional_logic' => 0,
-    			'wrapper' => array (
-    				'width' => '',
-    				'class' => '',
-    				'id' => '',
-    			),
-    			'collapsed' => '',
-    			'min' => '',
-    			'max' => '',
-    			'layout' => 'table',
-    			'button_label' => 'Nieuw item toevoegen aan het menu',
-    			'sub_fields' => array (
-    				array (
-    					'key' => 'field_57e4124751415',
-        			'label'   => __( 'Pagina', 'wp-rijkshuisstijl' ),
-    					'name' => 'dossier_menu_pagina',
-    					'type' => 'post_object',
-    					'instructions'   => '',
-    					'required' => 0,
-    					'conditional_logic' => 0,
-    					'wrapper' => array (
-    						'width' => '',
-    						'class' => '',
-    						'id' => '',
-    					),
-    					'post_type' => array (
-    					),
-    					'taxonomy' => array (
-    					),
-    					'allow_null' => 0,
-    					'multiple' => 0,
-    					'return_format' => 'object',
-    					'ui' => 1,
-    				),
-    			),
-    		),
-    	),
-    	'location' => array (
-    		array (
-    			array (
-    				'param' => 'taxonomy',
-    				'operator' => '==',
-    				'value' => RHSWP_CT_DOSSIER,
-    			),
-    		),
-    		array (
-    			array (
-    				'param' => 'user_form',
-    				'operator' => '==',
-    				'value' => 'edit',
-    			),
-    		),
-    	),
-    	'menu_order' => 0,
-    	'position' => 'normal',
-    	'style' => 'default',
-    	'label_placement' => 'top',
-    	'instruction_placement' => 'label',
-    	'hide_on_screen' => '',
-    	'active' => 1,
-    	'description' => '',
-    ));
-  }
-  else {
-    
-    acf_add_local_field_group(array (
     	'key' => 'group_57f90d0a441e4',
     	'title' => 'Dossier-informatie',
     	'fields' => array (
@@ -410,13 +311,13 @@ if( function_exists('acf_add_local_field_group') ):
     				'id' => '',
     			),
     			'choices' => array (
-    				'ja' => 'Toon wel',
-    				'nee' => 'Toon niet',
+    				BOOL_JA_VAL => 'Toon wel',
+    				BOOL_NEE_VAL => 'Toon niet',
     			),
     			'allow_null' => 0,
     			'other_choice' => 0,
     			'save_other_choice' => 0,
-    			'default_value' => 'ja',
+    			'default_value' => BOOL_JA_VAL,
     			'layout' => 'vertical',
     			'return_format' => 'value',
     		),
@@ -467,7 +368,7 @@ if( function_exists('acf_add_local_field_group') ):
     	'description' => '',
     ));
   }
-
+  //========================================================================================================
 
   acf_add_local_field_group(array (
   	'key' => 'group_57fa9232d034a',
@@ -490,13 +391,13 @@ if( function_exists('acf_add_local_field_group') ):
   				'id' => '',
   			),
   			'choices' => array (
-  				'nee' => 'Nee',
-  				'ja' => 'Ja',
+  				BOOL_NEE_VAL => BOOL_NEE_LABEL,
+  				BOOL_JA_VAL => BOOL_JA_LABEL,
   			),
   			'allow_null' => 0,
   			'other_choice' => 0,
   			'save_other_choice' => 0,
-  			'default_value' => 'nee',
+  			'default_value' => BOOL_NEE_VAL,
   			'layout' => 'vertical',
   			'return_format' => 'value',
   		),
@@ -512,7 +413,7 @@ if( function_exists('acf_add_local_field_group') ):
   					array (
   						'field' => 'field_57fa92400aa5c',
   						'operator' => '==',
-  						'value' => 'ja',
+  						'value' => BOOL_JA_VAL,
   					),
   				),
   			),
@@ -728,13 +629,13 @@ if( function_exists('register_field_group') ):
   				'id' => '',
   			),
   			'choices' => array (
-  				'Nee' => 'nee',
-  				'Ja' => 'ja',
+  				BOOL_NEE_VAL => BOOL_NEE_LABEL,
+  				BOOL_JA_VAL => BOOL_JA_LABEL,
   			),
   			'allow_null' => 0,
   			'other_choice' => 0,
   			'save_other_choice' => 0,
-  			'default_value' => 'nee',
+  			'default_value' => BOOL_NEE_VAL,
   			'layout' => 'horizontal',
   		),
   		array (
@@ -749,7 +650,7 @@ if( function_exists('register_field_group') ):
   					array (
   						'field' => 'field_57dbb4bb70f6f',
   						'operator' => '==',
-  						'value' => 'Ja',
+  						'value' => BOOL_JA_VAL,
   					),
   				),
   			),
@@ -980,13 +881,13 @@ if( function_exists('acf_add_local_field_group') ):
     				'id' => '',
     			),
     			'choices' => array (
-    				'ja' => 'Ja',
-    				'nee' => 'Nee',
+    				BOOL_JA_VAL => BOOL_JA_LABEL,
+    				BOOL_NEE_VAL => BOOL_NEE_LABEL,
     			),
     			'allow_null' => 0,
     			'other_choice' => 0,
     			'save_other_choice' => 0,
-    			'default_value' => 'nee',
+    			'default_value' => BOOL_NEE_VAL,
     			'layout' => 'horizontal',
     			'return_format' => 'value',
     		),
@@ -1002,7 +903,7 @@ if( function_exists('acf_add_local_field_group') ):
     					array (
     						'field' => 'field_5804ccac137a5',
     						'operator' => '==',
-    						'value' => 'ja',
+    						'value' => BOOL_JA_VAL,
     					),
     				),
     			),
@@ -1167,7 +1068,7 @@ if( function_exists('acf_add_local_field_group') ):
   						),
   						array (
   							'key' => 'field_580ddb0e4597c',
-  							'label' => 'Link',
+  							'label'   => __( 'Link', 'wp-rijkshuisstijl' ),
   							'name' => 'extra_contentblok_algemeen_links_url',
   							'type' => 'url',
   							'instructions' => '',
@@ -1204,13 +1105,13 @@ if( function_exists('acf_add_local_field_group') ):
   						'id' => '',
   					),
   					'choices' => array (
-  						'ja' => 'Ja, toon alleen berichten uit een bepaalde categorie.',
-  						'nee' => 'Neen, toon alle berichten.',
+  						BOOL_JA_VAL => 'Ja, toon alleen berichten uit een bepaalde categorie.',
+  						BOOL_NEE_VAL => 'Neen, toon alle berichten.',
   					),
   					'allow_null' => 0,
   					'other_choice' => 0,
   					'save_other_choice' => 0,
-  					'default_value' => 'nee',
+  					'default_value' => BOOL_NEE_VAL,
   					'layout' => 'vertical',
   					'return_format' => 'value',
   				),
@@ -1231,7 +1132,7 @@ if( function_exists('acf_add_local_field_group') ):
   							array (
   								'field' => 'field_5804d01355657',
   								'operator' => '==',
-  								'value' => 'ja',
+  								'value' => BOOL_JA_VAL,
   							),
   						),
   					),
@@ -1351,6 +1252,13 @@ if( function_exists('acf_add_local_field_group') ):
   				'param' => 'post_type',
   				'operator' => '==',
   				'value' => 'page',
+  			),
+  		),
+  		array (
+  			array (
+  				'param' => 'post_type',
+  				'operator' => '==',
+  				'value' => RHSWP_CPT_DOSSIER,
   			),
   		),
   		array (

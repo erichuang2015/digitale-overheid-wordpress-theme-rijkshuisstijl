@@ -9,8 +9,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.4.1
- * @desc.   Theme-check, carrousel en extra pagina-layout 
+ * @version 0.6.17
+ * @desc.   New custom post type for dossiers
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -195,7 +195,7 @@ class Taxonomy_Single_Term {
 		<div id="taxonomy-<?php echo $this->slug; ?>" class="<?php echo $class; ?>">
 			<?php $this->{$el_open_cb}() ?>
 			<?php $this->term_fields_list(); ?>
-			<?php $this->{$el_close_cb}() ?>
+			<?php // $this->{$el_close_cb}() ?>
 			<?php if ( $this->allow_new_terms ) {
 				$this->terms_adder_button();
 			} ?>

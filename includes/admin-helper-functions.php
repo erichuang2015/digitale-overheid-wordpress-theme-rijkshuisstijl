@@ -86,20 +86,20 @@ function dovardump($data) {
 //========================================================================================================
 
 function rhswp_admin_display_wpquery_in_context() {
+
+
   global $wp_query;
-  dovardump($wp_query->query);
-//  dovardump($wp_query);
+  dodebug('post meta:');
+
+$prefix = 'rhswp_dossierlinks_';	 
+
+  $meta = get_post_meta( get_the_ID(), $prefix . '_post_radio', true);
   
-}    
-
-//========================================================================================================
-
-//add_action( 'wp_head', 'rhswp_admin_dump_wpquery', 4 );
-
-function rhswp_admin_dump_wpquery() {
-  global $wp_query;
+  
+  dovardump( $meta );
+  
+  dodebug('wp_query->query:');
   dovardump($wp_query->query);
-//  dovardump($wp_query);
   
 }    
 

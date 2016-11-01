@@ -9,8 +9,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.4.1
- * @desc.   Theme-check, carrousel en extra pagina-layout 
+ * @version 0.6.17
+ * @desc.   New custom post type for dossiers
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -170,7 +170,7 @@ function rhswp_get_page_dossiersingleactueel() {
             <h2><a href="<?php echo $theurl ?>"><?php the_title(); ?></a></h2>
             <?php the_excerpt() ?>
             <?php the_category( ', ' ) ?>
-            <?php echo get_the_term_list( $post->ID, RHSWP_CT_DOSSIER, 'Dossiers: ', ', ' )  ?>
+            <?php // echo get_the_term_list( $post->ID, RHSWP_CT_DOSSIER, 'Dossiers: ', ', ' )  ?>
           </section>
 
         <?php
