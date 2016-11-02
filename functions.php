@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.6.11
- * @desc.   Various small code and CSS bugfixes - widget, archive-loop
+ * @version 0.6.12
+ * @desc.   Removed post-meta. Added class .intro. Font-size check for HTML and body tag.
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -25,8 +25,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Child theme (do not remove)
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "http://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.6.11" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Various small code and CSS bugfixes - widget, archive-loop" );
+define( 'CHILD_THEME_VERSION',              "0.6.12" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Removed post-meta. Added class .intro. Font-size check for HTML and body tag." );
 define( 'SHOW_CSS_DEBUG',                   true );
 define( 'ID_ZOEKEN',                        'rhswp-searchform' );
 define( 'GC_TWITTERACCOUNT',                'gebrcentraal' );
@@ -508,7 +508,6 @@ function rhswp_correct_postinfo($post_info) {
             $deelknoppen_onder    = get_field('deelknoppen_onder', $post->ID );
         }
         if ( has_post_format( 'link' ) ) {
-            echo '<p>dit is een link</p>';
             return '';
         }
         else {
@@ -521,21 +520,8 @@ function rhswp_correct_postinfo($post_info) {
 
 //========================================================================================================
 
-// Customize the entry meta in the entry footer (requires HTML5 theme support)
-add_filter( 'genesis_post_meta', 'rhswp_single_post_meta_data' );
-
-function rhswp_single_post_meta_data($post_meta) {
-  
-  global $post;
-  if ( is_single() ) {
-    if ( 'post'    == get_post_type() ) {
-      $post_meta = '[post_categories] [post_tags]';
-    }
-  }
-
-  return $post_meta;
-  
-}
+//* Remove the entry meta in the entry footer (requires HTML5 theme support)
+remove_action( 'genesis_entry_footer', 'genesis_post_meta' );
 
 //========================================================================================================
 
@@ -843,9 +829,14 @@ function admin_set_tinymce_options( $settings ) {
     $settings['theme_advanced_styles'] = "'Infoblok'=infoblock, 'Streamer'=pullquote";
     // ============
      
-    $settings['toolbar1'] = 'formatselect,italic,bullist,numlist,blockquote,|,link,unlink,|,spellchecker,|,removeformat,cleanup,|,alignleft,alignright,undo,redo,outdent,indent,hr,fullscreen';
+    $settings['toolbar1'] = 'formatselect,italic,bullist,numlist,blockquote,|,link,unlink,|,spellchecker,|,styleselect,removeformat,cleanup,|,alignleft,alignright,undo,redo,outdent,indent,hr,fullscreen';
     $settings['toolbar2'] = '';
     $settings['block_formats'] = 'Tussenkop niveau 2=h2;Tussenkop niveau 3=h3;Tussenkop niveau 4=h4;Tussenkop niveau 5=h5;Tussenkop niveau 6=h6;Paragraaf=p;Citaat=q';
+
+    $settings['style_formats'] = '[
+            {title: "intro", block: "span", classes: "intro"},
+    ]';
+
 
     return $settings;
 }
@@ -1091,7 +1082,8 @@ function rhswp_post_append_postinfo($post_info) {
     }
     elseif ( 'post' == get_post_type() ) {
       if ( is_single() ) {
-        return '[post_date]';
+        return '[post_categories before=""] [post_date]';
+
       }
       else {
         return '[post_date]';

@@ -35,9 +35,12 @@ body {
 }
 * {
   font-family: 'Rijksoverheid Sans regular', Helvetica, Arial, sans-serif;
-  font-size: 16px;
   font-weight: 300;
-  line-height: 1.4;
+  font-weight: normal;
+  font-size: 1.125rem;
+  line-height: 1.625;
+  font-size: 100%;
+  -webkit-text-size-adjust: 100%;
 }
 a {
   color: #01689b;
@@ -352,6 +355,20 @@ img.alignright,
 .gallery-caption {
   border-bottom: none;
 }
+@media only screen and (min-width: 650px) {
+  .intro {
+    font-size: 1.3125em;
+    line-height: 1.5238;
+    display: inline-block;
+    margin-bottom: 1em;
+  }
+}
+@media only screen and (min-width: 1200px) {
+  body {
+    font-size: 112.5%;
+    -webkit-text-size-adjust: 112.5%;
+  }
+}
 .cmb-type-text {
   border: 10px solid #d52b1e;
 }
@@ -446,4 +463,7 @@ div:before {
   color: #535353;
   border-bottom: 1px solid #535353;
   margin-bottom: 1em;
+}
+.intro {
+  display: inline-block;
 }

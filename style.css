@@ -3,8 +3,8 @@
 	Description: Theme voor ibewustzijnoverheid.nl
 	Author: Paul van Buuren
 	Author URI: https://wbvb.nl/themes/ibewustzijn/
-	Version: 0.6.11
-  Version description: 0.6.11 - Various small code and CSS bugfixes - widget, archive-loop 
+	Version: 0.6.12
+  Version description: 0.6.12 - Removed post-meta. Added class .intro. Font-size check for HTML and body tag. 
   Text Domain: wp-rijkshuisstijl
 
 	Template: genesis
@@ -263,21 +263,22 @@ Defaults
 /* Typographical Elements
 --------------------------------------------- */
 html {
-  font-size: 62.5%;
+  font-size: 100%;
   /* 10px browser default */
-}
-/* Chrome fix http://surefirewebservices.com/development/genesis-framework/genesis-rem-chrome-font-size-bug */
-body > div {
-  font-size: 1.6rem;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
 }
 body {
   background-color: #fff;
   background-repeat: no-repeat;
   background-position: center top;
   font-family: 'Rijksoverheid Sans regular', Helvetica, Arial, sans-serif;
-  font-size: 16px;
   font-weight: 300;
-  line-height: 1.4;
+  font-weight: normal;
+  font-size: 1.125rem;
+  line-height: 1.625;
+  font-size: 100%;
+  -webkit-text-size-adjust: 100%;
   margin: 0;
   padding: 0;
 }
@@ -602,6 +603,20 @@ img.alignright,
 }
 .gallery-caption {
   border-bottom: none;
+}
+@media only screen and (min-width: 650px) {
+  .intro {
+    font-size: 1.3125em;
+    line-height: 1.5238;
+    display: inline-block;
+    margin-bottom: 1em;
+  }
+}
+@media only screen and (min-width: 1200px) {
+  body {
+    font-size: 112.5%;
+    -webkit-text-size-adjust: 112.5%;
+  }
 }
 /* Objects
 --------------------------------------------- */
@@ -1022,9 +1037,9 @@ Content Area
   content: "\2014";
   margin: 0 6px 0 2px;
 }
-.entry-categories,
-.entry-tags {
-  display: block;
+.entry-meta .entry-categories a,
+.entry-meta .entry-tags a {
+  text-decoration: none;
 }
 /* Pagination
 --------------------------------------------- */

@@ -3,8 +3,8 @@
 	Description: Theme voor ibewustzijnoverheid.nl
 	Author: Paul van Buuren
 	Author URI: https://wbvb.nl/themes/ibewustzijn/
-	Version: 0.6.11
-  Version description: 0.6.11 - Various small code and CSS bugfixes - widget, archive-loop 
+	Version: 0.6.12
+  Version description: 0.6.12 - Removed post-meta. Added class .intro. Font-size check for HTML and body tag. 
   Text Domain: wp-rijkshuisstijl
 
 	Template: genesis
@@ -47,11 +47,12 @@ Defaults
 --------------------------------------------- */
 
 html {
-	font-size: 62.5%; /* 10px browser default */
+//  font-size: 62.5%; /* 10px browser default */
+  font-size: 100%; /* 10px browser default */
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;	
 }
 
-/* Chrome fix http://surefirewebservices.com/development/genesis-framework/genesis-rem-chrome-font-size-bug */
-body > div { font-size: 1.6rem; }
 
 body {
   background-color: @wit;
@@ -519,9 +520,13 @@ Content Area
 	margin: 0 6px 0 2px;
 }
 
-.entry-categories,
-.entry-tags {
-	display: block;
+.entry-meta {
+  .entry-categories,
+  .entry-tags {
+    a {
+      text-decoration: none;
+    }
+  }
 }
 
 /* Pagination
