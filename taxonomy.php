@@ -9,8 +9,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.4.2
- * @desc.   Theme-check, carrousel en extra pagina-layout - bugfixes
+ * @version 0.6.13
+ * @desc.   Improved  dossier-helper-functions. Only direct descendants in menu shown.
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -38,6 +38,11 @@ if ( rhswp_extra_contentblokken_checker() ) {
   add_action( 'genesis_before_loop', 'rhswp_write_extra_contentblokken', 16 );
   
 }
+
+//* Remove the entry meta in the entry footer
+remove_action( 'genesis_entry_footer', 'genesis_entry_footer_markup_open', 5 );
+remove_action( 'genesis_entry_footer', 'genesis_post_meta' );
+remove_action( 'genesis_entry_footer', 'genesis_entry_footer_markup_close', 15 );
 
 genesis();
     

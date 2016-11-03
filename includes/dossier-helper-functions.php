@@ -10,8 +10,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.6.11
- * @desc.   Various small code and CSS bugfixes - widget, archive-loop
+ * @version 0.6.13
+ * @desc.   Improved  dossier-helper-functions. Only direct descendants in menu shown.
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -155,6 +155,7 @@ function rhswp_dossier_title_checker( ) {
         }        
         else {
           // dit is een andere pagina, 
+          $args['currentpageid'] = get_the_id();
 
           $dossierinhoudpagina = '<li><a href="' . get_term_link( $term ) . '">' . _x( 'Overzicht', 'Standaardlabel voor het menu in de dossiers', 'wp-rijkshuisstijl' ) . '</a></li>';
 
@@ -177,16 +178,19 @@ function rhswp_dossier_title_checker( ) {
           
           if ( $parentID ) {
 
-            dodebug('geen menu bekend, maar parent ID: ' . $parentID);
+            echo '<p style="border: 1px solid black; padding: .2em .5em;"><strong>Er is nog geen menu ingevoerd voor dit dossier.</strong><br>Dit menu toont nu de directe pagina\'s onder "<a href="' . get_permalink( $parentID ) . '">' . get_the_title( $parentID ) . '</a>"</p>';
+            dodebug( 'PaginaID: ' . $parentID );
 
-            $args = array( 
+//            $args['currentpageid'] = $term->term_id;
+
+            $argspages = array( 
               'child_of'  => $parentID, 
-              'parent '   => $parentID,
+              'parent'   => $parentID,
               'hierarchical' => 1,
               'sort_column' => 'menu_order', 
               'sort_order' => 'asc'
             );
-            $pages = get_pages($args); 
+            $pages = get_pages($argspages); 
             
             if ( $pages ) {
               foreach ( $pages as $page ) {
@@ -258,7 +262,6 @@ function rhswp_dossier_get_pagelink( $theobject, $args ) {
   }
 
   $theobjectid = isset( $theobject->ID  ) ? $theobject->ID : 0;
-
 
   if ( $currentpageid == $theobjectid ) {
     return '<li class="selected"><span>' . $maxposttitle . '</span></li>';

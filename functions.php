@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.6.12
- * @desc.   Removed post-meta. Added class .intro. Font-size check for HTML and body tag.
+ * @version 0.6.13
+ * @desc.   Improved  dossier-helper-functions. Only direct descendants in menu shown.
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -25,8 +25,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Child theme (do not remove)
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "http://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.6.12" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Removed post-meta. Added class .intro. Font-size check for HTML and body tag." );
+define( 'CHILD_THEME_VERSION',              "0.6.13" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Improved  dossier-helper-functions. Only direct descendants in menu shown." );
 define( 'SHOW_CSS_DEBUG',                   true );
 define( 'ID_ZOEKEN',                        'rhswp-searchform' );
 define( 'GC_TWITTERACCOUNT',                'gebrcentraal' );
@@ -1718,4 +1718,58 @@ function be_remove_image_alignment( $attributes ) {
   $attributes['class'] = str_replace( 'has-post-thumbnail', '', $attributes['class'] );
 	return $attributes;
 }
+
+//========================================================================================================
+
+/** Code for custom loop */
+function rhswp_archive_custom_loop() {
+  // code for a completely custom loop
+  global $post;
+  if ( have_posts() ) {
+  
+    echo '<div class="block">';
+    
+    $postcounter = 0;
+  
+    while (have_posts()) : the_post();
+      $postcounter++;
+  
+      $permalink  = get_permalink();
+      $excerpt    = wp_strip_all_tags( get_the_excerpt( $post ) );
+      $postdate   = get_the_date( );
+      $doimage    = false;
+      $classattr = genesis_attr( 'entry' );
+  
+  
+      
+      if ( $postcounter < 3 ) {
+        $doimage    = true;
+      } 
+      else {
+        $classattr = str_replace( 'has-post-thumbnail', '', $classattr );
+      }
+  
+      printf( '<article %s>', $classattr );
+  
+      
+      if ( $doimage ) {
+  //                  printf( '<div class="article-container"><div class="article-visual"><a href="%s" tabindex="-1">%s</a></div>', get_permalink(), get_the_post_thumbnail( $post->ID, 'featured-post-widget' ) );
+        printf( '<div class="article-container"><div class="article-visual">%s</div>', get_the_post_thumbnail( $post->ID, 'featured-post-widget' ) );
+        printf( '<div class="article-excerpt"><a href="%s"><h3>%s</h3><p>%s</p><p class="meta">%s</p></a></div></div>', get_permalink(), get_the_title(), $excerpt, $postdate );
+      }
+      else {
+        printf( '<a href="%s"><h3>%s</h3><p>%s</p><p class="meta">%s</p></a>', get_permalink(), get_the_title(), $excerpt, $postdate );
+      }
+  
+      
+      echo '</article>';
+      do_action( 'genesis_after_entry' );
+  
+    endwhile;
+  
+    echo '</div>';
+  
+  }
+}
+ 
 

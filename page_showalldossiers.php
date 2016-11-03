@@ -9,8 +9,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.1.13
- * @desc.   Pagina-templates herzien 
+ * @version 0.6.13
+ * @desc.   Improved  dossier-helper-functions. Only direct descendants in menu shown.
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -24,11 +24,21 @@ genesis();
 function rhswp_show_all_dossiers() {
   global $post;
 
-    
-  
-  $terms = get_terms( RHSWP_CT_DOSSIER, array(
-    'hide_empty' => false,
-  ) );
+
+
+  $grootte    = get_field('uitgelichte_dossiers', $post->ID );
+
+  if ( $grootte ) {
+    $terms = get_terms( RHSWP_CT_DOSSIER, array(
+      'hide_empty' => false,
+      'include' => $grootte
+    ) );
+  }
+  else {
+    $terms = get_terms( RHSWP_CT_DOSSIER, array(
+      'hide_empty' => false,
+    ) );
+  }
 
   if ($terms && ! is_wp_error( $terms ) ) { 
 
