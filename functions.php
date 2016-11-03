@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.6.18
- * @desc.   CSS for news items widget. Styling for post-meta. Link colors.
+ * @version 0.6.19
+ * @desc.   Form elements. Contact form validation.
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -25,8 +25,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Child theme (do not remove)
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "http://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.6.18" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "CSS for news items widget. Styling for post-meta. Link colors." );
+define( 'CHILD_THEME_VERSION',              "0.6.19" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Form elements. Contact form validation." );
 define( 'SHOW_CSS_DEBUG',                   false );
 define( 'ID_ZOEKEN',                        'rhswp-searchform' );
 define( 'GC_TWITTERACCOUNT',                'gebrcentraal' );
@@ -96,6 +96,9 @@ include_once( RHSWP_FOLDER . '/includes/admin-helper-functions.php' );
 
 // Include for dossier functions
 include_once( RHSWP_FOLDER . '/includes/dossier-helper-functions.php' );
+
+// Include for contact form 7 validation
+include_once( RHSWP_FOLDER . '/includes/contact-form7-validation.php' );
 
 //========================================================================================================
 
@@ -1788,5 +1791,25 @@ function rhswp_archive_custom_loop() {
   
   }
 }
- 
+
+//========================================================================================================
+
+function rhswp_filter_input_string( $string ) {
+
+  $text = htmlspecialchars( $string );
+
+  $text = preg_replace("/</", "-", $text);
+  $text = preg_replace("/>/", "-", $text);
+  $text = preg_replace("/script/", "ja doei", $text);
+  $text = preg_replace("/username/i", " *zucht* ", trim($text));
+  $text = preg_replace("/password/i", " *gaap* ", trim($text));
+  $text = preg_replace("/;DROP /i", " *snurk* ", trim($text));
+  $text = preg_replace("/select /i", " *fart* ", trim($text));
+  $text = preg_replace("/ table /i", " *pfffffrt* ", trim($text));
+  
+  return $text;
+
+}
+
+//========================================================================================================
 

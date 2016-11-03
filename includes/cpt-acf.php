@@ -11,8 +11,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.6.10
- * @desc.   Various small code and CSS bugfixes
+ * @version 0.6.19
+ * @desc.   Form elements. Contact form validation.
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -894,6 +894,94 @@ if( function_exists('acf_add_local_field_group') ):
     	'description' => '',
     ));
     
+
+	acf_add_local_field_group(array (
+		'key' => 'group_56a73cbfdf435',
+		'title' => 'Instellingen voor contactformulier',
+		'fields' => array (
+			array (
+				'key' => 'field_56a73ce794fcf',
+				'label' => 'Lege naam',
+				'name' => 'lege_naam',
+				'type' => 'text',
+				'instructions' => 'Foutboodschap als naam leeg is',
+				'required' => 0,
+				'conditional_logic' => 0,
+				'wrapper' => array (
+					'width' => '',
+					'class' => '',
+					'id' => '',
+				),
+				'default_value' => 'We willen graag uw naam weten.',
+				'placeholder' => '',
+				'prepend' => '',
+				'append' => '',
+				'maxlength' => '',
+				'readonly' => 0,
+				'disabled' => 0,
+			),
+			array (
+				'key' => 'field_56a73d2e94fd0',
+				'label' => 'Lege suggestie',
+				'name' => 'lege_suggestie',
+				'type' => 'text',
+				'instructions' => 'Foutboodschap als er geen suggestie of vraag is ingevuld',
+				'required' => 0,
+				'conditional_logic' => 0,
+				'wrapper' => array (
+					'width' => '',
+					'class' => '',
+					'id' => '',
+				),
+				'default_value' => 'U hebt geen vraag of suggestie ingevuld.',
+				'placeholder' => '',
+				'prepend' => '',
+				'append' => '',
+				'maxlength' => '',
+				'readonly' => 0,
+				'disabled' => 0,
+			),
+			array (
+				'key' => 'field_56a73d6294fd1',
+				'label' => 'Leeg mailadres',
+				'name' => 'leeg_mailadres',
+				'type' => 'text',
+				'instructions' => 'Foutboodschap als er geen e-mailadres is ingevuld',
+				'required' => 0,
+				'conditional_logic' => 0,
+				'wrapper' => array (
+					'width' => '',
+					'class' => '',
+					'id' => '',
+				),
+				'default_value' => 'We hebben uw mailadres nodig om te antwoorden.',
+				'placeholder' => '',
+				'prepend' => '',
+				'append' => '',
+				'maxlength' => '',
+				'readonly' => 0,
+				'disabled' => 0,
+			),
+		),
+		'location' => array (
+			array (
+				array (
+					'param' => 'options_page',
+					'operator' => '==',
+					'value' => 'instellingen',
+				),
+			),
+		),
+		'menu_order' => 0,
+		'position' => 'normal',
+		'style' => 'default',
+		'label_placement' => 'top',
+		'instruction_placement' => 'label',
+		'hide_on_screen' => '',
+		'active' => 1,
+		'description' => '',
+	));
+
 
     
     //====================================================================================================

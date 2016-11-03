@@ -503,6 +503,16 @@
 		"plM": 3758088159,
 		"prP": 0
 		},
+	"\/images\/svg\/sprite-icons-messages.svg": {
+		"ft": 2097152,
+		"miP": 0,
+		"oA": 2,
+		"oAP": "\/images\/svg\/sprite-icons-messages.svg",
+		"oF": 0,
+		"opt": 0,
+		"plM": 3758088159,
+		"prP": 0
+		},
 	"\/images\/waarschuwing.png": {
 		"ft": 32768,
 		"iS": 324,
@@ -531,6 +541,12 @@
 		"ft": 8192,
 		"oA": 0,
 		"oAP": "\/includes\/class.taxonomy-single-term.php",
+		"oF": 0
+		},
+	"\/includes\/contact-form7-validation.php": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/includes\/contact-form7-validation.php",
 		"oF": 0
 		},
 	"\/includes\/cpt-acf.php": {

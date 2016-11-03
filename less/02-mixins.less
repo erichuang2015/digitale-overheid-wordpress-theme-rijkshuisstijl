@@ -7,17 +7,15 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.6.11
-// * @desc.   Various small code and CSS bugfixes - widget, archive-loop
+// * @version 0.6.19
+// * @desc.   Form elements. Contact form validation.
 // * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 // **
 
 
 // ========================================================================
 
-@strokeheight: 		       43px;
-
-
+@strokeheight: 		        43px;
 @pixel:                   1px;
 @viewport:                1vw;
 @basefontsize:            12;
@@ -280,6 +278,19 @@
 .inputpadding() {
 	padding: ( @padding / 2 );
 	border: 2px solid @lichtgrijs;
+}
+
+//=========================================================================================================
+
+.embed_error_icon(@src, @fill-new) {
+    @data-uri:          data-uri('image/svg+xml;charset=UTF-8', "@{src}");
+    @replace-default:   escape('fill:#FF0000;');
+    @replace-new:       escape('fill:@{fill-new}');
+    @replacesrc1:       replace("@{data-uri}", @replace-default, @replace-new, "g");
+
+    background: e(@replacesrc1);
+    background-repeat: no-repeat;
+    padding-left: 2em;
 }
 
 //=========================================================================================================

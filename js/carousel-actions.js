@@ -1,13 +1,13 @@
 //
-// Gebruiker Centraal - swipebox-actions.js
+// Rijkshuisstijl (Digitale Overheid) - carousel-actions.js
 // ----------------------------------------------------------------------------------
-// Script for slider animations
+// Actions for slider
 // ----------------------------------------------------------------------------------
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.6.16
-// * @desc.   .slidenav corrected
+// * @version 0.6.19
+// * @desc.   Form elements. Contact form validation.
 // * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 
 /*

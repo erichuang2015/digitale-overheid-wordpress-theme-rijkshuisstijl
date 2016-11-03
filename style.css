@@ -3,8 +3,8 @@
 	Description: Theme voor ibewustzijnoverheid.nl
 	Author: Paul van Buuren
 	Author URI: https://wbvb.nl/themes/ibewustzijn/
-	Version: 0.6.18
-  Version description: 0.6.18 - CSS for news items widget. Styling for post-meta. Link colors. 
+	Version: 0.6.19
+  Version description: 0.6.19 - Form elements. Contact form validation. 
   Text Domain: wp-rijkshuisstijl
 
 	Template: genesis
@@ -666,69 +666,6 @@ img {
   width: auto;
   /* IE8 */
 }
-/* Forms
---------------------------------------------- */
-input,
-select,
-textarea {
-  background-color: #fff;
-  box-shadow: 1px 1px 3px #eee inset;
-  font-size: 14px;
-  padding: 8px;
-  border: 2px solid #cccccc;
-  width: 100%;
-}
-input:focus,
-textarea:focus {
-  border-color: #0e2f5f;
-}
-::-moz-placeholder {
-  opacity: 1;
-}
-button,
-input[type="button"],
-input[type="reset"],
-input[type="submit"],
-.button,
-.entry-content .button {
-  background-color: #275937;
-  box-shadow: none;
-  color: #fff;
-  cursor: pointer;
-  text-transform: uppercase;
-  width: auto;
-  padding: 8px;
-  border: 2px solid #cccccc;
-  border-color: #275937;
-}
-button:hover,
-input:hover[type="button"],
-input:hover[type="reset"],
-input:hover[type="submit"],
-.button:hover,
-.entry-content .button:hover {
-  background-color: #fff;
-  color: #000;
-  text-decoration: underline;
-}
-button:focus,
-input:focus[type="button"],
-input:focus[type="reset"],
-input:focus[type="submit"],
-.button:focus,
-.entry-content .button:focus {
-  background-color: #fff;
-  color: #000;
-  text-decoration: underline;
-}
-.button {
-  border-radius: 5px;
-  display: inline-block;
-}
-input[type="search"]::-webkit-search-cancel-button,
-input[type="search"]::-webkit-search-results-button {
-  display: none;
-}
 /*
   Structure and Layout
   ---------------------------------------------------------------------------------------------------- */
@@ -852,57 +789,6 @@ Common Classes
 }
 .alignright .avatar {
   margin-left: 16px;
-}
-.search-form {
-  padding: 0;
-}
-.search-form input[itemprop="query-input"] {
-  width: calc(100% - 70px);
-  height: 50px;
-  border-style: none;
-  padding: 1px;
-  font-size: 18px;
-}
-.search-form input[type="submit"] {
-  width: 70px;
-  height: 50px;
-  background: #dfe6e1;
-  padding: 1px 10px 1px 25px;
-  color: #000;
-  text-transform: none;
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22UTF-8%22%20standalone%3D%22no%22%3F%3E%0A%3Csvg%20width%3D%2256px%22%20height%3D%2255px%22%20viewBox%3D%220%200%2056%2055%22%20version%3D%221.1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%3E%0A%20%20%20%20%3C!--%20Generator%3A%20Sketch%2040.2%20(33826)%20-%20http%3A%2F%2Fwww.bohemiancoding.com%2Fsketch%20--%3E%0A%20%20%20%20%3Ctitle%3Elooking-glass%3C%2Ftitle%3E%0A%20%20%20%20%3Cdesc%3ECreated%20with%20Sketch.%3C%2Fdesc%3E%0A%20%20%20%20%3Cdefs%3E%3C%2Fdefs%3E%0A%20%20%20%20%3Cg%20id%3D%22Page-1%22%20stroke%3D%22none%22%20stroke-width%3D%221%22%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%0A%20%20%20%20%20%20%20%20%3Cg%20id%3D%22icon-search%22%20transform%3D%22translate(-4.000000%2C%20-5.000000)%22%20fill%3D%22%23000%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cg%20transform%3D%22translate(4.000000%2C%205.000000)%22%20id%3D%22looking-glass%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cpath%20d%3D%22M54.060791%2C47.1978023%20C51.055875%2C44.2032968%2045.0460432%2C38.2142857%2042.0411273%2C35.2197802%20C41.9995847%2C35.206044%2041.9164996%2C35.1785715%2041.874957%2C35.1648352%20C41.8380299%2C35.1282052%2041.8195663%2C35.0915752%2041.8195663%2C35.0549452%20C43.03815%2C33.2600734%2043.970551%2C31.3095239%2044.6167694%2C29.2032967%20C45.2629878%2C27.0970695%2045.586097%2C24.8901098%2045.586097%2C22.5824176%20C45.586097%2C18.5164835%2044.5336841%2C14.7252747%2042.4288585%2C11.208791%20C40.4348128%2C7.8021977%2037.7206951%2C5.09157513%2034.2865057%2C3.0769233%20C30.7415356%2C1.0256411%2026.9103832%2C0%2022.7930485%2C0%20C18.6757137%2C0%2014.8445613%2C1.0256411%2011.2995913%2C3.0769233%20C7.86540182%2C5.09157513%205.13282102%2C7.8021977%203.10184887%2C11.208791%20C1.03394962%2C14.7252747%200%2C18.525641%200%2C22.60989%20C0%2C26.6941391%201.03394962%2C30.4945054%203.10184887%2C34.0109891%20C5.13282102%2C37.4175824%207.86540182%2C40.1098902%2011.2995913%2C42.0879124%20C14.8445613%2C44.1758242%2018.666482%2C45.2197801%2022.7653534%2C45.2197801%20C25.0178863%2C45.2197801%2027.2334925%2C44.8901097%2029.412172%2C44.230769%20C31.5169979%2C43.6080586%2033.4925802%2C42.6923077%2035.3389187%2C41.4835163%20C35.3758454%2C41.5384614%2035.4220038%2C41.6071429%2035.4496989%2C41.6483518%20C35.4496989%2C41.6849818%2035.4681622%2C41.7032968%2035.505089%2C41.7032968%20C39.5301069%2C45.6776558%2044.5613793%2C50.6456046%2047.5801427%2C53.6263739%20C48.4663851%2C54.5421246%2049.5557247%2C55%2050.8481616%2C55%20C52.1405986%2C55%2053.2299384%2C54.5421246%2054.1161811%2C53.6263739%20C55.0393501%2C52.7106228%2055.491703%2C51.6300366%2055.4732396%2C50.3846153%20C55.4547762%2C49.139194%2054.98396%2C48.076923%2054.060791%2C47.1978023%20L54.060791%2C47.1978023%20Z%20M22.7653534%2C37.3626374%20C20.0696994%2C37.3626374%2017.5863741%2C36.7032968%2015.3153776%2C35.3846155%20C13.0443812%2C34.0659342%2011.2257378%2C32.2710625%209.8594476%2C30.0000002%20C8.53008375%2C27.7289377%207.86540182%2C25.2564101%207.86540182%2C22.5824175%20C7.86540182%2C19.908425%208.53008375%2C17.4542126%209.8594476%2C15.2197804%20C11.2257378%2C12.9487178%2013.0443812%2C11.1446884%2015.3153776%2C9.80769212%20C17.5863741%2C8.47069584%2020.0696994%2C7.8021977%2022.7653534%2C7.8021977%20C25.4610075%2C7.8021977%2027.9535644%2C8.47069584%2030.2430243%2C9.80769212%20C32.5324841%2C11.1446884%2034.3418958%2C12.9487178%2035.6712592%2C15.2197804%20C37.0006231%2C17.4542126%2037.665305%2C19.908425%2037.665305%2C22.5824175%20C37.665305%2C25.2564101%2037.0006231%2C27.7289377%2035.6712592%2C30.0000002%20C34.3418958%2C32.2710625%2032.5324841%2C34.0659342%2030.2430243%2C35.3846155%20C27.9535644%2C36.7032968%2025.4610075%2C37.3626374%2022.7653534%2C37.3626374%20L22.7653534%2C37.3626374%20Z%22%3E%3C%2Fpath%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C%2Fg%3E%0A%20%20%20%20%20%20%20%20%3C%2Fg%3E%0A%20%20%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E");
-  background-size: 15px 16px;
-  background-position: 6px center;
-  background-repeat: no-repeat;
-}
-.search-form input[type="submit"]:before {
-  font-weight: normal;
-  font-family: "RO Icons";
-  display: inline-block;
-  vertical-align: middle;
-  speak: none;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  content: "";
-  color: #000;
-  font-size: 13px;
-  width: 20px;
-  height: 20px;
-  position: absolute;
-  left: 8px;
-  top: 3px;
-}
-.search-form input[type="submit"],
-.search-form input[type="submit"]:hover {
-  border-style: none;
-}
-.search-form input:focus {
-  border-color: #fff;
-}
-.search-form input[type="submit"],
-.search-form input[type="search"] {
-  -webkit-appearance: none;
-  border-radius: 0;
 }
 .sticky {
   background: grey;
@@ -1388,9 +1274,86 @@ input[type="text"]:focus {
   background-color: #000;
   box-shadow: 2px 2px 4px #cccccc;
 }
+form {
+  padding: 1em;
+  background: #e6e6e6;
+}
+input,
+select,
+textarea {
+  background-color: #fff;
+  box-shadow: 1px 1px 3px #eee inset;
+  font-size: 14px;
+  padding: 8px;
+  border: 2px solid #cccccc;
+  width: 100%;
+}
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="file"],
+input[type="date"],
+select,
+textarea {
+  border-top: 1px solid #fff;
+  border-right: 1px solid #fff;
+  border-left: 1px solid #fff;
+  border-bottom: 2px solid #275937;
+}
+input:focus,
+textarea:focus {
+  border-color: #0e2f5f;
+}
+::-moz-placeholder {
+  opacity: 1;
+}
+button,
+input[type="button"],
+input[type="reset"],
+input[type="submit"],
+.button,
+.entry-content .button {
+  background-color: #275937;
+  box-shadow: none;
+  color: #fff;
+  cursor: pointer;
+  text-transform: uppercase;
+  width: auto;
+  padding: 8px;
+  border: 2px solid #cccccc;
+  border-color: #275937;
+}
+button:hover,
+input:hover[type="button"],
+input:hover[type="reset"],
+input:hover[type="submit"],
+.button:hover,
+.entry-content .button:hover {
+  background-color: #fff;
+  color: #000;
+  text-decoration: underline;
+}
+button:focus,
+input:focus[type="button"],
+input:focus[type="reset"],
+input:focus[type="submit"],
+.button:focus,
+.entry-content .button:focus {
+  background-color: #fff;
+  color: #000;
+  text-decoration: underline;
+}
+.button {
+  border-radius: 5px;
+  display: inline-block;
+}
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button {
+  display: none;
+}
 fieldset {
-  margin: 0 1em 0 0;
-  padding: 0 1em 0 0;
+  margin: 0;
+  padding: 0;
   border-style: none;
 }
 fieldset input,
@@ -1399,22 +1362,91 @@ fieldset textarea {
   display: block;
   box-sizing: border-box;
 }
+.search-form {
+  padding: 0;
+  background: none;
+}
+.search-form input[itemprop="query-input"] {
+  width: calc(100% - 70px);
+  height: 50px;
+  border-style: none;
+  padding: 1px;
+  font-size: 18px;
+}
+.search-form input[type="submit"] {
+  width: 70px;
+  height: 50px;
+  background: #dfe6e1;
+  padding: 1px 10px 1px 25px;
+  color: #000;
+  text-transform: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22UTF-8%22%20standalone%3D%22no%22%3F%3E%0A%3Csvg%20width%3D%2256px%22%20height%3D%2255px%22%20viewBox%3D%220%200%2056%2055%22%20version%3D%221.1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%3E%0A%20%20%20%20%3C!--%20Generator%3A%20Sketch%2040.2%20(33826)%20-%20http%3A%2F%2Fwww.bohemiancoding.com%2Fsketch%20--%3E%0A%20%20%20%20%3Ctitle%3Elooking-glass%3C%2Ftitle%3E%0A%20%20%20%20%3Cdesc%3ECreated%20with%20Sketch.%3C%2Fdesc%3E%0A%20%20%20%20%3Cdefs%3E%3C%2Fdefs%3E%0A%20%20%20%20%3Cg%20id%3D%22Page-1%22%20stroke%3D%22none%22%20stroke-width%3D%221%22%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%0A%20%20%20%20%20%20%20%20%3Cg%20id%3D%22icon-search%22%20transform%3D%22translate(-4.000000%2C%20-5.000000)%22%20fill%3D%22%23000%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cg%20transform%3D%22translate(4.000000%2C%205.000000)%22%20id%3D%22looking-glass%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cpath%20d%3D%22M54.060791%2C47.1978023%20C51.055875%2C44.2032968%2045.0460432%2C38.2142857%2042.0411273%2C35.2197802%20C41.9995847%2C35.206044%2041.9164996%2C35.1785715%2041.874957%2C35.1648352%20C41.8380299%2C35.1282052%2041.8195663%2C35.0915752%2041.8195663%2C35.0549452%20C43.03815%2C33.2600734%2043.970551%2C31.3095239%2044.6167694%2C29.2032967%20C45.2629878%2C27.0970695%2045.586097%2C24.8901098%2045.586097%2C22.5824176%20C45.586097%2C18.5164835%2044.5336841%2C14.7252747%2042.4288585%2C11.208791%20C40.4348128%2C7.8021977%2037.7206951%2C5.09157513%2034.2865057%2C3.0769233%20C30.7415356%2C1.0256411%2026.9103832%2C0%2022.7930485%2C0%20C18.6757137%2C0%2014.8445613%2C1.0256411%2011.2995913%2C3.0769233%20C7.86540182%2C5.09157513%205.13282102%2C7.8021977%203.10184887%2C11.208791%20C1.03394962%2C14.7252747%200%2C18.525641%200%2C22.60989%20C0%2C26.6941391%201.03394962%2C30.4945054%203.10184887%2C34.0109891%20C5.13282102%2C37.4175824%207.86540182%2C40.1098902%2011.2995913%2C42.0879124%20C14.8445613%2C44.1758242%2018.666482%2C45.2197801%2022.7653534%2C45.2197801%20C25.0178863%2C45.2197801%2027.2334925%2C44.8901097%2029.412172%2C44.230769%20C31.5169979%2C43.6080586%2033.4925802%2C42.6923077%2035.3389187%2C41.4835163%20C35.3758454%2C41.5384614%2035.4220038%2C41.6071429%2035.4496989%2C41.6483518%20C35.4496989%2C41.6849818%2035.4681622%2C41.7032968%2035.505089%2C41.7032968%20C39.5301069%2C45.6776558%2044.5613793%2C50.6456046%2047.5801427%2C53.6263739%20C48.4663851%2C54.5421246%2049.5557247%2C55%2050.8481616%2C55%20C52.1405986%2C55%2053.2299384%2C54.5421246%2054.1161811%2C53.6263739%20C55.0393501%2C52.7106228%2055.491703%2C51.6300366%2055.4732396%2C50.3846153%20C55.4547762%2C49.139194%2054.98396%2C48.076923%2054.060791%2C47.1978023%20L54.060791%2C47.1978023%20Z%20M22.7653534%2C37.3626374%20C20.0696994%2C37.3626374%2017.5863741%2C36.7032968%2015.3153776%2C35.3846155%20C13.0443812%2C34.0659342%2011.2257378%2C32.2710625%209.8594476%2C30.0000002%20C8.53008375%2C27.7289377%207.86540182%2C25.2564101%207.86540182%2C22.5824175%20C7.86540182%2C19.908425%208.53008375%2C17.4542126%209.8594476%2C15.2197804%20C11.2257378%2C12.9487178%2013.0443812%2C11.1446884%2015.3153776%2C9.80769212%20C17.5863741%2C8.47069584%2020.0696994%2C7.8021977%2022.7653534%2C7.8021977%20C25.4610075%2C7.8021977%2027.9535644%2C8.47069584%2030.2430243%2C9.80769212%20C32.5324841%2C11.1446884%2034.3418958%2C12.9487178%2035.6712592%2C15.2197804%20C37.0006231%2C17.4542126%2037.665305%2C19.908425%2037.665305%2C22.5824175%20C37.665305%2C25.2564101%2037.0006231%2C27.7289377%2035.6712592%2C30.0000002%20C34.3418958%2C32.2710625%2032.5324841%2C34.0659342%2030.2430243%2C35.3846155%20C27.9535644%2C36.7032968%2025.4610075%2C37.3626374%2022.7653534%2C37.3626374%20L22.7653534%2C37.3626374%20Z%22%3E%3C%2Fpath%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C%2Fg%3E%0A%20%20%20%20%20%20%20%20%3C%2Fg%3E%0A%20%20%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E");
+  background-size: 15px 16px;
+  background-position: 6px center;
+  background-repeat: no-repeat;
+}
+.search-form input[type="submit"]:before {
+  font-weight: normal;
+  font-family: "RO Icons";
+  display: inline-block;
+  vertical-align: middle;
+  speak: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  content: "";
+  color: #000;
+  font-size: 13px;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  left: 8px;
+  top: 3px;
+}
+.search-form input[type="submit"],
+.search-form input[type="submit"]:hover {
+  border-style: none;
+}
+.search-form input:focus {
+  border-color: #fff;
+}
+.search-form input[type="submit"],
+.search-form input[type="search"] {
+  -webkit-appearance: none;
+  border-radius: 0;
+}
 /* contact form 7, cf7 */
-.wpcf7-form-control-wrap {
+.wpcf7-form label,
+.wpcf7-form .wpcf7-form-control-wrap {
+  float: none;
+  width: 100%;
+  display: block;
+}
+.wpcf7-form p {
   overflow: hidden;
   display: block;
 }
-.wpcf7-form-control-wrap .wpcf7-not-valid-tip:before {
-  content: '!';
+.wpcf7-form .wpcf7-form-control-wrap input[type="text"].wpcf7-not-valid-tip,
+.wpcf7-form .wpcf7-form-control-wrap input[type="email"].wpcf7-not-valid-tip,
+.wpcf7-form .wpcf7-form-control-wrap input[type="password"].wpcf7-not-valid-tip,
+.wpcf7-form .wpcf7-form-control-wrap input[type="file"].wpcf7-not-valid-tip,
+.wpcf7-form .wpcf7-form-control-wrap input[type="date"].wpcf7-not-valid-tip,
+.wpcf7-form .wpcf7-form-control-wrap select.wpcf7-not-valid-tip,
+.wpcf7-form .wpcf7-form-control-wrap textarea.wpcf7-not-valid-tip,
+.wpcf7-form .wpcf7-form-control-wrap input[type="text"].wpcf7-not-valid,
+.wpcf7-form .wpcf7-form-control-wrap input[type="email"].wpcf7-not-valid,
+.wpcf7-form .wpcf7-form-control-wrap input[type="password"].wpcf7-not-valid,
+.wpcf7-form .wpcf7-form-control-wrap input[type="file"].wpcf7-not-valid,
+.wpcf7-form .wpcf7-form-control-wrap input[type="date"].wpcf7-not-valid,
+.wpcf7-form .wpcf7-form-control-wrap select.wpcf7-not-valid,
+.wpcf7-form .wpcf7-form-control-wrap textarea.wpcf7-not-valid {
+  border-bottom: 2px solid #d52b1e;
+}
+.wpcf7-form .wpcf7-form-control-wrap .wpcf7-not-valid-tip {
+  background: url("data:image/svg+xml;charset=UTF-8,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22utf-8%22%3F%3E%0A%3C!--%20Generator%3A%20Adobe%20Illustrator%2020.0.0%2C%20SVG%20Export%20Plug-In%20.%20SVG%20Version%3A%206.00%20Build%200)%20%20--%3E%0A%3Csvg%20version%3D%221.1%22%20id%3D%22Laag_1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20x%3D%220px%22%20y%3D%220px%22%0A%09%20width%3D%222021px%22%20height%3D%2221px%22%20viewBox%3D%220%200%202021%2021%22%20style%3D%22enable-background%3Anew%200%200%202021%2021%3B%22%20xml%3Aspace%3D%22preserve%22%3E%0A%3Cstyle%20type%3D%22text%2Fcss%22%3E%0A%09.st0%7Bfill%3A%23FFFFFF%3B%7D%0A%09.st1%7Bfill%3A%23d52b1e%7D%0A%09.st2%7Bfill%3A%23d52b1e%7D%0A%09.st3%7Bfill%3A%23d52b1e%7D%0A%3C%2Fstyle%3E%0A%3Cg%3E%0A%09%3Crect%20x%3D%224.5%22%20y%3D%222.1%22%20class%3D%22st0%22%20width%3D%2212%22%20height%3D%2215.4%22%2F%3E%0A%09%3Cpath%20class%3D%22st1%22%20d%3D%22M0%2C0v21h21V0H0z%20M11.9%2C15.7h-3v-2H12v2H11.9z%20M11.9%2C11.9h-3V5.3H12v6.6H11.9z%22%2F%3E%0A%3C%2Fg%3E%0A%3Cpolygon%20class%3D%22st0%22%20points%3D%22861%2C-49.7%20862%2C-49.7%20862%2C-49.7%20%22%2F%3E%0A%3Cg%3E%0A%09%3Crect%20x%3D%22985.5%22%20y%3D%222.1%22%20width%3D%2212%22%20height%3D%2215.4%22%2F%3E%0A%09%3Cpath%20class%3D%22st2%22%20d%3D%22M981%2C0v21h21V0H981z%20M992.9%2C15.7h-3.1v-2h3.1V15.7z%20M992.9%2C11.9h-3.1V5.3h3.1V11.9z%22%2F%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%09%3Crect%20x%3D%222004.5%22%20y%3D%222.1%22%20class%3D%22st0%22%20width%3D%2212%22%20height%3D%2215.4%22%2F%3E%0A%09%3Cpath%20class%3D%22st3%22%20d%3D%22M2000%2C0v21h21V0H2000z%20M2011.9%2C15.7h-3.1v-2h3.1V15.7z%20M2011.9%2C11.9h-3.1V5.3h3.1V11.9z%22%2F%3E%0A%3C%2Fg%3E%0A%3C%2Fsvg%3E%0A");
+  background-repeat: no-repeat;
+  padding-left: 2em;
   display: block;
-  float: left;
-  border: 1px solid #d52b1e;
-  border-radius: 50%;
-  min-width: 20px;
-  min-height: 20px;
-  text-align: center;
-  margin-right: .5em;
-  font-weight: bold;
+  line-height: 1.2;
 }
 @media only screen and (min-width: 650px) {
   .nav-primary li.search:hover {
@@ -1430,6 +1462,22 @@ fieldset textarea {
     width: 50%;
     float: left;
     clear: none;
+  }
+  .wpcf7-form label,
+  .wpcf7-form .wpcf7-form-control-wrap {
+    float: left;
+    display: block;
+    clear: none;
+    margin-bottom: 1em;
+  }
+  .wpcf7-form label {
+    width: 20%;
+  }
+  .wpcf7-form .wpcf7-form-control-wrap {
+    width: 79%;
+  }
+  .wpcf7-form input[type="submit"] {
+    margin-left: 20%;
   }
 }
 /*
