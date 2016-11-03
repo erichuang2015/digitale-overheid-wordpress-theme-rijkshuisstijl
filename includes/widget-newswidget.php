@@ -195,7 +195,7 @@ class rhswp_news_widget extends WP_Widget {
                 $countertje++;
                 $permalink = get_permalink();
                     
-                echo '<div class="flexmij">'; 
+                echo '<div class="flex-block">'; 
                 echo '<h4>'; 
                 echo '<a href="' . $permalink . '">';
                 echo the_title();

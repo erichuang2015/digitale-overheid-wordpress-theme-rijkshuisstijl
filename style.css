@@ -3,8 +3,8 @@
 	Description: Theme voor ibewustzijnoverheid.nl
 	Author: Paul van Buuren
 	Author URI: https://wbvb.nl/themes/ibewustzijn/
-	Version: 0.6.17
-  Version description: 0.6.17 - .slidenav corrected - bugfixes 
+	Version: 0.6.18
+  Version description: 0.6.18 - CSS for news items widget. Styling for post-meta. Link colors. 
   Text Domain: wp-rijkshuisstijl
 
 	Template: genesis
@@ -302,6 +302,12 @@ a:hover,
 a:active,
 a:focus {
   text-decoration: underline;
+}
+a:hover {
+  color: #014668;
+}
+a:active,
+a:focus {
   color: #d52b1e;
 }
 a:hover {
@@ -1045,13 +1051,24 @@ Content Area
   width: 50%;
 }
 .entry-meta {
-  font-size: 14px;
+  font-size: 80%;
+  color: #535353;
 }
 .entry-meta a {
+  text-decoration: none;
+  color: #535353;
+}
+.entry-meta a:focus,
+.entry-meta a:active,
+.entry-meta a:hover {
   text-decoration: underline;
 }
-.entry-meta a:hover {
-  text-decoration: none;
+.entry-meta .entry-categories:after {
+  content: '|';
+  display: inline-block;
+  margin-left: .5em;
+  margin-right: .3em;
+  speak: none;
 }
 .entry-header .entry-meta {
   margin-bottom: 16px;
@@ -1063,10 +1080,6 @@ Content Area
 .entry-comments-link::before {
   content: "\2014";
   margin: 0 6px 0 2px;
-}
-.entry-meta .entry-categories a,
-.entry-meta .entry-tags a {
-  text-decoration: none;
 }
 /* Pagination
 --------------------------------------------- */
@@ -1852,6 +1865,24 @@ aside.sidebar .widget.banner .widget-wrap {
 .page-link-widget.widget {
   background: #f3f3f3;
 }
+.news-widget h4 a,
+.news-widget h4 a:visited {
+  color: #01689b;
+  font-weight: 700;
+  font-family: 'Rijksoverheid Sans bold', Helvetica, Arial, sans-serif;
+}
+.news-widget h4 a:hover {
+  color: #014668;
+}
+.news-widget p {
+  margin-bottom: 0;
+}
+.news-widget .flex-block + .flex-block {
+  margin-top: 3em;
+}
+.news-widget .category-link {
+  float: right;
+}
 .page-link-widget {
   padding: 16px;
 }
@@ -1938,16 +1969,16 @@ aside.sidebar .widget.banner .widget-wrap {
     display: flex;
   }
   .site-footer .home-widget-area .widget,
-  .site-footer .home-widget-area div.flexmij {
+  .site-footer .home-widget-area div.flex-block {
     flex: 1;
     display: block;
     float: left;
     margin-bottom: 0;
   }
   .site-footer .home-widget-area .widget ul,
-  .site-footer .home-widget-area div.flexmij ul,
+  .site-footer .home-widget-area div.flex-block ul,
   .site-footer .home-widget-area .widget li,
-  .site-footer .home-widget-area div.flexmij li {
+  .site-footer .home-widget-area div.flex-block li {
     list-style: none;
     margin-left: 0;
     padding-left: 0;
@@ -2213,7 +2244,7 @@ Media Queries
 .sidebar .widget.page-links a:hover:before,
 .sidebar .context-info ul a:hover:before,
 .sidebar .widget_nav_menu a:hover:before {
-  color: #d52b1e;
+  color: #014668;
 }
 .block .links a.extern:before,
 .sidebar .widget.page-links a.extern:before,

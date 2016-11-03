@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.6.17
- * @desc.   .slidenav corrected - bugfixes
+ * @version 0.6.18
+ * @desc.   CSS for news items widget. Styling for post-meta. Link colors.
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -25,9 +25,9 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Child theme (do not remove)
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "http://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.6.17" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  ".slidenav corrected - bugfixes" );
-define( 'SHOW_CSS_DEBUG',                   true );
+define( 'CHILD_THEME_VERSION',              "0.6.18" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "CSS for news items widget. Styling for post-meta. Link colors." );
+define( 'SHOW_CSS_DEBUG',                   false );
 define( 'ID_ZOEKEN',                        'rhswp-searchform' );
 define( 'GC_TWITTERACCOUNT',                'gebrcentraal' );
 define( 'SOC_MED_NO',                       'socmed_nee' );

@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.4.1
-// * @desc.   Theme-check, carrousel en extra pagina-layout 
+// * @version 0.6.18
+// * @desc.   CSS for news items widget. Styling for post-meta. Link colors.
 // * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 // **
 
@@ -73,7 +73,27 @@
     background: @grijs_1;
   }
 
-
+  .news-widget {
+    h4 a {
+      &, &:visited {
+        color: @a_color_default;
+      	font-weight: 700;
+      	font-family: @fontstrong;
+      }
+    	&:hover {
+        color: @a_color_hover;
+    	}
+    }
+    p {
+      margin-bottom: 0;
+    }    
+    .flex-block + .flex-block {
+      margin-top: 3em;
+    }    
+    .category-link {
+      float: right;
+    }
+  }
 
 	.page-link-widget {
   	padding: @padding;
@@ -185,7 +205,7 @@
         & {
           display: flex;
         }
-        .widget, div.flexmij {
+        .widget, div.flex-block {
           flex: 1;
           display: block;
           float: left;

@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.6.15
-// * @desc.   Kaderblok toegevoegd
+// * @version 0.6.18
+// * @desc.   CSS for news items widget. Styling for post-meta. Link colors.
 // * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 // **
 
@@ -39,6 +39,12 @@
   	&:active,
   	&:focus {
     	text-decoration: underline;
+    }
+  	&:hover {
+      color: @a_color_hover;
+  	}
+  	&:active,
+  	&:focus {
       color: @a_color_active;
     }
   }

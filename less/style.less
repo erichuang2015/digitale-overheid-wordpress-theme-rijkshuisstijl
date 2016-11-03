@@ -3,8 +3,8 @@
 	Description: Theme voor ibewustzijnoverheid.nl
 	Author: Paul van Buuren
 	Author URI: https://wbvb.nl/themes/ibewustzijn/
-	Version: 0.6.17
-  Version description: 0.6.17 - .slidenav corrected - bugfixes 
+	Version: 0.6.18
+  Version description: 0.6.18 - CSS for news items widget. Styling for post-meta. Link colors. 
   Text Domain: wp-rijkshuisstijl
 
 	Template: genesis
@@ -494,16 +494,33 @@ Content Area
 }
 
 .entry-meta {
-// color: @grijs;
-	.font-size(14);
+  font-size: 80%;
+  color: @a_color_visited;
+
+  a {
+    text-decoration: none;
+    color: @a_color_visited;
+  
+    &:focus,
+    &:active,
+    &:hover {
+    	text-decoration: underline;
+    }
+  }
+
+  .entry-categories {
+    &:after {
+      content: '|';
+      display: inline-block;
+      margin-left: .5em;
+      margin-right: .3em;
+//      float: left;
+      speak: none;
+    }
+  }
+
 }
 
-.entry-meta a {
-	text-decoration: underline;
-}
-.entry-meta a:hover {
-	text-decoration: none;
-}
 
 
 .entry-header .entry-meta {
@@ -520,14 +537,6 @@ Content Area
 	margin: 0 6px 0 2px;
 }
 
-.entry-meta {
-  .entry-categories,
-  .entry-tags {
-    a {
-      text-decoration: none;
-    }
-  }
-}
 
 /* Pagination
 --------------------------------------------- */
