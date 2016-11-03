@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.6.14
- * @desc.   genesis_entry_footer disabled
+ * @version 0.6.15
+ * @desc.   Kaderblok toegevoegd
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -25,9 +25,9 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Child theme (do not remove)
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "http://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.6.14" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "genesis_entry_footer disabled" );
-define( 'SHOW_CSS_DEBUG',                   true );
+define( 'CHILD_THEME_VERSION',              "0.6.15" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Kaderblok toegevoegd" );
+define( 'SHOW_CSS_DEBUG',                   false );
 define( 'ID_ZOEKEN',                        'rhswp-searchform' );
 define( 'GC_TWITTERACCOUNT',                'gebrcentraal' );
 define( 'SOC_MED_NO',                       'socmed_nee' );
@@ -839,18 +839,19 @@ function rhswp_trackercode() {
 */
 
 function admin_set_tinymce_options( $settings ) {
-    $settings['theme_advanced_blockformats'] = 'p,h2,h3,h4,h5,h6,q,hr';
-    $settings['theme_advanced_disable'] = 'underline,spellchecker,forecolor,justifyfull';
-    $settings['theme_advanced_buttons2_add'] = 'styleselect';
-    $settings['theme_advanced_styles'] = "'Infoblok'=infoblock, 'Streamer'=pullquote";
+    $settings['theme_advanced_blockformats']  = 'p,h2,h3,h4,h5,h6,q,hr';
+    $settings['theme_advanced_disable']       = 'underline,spellchecker,forecolor,justifyfull';
+    $settings['theme_advanced_buttons2_add']  = 'styleselect';
+    $settings['theme_advanced_styles']        = "'Infoblok'=infoblock, 'Streamer'=pullquote";
     // ============
      
-    $settings['toolbar1'] = 'formatselect,italic,bullist,numlist,blockquote,|,link,unlink,|,spellchecker,|,styleselect,removeformat,cleanup,|,alignleft,alignright,undo,redo,outdent,indent,hr,fullscreen';
+    $settings['toolbar1'] = 'formatselect,italic,bullist,numlist,blockquote,|,link,unlink,|,spellchecker,|,styleselect,|,removeformat,cleanup,|,alignleft,alignright,undo,redo,outdent,indent,hr,fullscreen';
     $settings['toolbar2'] = '';
     $settings['block_formats'] = 'Tussenkop niveau 2=h2;Tussenkop niveau 3=h3;Tussenkop niveau 4=h4;Tussenkop niveau 5=h5;Tussenkop niveau 6=h6;Paragraaf=p;Citaat=q';
 
     $settings['style_formats'] = '[
-            {title: "intro", block: "span", classes: "intro"},
+            {title: "Kaderblok", block: "section", classes: "kaderblok"},
+            {title: "Intro-paragraaf", block: "span", classes: "intro"},
     ]';
 
 

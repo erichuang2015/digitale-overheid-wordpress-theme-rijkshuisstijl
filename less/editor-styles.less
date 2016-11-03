@@ -7,8 +7,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.6.12
-// * @desc.   Removed post-meta. Added class .intro. Font-size check for HTML and body tag.
+// * @version 0.6.15
+// * @desc.   Kaderblok toegevoegd
 // * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 // **
 
@@ -118,9 +118,9 @@ h1 {
   }
 }
 
-div {
-    padding: .2em;
-    border: 1px solid @grijs_7;
+div:not(.kaderblok) {
+  padding: .2em;
+  border: 1px solid @grijs_7;
   
   &:before { 
     content: @waarschuwinghdiv;

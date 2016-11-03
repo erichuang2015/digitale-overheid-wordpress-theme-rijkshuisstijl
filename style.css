@@ -3,8 +3,8 @@
 	Description: Theme voor ibewustzijnoverheid.nl
 	Author: Paul van Buuren
 	Author URI: https://wbvb.nl/themes/ibewustzijn/
-	Version: 0.6.14
-  Version description: 0.6.14 - genesis_entry_footer disabled 
+	Version: 0.6.15
+  Version description: 0.6.15 - Kaderblok toegevoegd 
   Text Domain: wp-rijkshuisstijl
 
 	Template: genesis
@@ -603,6 +603,33 @@ img.alignright,
 }
 .gallery-caption {
   border-bottom: none;
+}
+.kaderblok {
+  border: 1px solid #275937;
+  padding: 0;
+}
+.kaderblok h2,
+.kaderblok h3,
+.kaderblok h4,
+.kaderblok h5,
+.kaderblok h6 {
+  background: #275937;
+  color: #fff;
+  margin: 0 0 .4em 0;
+  padding: .2rem;
+  font-size: 1.2rem;
+}
+.kaderblok p,
+.kaderblok ul,
+.kaderblok ol {
+  margin: 0;
+  padding: 0 .2rem;
+}
+.kaderblok ul ul,
+.kaderblok ol ul,
+.kaderblok ul ol,
+.kaderblok ol ol {
+  padding: 0;
 }
 @media only screen and (min-width: 650px) {
   .intro {

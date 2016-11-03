@@ -355,6 +355,33 @@ img.alignright,
 .gallery-caption {
   border-bottom: none;
 }
+.kaderblok {
+  border: 1px solid #275937;
+  padding: 0;
+}
+.kaderblok h2,
+.kaderblok h3,
+.kaderblok h4,
+.kaderblok h5,
+.kaderblok h6 {
+  background: #275937;
+  color: #fff;
+  margin: 0 0 .4em 0;
+  padding: .2rem;
+  font-size: 1.2rem;
+}
+.kaderblok p,
+.kaderblok ul,
+.kaderblok ol {
+  margin: 0;
+  padding: 0 .2rem;
+}
+.kaderblok ul ul,
+.kaderblok ol ul,
+.kaderblok ul ol,
+.kaderblok ol ol {
+  padding: 0;
+}
 @media only screen and (min-width: 650px) {
   .intro {
     font-size: 1.3125em;
@@ -450,11 +477,11 @@ h1:before {
   float: left;
   color: black !important;
 }
-div {
+div:not(.kaderblok) {
   padding: .2em;
   border: 1px solid #535353;
 }
-div:before {
+div:not(.kaderblok):before {
   content: 'Er zitten <div>-tags in deze tekst. Misschien is dat je bedoeling, maar vaak levert dit ongewenste layout op. Probeer de tekst zonder extra layout in te voeren, bijvoorbeeld via het "tekst"-tabje.';
   display: inline-block;
   float: none;
