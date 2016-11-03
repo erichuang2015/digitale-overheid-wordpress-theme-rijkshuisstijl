@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.6.16
-// * @desc.   .slidenav corrected
+// * @version 0.6.17
+// * @desc.   .slidenav corrected - bugfixes
 // * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 // **
 
@@ -20,7 +20,7 @@
 @minheightmobile:         150px;
 @minheighttablet:         300px;
 @minheight_widescreen:    400px;
-@headerheight:            40px;
+@headerheight:            32px;
 
 
 @keyframes fadeOutAgain {
@@ -555,7 +555,7 @@
                 line-height: 1;
                 position: absolute;
                 right: 0;
-                top: .75em;
+                top: .5em;
                 width: 1.5em;
                 z-index: 999;
               }           
@@ -568,9 +568,11 @@
               }
               .caption-text {
                 padding: 0 .5em 1.5em .5em;
+                font-size: 80%;
+                line-height: 1.4;
               }
               .caption-title {
-                padding: .5em 1em 0 .5em;
+                padding: .15em 1em 0 .5em;
                 min-height: @headerheight;
 //                border: 1px solid red;
               }
