@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.6.13
- * @desc.   Improved  dossier-helper-functions. Only direct descendants in menu shown.
+ * @version 0.6.14
+ * @desc.   genesis_entry_footer disabled
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -25,8 +25,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Child theme (do not remove)
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "http://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.6.13" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Improved  dossier-helper-functions. Only direct descendants in menu shown." );
+define( 'CHILD_THEME_VERSION',              "0.6.14" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "genesis_entry_footer disabled" );
 define( 'SHOW_CSS_DEBUG',                   true );
 define( 'ID_ZOEKEN',                        'rhswp-searchform' );
 define( 'GC_TWITTERACCOUNT',                'gebrcentraal' );
@@ -520,8 +520,11 @@ function rhswp_correct_postinfo($post_info) {
 
 //========================================================================================================
 
-//* Remove the entry meta in the entry footer (requires HTML5 theme support)
+//* Remove the entry meta in the entry footer
+remove_action( 'genesis_entry_footer', 'genesis_entry_footer_markup_open', 5 );
 remove_action( 'genesis_entry_footer', 'genesis_post_meta' );
+remove_action( 'genesis_entry_footer', 'genesis_entry_footer_markup_close', 15 );
+
 
 //========================================================================================================
 
@@ -535,11 +538,24 @@ function rhswp_sidebar_context_taxonomies() {
     $terms        = get_the_terms( $post->ID , RHSWP_CT_DOSSIER );
 
     if ( $terms && ! is_wp_error( $terms ) ) { 
-        echo '<br><a href="/' . RHSWP_CT_DOSSIER . '/"><strong>alles onder ' . RHSWP_CT_DOSSIER . '</strong></a>';
 
-        foreach ( $terms as $term ) {
-          echo '<br><a href="' . get_term_link( $term->term_id ) . '"><strong>' . RHSWP_CT_DOSSIER . ': ' . $term->name . '</strong></a>';
-        }
+      if( get_field('dossier_overzichtspagina', 'option') ) {
+      
+        $dossier_overzichtspagina       = get_field('dossier_overzichtspagina', 'option');
+        $dossier_overzichtspagina_id    = $dossier_overzichtspagina->ID;
+
+        $obj = get_taxonomy( RHSWP_CT_DOSSIER );
+
+        echo '<h4>' . $obj->labels->name . '</h4>';
+      }
+
+      echo '<ul>';
+      foreach ( $terms as $term ) {
+        echo '<li><a href="' . get_term_link( $term->term_id ) . '">' . $term->name . '</a></li>';
+      }
+      echo '</ul>';
+      echo '<a href="' . get_permalink( $dossier_overzichtspagina_id ) . '" itemprop="item">' . get_the_title( $dossier_overzichtspagina_id ) . '</a>';
+
     }
 
     $terms        = get_the_terms( $post->ID , 'category' );

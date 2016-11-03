@@ -3,8 +3,8 @@
 	Description: Theme voor ibewustzijnoverheid.nl
 	Author: Paul van Buuren
 	Author URI: https://wbvb.nl/themes/ibewustzijn/
-	Version: 0.6.13
-  Version description: 0.6.13 - Improved  dossier-helper-functions. Only direct descendants in menu shown. 
+	Version: 0.6.14
+  Version description: 0.6.14 - genesis_entry_footer disabled 
   Text Domain: wp-rijkshuisstijl
 
 	Template: genesis
@@ -2142,6 +2142,7 @@ Media Queries
 }
 .block .links li,
 .sidebar .widget.page-links li,
+.sidebar .context-info ul li,
 .sidebar .widget_nav_menu li {
   list-style: none;
   margin-left: 0;
@@ -2149,6 +2150,7 @@ Media Queries
 }
 .block .links a,
 .sidebar .widget.page-links a,
+.sidebar .context-info ul a,
 .sidebar .widget_nav_menu a {
   padding-left: 1.5em;
   display: block;
@@ -2156,6 +2158,7 @@ Media Queries
 }
 .block .links a:before,
 .sidebar .widget.page-links a:before,
+.sidebar .context-info ul a:before,
 .sidebar .widget_nav_menu a:before {
   font-weight: normal;
   font-family: "RO Icons";
@@ -2175,16 +2178,19 @@ Media Queries
 }
 .block .links a:visited:before,
 .sidebar .widget.page-links a:visited:before,
+.sidebar .context-info ul a:visited:before,
 .sidebar .widget_nav_menu a:visited:before {
   color: #535353;
 }
 .block .links a:hover:before,
 .sidebar .widget.page-links a:hover:before,
+.sidebar .context-info ul a:hover:before,
 .sidebar .widget_nav_menu a:hover:before {
   color: #d52b1e;
 }
 .block .links a.extern:before,
 .sidebar .widget.page-links a.extern:before,
+.sidebar .context-info ul a.extern:before,
 .sidebar .widget_nav_menu a.extern:before {
   content: "";
 }
