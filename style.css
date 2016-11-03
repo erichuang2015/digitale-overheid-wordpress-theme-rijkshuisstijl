@@ -3,8 +3,8 @@
 	Description: Theme voor ibewustzijnoverheid.nl
 	Author: Paul van Buuren
 	Author URI: https://wbvb.nl/themes/ibewustzijn/
-	Version: 0.6.15
-  Version description: 0.6.15 - Kaderblok toegevoegd 
+	Version: 0.6.16
+  Version description: 0.6.16 - .slidenav corrected 
   Text Domain: wp-rijkshuisstijl
 
 	Template: genesis
@@ -2456,8 +2456,8 @@ noscript {
 }
 .dojs .slider .slidenav button[data-stop]:after {
   position: absolute;
-  right: 7px;
-  bottom: 5px;
+  right: 9px;
+  bottom: 8px;
   width: 4px;
   height: 12px;
   border-right: 3px solid #fff;

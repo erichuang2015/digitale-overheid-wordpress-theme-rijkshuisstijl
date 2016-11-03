@@ -6,8 +6,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.4.3
-// * @desc.   Carrousel, js-actions
+// * @version 0.6.16
+// * @desc.   .slidenav corrected
 // * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 
 /*
@@ -112,7 +112,7 @@ var myCarousel = (function() {
 
     // Add list of slides and/or play/pause button
     if ( ( settings.slidenav || settings.animate) && ( slides.length > 1) ) {
-      slidenav = document.createElement('ul');
+      slidenav = document.createElement('li');
 
       slidenav.className = 'slidenav';
 
