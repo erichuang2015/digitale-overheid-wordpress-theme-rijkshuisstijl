@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.6.19
-// * @desc.   Form elements. Contact form validation.
+// * @version 0.6.20
+// * @desc.   01-home .blocks, pagination, 404 content list, translation updated.
 // * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 //
 
@@ -22,7 +22,11 @@
     background: @grijs;
   }
 
-  input,
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="file"],
+  input[type="date"],
   select,
   textarea {
   	background-color: @wit;
@@ -260,26 +264,27 @@
       	}
     	}
   	}
-
-    .wpcf7-form {
-      label,
-      .wpcf7-form-control-wrap {
-        float: left;
-        display: block;
-        clear: none;
-        margin-bottom: 1em;
-      }
-      label {
-        width: 20%;        
-      }
-      .wpcf7-form-control-wrap {
-        width: 79%;        
-      }
-      input[type="submit"] {
-        margin-left: 20%;
+    
+    main {
+      .wpcf7-form {
+        label,
+        .wpcf7-form-control-wrap {
+          float: left;
+          display: block;
+          clear: none;
+          margin-bottom: 1em;
+        }
+        label {
+          width: 20%;        
+        }
+        .wpcf7-form-control-wrap {
+          width: 79%;        
+        }
+        input[type="submit"] {
+          margin-left: 20%;
+        }
       }
     }
-
 	}
 
 	@media only screen and (min-width: ( @break_fullwidth ) ) {

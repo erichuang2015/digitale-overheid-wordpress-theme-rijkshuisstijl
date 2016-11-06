@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.6.19
- * @desc.   Form elements. Contact form validation.
+ * @version 0.6.20
+ * @desc.   01-home .blocks, pagination, 404 content list, translation updated.
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -21,12 +21,10 @@ include_once( get_template_directory() . '/lib/init.php' );
 //========================================================================================================
 
 // Constants
-
-// Child theme (do not remove)
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "http://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.6.19" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Form elements. Contact form validation." );
+define( 'CHILD_THEME_VERSION',              "0.6.20" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "01-home .blocks, pagination, 404 content list, translation updated." );
 define( 'SHOW_CSS_DEBUG',                   false );
 define( 'ID_ZOEKEN',                        'rhswp-searchform' );
 define( 'GC_TWITTERACCOUNT',                'gebrcentraal' );
@@ -669,9 +667,12 @@ function rhswp_404() {
   
   if ( is_404() ) {
     rhswp_no_posts_content();
+    rhswp_get_sitemap_for_pagenotfound();
+  }
+  else {
+    rhswp_get_sitemap_content();
   }
   
-  rhswp_get_sitemap_content();
   
   echo '</div>';
   
@@ -681,10 +682,28 @@ function rhswp_404() {
 
 //========================================================================================================
 
+function rhswp_get_sitemap_for_pagenotfound() {
+  ?>        
+  <section>
+    <h2><?php _e( "Pagina's:", 'wp-rijkshuisstijl' ); ?></h2>
+    <ul>
+        <?php wp_list_pages( 'title_li=&depth=1' ); ?>
+    </ul>
+  </section>
+  <?php
+  rhswp_show_customtax_terms( RHSWP_CT_DOSSIER, __( 'Dossiers', 'wp-rijkshuisstijl' ) . ":" );
+  rhswp_show_customtax_terms( 'category', __( 'Categorieën', 'wp-rijkshuisstijl' ) . ":" );
+  
+  
+    
+}
+
+//========================================================================================================
+
 function rhswp_get_sitemap_content() {
   ?>        
   <section>
-    <h2><?php _e( "Pagina's", 'wp-rijkshuisstijl' ); ?></h2>
+    <h2><?php _e( "Pagina's:", 'wp-rijkshuisstijl' ); ?></h2>
     <ul>
         <?php wp_list_pages( 'exclude=78,80&title_li=' ); ?>
     </ul>
@@ -697,7 +716,7 @@ function rhswp_get_sitemap_content() {
   
   ?>        
   <section>
-    <h2><?php echo $maxnr_posts .  __( ' laatste berichten', 'wp-rijkshuisstijl' ); ?></h2>
+    <h2><?php echo $maxnr_posts .  __( ' laatste berichten', 'wp-rijkshuisstijl' ) . ':'; ?></h2>
     <ul>
         <?php wp_get_archives( 'type=postbypost&limit=' . $maxnr_posts ); ?>
     </ul>

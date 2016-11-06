@@ -719,7 +719,7 @@ if( function_exists('register_field_group') ):
   			'label'   => __( 'Alternatieve paginatitel gebruiken?', 'wp-rijkshuisstijl' ),
   			'name' => 'alternatieve_paginatitel_gebruiken',
   			'type' => 'radio',
-        'instructions'   => __( 'De paginatitel wordt standaard gebruikt voor ondermeer verwijzingen in menu\'s en in de &lt;title&gt;. Het kan zijn dat je voor de duidelijkheid een andere tekst wilt tonen in de &lt;h1&gt;. Als je hier \'JA\' kiest, kun je een alternatieve paginatitel invoeren.', 'wp-rijkshuisstijl' ),  			
+        'instructions'   => esc_html( __( 'De paginatitel wordt standaard gebruikt voor ondermeer verwijzingen in menu\'s en in de <title>. Het kan zijn dat je voor de duidelijkheid een andere tekst wilt tonen in de <h1>. Als je hier \'JA\' kiest, kun je een alternatieve paginatitel invoeren.', 'wp-rijkshuisstijl' ) ),  			
   			'required' => 1,
   			'conditional_logic' => 0,
   			'wrapper' => array (
@@ -1595,7 +1595,7 @@ if( function_exists('acf_add_local_field_group') ):
   					'placeholder' => '',
   					'maxlength' => '',
   					'rows' => '',
-  					'new_lines' => 'None',
+					'new_lines' => 'None',
   				),
   
   				array (

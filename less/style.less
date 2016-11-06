@@ -3,8 +3,8 @@
 	Description: Theme voor ibewustzijnoverheid.nl
 	Author: Paul van Buuren
 	Author URI: https://wbvb.nl/themes/ibewustzijn/
-	Version: 0.6.19
-  Version description: 0.6.19 - Form elements. Contact form validation. 
+	Version: 0.6.20
+  Version description: 0.6.20 - 01-home .blocks, pagination, 404 content list, translation updated. 
   Text Domain: wp-rijkshuisstijl
 
 	Template: genesis
@@ -402,15 +402,13 @@ Content Area
 /* Pagination
 --------------------------------------------- */
 
-.archive-pagination,
-.entry-pagination {
-	.font-size(14);
-	margin: @gutter 0;
-}
 
 .archive-pagination {
 
   border-top: 1px solid @lichtgrijs;
+  ul, ol {
+    padding: 0;
+  }
 
 	.alignright {
 		margin-right: 0;
@@ -418,12 +416,13 @@ Content Area
 	
 	li, div {
 		display: inline;
+		margin-right: .25em;
 		
 		a {
-		// color: @txt;
 			cursor: pointer;
 			display: inline-block;
-			padding: ( @padding / 2) 0;
+			padding: 0 .5em;
+			border: 1px solid @lichtgrijs;
 			text-decoration: none;
 			&:hover {
   			text-decoration: underline;
@@ -642,14 +641,6 @@ input[type="text"] {
   }
 }
 
-
-.collection {
-  h2 {
-    text-align: center;
-    min-height: @hoogte_tooltip_button_px;
-    padding-top: 4px;
-  }
-}
 .home {
   header .page-title {
     padding-left: @padding;
@@ -879,7 +870,8 @@ Media Queries
 		width: 100%;
 	}
 
-	.site-inner {
+	.site-inner, 
+	.site-footer .footer-widgets {
 		padding-left: @padding;
 		padding-right: @padding;
 	}
