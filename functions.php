@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.6.20
- * @desc.   01-home .blocks, pagination, 404 content list, translation updated.
+ * @version 0.6.21
+ * @desc.   IE8 checks, scripts concatenated
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -23,9 +23,11 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "http://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.6.20" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "01-home .blocks, pagination, 404 content list, translation updated." );
+define( 'CHILD_THEME_VERSION',              "0.6.21" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "IE8 checks, scripts concatenated" );
 define( 'SHOW_CSS_DEBUG',                   false );
+define( 'USE_UNMINIFIED_JS',                true );
+
 define( 'ID_ZOEKEN',                        'rhswp-searchform' );
 define( 'GC_TWITTERACCOUNT',                'gebrcentraal' );
 define( 'SOC_MED_NO',                       'socmed_nee' );
@@ -788,11 +790,18 @@ add_action( 'wp_enqueue_scripts', 'rhswp_enqueue_js_scripts' );
 function rhswp_enqueue_js_scripts() {
 
   if ( ! is_admin() ) {
-    wp_enqueue_script( 'wp-rijkshuisstijl-menu', RHSWP_THEMEFOLDER . '/js/min/menu-min.js', '', '', true );
-  }
-
-  if ( ! is_admin() ) {
-    wp_enqueue_script( 'slider2', RHSWP_THEMEFOLDER . '/js/carousel-actions.js', array( 'jquery' ), '', true );
+    if ( USE_UNMINIFIED_JS ) {
+      // these are the unminified JS-files
+      wp_enqueue_script( 'wp-rijkshuisstijl-menu', RHSWP_THEMEFOLDER . '/js/polyfill-eventlistener.js', array( 'jquery' ), '', true );
+      wp_enqueue_script( 'wp-rijkshuisstijl-menu', RHSWP_THEMEFOLDER . '/js/polyfill-matchmedia.js', array( 'jquery' ), '', true );
+      wp_enqueue_script( 'wp-rijkshuisstijl-menu', RHSWP_THEMEFOLDER . '/js/menu.js', array( 'jquery' ), '', true );
+      wp_enqueue_script( 'slider2', RHSWP_THEMEFOLDER . '/js/carousel-actions.js', array( 'jquery' ), '', true );
+    }
+    else {
+      // the minified file
+      wp_enqueue_script( 'slider2', RHSWP_THEMEFOLDER . '/js/min/scripts-min.js', array( 'jquery' ), '', true );
+      
+    }
   }
 
 //  if ( ( is_home() || is_front_page() ) ) {

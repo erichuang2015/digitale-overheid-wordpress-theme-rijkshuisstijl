@@ -6,8 +6,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.6.19
-// * @desc.   Form elements. Contact form validation.
+// * @version 0.6.21
+// * @desc.   IE8 checks, scripts concatenated
 // * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 
 /*
@@ -46,7 +46,6 @@ setTimeout(function(){
 }();
 
 /* Carousel by Eric Eggert for W3C */
-
 var myCarousel = (function() {
 
   "use strict";
@@ -116,7 +115,7 @@ var myCarousel = (function() {
 
       slidenav.className = 'slidenav';
 
-      var li = document.createElement('li');
+      var li = document.createElement('span');
 
       if (settings.animate) {
 
@@ -134,14 +133,14 @@ var myCarousel = (function() {
       // Register click event on the slidenav
       slidenav.addEventListener('click', function(event) {
         var button = event.target;
-        if (button.localName == 'button') {
+        if (button.localName === 'button') {
           if (button.getAttribute('data-stop')) {
             // Stop animation if the stop button is activated
-            console.log('stopbutton 2');
+//            console.log('stopbutton 2');
             stopAnimation();
           } else if (button.getAttribute('data-start')) {
             // Start animation if the stop button is activated
-            console.log('stopbutton 3');
+//            console.log('stopbutton 3');
             startAnimation();
           }
         }
@@ -245,12 +244,12 @@ var myCarousel = (function() {
   
       // Add classes to the previous, next and current slide
       slides[new_next].className = 'next slide';
-      if (transition == 'next') {
+      if (transition === 'next') {
         slides[new_next].className = 'next slide in-transition';
       }
   
       slides[new_prev].className = 'prev slide';
-      if (transition == 'prev') {
+      if (transition === 'prev') {
         slides[new_prev].className = 'prev slide in-transition';
       }
   
@@ -378,23 +377,24 @@ if ( document.getElementById("carousel") ) {
 
 
 
-var collapsiblelist = document.getElementsByClassName("tabs");
+var collapsiblelist = document.querySelectorAll("tabs");
+
 if ( collapsiblelist.length > 0 ) {
-  console.log('ja');
-  var selectedelement = collapsiblelist[0].getElementsByClassName("selected"),
+
+  var selectedelement = collapsiblelist[0].querySelectorAll("selected"), t,
       i = selectedelement[0].getElementsByTagName("a");
       
   collapsiblelist[0].className = 'tabs collapsed';
 
   t = i.length > 0 ? i : selectedelement;
   t[0].onclick = function(e) {
-    if ( collapsiblelist[0].className == 'tabs collapsed' ) {
+    if ( collapsiblelist[0].className === 'tabs collapsed' ) {
       collapsiblelist[0].className = 'tabs';      
     }
     else {
       collapsiblelist[0].className = 'tabs collapsed';      
     }
-  }
+  };
 
 
 }
