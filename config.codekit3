@@ -9,6 +9,12 @@
 	],
 "creatorBuild": "25444",
 "files": {
+	"\/.gitignore": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/.gitignore",
+		"oF": 0
+		},
 	"\/404.php": {
 		"ft": 8192,
 		"oA": 0,
@@ -659,7 +665,7 @@
 	"\/js\/menu.js": {
 		"ft": 64,
 		"mi": 1,
-		"oA": 1,
+		"oA": 0,
 		"oAP": "\/js\/min\/menu-min.js",
 		"oF": 0,
 		"sC": 1,
@@ -670,6 +676,15 @@
 		"mi": 1,
 		"oA": 1,
 		"oAP": "\/js\/min\/min\/jquery-swipebox-2016.9.2.min-min-min.js",
+		"oF": 0,
+		"sC": 1,
+		"tS": 0
+		},
+	"\/js\/min\/menu-min.js": {
+		"ft": 64,
+		"mi": 1,
+		"oA": 0,
+		"oAP": "\/js\/min\/min\/menu-min-min.js",
 		"oF": 0,
 		"sC": 1,
 		"tS": 0
@@ -788,6 +803,23 @@
 		"ma": 0,
 		"oA": 1,
 		"oAP": "\/css\/01-colors.css",
+		"oF": 0,
+		"oS": 0,
+		"rU": 0,
+		"sI": 0,
+		"sM": 0,
+		"sU": 0
+		},
+	"\/less\/02-mixins.less": {
+		"aP": 0,
+		"bl": 0,
+		"dJ": 0,
+		"ft": 1,
+		"ie": 1,
+		"iI": 0,
+		"ma": 0,
+		"oA": 1,
+		"oAP": "\/css\/02-mixins.css",
 		"oF": 0,
 		"oS": 0,
 		"rU": 0,
@@ -1257,12 +1289,6 @@
 			"followForSyntaxChecking": 1,
 			"linkedFileAbbreviatedPath": "\/js\/carousel-actions.js",
 			"position": 2,
-			"type": 1
-			},
-		{
-			"followForSyntaxChecking": 1,
-			"linkedFileAbbreviatedPath": "\/js\/menu.js",
-			"position": 3,
 			"type": 1
 			}
 		]
