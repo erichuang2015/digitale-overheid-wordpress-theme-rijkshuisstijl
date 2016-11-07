@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.6.28
- * @desc.   Check in dossier if menu item is parent of child page. Error message if no content found in page templates with filter function.
+ * @version 0.6.29
+ * @desc.   Paging on page_dossiersingleactueel.php
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "http://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.6.28" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Check in dossier if menu item is parent of child page. Error message if no content found in page templates with filter function." );
+define( 'CHILD_THEME_VERSION',              "0.6.29" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Paging on page_dossiersingleactueel.php" );
 define( 'SHOW_CSS_DEBUG',                   false );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
@@ -1853,7 +1853,6 @@ function rhswp_filter_input_string( $string ) {
 
 //========================================================================================================
 
-
 add_filter ( 'genesis_next_link_text' , 'rhswp_paging_next' );
 function rhswp_paging_next ( $text ) {
 	if ( is_category() ) {
@@ -1863,6 +1862,8 @@ function rhswp_paging_next ( $text ) {
 	    return __( "Volgende pagina", 'wp-rijkshuisstijl' );
     }
 }
+
+//========================================================================================================
 
 add_filter ( 'genesis_prev_link_text' , 'rhswp_paging_previous' );
 function rhswp_paging_previous ( $text ) {

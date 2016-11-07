@@ -9,8 +9,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.6.28
- * @desc.   Check in dossier if menu item is parent of child page. Error message if no content found in page templates with filter function.
+ * @version 0.6.29
+ * @desc.   Paging on page_dossiersingleactueel.php
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -30,8 +30,6 @@ genesis();
 
 function rhswp_get_page_dossiersingleactueel() {
 
-
-    
     global $post;
     global $wp_query;
     
@@ -40,6 +38,7 @@ function rhswp_get_page_dossiersingleactueel() {
     $currentpageslug  = $post->post_name;
     $currentpage      = get_permalink();
     $currentsite      = get_site_url();
+    $paged            = ( get_query_var('paged') ) ? get_query_var('paged') : 1;
   
     if ( function_exists( 'get_field' ) ) {
         $filter    = get_field('wil_je_filteren_op_categorie_op_deze_pagina', $post->ID );
@@ -48,8 +47,9 @@ function rhswp_get_page_dossiersingleactueel() {
   
     // gewoon filter, zonder dossier
     $args = array(
-      'posts_per_page'  => -1,
-      'post_type' => 'post',
+      'post_type'       => 'post',
+      'paged'           => $paged,
+      'posts_per_page'  => get_option('posts_per_page'),
     );
   
     $message          = 'Alle berichten';
@@ -68,8 +68,10 @@ function rhswp_get_page_dossiersingleactueel() {
       if ( $currentterm ) {
         // filter op dossier
         $args = array(
-          'post_type' => 'post',
-          'tax_query' => array(
+          'post_type'       => 'post',
+          'paged'           => $paged,
+          'posts_per_page'  => get_option('posts_per_page'),
+          'tax_query'       => array(
             'relation' => 'AND',
             array(
               'taxonomy' => RHSWP_CT_DOSSIER,
@@ -105,8 +107,10 @@ function rhswp_get_page_dossiersingleactueel() {
           if ( $currentterm ) {
           
             $args = array(
-                'post_type' => 'post',
-                'tax_query' => array(
+                'post_type'       => 'post',
+                'paged'           => $paged,
+                'posts_per_page'  => get_option('posts_per_page'),
+                'tax_query'       => array(
                   'relation' => 'AND',
                   array(
                     'taxonomy' => RHSWP_CT_DOSSIER,
@@ -124,8 +128,10 @@ function rhswp_get_page_dossiersingleactueel() {
           }
           else {
             $args = array(
-              'post_type' => 'post',
-              'tax_query' => array(
+              'post_type'       => 'post',
+              'paged'           => $paged,
+              'posts_per_page'  => get_option('posts_per_page'),
+              'tax_query'       => array(
                 array(
                   'taxonomy'  => 'category',
                   'field'     => 'slug',
@@ -137,8 +143,7 @@ function rhswp_get_page_dossiersingleactueel() {
           }
         }
       }
-  
-  
+    
     $wp_query = new WP_Query( $args );
     
     if( $wp_query->have_posts() ) {
