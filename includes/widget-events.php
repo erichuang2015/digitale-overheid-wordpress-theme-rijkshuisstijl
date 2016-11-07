@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.6.23
- * @desc.   Modified Event Widget, updated pagination.
+ * @version 0.6.24
+ * @desc.   Modified Event Widget, updated pagination - bugfixes
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 

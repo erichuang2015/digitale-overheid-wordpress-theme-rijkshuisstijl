@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.6.23
- * @desc.   Modified Event Widget, updated pagination. Extra event functions and page.
+ * @version 0.6.24
+ * @desc.   Modified Event Widget, updated pagination - bugfixes
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "http://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.6.23" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Modified Event Widget, updated pagination. Extra event functions and page." );
+define( 'CHILD_THEME_VERSION',              "0.6.24" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Modified Event Widget, updated pagination - bugfixes" );
 define( 'SHOW_CSS_DEBUG',                   true );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
@@ -1711,14 +1711,14 @@ function rhswp_caroussel_checker() {
           
           if ( $link && $type == 'pagina' ) {
             $linkid         = array_pop($link);
-            $link_img_start     = '<a href="' . get_permalink( $linkid ) . '" tabindex="-1" class="img-container">';   	
+            $link_img_start     = '<a href="' . get_permalink( $linkid ) . '" tabindex="-1" class="img-container" aria-label="' . $titel . '">';   	
             $link_end           = '</a>';
 
             $link_caption_start = '<a href="' . get_permalink( $dossier ) . '" class="caption">';   	
             $link_caption_end   = '</a>';   	
           }
           elseif ( $dossier && $type == 'dossier' ) {
-            $link_img_start     = '<a href="' . get_term_link( $dossier ) . '" tabindex="-1" class="img-container">';   	
+            $link_img_start     = '<a href="' . get_term_link( $dossier ) . '" tabindex="-1" class="img-container" aria-label="' . $titel . '">';   	
             $link_end           = '</a>';
 
             $link_caption_start = '<a href="' . get_term_link( $dossier ) . '" class="caption">';   	

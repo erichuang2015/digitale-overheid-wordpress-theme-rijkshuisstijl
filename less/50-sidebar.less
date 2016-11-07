@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.6.18
-// * @desc.   CSS for news items widget. Styling for post-meta. Link colors.
+// * @version 0.6.24
+// * @desc.   Modified Event Widget, updated pagination - bugfixes
 // * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 // **
 
@@ -92,6 +92,19 @@
     }    
     .category-link {
       float: right;
+    }
+  }
+
+  .event-widget {
+    section + section {
+      margin-top: 1em;
+      padding-top: 1em;
+      border-top: 1px solid @grijs;
+    }
+    a h4 {
+      color: @a_color_default;
+      font-weight: 700;
+      font-family: @fontstrong;
     }
   }
 
