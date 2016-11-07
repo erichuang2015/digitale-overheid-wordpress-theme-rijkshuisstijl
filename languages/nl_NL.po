@@ -1,10 +1,10 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Rijkshuisstijl (Digitale Overheid) (v1.0.1)\n"
-"POT-Creation-Date: 2016-11-06 18:38+0100\n"
-"PO-Revision-Date: 2016-11-06 18:38+0100\n"
+"Project-Id-Version: Rijkshuisstijl (Digitale Overheid) (v1.0.0)\n"
+"POT-Creation-Date: 2016-11-07 17:50+0100\n"
+"PO-Revision-Date: 2016-11-07 17:51+0100\n"
 "Last-Translator: \n"
-"Language-Team: WBVB Rotterdam <info@wbvb.nl>\n"
+"Language-Team: \n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,159 +20,173 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
-#: functions.php:108 functions.php:694 functions.php:712
+#: functions.php:119 functions.php:706 functions.php:724
 #: includes/cpt-acf.php:28 includes/cpt-acf.php:33 includes/cpt-acf.php:35
 #: includes/cpt-acf.php:53 includes/cpt-acf.php:57
 msgid "Dossiers"
 msgstr ""
 
-#: functions.php:219
+#: functions.php:231
 msgctxt "verbindt de readmore met de titel"
 msgid "over"
 msgstr ""
 
-#: functions.php:221
+#: functions.php:233
 msgctxt "Standaard linktekst voor lees-meer"
 msgid "Lees verder"
 msgstr ""
 
-#: functions.php:345
+#: functions.php:357
 msgid "<span class=\"separator\">&gt;</span>"
 msgstr ""
 
-#: functions.php:347
+#: functions.php:359
 msgid "Home"
 msgstr ""
 
-#: functions.php:356
+#: functions.php:368
 msgid "Auteurs"
 msgstr ""
 
-#: functions.php:360
+#: functions.php:372
 msgid "Tags"
 msgstr ""
 
-#: functions.php:361
+#: functions.php:373
 msgid "Zoekresultaat"
 msgstr ""
 
-#: functions.php:369
+#: functions.php:381
 msgid "Contentsoort"
 msgstr ""
 
-#: functions.php:391
+#: functions.php:403
 msgid "Onderwerpen"
 msgstr ""
 
-#: functions.php:400
+#: functions.php:412
 msgid "404 - Pagina niet gevonden"
 msgstr ""
 
-#: functions.php:434 includes/metadata-boxes.php:69
+#: functions.php:446 includes/metadata-boxes.php:69
 #: includes/metadata-boxes.php:82
 msgid "Tag"
 msgstr ""
 
-#: functions.php:647
+#: functions.php:659
 msgid "Pagina niet gevonden."
 msgstr ""
 
-#: functions.php:653
+#: functions.php:665
 #, php-format
 msgid ""
 "The page you are looking for no longer exists. Perhaps you can return back "
 "to the site's <a href=\"%s\">homepage</a> and see if you can find what you "
 "are looking for. Or, you can try finding it by using the search form below."
 msgstr ""
-"De pagina is stuk. Ga naar de <a href=\"%s\">homepage</a>. Of je kunt zoeken "
-"met dit zoekformulier:"
 
-#: functions.php:688 functions.php:706
+#: functions.php:700 functions.php:718
 msgid "Pagina's:"
 msgstr ""
 
-#: functions.php:695 functions.php:713
+#: functions.php:707 functions.php:725
 msgid "Categorieën"
 msgstr ""
 
-#: functions.php:719
+#: functions.php:731
 msgid " laatste berichten"
 msgstr ""
 
-#: functions.php:765
+#: functions.php:777
 msgid "Homepage widget area"
 msgstr ""
 
-#: functions.php:767
+#: functions.php:779
 msgid "Ruimte voor widget op de homepage"
 msgstr ""
 
-#: functions.php:888
+#: functions.php:909
 msgid "Extra navigatiemenu (rechtsboven)"
 msgstr ""
 
-#: functions.php:893
+#: functions.php:914
 msgid "Primary Navigation Menu"
 msgstr ""
 
-#: functions.php:944
+#: functions.php:965
 msgctxt "Title of footer widgets"
 msgid "Footer widgets"
 msgstr ""
 
-#: functions.php:959
+#: functions.php:980
 msgctxt "Title of primary sidebar"
 msgid "Eerste sidebar"
 msgstr ""
 
-#: functions.php:960
+#: functions.php:981
 msgctxt "Description of primary sidebar"
 msgid ""
 "Primaire zijbalk met ruimte voor widgets. Wordt standaard getoond aan de "
 "rechterkant van de content op brede schermen"
 msgstr ""
 
-#: functions.php:971 sidebar-alt.php:21
+#: functions.php:992 sidebar-alt.php:21
 msgctxt "Title of secondary sidebar"
 msgid "Tweede sidebar"
 msgstr ""
 
-#: functions.php:972
+#: functions.php:993
 msgctxt "Description of secundary sidebar"
 msgid ""
 "Secundaire zijbalk met ruimte voor widgets. Wordt alleen getoond op pagina's "
 "waar de niet-standaard layout is gekozen"
 msgstr ""
 
-#: functions.php:983
+#: functions.php:1004
 msgctxt "Title of footer widget"
 msgid "Widgets in de footer"
 msgstr ""
 
-#: functions.php:984
+#: functions.php:1005
 msgctxt "Description of footer widget space"
 msgid "Ruimte voor extra menus's onder de hoofdcontent"
 msgstr ""
 
-#: functions.php:1027
+#: functions.php:1048
 msgid "Deel op Twitter"
 msgstr ""
 
-#: functions.php:1029
+#: functions.php:1050
 msgid "Deel op Facebook"
 msgstr ""
 
-#: functions.php:1031
+#: functions.php:1052
 msgid "Deel op LinkedIn"
 msgstr ""
 
-#: functions.php:1211
+#: functions.php:1232
 msgctxt "title for link to homepage"
 msgid "Naar de homepage van digitaleoverheid.nl"
 msgstr ""
 
-#: functions.php:1457 functions.php:1597
+#: functions.php:1478 functions.php:1618
 msgid "Geen titel ingevoerd"
+msgstr ""
+
+#: functions.php:1860
+msgid "Oudere berichten"
+msgstr ""
+
+#: functions.php:1863
+msgid "Volgende pagina"
+msgstr ""
+
+#: functions.php:1870
+msgid "Nieuwere berichten"
+msgstr ""
+
+#: functions.php:1873
+msgid "Vorige pagina"
 msgstr ""
 
 #: includes/admin-helper-functions.php:25
@@ -633,15 +647,66 @@ msgstr ""
 msgid "Kies een dossier:"
 msgstr ""
 
-#: includes/dossier-helper-functions.php:153
-#: includes/dossier-helper-functions.php:160
+#: includes/dossier-helper-functions.php:155
+#: includes/dossier-helper-functions.php:162
 msgctxt "Standaardlabel voor het menu in de dossiers"
 msgid "Overzicht"
-msgstr "Overzicht"
+msgstr ""
 
-#: includes/dossier-helper-functions.php:213
+#: includes/dossier-helper-functions.php:215
 #, php-format
 msgid "Dit dossier bevat %s items."
+msgstr ""
+
+#: includes/event-manager-functions.php:33
+msgid "Over"
+msgstr ""
+
+#: includes/event-manager-functions.php:37
+msgid "Blogberichten van"
+msgstr ""
+
+#: includes/event-manager-functions.php:135
+msgctxt "Event: CTA om mail te versturen aan organisator"
+msgid "Mail"
+msgstr ""
+
+#: includes/event-manager-functions.php:148
+msgid "Persoonlijke website"
+msgstr ""
+
+#: includes/event-manager-functions.php:152
+msgid "Google+-profiel"
+msgstr ""
+
+#: includes/event-manager-functions.php:152
+msgid "Google+"
+msgstr ""
+
+#: includes/event-manager-functions.php:156
+msgid "LinkedIn-profiel"
+msgstr ""
+
+#: includes/event-manager-functions.php:160
+msgid "Facebook-account"
+msgstr ""
+
+#: includes/event-manager-functions.php:164
+msgid "Twitter-account"
+msgstr ""
+
+#: includes/event-manager-functions.php:186
+msgid "Alle artikelen"
+msgstr ""
+
+#: includes/event-manager-functions.php:208
+msgctxt "Kopje op evenementpagina"
+msgid "Programma"
+msgstr ""
+
+#: includes/event-manager-functions.php:248
+msgctxt "Kopje op bericht- of evenementpagina"
+msgid "Links"
 msgstr ""
 
 #: includes/example-cmb2.php:122
@@ -968,6 +1033,94 @@ msgctxt "Widget"
 msgid "Hier zou een banner staan, maar er is geen linktekst ingevoerd"
 msgstr ""
 
+#: includes/widget-events.php:24
+msgid "(DO) Eventwidget"
+msgstr ""
+
+#: includes/widget-events.php:32
+msgid "bekijk agenda"
+msgstr ""
+
+#: includes/widget-events.php:33
+msgid "De agenda is leeg"
+msgstr ""
+
+#: includes/widget-events.php:36
+msgid "start date, start time, event name"
+msgstr ""
+
+#: includes/widget-events.php:37
+msgid "name, start date, start time"
+msgstr ""
+
+#: includes/widget-events.php:38
+msgid "name, end date, end time"
+msgstr ""
+
+#: includes/widget-events.php:39
+msgid "end date, end time, event name"
+msgstr ""
+
+#: includes/widget-events.php:45
+msgid "Toont een lijst van events"
+msgstr ""
+
+#: includes/widget-events.php:162
+msgid "all events"
+msgstr ""
+
+#: includes/widget-events.php:194
+msgid "Widgettitel"
+msgstr ""
+
+#: includes/widget-events.php:198
+msgid "Maximum aantal events"
+msgstr ""
+
+#: includes/widget-events.php:203
+msgid "Scope"
+msgstr ""
+
+#: includes/widget-events.php:213
+msgid "Sortering"
+msgstr ""
+
+#: includes/widget-events.php:223
+msgid "Sorteervolgorde"
+msgstr ""
+
+#: includes/widget-events.php:227
+msgid "Ascending"
+msgstr ""
+
+#: includes/widget-events.php:228
+msgid "Descending"
+msgstr ""
+
+#: includes/widget-events.php:239
+msgid "Categorie-filter"
+msgstr ""
+
+#: includes/widget-events.php:241
+msgid "1,2,3 or 2 (0 = all)"
+msgstr ""
+
+#: includes/widget-events.php:244
+msgid "Link naar agenda-overzicht toevoegen?"
+msgstr ""
+
+#: includes/widget-events.php:248
+msgid "Linktekst voor agenda-overzicht"
+msgstr ""
+
+#: includes/widget-events.php:262
+msgid "Tekst als er niets in de agenda staat"
+msgstr ""
+
+#: includes/widget-events.php:293
+msgid "Events"
+msgstr ""
+
 #: includes/widget-home.php:31
 msgid "Korte tekst met verwijzing naar een pagina."
 msgstr ""
@@ -1031,19 +1184,26 @@ msgctxt "paginalinkswidget"
 msgid "Er zijn geen extra links ingevoerd."
 msgstr ""
 
-#: page_dossier-document-overview.php:102
-msgctxt "page_dossier-document-overview"
-msgid "Geen documenten gevonden"
+#: page_dossier-document-overview.php:45
+#, php-format
+msgid "documenten in het dossier %s"
 msgstr ""
 
-#: page_dossier-events-overview.php:66
-msgctxt "page_dossier-events-overview"
-msgid "Geen evenementen gevonden"
+#: page_dossier-document-overview.php:107 page_dossier-events-overview.php:69
+#: page_dossiersingleactueel.php:185
+#, php-format
+msgctxt "foutboodschap als er geen content gevonden is"
+msgid "We zochten naar %s, maar konden helaas niets vinden."
 msgstr ""
 
-#: page_dossiersingleactueel.php:187
-msgctxt "page_dossiersingleactueel"
-msgid "Geen berichten gevonden"
+#: page_dossier-events-overview.php:47
+#, php-format
+msgid "evenementen in het dossier %s"
+msgstr ""
+
+#: page_dossiersingleactueel.php:82
+#, php-format
+msgid "berichten in het dossier %s"
 msgstr ""
 
 #: page_show-child-pages.php:54
@@ -1072,5 +1232,6 @@ msgstr ""
 msgid "https://wbvb.nl/themes/ibewustzijn/"
 msgstr ""
 
-#~ msgid "Add New"
-#~ msgstr "Nieuwe toevoegen"
+#~ msgctxt "page_dossier-document-overview"
+#~ msgid "Geen documenten gevonden"
+#~ msgstr "Geen ocudentjes gevonden in je dinges"

@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.6.27
- * @desc.   Check on number of found document in dossier menu - bugfix 2
+ * @version 0.6.28
+ * @desc.   Check in dossier if menu item is parent of child page. Error message if no content found in page templates with filter function.
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "http://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.6.27" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Check on number of found document in dossier menu - bugfix 2" );
+define( 'CHILD_THEME_VERSION',              "0.6.28" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Check in dossier if menu item is parent of child page. Error message if no content found in page templates with filter function." );
 define( 'SHOW_CSS_DEBUG',                   false );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {

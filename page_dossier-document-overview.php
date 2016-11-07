@@ -9,8 +9,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.4.1
- * @desc.   Theme-check, carrousel en extra pagina-layout 
+ * @version 0.6.28
+ * @desc.   Check in dossier if menu item is parent of child page. Error message if no content found in page templates with filter function.
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -30,14 +30,19 @@ function rhswp_get_documents_for_dossier() {
   global $post;
   global $wp_query;
 
+  $message          = 'Alle documenten';
   $terms            = get_the_terms( $post->ID , RHSWP_CT_DOSSIER );
   $currentpage      = get_permalink();
   $currentsite      = get_site_url();
   $paged            = ( get_query_var('paged') ) ? get_query_var('paged') : 1;
 
   if ($terms && ! is_wp_error( $terms ) ) { 
+
     
     $term = array_pop($terms);
+
+
+    $message = sprintf( __( 'documenten in het dossier %s', 'wp-rijkshuisstijl' ), $term->name );
     
     $args = array(
       'post_type'       => RHSWP_CPT_DOCUMENT,
@@ -52,12 +57,11 @@ function rhswp_get_documents_for_dossier() {
         )
       )
     );
+
         
     $wp_query = new WP_Query( $args );
     
     if( $wp_query->have_posts() ) {
-    
-//        echo '<p>Documenten in het dossier "' . $term->name .'"</p>';  
 
           while( $wp_query->have_posts() ): 
             $wp_query->the_post(); 
@@ -99,7 +103,9 @@ function rhswp_get_documents_for_dossier() {
         
       }
       else {
-        echo _x( 'Geen documenten gevonden', 'page_dossier-document-overview', 'wp-rijkshuisstijl' );
+        echo '<p>';
+        echo sprintf( _x( 'We zochten naar %s, maar konden helaas niets vinden.', 'foutboodschap als er geen content gevonden is', 'wp-rijkshuisstijl' ), $message );
+        echo '</p>';
       }
     }
 }

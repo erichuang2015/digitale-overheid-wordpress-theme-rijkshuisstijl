@@ -9,8 +9,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.4.1
- * @desc.   Theme-check, carrousel en extra pagina-layout 
+ * @version 0.6.28
+ * @desc.   Check in dossier if menu item is parent of child page. Error message if no content found in page templates with filter function.
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -79,7 +79,7 @@ function rhswp_get_page_dossiersingleactueel() {
           )
         );
       
-        $message = 'Berichten in het dossier "' . $term->name .'"';
+        $message = sprintf( __( 'berichten in het dossier %s', 'wp-rijkshuisstijl' ), $currenttermname );
       }
       
     }
@@ -92,14 +92,11 @@ function rhswp_get_page_dossiersingleactueel() {
         if ( $filters ) {
       
           $slugs = array();
-          if ( $currenttermname ) {
-            $message = 'Berichten in het dossier "' . $currenttermname .'"';
-          }
           
           foreach( $filters as $filter ): 
             
             $terminfo = get_term_by( 'id', $filter, 'category' );
-            $message .= ' en categorie "' . $terminfo->name . '"';
+            $message .= ' gecombineerd met de categorie "' . $terminfo->name . '"';
   
             $slugs[] = $terminfo->slug;
       
@@ -184,7 +181,9 @@ function rhswp_get_page_dossiersingleactueel() {
         
       }
       else {
-        echo _x( 'Geen berichten gevonden', 'page_dossiersingleactueel', 'wp-rijkshuisstijl' );
+        echo '<p>';
+        echo sprintf( _x( 'We zochten naar %s, maar konden helaas niets vinden.', 'foutboodschap als er geen content gevonden is', 'wp-rijkshuisstijl' ), $message );
+        echo '</p>';
       }
 }
 

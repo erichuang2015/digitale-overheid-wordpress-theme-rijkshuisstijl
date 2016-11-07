@@ -10,8 +10,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.6.27
- * @desc.   Check on number of found document in dossier menu - bugfix 2
+ * @version 0.6.28
+ * @desc.   Check in dossier if menu item is parent of child page. Error message if no content found in page templates with filter function.
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -92,6 +92,8 @@ function rhswp_dossier_title_checker( ) {
       $terms        = get_the_terms( $currentID , RHSWP_CT_DOSSIER );
       $parentID     = wp_get_post_parent_id( $post->ID );
       $parent       = get_post( $parentID );
+
+      
 
       if ($terms && ! is_wp_error( $terms ) ) { 
         $term             = array_pop($terms);
@@ -237,12 +239,13 @@ function rhswp_dossier_get_pagelink( $theobject, $args ) {
   $tellertje++;
 
   if ( $args['currentpageid'] ) {
-    $currentpageid = $args['currentpageid'];
+    $pagerequestedbyuser = $args['currentpageid'];
   }
   else {
-    $currentpageid = get_the_id();
+    $pagerequestedbyuser = get_the_id();
   }
 
+  // use alternative title? 
   if ( $args['preferedtitle'] ) {
     $maxposttitle = $args['preferedtitle'];
   }
@@ -262,14 +265,13 @@ function rhswp_dossier_get_pagelink( $theobject, $args ) {
     $maxposttitle = substr( $maxposttitle, 0, $maxlength) . ' (...)';
   }
 
-  $theobjectid = isset( $theobject->ID  ) ? $theobject->ID : 0;
+  $current_menuitem_id = isset( $theobject->ID  ) ? $theobject->ID : 0;
 
-  $pagetemplateslug = basename( get_page_template_slug( $theobjectid ) );
+  $pagetemplateslug = basename( get_page_template_slug( $current_menuitem_id ) );
 
   $selectposttype = '';
   $checkpostcount = false;
-//  $addlink        = false;
-  $addlink        = true;
+  $addlink        = false;
 
   if ( 'page_dossiersingleactueel.php' == $pagetemplateslug ) {
     $selectposttype = 'post';
@@ -288,13 +290,10 @@ function rhswp_dossier_get_pagelink( $theobject, $args ) {
     $checkpostcount = true;
   }    
   else {
-    $addlink = true;    
+    $selectposttype = '';
+    $checkpostcount = false;
+    $addlink        = true;    
   }
-
-
-    $maxposttitle .= '<br><strong style="font-size: 10px">Select post type: ' . $selectposttype  . '</strong>';
-    $maxposttitle .= '<br><strong style="font-size: 10px">The term: ' . $args['theterm']  . '</strong>';
-
 
 
   if ( $checkpostcount && $selectposttype ) {
@@ -302,28 +301,31 @@ function rhswp_dossier_get_pagelink( $theobject, $args ) {
     if ( $selectposttype == 'pagina-met-onderliggende-paginas' ) {
 
       $args = array( 
-            'child_of'      => $theobjectid, 
-            'parent'        => $theobjectid,
-            'hierarchical'  => 0,
-            'sort_column'   => 'menu_order', 
-            'sort_order'    => 'asc'
+        'child_of'      => $current_menuitem_id, 
+        'parent'        => $current_menuitem_id,
+        'hierarchical'  => 0,
+        'sort_column'   => 'menu_order', 
+        'sort_order'    => 'asc'
       );
       $mypages = get_pages( $args );
 
       if ( count( $mypages ) > 0 ) {
-            $maxposttitle .= '<br><strong style="font-size: 10px">Child pages gevonden: ' . count( $mypages )  . '</strong>';
         $addlink = true;
+
+        // we have child pages. Save this for checking if we are displaying any of its parents
+        foreach( $mypages as $childpage ): 
+          $childpages[] = $childpage->ID;
+        endforeach;
+        
+        
       }
 
-      
     }
     else {
-  
-        $maxposttitle .= '<br><strong style="font-size: 10px">Post type: ' . $selectposttype  . '</strong>';
 
       if ( function_exists( 'get_field' ) ) {
-          $filter    = get_field('wil_je_filteren_op_categorie_op_deze_pagina', $theobjectid );
-          $filters   = get_field('kies_de_categorie_waarop_je_wilt_filteren', $theobjectid );
+          $filter    = get_field('wil_je_filteren_op_categorie_op_deze_pagina', $current_menuitem_id );
+          $filters   = get_field('kies_de_categorie_waarop_je_wilt_filteren', $current_menuitem_id );
       }
   
   
@@ -342,9 +344,10 @@ function rhswp_dossier_get_pagelink( $theobject, $args ) {
     
   
       if ( $filter !== 'ja' ) {
-          $maxposttitle .= '<br><strong style="font-size: 10px">Niet filteren: ' . $filter  . '</strong>';
+        // no filtering, no other arguments needed
       }
       else {
+        // yes! Do filtering
   
         if ( $filters ) {
         
@@ -352,12 +355,7 @@ function rhswp_dossier_get_pagelink( $theobject, $args ) {
           
           foreach( $filters as $filter ): 
             $terminfo = get_term_by( 'id', $filter, 'category' );
-            $message .= ' en categorie "' . $terminfo->name . '"';
-  
             $slugs[] = $terminfo->slug;
-  
-              $maxposttitle .= '<br><strong style="font-size: 10px">Filter op : ' .  $terminfo->name . '</strong>';
-      
           endforeach;
   
           $argsquery = array(
@@ -380,39 +378,46 @@ function rhswp_dossier_get_pagelink( $theobject, $args ) {
         }
       }
 
-
-        $maxposttitle .= '<br><strong style="font-size: 10px">Query : ' . implode( ", ", $args ) . '</strong>';
-
       $wp_query = new WP_Query( $argsquery );
     
       if( $wp_query->have_posts() ) {
         if ( $wp_query->post_count > 0 ) {
-              $maxposttitle .= '<br><strong style="font-size: 10px">Berichten gevonden: ' . $wp_query->post_count . '</strong>';
           $addlink = true;
         }
       }
     }
   }
-
-
-
-  if ( $pagetemplateslug ) {
-        $maxposttitle .= '<br><strong style="font-size: 10px">Slug: ' . $pagetemplateslug . '</strong>';
+  else {
+    // no $checkpostcount, no special page templates
   }
 
-  if ( $currentpageid == $theobjectid ) {
+
+  $parentID     = wp_get_post_parent_id( $current_menuitem_id );
+
+
+  if ( $pagerequestedbyuser == $current_menuitem_id ) {
+    // the user asked for this particular page / post
     return '<li class="selected"><span>' . $maxposttitle . '</span></li>';
   }
-  elseif ( $addlink ) {
+  else {
+    // this is not the currently active page
 
-        $maxposttitle .= '<br><strong style="font-size: 10px">Add link: ' . $addlink . '</strong>';
-    
-    if ( $args['markerforclickableactivepage'] == $theobjectid ) {
-      return '<li class="selected"><a href="' . get_permalink( $theobjectid ) . '">' . $maxposttitle . '</a></li>';
+    if ( $addlink ) {
+      // so we should show the link
+      
+      if ( $args['markerforclickableactivepage'] == $current_menuitem_id ) {
+        // this is requested page itself
+        return '<li class="selected"><a href="' . get_permalink( $current_menuitem_id ) . '">' . $maxposttitle . '</a></li>';
+      }
+      elseif ( in_array( $pagerequestedbyuser, $childpages ) ) {
+        // this is a child of the current menu item
+        return '<li class="selected"><a href="' . get_permalink( $current_menuitem_id ) . '">' . $maxposttitle . '</a></li>';
+      }
+      else {
+        // this menu item should be clickable
+        return '<li><a href="' . get_permalink( $current_menuitem_id ) . '">' . $maxposttitle . '</a></li>';
+      }  
     }
-    else {
-      return '<li><a href="' . get_permalink( $theobjectid ) . '">' . $maxposttitle . '</a></li>';
-    }  
   }
 
 }

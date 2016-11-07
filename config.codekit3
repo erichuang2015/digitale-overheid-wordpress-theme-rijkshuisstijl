@@ -770,16 +770,16 @@
 		"oAP": "\/js\/swipebox-master.zip",
 		"oF": 0
 		},
-	"\/languages\/wp-rijkshuisstijl-nl_NL.mo": {
+	"\/languages\/nl_NL.mo": {
 		"ft": 8192,
 		"oA": 2,
-		"oAP": "\/languages\/wp-rijkshuisstijl-nl_NL.mo",
+		"oAP": "\/languages\/nl_NL.mo",
 		"oF": 0
 		},
-	"\/languages\/wp-rijkshuisstijl-nl_NL.po": {
+	"\/languages\/nl_NL.po": {
 		"ft": 8192,
 		"oA": 2,
-		"oAP": "\/languages\/wp-rijkshuisstijl-nl_NL.po",
+		"oAP": "\/languages\/nl_NL.po",
 		"oF": 0
 		},
 	"\/languages\/wp-rijkshuisstijl.pot": {

@@ -9,8 +9,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.4.1
- * @desc.   Theme-check, carrousel en extra pagina-layout 
+ * @version 0.6.28
+ * @desc.   Check in dossier if menu item is parent of child page. Error message if no content found in page templates with filter function.
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -44,6 +44,8 @@ function rhswp_get_documents_for_dossier() {
       )
     );
 
+    $message = sprintf( __( 'evenementen in het dossier %s', 'wp-rijkshuisstijl' ), $term->name );
+        
     
     $posts_array = get_posts( $args ); 
       if ( $posts_array ) {
@@ -63,7 +65,9 @@ function rhswp_get_documents_for_dossier() {
         
       }
       else {
-        echo _x( 'Geen evenementen gevonden', 'page_dossier-events-overview', 'wp-rijkshuisstijl' );
+        echo '<p>';
+        echo sprintf( _x( 'We zochten naar %s, maar konden helaas niets vinden.', 'foutboodschap als er geen content gevonden is', 'wp-rijkshuisstijl' ), $message );
+        echo '</p>';
       }
     }
 }
