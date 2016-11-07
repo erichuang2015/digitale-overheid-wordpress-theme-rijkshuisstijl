@@ -10,8 +10,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.6.13
- * @desc.   Improved  dossier-helper-functions. Only direct descendants in menu shown.
+ * @version 0.6.25
+ * @desc.   Check on number of found document in dossier menu. CSS bugfixes
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -28,7 +28,7 @@ function rhswp_dossier_title_checker( ) {
   
   $currentID = 0;
   
-  if ( is_posts_page() ) {
+  if ( is_posts_page() || is_search() ) {
     return;
   }
   
@@ -108,6 +108,8 @@ function rhswp_dossier_title_checker( ) {
     // er een taxonomie bekend is en het geen archief is
     if ( $term && ( 'archive' !== $loop ) ) { 
       $dossierinhoudpagina = '';
+
+      $args['theterm'] = $term->term_id;
   
       echo '<div class="dossier-overview"><div class="wrap">'; 
       
@@ -255,7 +257,6 @@ function rhswp_dossier_get_pagelink( $theobject, $args ) {
     $maxlength = 50;
   }
   
-//  dovardump($args);
 
   if ( strlen( $maxposttitle ) > $maxlength ) {
     $maxposttitle = substr( $maxposttitle, 0, $maxlength) . ' (...)';
@@ -263,15 +264,145 @@ function rhswp_dossier_get_pagelink( $theobject, $args ) {
 
   $theobjectid = isset( $theobject->ID  ) ? $theobject->ID : 0;
 
+  $pagetemplateslug = basename( get_page_template_slug( $theobjectid ) );
+
+  $selectposttype = '';
+  $checkpostcount = false;
+  $addlink = false;
+
+  if ( 'page_dossiersingleactueel.php' == $pagetemplateslug ) {
+    $selectposttype = 'post';
+    $checkpostcount = true;
+  }    
+  elseif ( 'page_dossier-document-overview.php' == $pagetemplateslug ) {
+    $selectposttype = RHSWP_CPT_DOCUMENT;
+    $checkpostcount = true;
+  }    
+  elseif ( 'page_dossier-events-overview.php' == $pagetemplateslug ) {
+    $selectposttype = RHSWP_CPT_EVENT;
+    $checkpostcount = true;
+  }    
+  elseif ( 'page_show-child-pages.php' == $pagetemplateslug ) {
+    $selectposttype = 'page';
+    $checkpostcount = true;
+  }    
+
+
+//  $maxposttitle '<br><strong>Select post type: ' . $selectposttype  . '</strong>';
+
+
+
+  if ( $checkpostcount && $selectposttype ) {
+    
+    if ( $selectposttype == 'page' ) {
+
+      $args = array( 
+            'child_of'      => $theobjectid, 
+            'parent'        => $theobjectid,
+            'hierarchical'  => 0,
+            'sort_column'   => 'menu_order', 
+            'sort_order'    => 'asc'
+      );
+      $mypages = get_pages( $args );
+
+      if ( count( $mypages ) > 0 ) {
+        //  $maxposttitle '<br><strong>Child pages gevonden: ' . count( $mypages )  . '</strong>';
+        $addlink = true;
+      }
+
+      
+    }
+    else {
+  
+      if ( function_exists( 'get_field' ) ) {
+          $filter    = get_field('wil_je_filteren_op_categorie_op_deze_pagina', $theobjectid );
+          $filters   = get_field('kies_de_categorie_waarop_je_wilt_filteren', $theobjectid );
+      }
+  
+  
+      $args = array(
+        'post_type' => $selectposttype,
+        'tax_query' => array(
+          'relation' => 'AND',
+          array(
+            'taxonomy' => RHSWP_CT_DOSSIER,
+            'field' => 'term_id',
+            'terms' => $args['theterm']
+          )
+        )
+      );
+    
+    
+  
+      if ( $filter == 'ja' ) {
+  
+        if ( $filters ) {
+        
+          $slugs = array();
+          
+          foreach( $filters as $filter ): 
+            $terminfo = get_term_by( 'id', $filter, 'category' );
+            $message .= ' en categorie "' . $terminfo->name . '"';
+  
+            $slugs[] = $terminfo->slug;
+  
+            //  $maxposttitle '<br>Filter op : ' .  $terminfo->name . '<br>';
+      
+          endforeach;
+  
+          $args = array(
+              'post_type' => $selectposttype,
+              'tax_query' => array(
+                'relation' => 'AND',
+                array(
+                  'taxonomy' => RHSWP_CT_DOSSIER,
+                  'field' => 'term_id',
+                  'terms' => $currentterm
+                ),
+                array(
+                  'taxonomy'  => 'category',
+                  'field'     => 'slug',
+                  'terms'     => $slugs,
+                )
+              )
+            );
+        
+        
+        }
+      }
+
+      $wp_query = new WP_Query( $args );
+    
+      if( $wp_query->have_posts() ) {
+        if ( $wp_query->post_count > 0 ) {
+          //  $maxposttitle '<br><strong>Berichten gevonden: ' . $wp_query->post_count . '</strong>';
+          $addlink = true;
+        }
+      }
+      
+    }
+  }
+
+
+
+  if ( $pagetemplateslug ) {
+    //  $maxposttitle '<br><strong>Slug: ' . $pagetemplateslug . '</strong>';
+  }
+
   if ( $currentpageid == $theobjectid ) {
     return '<li class="selected"><span>' . $maxposttitle . '</span></li>';
   }
-  elseif ( $args['markerforclickableactivepage'] == $theobjectid ) {
-    return '<li class="selected"><a href="' . get_permalink( $theobjectid ) . '">' . $maxposttitle . '</a></li>';
+  elseif ( $addlink ) {
+
+    //  $maxposttitle '<br><strong>Add link: ' . $addlink . '</strong>';
+    
+    if ( $args['markerforclickableactivepage'] == $theobjectid ) {
+      return '<li class="selected"><a href="' . get_permalink( $theobjectid ) . '">' . $maxposttitle . '</a></li>';
+    }
+    else {
+      return '<li><a href="' . get_permalink( $theobjectid ) . '">' . $maxposttitle . '</a></li>';
+    }  
   }
-  else {
-    return '<li><a href="' . get_permalink( $theobjectid ) . '">' . $maxposttitle . '</a></li>';
-  }  
 
 }
 

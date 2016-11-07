@@ -3,14 +3,14 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Rijkshuisstijl (Digitale Overheid) (v1.0.0)\n"
-"POT-Creation-Date: 2016-10-08 20:35+0200\n"
+"POT-Creation-Date: 2016-11-07 08:37+0100\n"
 "PO-Revision-Date: 2016-09-08 17:23+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.9\n"
+"X-Generator: Poedit 1.8.11\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-WPHeader: style.css\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -20,67 +20,64 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
-#: functions.php:94
-msgid "Custom Metabox Title"
+#: functions.php:108 functions.php:694 functions.php:712
+#: includes/cpt-acf.php:28 includes/cpt-acf.php:33 includes/cpt-acf.php:35
+#: includes/cpt-acf.php:53 includes/cpt-acf.php:57
+msgid "Dossiers"
 msgstr ""
 
-#: functions.php:186
+#: functions.php:219
+msgctxt "verbindt de readmore met de titel"
+msgid "over"
+msgstr ""
+
+#: functions.php:221
 msgctxt "Standaard linktekst voor lees-meer"
 msgid "Lees verder"
 msgstr ""
 
-#: functions.php:339
-msgctxt "Standaardlabel voor het menu in de dossiers"
-msgid "Poepie"
-msgstr ""
-
 #: functions.php:345
-msgctxt "Standaardlabel voor het menu in de dossiers"
-msgid "Overzicht"
-msgstr ""
-
-#: functions.php:444
 msgid "<span class=\"separator\">&gt;</span>"
 msgstr ""
 
-#: functions.php:446
+#: functions.php:347
 msgid "Home"
 msgstr ""
 
-#: functions.php:455
+#: functions.php:356
 msgid "Auteurs"
 msgstr ""
 
-#: functions.php:459
-msgid "Label"
+#: functions.php:360
+msgid "Tags"
 msgstr ""
 
-#: functions.php:460
+#: functions.php:361
 msgid "Zoekresultaat"
 msgstr ""
 
-#: functions.php:468
+#: functions.php:369
 msgid "Contentsoort"
 msgstr ""
 
-#: functions.php:495
+#: functions.php:391
 msgid "Onderwerpen"
 msgstr ""
 
-#: functions.php:504
+#: functions.php:400
 msgid "404 - Pagina niet gevonden"
 msgstr ""
 
-#: functions.php:698
-msgctxt "Titel in de zijbalk"
-msgid "Subthema's"
+#: functions.php:434 includes/metadata-boxes.php:69
+#: includes/metadata-boxes.php:82
+msgid "Tag"
 msgstr ""
 
-#: functions.php:736
+#: functions.php:647
 msgid "Pagina niet gevonden."
 msgstr ""
 
-#: functions.php:744
+#: functions.php:653
 #, php-format
 msgid ""
 "The page you are looking for no longer exists. Perhaps you can return back "
@@ -88,192 +85,561 @@ msgid ""
 "are looking for. Or, you can try finding it by using the search form below."
 msgstr ""
 
-#: functions.php:780
-msgid "Pagina's"
+#: functions.php:688 functions.php:706
+msgid "Pagina's:"
 msgstr ""
 
-#: functions.php:785
-msgid "Recent Posts:"
+#: functions.php:695 functions.php:713
+msgid "Categorieën"
 msgstr ""
 
-#: functions.php:793 includes/cpt-acf.php:29 includes/cpt-acf.php:34
-#: includes/cpt-acf.php:36 includes/cpt-acf.php:54 includes/cpt-acf.php:58
-#: unused-code.php:83 unused-code.php:88
-msgid "Dossiers"
+#: functions.php:719
+msgid " laatste berichten"
 msgstr ""
 
-#: functions.php:838
+#: functions.php:765
 msgid "Homepage widget area"
 msgstr ""
 
-#: functions.php:840
+#: functions.php:767
 msgid "Ruimte voor widget op de homepage"
 msgstr ""
 
-#: functions.php:1003
-msgid "Koepels"
-msgstr ""
-
-#: functions.php:1070
+#: functions.php:888
 msgid "Extra navigatiemenu (rechtsboven)"
 msgstr ""
 
-#: functions.php:1155 sidebar.php:22
+#: functions.php:893
+msgid "Primary Navigation Menu"
+msgstr ""
+
+#: functions.php:944
+msgctxt "Title of footer widgets"
+msgid "Footer widgets"
+msgstr ""
+
+#: functions.php:959
 msgctxt "Title of primary sidebar"
 msgid "Eerste sidebar"
 msgstr ""
 
-#: functions.php:1156
+#: functions.php:960
 msgctxt "Description of primary sidebar"
 msgid ""
 "Primaire zijbalk met ruimte voor widgets. Wordt standaard getoond aan de "
 "rechterkant van de content op brede schermen"
 msgstr ""
 
-#: functions.php:1167 sidebar-alt.php:22
+#: functions.php:971 sidebar-alt.php:21
 msgctxt "Title of secondary sidebar"
 msgid "Tweede sidebar"
 msgstr ""
 
-#: functions.php:1168
+#: functions.php:972
 msgctxt "Description of secundary sidebar"
 msgid ""
 "Secundaire zijbalk met ruimte voor widgets. Wordt alleen getoond op "
 "pagina's waar de niet-standaard layout is gekozen"
 msgstr ""
 
-#: functions.php:1233
+#: functions.php:983
+msgctxt "Title of footer widget"
+msgid "Widgets in de footer"
+msgstr ""
+
+#: functions.php:984
+msgctxt "Description of footer widget space"
+msgid "Ruimte voor extra menus's onder de hoofdcontent"
+msgstr ""
+
+#: functions.php:1027
 msgid "Deel op Twitter"
 msgstr ""
 
-#: functions.php:1234
+#: functions.php:1029
 msgid "Deel op Facebook"
 msgstr ""
 
-#: functions.php:1235
+#: functions.php:1031
 msgid "Deel op LinkedIn"
 msgstr ""
 
-#: includes/class.taxonomy-single-term.php:200
-msgid "None"
+#: functions.php:1211
+msgctxt "title for link to homepage"
+msgid "Naar de homepage van digitaleoverheid.nl"
 msgstr ""
 
-#: includes/class.taxonomy-single-term.php:236
-msgid "Clear"
+#: functions.php:1457 functions.php:1597
+msgid "Geen titel ingevoerd"
 msgstr ""
 
-#: includes/class.taxonomy-single-term.php:271
-msgid "Add New"
+#: includes/admin-helper-functions.php:25
+msgid "Dossiernaam"
 msgstr ""
 
-#: includes/class.taxonomy-single-term.php:300
+#: includes/admin-helper-functions.php:26
+msgid "Beschrijving"
+msgstr ""
+
+#: includes/class.taxonomy-single-term.php:215
+msgid "Geen"
+msgstr ""
+
+#: includes/class.taxonomy-single-term.php:251
+msgid "Wissen"
+msgstr ""
+
+#: includes/class.taxonomy-single-term.php:286
+msgid "Toevoegen"
+msgstr ""
+
+#: includes/class.taxonomy-single-term.php:315
 #, php-format
-msgid "There was a problem adding a new %s"
+msgid "Het lukte niet om %s toe te voegen"
 msgstr ""
 
-#: includes/class.taxonomy-single-term.php:331
-msgid "Cheatin' Huh? Could not verify security token"
+#: includes/class.taxonomy-single-term.php:346
+msgid "Kon security-token niet valideren. Sorry."
 msgstr ""
 
-#: includes/cpt-acf.php:30 includes/cpt-acf.php:35 unused-code.php:84
+#: includes/contact-form7-validation.php:57
+msgctxt "Foutboodschap contactformulier"
+msgid "We willen graag uw naam weten."
+msgstr ""
+
+#: includes/contact-form7-validation.php:80
+msgctxt "Foutboodschap contactformulier"
+msgid "U hebt geen vraag of suggestie ingevuld."
+msgstr ""
+
+#: includes/contact-form7-validation.php:105
+msgctxt "Foutboodschap contactformulier"
+msgid "We hebben uw mailadres nodig om te antwoorden."
+msgstr ""
+
+#: includes/cpt-acf.php:29 includes/cpt-acf.php:34
 msgid "Dossier"
 msgstr ""
 
-#: includes/cpt-acf.php:37
+#: includes/cpt-acf.php:36
 msgid "Alle dossiers"
 msgstr ""
 
-#: includes/cpt-acf.php:38
+#: includes/cpt-acf.php:37
 msgid "Nieuw dossier toevoegen"
 msgstr ""
 
-#: includes/cpt-acf.php:39
+#: includes/cpt-acf.php:38
 msgid "Voeg nieuw dossier toe"
 msgstr ""
 
-#: includes/cpt-acf.php:40
+#: includes/cpt-acf.php:39
 msgid "Bewerk dossier"
 msgstr ""
 
-#: includes/cpt-acf.php:41
+#: includes/cpt-acf.php:40
 msgid "Nieuw dossier"
 msgstr ""
 
-#: includes/cpt-acf.php:42
+#: includes/cpt-acf.php:41
 msgid "Bekijk dossier"
 msgstr ""
 
-#: includes/cpt-acf.php:43
+#: includes/cpt-acf.php:42
 msgid "Zoek dossier"
 msgstr ""
 
-#: includes/cpt-acf.php:44
+#: includes/cpt-acf.php:43
 msgid "Geen dossiers gevonden"
 msgstr ""
 
-#: includes/cpt-acf.php:45
+#: includes/cpt-acf.php:44
 msgid "Geen dossiers gevonden in de prullenbak"
 msgstr ""
 
-#: includes/cpt-acf.php:46 includes/cpt-acf.php:108 unused-code.php:123
+#: includes/cpt-acf.php:45 includes/cpt-acf.php:107 includes/cpt-acf.php:153
+#: includes/cpt-acf.php:1484
 msgid "Uitgelichte afbeelding"
 msgstr ""
 
-#: includes/cpt-acf.php:47 includes/cpt-acf.php:109 unused-code.php:124
+#: includes/cpt-acf.php:46 includes/cpt-acf.php:108 includes/cpt-acf.php:154
+#: includes/cpt-acf.php:1485
 msgid "Overzichten"
 msgstr ""
 
-#: includes/cpt-acf.php:48 includes/cpt-acf.php:110 unused-code.php:125
+#: includes/cpt-acf.php:47 includes/cpt-acf.php:109 includes/cpt-acf.php:155
+#: includes/cpt-acf.php:1486
 msgid "Bijbehorende bestanden"
 msgstr ""
 
-#: includes/cpt-acf.php:96 includes/cpt-acf.php:98 includes/cpt-acf.php:114
-#: unused-code.php:111 unused-code.php:113 unused-code.php:129
+#: includes/cpt-acf.php:95 includes/cpt-acf.php:97 includes/cpt-acf.php:113
 msgid "Documenten"
 msgstr ""
 
-#: includes/cpt-acf.php:97 unused-code.php:112
+#: includes/cpt-acf.php:96
 msgid "Document"
 msgstr ""
 
-#: includes/cpt-acf.php:99 unused-code.php:114
+#: includes/cpt-acf.php:98
 msgid "Alle documenten"
 msgstr ""
 
-#: includes/cpt-acf.php:100 unused-code.php:115
+#: includes/cpt-acf.php:99
 msgid "Nieuw document toevoegen"
 msgstr ""
 
-#: includes/cpt-acf.php:101 unused-code.php:116
+#: includes/cpt-acf.php:100
 msgid "Voeg nieuw document toe"
 msgstr ""
 
-#: includes/cpt-acf.php:102 unused-code.php:117
+#: includes/cpt-acf.php:101
 msgid "Bewerk document"
 msgstr ""
 
-#: includes/cpt-acf.php:103 unused-code.php:118
+#: includes/cpt-acf.php:102
 msgid "Nieuw document"
 msgstr ""
 
-#: includes/cpt-acf.php:104 unused-code.php:119
+#: includes/cpt-acf.php:103
 msgid "Bekijk document"
 msgstr ""
 
-#: includes/cpt-acf.php:105 unused-code.php:120
+#: includes/cpt-acf.php:104
 msgid "Zoek document"
 msgstr ""
 
-#: includes/cpt-acf.php:106 unused-code.php:121
+#: includes/cpt-acf.php:105
 msgid "Geen documenten gevonden"
 msgstr ""
 
-#: includes/cpt-acf.php:107 unused-code.php:122
+#: includes/cpt-acf.php:106
 msgid "Geen documenten gevonden in de prullenbak"
 msgstr ""
 
-#: includes/cpt-acf.php:408
+#: includes/cpt-acf.php:141 includes/cpt-acf.php:143
+msgid "Relevante links"
+msgstr ""
+
+#: includes/cpt-acf.php:142
+msgid "Relevante link"
+msgstr ""
+
+#: includes/cpt-acf.php:144
+msgid "Alle Relevante links"
+msgstr ""
+
+#: includes/cpt-acf.php:145
+msgid "Nieuwe link toevoegen"
+msgstr ""
+
+#: includes/cpt-acf.php:146
+msgid "Voeg nieuwe link toe"
+msgstr ""
+
+#: includes/cpt-acf.php:147
+msgid "Bewerk relevante link"
+msgstr ""
+
+#: includes/cpt-acf.php:148
+msgid "Nieuwe link"
+msgstr ""
+
+#: includes/cpt-acf.php:149
+msgid "Bekijk relevante link"
+msgstr ""
+
+#: includes/cpt-acf.php:150
+msgid "Zoek relevante link"
+msgstr ""
+
+#: includes/cpt-acf.php:151
+msgid "Geen relevante links gevonden"
+msgstr ""
+
+#: includes/cpt-acf.php:152
+msgid "Geen relevante links gevonden in de prullenbak"
+msgstr ""
+
+#: includes/cpt-acf.php:193
+msgid "Bijbehorend document"
+msgstr ""
+
+#: includes/cpt-acf.php:212
+msgid "Bestandstype"
+msgstr ""
+
+#: includes/cpt-acf.php:215
+msgid "Denk aan: PDF, Word-document, tekstbestand"
+msgstr ""
+
+#: includes/cpt-acf.php:231
+msgid "Document-grootte"
+msgstr ""
+
+#: includes/cpt-acf.php:234
+msgid "bijvoorbeeld: 372KB, of: 2MB"
+msgstr ""
+
+#: includes/cpt-acf.php:279
+msgid "Welke inhoudspagina hier hierbij?"
+msgstr ""
+
+#: includes/cpt-acf.php:282 includes/cpt-acf.php:381
+msgid ""
+"Welke pagina beschrijft de inhoud van dit dossier? Deze pagina is "
+"belangrijk, omdat we hiermee de verdere structuur van het dossier kunnen "
+"bepalen."
+msgstr ""
+
+#: includes/cpt-acf.php:302
+msgid "Menu voor dossier"
+msgstr ""
+
+#: includes/cpt-acf.php:321
+msgid "Pagina"
+msgstr ""
+
+#: includes/cpt-acf.php:378
+msgid "Inhoudspagina"
+msgstr ""
+
+#: includes/cpt-acf.php:401
+msgid "Toon inhoudspagina in het menu?"
+msgstr ""
+
+#: includes/cpt-acf.php:425
+msgid "Andere pagina's in het menu"
+msgstr ""
+
+#: includes/cpt-acf.php:478
+msgid "Wil je filteren op categorie op deze pagina?"
+msgstr ""
+
+#: includes/cpt-acf.php:481
+msgid ""
+"Als je niet filtert worden alle berichten getoond die aan dit dossier "
+"gekoppeld zijn. Als je wilt filteren, kun je kiezen voor een categorie. "
+"Dan worden dus alleen die berichten getoond die:\n"
+"  - zowel aan dit dossier gekoppeld zijn \n"
+"  - als aan de door jou gekozen categorie"
+msgstr ""
+
+#: includes/cpt-acf.php:505
+msgid "Kies de categorie waarop je wilt filteren"
+msgstr ""
+
+#: includes/cpt-acf.php:563
+msgid "Randkleur"
+msgstr ""
+
+#: includes/cpt-acf.php:578
+msgid "Achtergrondkleur"
+msgstr ""
+
+#: includes/cpt-acf.php:593
+msgid "Tekstkleur"
+msgstr ""
+
+#: includes/cpt-acf.php:636
 msgid "Theme-instellingen"
+msgstr ""
+
+#: includes/cpt-acf.php:657
+msgid "Toon social-media-opties wel of niet"
+msgstr ""
+
+#: includes/cpt-acf.php:670
+msgid "Ja, toon socialmedia-icoontjes"
+msgstr ""
+
+#: includes/cpt-acf.php:671
+msgid "Nee, verberg socialmedia-icoontjes"
+msgstr ""
+
+#: includes/cpt-acf.php:719
+msgid "Alternatieve paginatitel gebruiken?"
+msgstr ""
+
+#: includes/cpt-acf.php:722
+msgid ""
+"De paginatitel wordt standaard gebruikt voor ondermeer verwijzingen in "
+"menu's en in de <title>. Het kan zijn dat je voor de duidelijkheid een "
+"andere tekst wilt tonen in de <h1>. Als je hier 'JA' kiest, kun je een "
+"alternatieve paginatitel invoeren."
+msgstr ""
+
+#: includes/cpt-acf.php:742
+msgid "Alternatieve paginatitel"
+msgstr ""
+
+#: includes/cpt-acf.php:810
+msgid "Uitgelichte dossiers"
+msgstr ""
+
+#: includes/cpt-acf.php:813
+msgid ""
+"De dossiers die je hier kiest worden bovenaan de pagina getoond met "
+"speciale layout."
+msgstr ""
+
+#: includes/cpt-acf.php:856
+msgid "Inhoudspagina voor dossier"
+msgstr ""
+
+#: includes/cpt-acf.php:995
+msgid "URL voor relevante link"
+msgstr ""
+
+#: includes/cpt-acf.php:1011 includes/cpt-acf.php:1239
+msgid "Linktekst"
+msgstr ""
+
+#: includes/cpt-acf.php:1059
+msgid "Wil je hier een carrousel tonen?"
+msgstr ""
+
+#: includes/cpt-acf.php:1083
+msgid "Welke carrousel wil je tonen?"
+msgstr ""
+
+#: includes/cpt-acf.php:1150
+msgid "Voeg 1 of meer blokken toe"
+msgstr ""
+
+#: includes/cpt-acf.php:1153
+msgid ""
+"Deze blokken bestaan uit berichten of uit links. Links moet je handmatig "
+"toevoegen. Berichten worden automatisch geselecteerd."
+msgstr ""
+
+#: includes/cpt-acf.php:1169
+msgid "Titel boven extra contentblok"
+msgstr ""
+
+#: includes/cpt-acf.php:1188
+msgid "Wat wil je tonen in dit extra contentblok?"
+msgstr ""
+
+#: includes/cpt-acf.php:1200
+msgid "Algemeen: zowel pagina's als berichten in de volgorde die ik bepaal"
+msgstr ""
+
+#: includes/cpt-acf.php:1201
+msgid "Alleen berichten; nieuwe berichten worden automatisch toegevoegd"
+msgstr ""
+
+#: includes/cpt-acf.php:1212
+msgid "Links in je contentblok"
+msgstr ""
+
+#: includes/cpt-acf.php:1275
+msgid "Wil je de berichten filteren op categorie?"
+msgstr ""
+
+#: includes/cpt-acf.php:1278
+msgid ""
+"Als deze pagina een dossier heeft, worden berichten sowieso gefilterd op "
+"het dossier."
+msgstr ""
+
+#: includes/cpt-acf.php:1307
+msgid "Kies de categorie"
+msgstr ""
+
+#: includes/cpt-acf.php:1342
+msgid "Maximum aantal berichten"
+msgstr ""
+
+#: includes/cpt-acf.php:1395
+msgid "Toon hoeveel berichten met hun uitgelichte afbeelding"
+msgstr ""
+
+#: includes/cpt-acf.php:1472 includes/cpt-acf.php:1474
+#: includes/cpt-acf.php:1490
+msgid "Carrousels"
+msgstr ""
+
+#: includes/cpt-acf.php:1473
+msgid "Carrousel"
+msgstr ""
+
+#: includes/cpt-acf.php:1475
+msgid "Alle carrousels"
+msgstr ""
+
+#: includes/cpt-acf.php:1476
+msgid "Nieuwe carrousel toevoegen"
+msgstr ""
+
+#: includes/cpt-acf.php:1477
+msgid "Voeg nieuwe carrousel toe"
+msgstr ""
+
+#: includes/cpt-acf.php:1478
+msgid "Bewerk carrousel"
+msgstr ""
+
+#: includes/cpt-acf.php:1479
+msgid "Nieuwe carrousel"
+msgstr ""
+
+#: includes/cpt-acf.php:1480
+msgid "Bekijk carrousel"
+msgstr ""
+
+#: includes/cpt-acf.php:1481
+msgid "Zoek carrousel"
+msgstr ""
+
+#: includes/cpt-acf.php:1482
+msgid "Geen carrousels gevonden"
+msgstr ""
+
+#: includes/cpt-acf.php:1483
+msgid "Geen carrousels gevonden in de prullenbak"
+msgstr ""
+
+#: includes/cpt-acf.php:1540
+msgid "Afbeelding bij dit item"
+msgstr ""
+
+#: includes/cpt-acf.php:1564
+msgid "Titel bij dit item"
+msgstr ""
+
+#: includes/cpt-acf.php:1583
+msgid "Korte tekst bij dit item"
+msgstr ""
+
+#: includes/cpt-acf.php:1603
+msgid "Soort link"
+msgstr ""
+
+#: includes/cpt-acf.php:1615
+msgid "Naar een pagina / bericht"
+msgstr ""
+
+#: includes/cpt-acf.php:1616
+msgid "Naar een dossier"
+msgstr ""
+
+#: includes/cpt-acf.php:1627
+msgid "Kies een pagina of bericht:"
+msgstr ""
+
+#: includes/cpt-acf.php:1665
+msgid "Kies een dossier:"
+msgstr ""
+
+#: includes/dossier-helper-functions.php:153
+#: includes/dossier-helper-functions.php:160
+msgctxt "Standaardlabel voor het menu in de dossiers"
+msgid "Overzicht"
+msgstr ""
+
+#: includes/dossier-helper-functions.php:213
+#, php-format
+msgid "Dit dossier bevat %s items."
 msgstr ""
 
 #: includes/example-cmb2.php:122
@@ -302,8 +668,8 @@ msgstr ""
 #: includes/example-cmb2.php:582 includes/example-cmb2.php:589
 #: includes/example-cmb2.php:619 includes/example-cmb2.php:627
 #: includes/example-cmb2.php:634 includes/example-cmb2.php:674
-#: includes/metadata-boxes.php:58 includes/metadata-boxes.php:67
-#: includes/metadata-boxes.php:95
+#: includes/metadata-boxes.php:61 includes/metadata-boxes.php:70
+#: includes/metadata-boxes.php:100
 msgid "field description (optional)"
 msgstr ""
 
@@ -402,7 +768,7 @@ msgstr ""
 msgid "Test Radio"
 msgstr ""
 
-#: includes/example-cmb2.php:333 includes/metadata-boxes.php:57
+#: includes/example-cmb2.php:333 includes/metadata-boxes.php:60
 msgid "Test Taxonomy Radio"
 msgstr ""
 
@@ -465,7 +831,7 @@ msgid ""
 "Embeds</a>."
 msgstr ""
 
-#: includes/example-cmb2.php:437 includes/metadata-boxes.php:46
+#: includes/example-cmb2.php:437 includes/metadata-boxes.php:48
 msgid "Bijbehorende tag / categorie"
 msgstr ""
 
@@ -567,15 +933,11 @@ msgstr ""
 msgid "Site Background Color"
 msgstr ""
 
-#: includes/metadata-boxes.php:66 includes/metadata-boxes.php:78
-msgid "Tag"
-msgstr ""
-
-#: includes/metadata-boxes.php:72
+#: includes/metadata-boxes.php:75
 msgid "Er zijn geen tags toegevoegd."
 msgstr ""
 
-#: includes/metadata-boxes.php:79
+#: includes/metadata-boxes.php:83
 msgid "Kies de tag voor de actueelpagina onder dit dossier."
 msgstr ""
 
@@ -599,7 +961,7 @@ msgstr ""
 msgid "Linkt naar pagina:"
 msgstr ""
 
-#: includes/widget-banner-2.php:138 includes/widget-banner.php:138
+#: includes/widget-banner-2.php:137 includes/widget-banner.php:139
 msgctxt "Widget"
 msgid "Hier zou een banner staan, maar er is geen linktekst ingevoerd"
 msgstr ""
@@ -638,161 +1000,63 @@ msgstr ""
 msgid "Meer"
 msgstr ""
 
-#: page_dossiersoverview.php:59
+#: includes/widget-paginalinks.php:258
+msgctxt "paginalinkswidget"
+msgid ""
+"Mogelijkheid voor het tonen van de bijbehorende links die je op pagina / "
+"berichtniveau hebt ingevoerd."
+msgstr ""
+
+#: includes/widget-paginalinks.php:277
+msgctxt "paginalinkswidget"
+msgid ""
+"Dit widget doet pas iets als je op pagina- of berichtniveau links hebt "
+"toegevoegd. Die links worden dan op deze plaats getoond.</p><p>De titel "
+"hieronder wordt getoond als op pagina-niveau geen titel is ingevoerd."
+msgstr ""
+
+#: includes/widget-paginalinks.php:282
+msgctxt "paginalinkswidget"
+msgid "Titel"
+msgstr ""
+
+#: includes/widget-paginalinks.php:325
+msgctxt "paginalinkswidget"
+msgid "Extra links voor "
+msgstr ""
+
+#: includes/widget-paginalinks.php:375
+msgctxt "paginalinkswidget"
+msgid "Er zijn geen extra links ingevoerd."
+msgstr ""
+
+#: page_dossier-document-overview.php:102
+msgctxt "page_dossier-document-overview"
+msgid "Geen documenten gevonden"
+msgstr ""
+
+#: page_dossier-events-overview.php:66
+msgctxt "page_dossier-events-overview"
+msgid "Geen evenementen gevonden"
+msgstr ""
+
+#: page_dossiersingleactueel.php:187
+msgctxt "page_dossiersingleactueel"
+msgid "Geen berichten gevonden"
+msgstr ""
+
+#: page_show-child-pages.php:54
 msgctxt "Standaardtekst als pagina geen tekst heeft."
 msgid "Eh, dit is een pagina zonder tekst"
 msgstr ""
 
-#: unused-code.php:850
-msgctxt "Rijksvideo"
-msgid "Video Player"
-msgstr ""
-
-#: unused-code.php:851
-msgctxt "Rijksvideo"
-msgid "Video"
-msgstr ""
-
-#: unused-code.php:852
-msgctxt "Rijksvideo"
-msgid "Audio"
-msgstr ""
-
-#: unused-code.php:853
-msgctxt "Rijksvideo"
-msgid "Caption"
-msgstr ""
-
-#: unused-code.php:854
-msgctxt "Rijksvideo"
-msgid "Ondertitels"
-msgstr ""
-
-#: unused-code.php:855
-msgctxt "Rijksvideo: voor welke taal heb je ondertitels geupload?"
-msgid "nl"
-msgstr ""
-
-#: unused-code.php:858
-msgctxt "Rijksvideo"
-msgid "Afspelen"
-msgstr ""
-
-#: unused-code.php:859
-msgctxt "Rijksvideo"
-msgid "Geluid uit"
-msgstr ""
-
-#: unused-code.php:860
-msgctxt "Rijksvideo"
-msgid "Schermvullende weergave openen"
-msgstr ""
-
-#: unused-code.php:861
-msgctxt "Rijksvideo"
-msgid "Schermvullende weergave sluiten"
-msgstr ""
-
-#: unused-code.php:862
-msgctxt "Rijksvideo"
-msgid ""
-"Gebruik op- of neer-pijltjestoetsen om het volume harder of zachter te "
-"zetten"
-msgstr ""
-
-#: unused-code.php:863
-msgctxt "Rijksvideo"
-msgid "Ondertiteling aan"
-msgstr ""
-
-#: unused-code.php:864
-msgctxt "Rijksvideo"
-msgid "Download deze video"
-msgstr ""
-
-#: unused-code.php:865
-msgctxt "Rijksvideo"
-msgid ""
-"Helaas kan deze video niet worden afgespeeld. Een mogelijk oplossing is de "
-"meest recente versie van uw browser te installeren."
-msgstr ""
-
-#: unused-code.php:867
-msgctxt "Rijksvideo"
-msgid "Video voor Apple Quicktime Player"
-msgstr ""
-
-#: unused-code.php:868
-msgctxt "Rijksvideo"
-msgid "mp4"
-msgstr ""
-
-#: unused-code.php:869
-msgctxt "Rijksvideo"
-msgid " (hoge resolutie)"
-msgstr ""
-
-#: unused-code.php:871
-msgctxt "Rijksvideo"
-msgid "Video voor Windows Media Player"
-msgstr ""
-
-#: unused-code.php:872
-msgctxt "Rijksvideo"
-msgid "wmv"
-msgstr ""
-
-#: unused-code.php:874
-msgctxt "Rijksvideo"
-msgid "Video voor mobiel gebruik"
-msgstr ""
-
-#: unused-code.php:875
-msgctxt "Rijksvideo"
-msgid "3gp"
-msgstr ""
-
-#: unused-code.php:877
-msgctxt "Rijksvideo"
-msgid "Audiospoor"
-msgstr ""
-
-#: unused-code.php:878
-msgctxt "Rijksvideo"
-msgid "mp3"
-msgstr ""
-
-#: unused-code.php:880
-msgctxt "Rijksvideo"
-msgid "Ondertitelingsbestand"
-msgstr ""
-
-#: unused-code.php:881
-msgctxt "Rijksvideo"
-msgid "srt"
-msgstr ""
-
-#: unused-code.php:1061
-msgid "PDFs"
-msgstr ""
-
-#: unused-code.php:1061
-msgid "Manage PDFs"
-msgstr ""
-
-#: unused-code.php:1061
-#, php-format
-msgid "PDF <span class=\"count\">(%s)</span>"
-msgid_plural "PDFs <span class=\"count\">(%s)</span>"
-msgstr[0] ""
-msgstr[1] ""
-
-#: unused-code.php:1076
-msgid "Voeg video toe aan tekst"
+#: sidebar.php:21
+msgctxt "Title of primary sidebar"
+msgid "Gerelateerde content"
 msgstr ""
 
 #. Theme Name of the plugin/theme
-msgid "Rijkshuisstijl (Digitale Overheid) (v0.1.0)"
+msgid "Rijkshuisstijl (Digitale Overheid)"
 msgstr ""
 
 #. Description of the plugin/theme

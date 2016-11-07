@@ -3,14 +3,14 @@
 /**
  * Rijkshuisstijl (Digitale Overheid) - page_show-child-pages.php
  * ----------------------------------------------------------------------------------
- * Toont alle dossiers
+ * Toont onderliggende pagina's
  * ----------------------------------------------------------------------------------
  *
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.4.1
- * @desc.   Theme-check, carrousel en extra pagina-layout 
+ * @version 0.6.25
+ * @desc.   Check on number of found document in dossier menu. CSS bugfixes
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 

@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.6.23
-// * @desc.   Modified Event Widget, updated pagination. Extra event functions and page.
+// * @version 0.6.25
+// * @desc.   CSS bugfixes
 // * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 // **
 
@@ -723,6 +723,11 @@
         article {
           padding: 0 1em 0 0;
           max-width: @floatleft_width;
+
+          &.has-post-thumbnail {
+            max-width: 100%;
+          }        
+          
         }
       }
     }
