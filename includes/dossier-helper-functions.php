@@ -10,8 +10,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.6.25
- * @desc.   Check on number of found document in dossier menu. CSS bugfixes
+ * @version 0.6.26
+ * @desc.   Check on number of found document in dossier menu - bugfix
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -268,7 +268,7 @@ function rhswp_dossier_get_pagelink( $theobject, $args ) {
 
   $selectposttype = '';
   $checkpostcount = false;
-  $addlink = false;
+  $addlink        = false;
 
   if ( 'page_dossiersingleactueel.php' == $pagetemplateslug ) {
     $selectposttype = 'post';
@@ -288,7 +288,8 @@ function rhswp_dossier_get_pagelink( $theobject, $args ) {
   }    
 
 
-//  $maxposttitle '<br><strong>Select post type: ' . $selectposttype  . '</strong>';
+  // $maxposttitle .= '<br><strong style="font-size: 10px">Select post type: ' . $selectposttype  . '</strong>';
+  // $maxposttitle .= '<br><strong style="font-size: 10px">The term: ' . $args['theterm']  . '</strong>';
 
 
 
@@ -306,7 +307,7 @@ function rhswp_dossier_get_pagelink( $theobject, $args ) {
       $mypages = get_pages( $args );
 
       if ( count( $mypages ) > 0 ) {
-        //  $maxposttitle '<br><strong>Child pages gevonden: ' . count( $mypages )  . '</strong>';
+          // $maxposttitle .= '<br><strong style="font-size: 10px">Child pages gevonden: ' . count( $mypages )  . '</strong>';
         $addlink = true;
       }
 
@@ -314,13 +315,15 @@ function rhswp_dossier_get_pagelink( $theobject, $args ) {
     }
     else {
   
+      // $maxposttitle .= '<br><strong style="font-size: 10px">Post type: ' . $selectposttype  . '</strong>';
+
       if ( function_exists( 'get_field' ) ) {
           $filter    = get_field('wil_je_filteren_op_categorie_op_deze_pagina', $theobjectid );
           $filters   = get_field('kies_de_categorie_waarop_je_wilt_filteren', $theobjectid );
       }
   
   
-      $args = array(
+      $argsquery = array(
         'post_type' => $selectposttype,
         'tax_query' => array(
           'relation' => 'AND',
@@ -334,7 +337,10 @@ function rhswp_dossier_get_pagelink( $theobject, $args ) {
     
     
   
-      if ( $filter == 'ja' ) {
+      if ( $filter !== 'ja' ) {
+        // $maxposttitle .= '<br><strong style="font-size: 10px">Niet filteren: ' . $filter  . '</strong>';
+      }
+      else {
   
         if ( $filters ) {
         
@@ -346,18 +352,18 @@ function rhswp_dossier_get_pagelink( $theobject, $args ) {
   
             $slugs[] = $terminfo->slug;
   
-            //  $maxposttitle '<br>Filter op : ' .  $terminfo->name . '<br>';
+            // $maxposttitle .= '<br><strong style="font-size: 10px">Filter op : ' .  $terminfo->name . '</strong>';
       
           endforeach;
   
-          $args = array(
+          $argsquery = array(
               'post_type' => $selectposttype,
               'tax_query' => array(
                 'relation' => 'AND',
                 array(
-                  'taxonomy' => RHSWP_CT_DOSSIER,
-                  'field' => 'term_id',
-                  'terms' => $currentterm
+                  'taxonomy'  => RHSWP_CT_DOSSIER,
+                  'field'     => 'term_id',
+                  'terms'     => $args['theterm']
                 ),
                 array(
                   'taxonomy'  => 'category',
@@ -366,27 +372,28 @@ function rhswp_dossier_get_pagelink( $theobject, $args ) {
                 )
               )
             );
-        
-        
+
         }
       }
 
-      $wp_query = new WP_Query( $args );
+
+      // $maxposttitle .= '<br><strong style="font-size: 10px">Query : ' . implode( ", ", $args ) . '</strong>';
+
+      $wp_query = new WP_Query( $argsquery );
     
       if( $wp_query->have_posts() ) {
         if ( $wp_query->post_count > 0 ) {
-          //  $maxposttitle '<br><strong>Berichten gevonden: ' . $wp_query->post_count . '</strong>';
+            // $maxposttitle .= '<br><strong style="font-size: 10px">Berichten gevonden: ' . $wp_query->post_count . '</strong>';
           $addlink = true;
         }
       }
-      
     }
   }
 
 
 
   if ( $pagetemplateslug ) {
-    //  $maxposttitle '<br><strong>Slug: ' . $pagetemplateslug . '</strong>';
+      // $maxposttitle .= '<br><strong style="font-size: 10px">Slug: ' . $pagetemplateslug . '</strong>';
   }
 
   if ( $currentpageid == $theobjectid ) {
@@ -394,7 +401,7 @@ function rhswp_dossier_get_pagelink( $theobject, $args ) {
   }
   elseif ( $addlink ) {
 
-    //  $maxposttitle '<br><strong>Add link: ' . $addlink . '</strong>';
+      // $maxposttitle .= '<br><strong style="font-size: 10px">Add link: ' . $addlink . '</strong>';
     
     if ( $args['markerforclickableactivepage'] == $theobjectid ) {
       return '<li class="selected"><a href="' . get_permalink( $theobjectid ) . '">' . $maxposttitle . '</a></li>';
