@@ -87,16 +87,6 @@
 		"oF": 0,
 		"oS": 0
 		},
-	"\/css\/style.css": {
-		"aP": 0,
-		"bl": 0,
-		"ft": 16,
-		"ma": 0,
-		"oA": 2,
-		"oAP": "\/css\/style-ck.css",
-		"oF": 0,
-		"oS": 0
-		},
 	"\/deleteme-code-voor-dossier-checker.html": {
 		"ft": 8192,
 		"oA": 0,
@@ -1147,8 +1137,8 @@
 		"iI": 0,
 		"ma": 0,
 		"oA": 0,
-		"oAP": "\/css\/style.css",
-		"oF": 0,
+		"oAP": "\/style.css",
+		"oF": 2,
 		"oS": 0,
 		"rU": 0,
 		"sI": 0,
@@ -1213,6 +1203,12 @@
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/plugins\/xxxx-events-manager.zip",
+		"oF": 0
+		},
+	"\/README.html": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/README.html",
 		"oF": 0
 		},
 	"\/README.md": {
