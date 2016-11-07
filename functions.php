@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.6.30
- * @desc.   Event context added for a dossier
+ * @version 0.6.31
+ * @desc.   Rewrite rules added to prevent 404 after URL tampering
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "http://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.6.30" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Paging on page_dossiersingleactueel.php" );
+define( 'CHILD_THEME_VERSION',              "0.6.31" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Rewrite rules added to prevent 404 after URL tampering" );
 define( 'SHOW_CSS_DEBUG',                   false );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
@@ -1350,10 +1350,15 @@ add_action( 'init', 'rhswp_dossiercontext_add_rewrite_rules');
 function rhswp_dossiercontext_add_rewrite_rules() {
 
   add_rewrite_rule( '(.+?)(/' . RHSWP_DOSSIERPOSTCONTEXT . '/)(.+?)/?$', 'index.php?name=$matches[3]&' . RHSWP_DOSSIERPOSTCONTEXT . '=$matches[1]', 'top');
+  add_rewrite_rule( '(.+?)/' . RHSWP_DOSSIERPOSTCONTEXT . '/?$', 'index.php?pagename=$matches[1]', 'top');
+
   add_rewrite_rule( '(.+?)(/' . RHSWP_DOSSIERDOCUMENTCONTEXT . '/)(.+?)/?$', 'index.php?document=$matches[3]&' . RHSWP_DOSSIERPOSTCONTEXT . '=$matches[1]', 'top');
+  add_rewrite_rule( '(.+?)/' . RHSWP_DOSSIERDOCUMENTCONTEXT . '/?$', 'index.php?pagename=$matches[1]', 'top');
+
   add_rewrite_rule( '(.+?)(/' . RHSWP_DOSSIEREVENTCONTEXT . '/)(.+?)/?$', 'index.php?event=$matches[3]&' . RHSWP_DOSSIERPOSTCONTEXT . '=$matches[1]', 'top');
+  add_rewrite_rule( '(.+?)/' . RHSWP_DOSSIEREVENTCONTEXT . '/?$', 'index.php?pagename=$matches[1]', 'top');
 
-
+//http://appelflap.local:5757/dossiers/berichtenbox-voor-bedrijven/
   
   // to do:
   // add rule for events
@@ -1382,7 +1387,6 @@ add_action( 'query_vars', 'rhswp_dossiercontext_add_query_vars' );
 
 function rhswp_dossiercontext_add_query_vars($vars) {
 	$vars[] = RHSWP_DOSSIERPOSTCONTEXT;
-	$vars[] = RHSWP_DOSSIEREVENTCONTEXT;
 	return $vars;
 }
 
