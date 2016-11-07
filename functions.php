@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.6.22
- * @desc.   Script minification check.
+ * @version 0.6.23
+ * @desc.   Modified Event Widget, updated pagination. Extra event functions and page.
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -23,9 +23,9 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "http://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.6.22" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Script minification check." );
-define( 'SHOW_CSS_DEBUG',                   false );
+define( 'CHILD_THEME_VERSION',              "0.6.23" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Modified Event Widget, updated pagination. Extra event functions and page." );
+define( 'SHOW_CSS_DEBUG',                   true );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
   define( 'DO_MINIFY_JS',                   false );
@@ -106,6 +106,9 @@ include_once( RHSWP_FOLDER . '/includes/dossier-helper-functions.php' );
 // Include for contact form 7 validation
 include_once( RHSWP_FOLDER . '/includes/contact-form7-validation.php' );
 
+// Include for contact form 7 validation
+include_once( RHSWP_FOLDER . '/includes/event-manager-functions.php' );
+
 //========================================================================================================
 
 // Include to alter the dossier taxonomy on pages: use radiobuttons instead of checkboxes.
@@ -158,6 +161,7 @@ require_once( RHSWP_FOLDER . '/includes/widget-home.php' );
 require_once( RHSWP_FOLDER . '/includes/widget-banner.php' );
 require_once( RHSWP_FOLDER . '/includes/widget-newswidget.php' );
 require_once( RHSWP_FOLDER . '/includes/widget-paginalinks.php' );
+require_once( RHSWP_FOLDER . '/includes/widget-events.php' );
 
 // Add support for 3-column footer widgets
 add_theme_support( 'genesis-footer-widgets', 3 );
@@ -1845,6 +1849,29 @@ function rhswp_filter_input_string( $string ) {
   
   return $text;
 
+}
+
+//========================================================================================================
+
+
+add_filter ( 'genesis_next_link_text' , 'rhswp_paging_next' );
+function rhswp_paging_next ( $text ) {
+	if ( is_category() ) {
+	    return __( "Oudere berichten", 'wp-rijkshuisstijl' );
+    }
+    else {
+	    return __( "Volgende pagina", 'wp-rijkshuisstijl' );
+    }
+}
+
+add_filter ( 'genesis_prev_link_text' , 'rhswp_paging_previous' );
+function rhswp_paging_previous ( $text ) {
+	if ( is_category() ) {
+	    return __( "Nieuwere berichten", 'wp-rijkshuisstijl' );
+    }
+    else {
+	    return __( "Vorige pagina", 'wp-rijkshuisstijl' );
+    }
 }
 
 //========================================================================================================

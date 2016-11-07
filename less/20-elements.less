@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.6.20
-// * @desc.   01-home .blocks, pagination, 404 content list, translation updated.
+// * @version 0.6.23
+// * @desc.   Modified Event Widget, updated pagination. Extra event functions and page.
 // * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 // **
 
@@ -718,11 +718,15 @@
 
   @media only screen and (min-width: ( @break_tablet ) ) {
 
-    .block {
-      article {
-        padding: 0 1em 0 0;
-        max-width: @floatleft_width;
+    .flexbox {
+      .block {
+        article {
+          padding: 0 1em 0 0;
+          max-width: @floatleft_width;
+        }
       }
+    }
+    .block {
 
       .has-post-thumbnail {
         margin: 0 0 1em 0;
@@ -741,10 +745,12 @@
   }
 
   @media only screen and (min-width: ( @break_tablet ) ) {
-    .block {
-      article {
-        h3 {
-          min-height: 3.5rem;
+    .flexbox {
+      .block {
+        article {
+          h3 {
+            min-height: 3.5rem;
+          }
         }
       }
     }
