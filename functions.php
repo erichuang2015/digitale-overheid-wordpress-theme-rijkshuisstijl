@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.6.29
- * @desc.   Paging on page_dossiersingleactueel.php
+ * @version 0.6.30
+ * @desc.   Event context added for a dossier
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -23,7 +23,7 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "http://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.6.29" );
+define( 'CHILD_THEME_VERSION',              "0.6.30" );
 define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Paging on page_dossiersingleactueel.php" );
 define( 'SHOW_CSS_DEBUG',                   false );
 
@@ -1351,6 +1351,10 @@ function rhswp_dossiercontext_add_rewrite_rules() {
 
   add_rewrite_rule( '(.+?)(/' . RHSWP_DOSSIERPOSTCONTEXT . '/)(.+?)/?$', 'index.php?name=$matches[3]&' . RHSWP_DOSSIERPOSTCONTEXT . '=$matches[1]', 'top');
   add_rewrite_rule( '(.+?)(/' . RHSWP_DOSSIERDOCUMENTCONTEXT . '/)(.+?)/?$', 'index.php?document=$matches[3]&' . RHSWP_DOSSIERPOSTCONTEXT . '=$matches[1]', 'top');
+  add_rewrite_rule( '(.+?)(/' . RHSWP_DOSSIEREVENTCONTEXT . '/)(.+?)/?$', 'index.php?event=$matches[3]&' . RHSWP_DOSSIERPOSTCONTEXT . '=$matches[1]', 'top');
+
+
+  
   // to do:
   // add rule for events
 
@@ -1378,6 +1382,7 @@ add_action( 'query_vars', 'rhswp_dossiercontext_add_query_vars' );
 
 function rhswp_dossiercontext_add_query_vars($vars) {
 	$vars[] = RHSWP_DOSSIERPOSTCONTEXT;
+	$vars[] = RHSWP_DOSSIEREVENTCONTEXT;
 	return $vars;
 }
 

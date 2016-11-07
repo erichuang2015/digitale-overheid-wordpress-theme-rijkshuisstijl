@@ -87,6 +87,16 @@
 		"oF": 0,
 		"oS": 0
 		},
+	"\/css\/style.css": {
+		"aP": 0,
+		"bl": 0,
+		"ft": 16,
+		"ma": 0,
+		"oA": 2,
+		"oAP": "\/css\/style-ck.css",
+		"oF": 0,
+		"oS": 0
+		},
 	"\/deleteme-code-voor-dossier-checker.html": {
 		"ft": 8192,
 		"oA": 0,
@@ -239,7 +249,7 @@
 		},
 	"\/functions.php": {
 		"ft": 8192,
-		"oA": 0,
+		"oA": 2,
 		"oAP": "\/functions.php",
 		"oF": 0
 		},
@@ -1129,21 +1139,21 @@
 		"sU": 0
 		},
 	"\/less\/style.less": {
-		"aP": 1,
-		"bl": 1,
+		"aP": 0,
+		"bl": 0,
 		"dJ": 0,
 		"ft": 1,
 		"ie": 1,
 		"iI": 0,
 		"ma": 0,
 		"oA": 0,
-		"oAP": "\/style.css",
-		"oF": 2,
-		"oS": 1,
+		"oAP": "\/css\/style.css",
+		"oF": 0,
+		"oS": 0,
 		"rU": 0,
-		"sI": 1,
-		"sM": 1,
-		"sU": 1
+		"sI": 0,
+		"sM": 0,
+		"sU": 0
 		},
 	"\/LICENSE": {
 		"ft": 8192,
@@ -1171,7 +1181,7 @@
 		},
 	"\/page_dossiersingleactueel.php": {
 		"ft": 8192,
-		"oA": 0,
+		"oA": 2,
 		"oAP": "\/page_dossiersingleactueel.php",
 		"oF": 0
 		},
@@ -1254,7 +1264,7 @@
 		"bl": 0,
 		"ft": 16,
 		"ma": 0,
-		"oA": 1,
+		"oA": 2,
 		"oAP": "\/style-ck.css",
 		"oF": 0,
 		"oS": 0

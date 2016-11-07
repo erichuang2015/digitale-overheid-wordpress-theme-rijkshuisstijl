@@ -9,8 +9,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.6.28
- * @desc.   Check in dossier if menu item is parent of child page. Error message if no content found in page templates with filter function.
+ * @version 0.6.30
+ * @desc.   Event context added for a dossier
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -24,7 +24,9 @@ genesis();
 function rhswp_get_documents_for_dossier() {
   global $post;
 
-  
+  $currentpage      = get_permalink();
+  $currentsite      = get_site_url();
+  $paged            = ( get_query_var('paged') ) ? get_query_var('paged') : 1;
   $terms = get_the_terms( $post->ID , RHSWP_CT_DOSSIER );
 
   if ($terms && ! is_wp_error( $terms ) ) { 
@@ -32,8 +34,9 @@ function rhswp_get_documents_for_dossier() {
     $term = array_pop($terms);
     
     $args = array(
-      'posts_per_page'  => -1,
-      'post_type' => RHSWP_CPT_EVENT,
+      'paged'           => $paged,
+      'posts_per_page'  => get_option('posts_per_page'),
+      'post_type'       => RHSWP_CPT_EVENT,
       'tax_query' => array(
         'relation' => 'AND',
         array(
@@ -52,15 +55,39 @@ function rhswp_get_documents_for_dossier() {
         echo '<p>Events in het dossier "' . $term->name .'"</p>';  
     
     
-        foreach ( $posts_array as $post ) : setup_postdata( $post ); ?>
+        foreach ( $posts_array as $post ) : setup_postdata( $post ); 
+
+          if ( $currentsite && $currentpage ) {
+            
+            $postpermalink  = get_the_permalink();
+            $postpermalink  = str_replace( $currentsite, '', $postpermalink);
+            $postpermalink  = '/' . $post->post_name;
+
+            $crumb          = str_replace( $currentsite, '', $currentpage);
+            
+            $theurl         = $currentsite . $crumb  . RHSWP_DOSSIEREVENTCONTEXT . $postpermalink;
+          
+          }
+          else {
+            $theurl         = get_the_permalink();
+          }
+      		
+
+
+        
+        ?>
           <article>
-            <h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
+            <h2><a href="<?php echo $theurl; ?>"><?php the_title(); ?></a></h2>
             <?php the_excerpt() ?>
           </article>
         <?php
         endforeach; 
         
         wp_reset_postdata();
+
+        genesis_posts_nav();
+
+        wp_reset_query();        
         
         
       }
