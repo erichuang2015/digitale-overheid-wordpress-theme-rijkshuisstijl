@@ -83,7 +83,8 @@ themes/wp-rijkshuisstijl/                     # → Folder met alle theme-bestan
 
 ## Version history
 
-0.6.32 - Incorrect styling for content without featured image corrected 
+0.6.33 - Search results - mark PDF attachments 
+0.6.32 - Incorrect styling for content without featured image corrected
 0.6.31 - Rewrite rules added to prevent 404 after URL tampering 
 0.6.30 - Event context added for a dossier 
 0.6.29 - Paging on page_dossiersingleactueel.php 

@@ -3,8 +3,8 @@
 	Description: Theme voor ibewustzijnoverheid.nl
 	Author: Paul van Buuren
 	Author URI: https://wbvb.nl/themes/ibewustzijn/
-	Version: 0.6.32
-  Version description: 0.6.32 - Incorrect styling for content without featured image corrected
+	Version: 0.6.33
+  Version description: 0.6.33 - Search results - mark PDF attachments
   Text Domain: wp-rijkshuisstijl
 
 	Template: genesis
@@ -2326,12 +2326,12 @@ Media Queries
 .block .links li:nth-child(even) {
   clear: right;
 }
-.flexbox .block {
+.flexbox .archive .block {
   display: flex;
   flex-flow: row wrap;
   justify-content: flex-start;
 }
-.flexbox .block article {
+.flexbox .archive .block article {
   flex-grow: 1;
   float: left;
 }
@@ -2763,11 +2763,11 @@ noscript {
   }
 }
 @media only screen and (min-width: 650px) {
-  .flexbox .block article {
+  .flexbox .archive .block article {
     padding: 0 1em 0 0;
     max-width: 50%;
   }
-  .flexbox .block article.has-post-thumbnail {
+  .flexbox .archive .block article.has-post-thumbnail {
     max-width: 100%;
   }
   .block .has-post-thumbnail {
@@ -2947,6 +2947,22 @@ footer {
 .dossieroverzicht ol + p,
 .dossieroverzicht p + p {
   margin-top: 1em;
+}
+.search .post-date:before {
+  content: '|';
+  display: inline-block;
+  margin-left: .5em;
+  margin-right: .3em;
+  speak: none;
+}
+.search .post {
+  border-color: #275937;
+}
+.search .attachment.pdf {
+  border-color: #d52b1e;
+}
+.search .attachment.pdf.pdf {
+  border-color: #dfe6e1;
 }
 @media only print {
   body,

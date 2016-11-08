@@ -131,18 +131,22 @@
       clear: right;
     }
   }
-  
-  .flexbox .block {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: flex-start;
-    
-    article {
-	    flex-grow: 1;
-      float: left;
 
-    }
-  }
+  .flexbox {
+    .archive {
+      .block {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: flex-start;
+        
+        article {
+    	    flex-grow: 1;
+          float: left;
+    
+        }
+      }
+    }  
+  }  
   
   .block {
 
@@ -709,15 +713,17 @@
   @media only screen and (min-width: ( @break_tablet ) ) {
 
     .flexbox {
-      .block {
-        article {
-          padding: 0 1em 0 0;
-          max-width: @floatleft_width;
-
-          &.has-post-thumbnail {
-            max-width: 100%;
-          }        
-          
+      .archive {
+        .block {
+          article {
+            padding: 0 1em 0 0;
+            max-width: @floatleft_width;
+  
+            &.has-post-thumbnail {
+              max-width: 100%;
+            }        
+            
+          }
         }
       }
     }

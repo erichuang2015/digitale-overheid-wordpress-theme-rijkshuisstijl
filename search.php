@@ -9,22 +9,29 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.1.0 
- * @desc.   Eerste opzet theme, code licht opgeschoond
+ * @version 0.6.33
+ * @desc.   Search results - mark PDF attachments
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
+// add description
+add_action( 'genesis_before_loop', 'rhswp_add_search_description', 15 );
 
-add_action( 'genesis_before_loop', 'start_flex', 16 );
-add_action( 'genesis_after_loop', 'end_flex', 16 );
 
-function start_flex() {
-  echo '<div class="flex">';
-}
 
-function end_flex() {
-  echo '</div>';
-}
+/** Replace the standard loop with our custom loop */
+remove_action( 'genesis_loop', 'genesis_do_loop' );
+add_action( 'genesis_loop', 'rhswp_archive_custom_loop' );
+
 
 genesis();
-    
+
+function rhswp_add_search_description() {
+
+$search_text = get_search_query() ? apply_filters( 'the_search_query', get_search_query() ) : apply_filters( 'genesis_search_text', __( 'Search this website', 'genesis' ) . ' &#x02026;' );
+  
+  echo '<h1>Zoekresultaten voor "' . $search_text . '"</h1>';
+  
+  get_search_form();
+  
+}
