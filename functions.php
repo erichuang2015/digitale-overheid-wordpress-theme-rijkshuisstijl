@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.6.31
- * @desc.   Rewrite rules added to prevent 404 after URL tampering
+ * @version 0.6.32
+ * @desc.   Incorrect styling for content without featured image corrected
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "http://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.6.31" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Rewrite rules added to prevent 404 after URL tampering" );
+define( 'CHILD_THEME_VERSION',              "0.6.32" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Incorrect styling for content without featured image corrected" );
 define( 'SHOW_CSS_DEBUG',                   false );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
@@ -1599,7 +1599,6 @@ function rhswp_write_extra_contentblokken() {
                 printf( '<article %s>', $classattr );
 
                 if ( $doimage ) {
-//                  printf( '<div class="article-container"><div class="article-visual"><a href="%s" tabindex="-1">%s</a></div>', get_permalink(), get_the_post_thumbnail( $post->ID, 'featured-post-widget' ) );
                   printf( '<div class="article-container"><div class="article-visual">%s</div>', get_the_post_thumbnail( $post->ID, 'featured-post-widget' ) );
                   printf( '<div class="article-excerpt"><a href="%s"><h3>%s</h3><p>%s</p><p class="meta">%s</p></a></div></div>', get_permalink(), get_the_title(), $excerpt, $postdate );
                 }
@@ -1811,7 +1810,7 @@ function rhswp_archive_custom_loop() {
   
   
       
-      if ( $postcounter < 3 ) {
+      if ( $postcounter < 3 && has_post_thumbnail( $post->ID ) ) {
         $doimage    = true;
       } 
       else {
@@ -1822,7 +1821,6 @@ function rhswp_archive_custom_loop() {
   
       
       if ( $doimage ) {
-  //                  printf( '<div class="article-container"><div class="article-visual"><a href="%s" tabindex="-1">%s</a></div>', get_permalink(), get_the_post_thumbnail( $post->ID, 'featured-post-widget' ) );
         printf( '<div class="article-container"><div class="article-visual">%s</div>', get_the_post_thumbnail( $post->ID, 'featured-post-widget' ) );
         printf( '<div class="article-excerpt"><a href="%s"><h3>%s</h3><p>%s</p><p class="meta">%s</p></a></div></div>', get_permalink(), get_the_title(), $excerpt, $postdate );
       }

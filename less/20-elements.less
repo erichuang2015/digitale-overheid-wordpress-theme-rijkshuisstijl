@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.6.25
-// * @desc.   CSS bugfixes
+// * @version 0.6.31
+// * @desc.   Rewrite rules added to prevent 404 after URL tampering
 // * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 // **
 
@@ -412,8 +412,10 @@
             
             &:after {
               position: absolute;
-              right: 9px;
-              bottom: 8px;
+              top: 50%;
+              left: 50%;
+              margin-top: -6px;
+              margin-left: -4px;
               width: 4px;
               height: 12px;
               border-right: 3px solid @wit;
@@ -518,19 +520,9 @@
           padding-top: 0;
           position: relative;
           min-height: @minheighttablet;
+          background: @grijs_7;
           
           .slide {
-//            min-height: @minheighttablet;
-//            position: absolute;
-//            bottom: 0;
-//            left: 0;
-//            right: 0;
-            
-//            .img-container {
-//              position: absolute;
-//              top: 0;
-//            }
-
             a {
               color: @txt;
               .caption-title {
@@ -546,8 +538,6 @@
               position: absolute;
               bottom: 0;
               width: ( 100% / 3 );
-//              left: 0;
-//              right: 0;
               top: ( @minheighttablet - @headerheight );
 
                 

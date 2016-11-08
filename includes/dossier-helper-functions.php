@@ -10,8 +10,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.6.28
- * @desc.   Check in dossier if menu item is parent of child page. Error message if no content found in page templates with filter function.
+ * @version 0.6.31
+ * @desc.   Rewrite rules added to prevent 404 after URL tampering
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -237,6 +237,7 @@ function rhswp_dossier_get_pagelink( $theobject, $args ) {
   global $tellertje;
   
   $tellertje++;
+  $childpages = [];
 
   if ( $args['currentpageid'] ) {
     $pagerequestedbyuser = $args['currentpageid'];
