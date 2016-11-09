@@ -3,8 +3,8 @@
   Description: Theme voor ibewustzijnoverheid.nl
   Author: Paul van Buuren
   Author URI: https://wbvb.nl/themes/ibewustzijn/
-  Version: 0.6.34
-  Version description: 0.6.34 - Alt-attribute added to slider
+  Version: 0.6.35
+  Version description: 0.6.35 - Screen reader response added for CF7
   Text Domain: wp-rijkshuisstijl
   
   Template: genesis
@@ -1408,6 +1408,16 @@ fieldset textarea {
   -webkit-appearance: none;
   border-radius: 0;
 }
+.screen-reader-response {
+  position: absolute;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+  height: 1px;
+  width: 1px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
 /* contact form 7, cf7 */
 .wpcf7-form label,
 .wpcf7-form .wpcf7-form-control-wrap {
@@ -1418,6 +1428,30 @@ fieldset textarea {
 .wpcf7-form p {
   overflow: hidden;
   display: block;
+}
+.wpcf7-form .wpcf7-display-none {
+  display: none;
+}
+.wpcf7-form .wpcf7-list-item {
+  overflow: hidden;
+  display: block;
+  padding-left: .2rem;
+}
+.wpcf7-form .wpcf7-list-item span,
+.wpcf7-form .wpcf7-list-item input[type="radio"] {
+  display: block;
+  vertical-align: middle;
+  height: 2rem;
+  line-height: 2rem;
+  margin-right: .5rem;
+}
+.wpcf7-form .wpcf7-list-item span {
+  width: 90%;
+  float: right;
+}
+.wpcf7-form .wpcf7-list-item input[type="radio"] {
+  border: 1px solid blue;
+  float: left;
 }
 .wpcf7-form .wpcf7-form-control-wrap input[type="text"].wpcf7-not-valid-tip,
 .wpcf7-form .wpcf7-form-control-wrap input[type="email"].wpcf7-not-valid-tip,

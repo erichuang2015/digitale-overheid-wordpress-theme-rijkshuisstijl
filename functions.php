@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.6.34
- * @desc.   Alt-attribute added to slider
+ * @version 0.6.35
+ * @desc.   Screen reader response added for CF7
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -23,9 +23,9 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "http://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.6.34" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Alt-attribute added to slider" );
-define( 'SHOW_CSS_DEBUG',                   false );
+define( 'CHILD_THEME_VERSION',              "0.6.35" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Screen reader response added for CF7" );
+define( 'SHOW_CSS_DEBUG',                   true );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
   define( 'DO_MINIFY_JS',                   false );

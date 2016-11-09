@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.6.20
-// * @desc.   01-home .blocks, pagination, 404 content list, translation updated.
+// * @version 0.6.35
+// * @desc.   Screen reader response added for CF7
 // * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 //
 
@@ -190,10 +190,22 @@
       border-radius: 0;
     }
   }
+
+  .screen-reader-response {
+  	position: absolute;
+  	overflow: hidden;
+  	clip: rect(1px, 1px, 1px, 1px);
+  	height: 1px;
+  	width: 1px;
+  	margin: 0;
+  	padding: 0;
+  	border: 0;
+  }
   
   
   /* contact form 7, cf7 */
   .wpcf7-form {
+    
     label,
     .wpcf7-form-control-wrap {
       float: none;
@@ -205,21 +217,47 @@
       display: block;
     }
     
+    .wpcf7-display-none {
+    	display: none;
+    }
+
+    .wpcf7-list-item {
+      overflow: hidden;
+      display: block;
+      padding-left: .2rem;
+      
+      span, input[type="radio"] {
+        display: block;
+        vertical-align: middle;
+        height: 2rem;
+        line-height: 2rem;
+        margin-right: .5rem;
+      }
+      span {
+        width: 90%;
+        float: right;
+      }
+      input[type="radio"] {
+        border: 1px solid blue; 
+        float: left;
+      }
+      
+    }		
+    
     .wpcf7-form-control-wrap {
 
-
-    input[type="text"],
-    input[type="email"],
-    input[type="password"],
-    input[type="file"],
-    input[type="date"],
-    select,
-    textarea {
-      &.wpcf7-not-valid-tip,
-      &.wpcf7-not-valid {
-        border-bottom: 2px solid @warning;
+      input[type="text"],
+      input[type="email"],
+      input[type="password"],
+      input[type="file"],
+      input[type="date"],
+      select,
+      textarea {
+        &.wpcf7-not-valid-tip,
+        &.wpcf7-not-valid {
+          border-bottom: 2px solid @warning;
+        }
       }
-    }
       .wpcf7-not-valid-tip {
         .embed_error_icon('../images/svg/sprite-icons-messages.svg', @warning);
         background-repeat: no-repeat;
