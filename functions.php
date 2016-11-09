@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.6.35
- * @desc.   Screen reader response added for CF7
+ * @version 0.7.1
+ * @desc.   Search functions - search via SearchWP
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -23,9 +23,9 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "http://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.6.35" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Screen reader response added for CF7" );
-define( 'SHOW_CSS_DEBUG',                   true );
+define( 'CHILD_THEME_VERSION',              "0.7.1" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Search functions - search via SearchWP" );
+define( 'SHOW_CSS_DEBUG',                   false );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
   define( 'DO_MINIFY_JS',                   false );
@@ -108,6 +108,9 @@ include_once( RHSWP_FOLDER . '/includes/contact-form7-validation.php' );
 
 // Include for contact form 7 validation
 include_once( RHSWP_FOLDER . '/includes/event-manager-functions.php' );
+
+// Include for contact form 7 validation
+include_once( RHSWP_FOLDER . '/includes/search-helper-functions.php' );
 
 //========================================================================================================
 
@@ -292,6 +295,10 @@ add_filter( 'wp_nav_menu_items', 'rhswp_append_search_box_to_menu', 10, 2 );
 
 function rhswp_append_search_box_to_menu( $menu, $args ) {
 	//* Change 'primary' to 'secondary' to add extras to the secondary navigation menu
+	if ( is_search() ) {
+		return $menu;
+	}
+	
 	if ( 'primary' !== $args->theme_location )
 		return $menu;
 	//* Uncomment this block to add a search form to the navigation menu
@@ -370,7 +377,7 @@ function rhswp_breadcrumb_args( $args ) {
     $args['labels']['date']             = '';
 
     $args['labels']['tag']              = __( "Tags", 'wp-rijkshuisstijl' ) . $separator;
-    $args['labels']['search']           = __( "Zoekresultaat", 'wp-rijkshuisstijl' );
+    $args['labels']['search']           = __( "Zoekresultaat voor ", 'wp-rijkshuisstijl' );
     $args['labels']['tax']              = '';
     
     if ( isset( $wp_query->query_vars['taxonomy'] ) ) {
@@ -1349,19 +1356,28 @@ add_action( 'init', 'rhswp_dossiercontext_add_rewrite_rules');
 
 function rhswp_dossiercontext_add_rewrite_rules() {
 
+  // rewrite rules for posts in dossier context
   add_rewrite_rule( '(.+?)(/' . RHSWP_DOSSIERPOSTCONTEXT . '/)(.+?)/?$', 'index.php?name=$matches[3]&' . RHSWP_DOSSIERPOSTCONTEXT . '=$matches[1]', 'top');
   add_rewrite_rule( '(.+?)/' . RHSWP_DOSSIERPOSTCONTEXT . '/?$', 'index.php?pagename=$matches[1]', 'top');
 
+  // rewrite rules for documents in dossier context
   add_rewrite_rule( '(.+?)(/' . RHSWP_DOSSIERDOCUMENTCONTEXT . '/)(.+?)/?$', 'index.php?document=$matches[3]&' . RHSWP_DOSSIERPOSTCONTEXT . '=$matches[1]', 'top');
   add_rewrite_rule( '(.+?)/' . RHSWP_DOSSIERDOCUMENTCONTEXT . '/?$', 'index.php?pagename=$matches[1]', 'top');
 
+  // rewrite rules for events in dossier context
   add_rewrite_rule( '(.+?)(/' . RHSWP_DOSSIEREVENTCONTEXT . '/)(.+?)/?$', 'index.php?event=$matches[3]&' . RHSWP_DOSSIERPOSTCONTEXT . '=$matches[1]', 'top');
   add_rewrite_rule( '(.+?)/' . RHSWP_DOSSIEREVENTCONTEXT . '/?$', 'index.php?pagename=$matches[1]', 'top');
 
-//http://appelflap.local:5757/dossiers/berichtenbox-voor-bedrijven/
-  
-  // to do:
-  // add rule for events
+
+
+  if( get_field('global_search_page', 'option') ) {
+    
+    $zoekpagina = get_field('global_search_page', 'option');
+
+    // rewrite rules for events in dossier context
+    add_rewrite_rule( '?(s=)(.+?)?$', 'index.php?page_id=' . $zoekpagina->ID . '&searchwpquery=$matches[2]', 'top');
+    
+  }  
 
 }
 
@@ -1370,6 +1386,7 @@ function rhswp_dossiercontext_add_rewrite_rules() {
 add_action( 'init', 'rhswp_dossiercontext_flush_check', 99);
 
 function rhswp_dossiercontext_flush_check() {
+  
   $check = get_option( RHSWP_DOSSIERPOSTCONTEXT_OPTION );
 
   if ( !$check == RHSWP_DOSSIERPOSTCONTEXT ) {
@@ -1387,6 +1404,8 @@ add_action( 'query_vars', 'rhswp_dossiercontext_add_query_vars' );
 
 function rhswp_dossiercontext_add_query_vars($vars) {
 	$vars[] = RHSWP_DOSSIERPOSTCONTEXT;
+	$vars[] = 'searchwpquery';
+	
 	return $vars;
 }
 

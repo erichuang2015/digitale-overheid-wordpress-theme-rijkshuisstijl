@@ -7,8 +7,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.6.33
-// * @desc.   Search results - mark PDF attachments
+// * @version 0.7.1
+// * @desc.   Search functions - search via SearchWP
 // * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 // **
 
@@ -31,6 +31,7 @@
     }
   }
 
+  .page-template-page_search,
   .search {
 
     .post-date {
@@ -44,8 +45,8 @@
     }
     
     article {
-//      border-left: 10px solid @blauw;  
-//      padding-left: 1em;    
+      border-left: 10px solid @blauw;  
+      padding-left: 1em;    
     }
 
     .document,
@@ -54,6 +55,14 @@
     .post {
       border-color: @communicatiekleur_vol;      
     }  
+
+    .taxonomy {
+      border: 10px solid @warning;
+      .dossiers {
+        border-color: yellow;
+      }   
+    }   
+  
     .attachment.pdf {
       border-color: @warning;      
       &.pdf {

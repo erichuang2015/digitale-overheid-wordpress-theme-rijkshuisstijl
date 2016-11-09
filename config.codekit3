@@ -87,6 +87,16 @@
 		"oF": 0,
 		"oS": 0
 		},
+	"\/css\/style.css": {
+		"aP": 0,
+		"bl": 0,
+		"ft": 16,
+		"ma": 0,
+		"oA": 2,
+		"oAP": "\/css\/style-ck.css",
+		"oF": 0,
+		"oS": 0
+		},
 	"\/deleteme-code-voor-dossier-checker.html": {
 		"ft": 8192,
 		"oA": 0,
@@ -545,7 +555,7 @@
 		},
 	"\/includes\/class.taxonomy-single-term.php": {
 		"ft": 8192,
-		"oA": 0,
+		"oA": 2,
 		"oAP": "\/includes\/class.taxonomy-single-term.php",
 		"oF": 0
 		},
@@ -557,7 +567,7 @@
 		},
 	"\/includes\/cpt-acf.php": {
 		"ft": 8192,
-		"oA": 0,
+		"oA": 2,
 		"oAP": "\/includes\/cpt-acf.php",
 		"oF": 0
 		},
@@ -581,37 +591,43 @@
 		},
 	"\/includes\/example-cmb2.php": {
 		"ft": 8192,
-		"oA": 0,
+		"oA": 2,
 		"oAP": "\/includes\/example-cmb2.php",
 		"oF": 0
 		},
 	"\/includes\/metadata-boxes.php": {
 		"ft": 8192,
-		"oA": 0,
+		"oA": 2,
 		"oAP": "\/includes\/metadata-boxes.php",
 		"oF": 0
 		},
 	"\/includes\/nojs.php": {
 		"ft": 8192,
-		"oA": 0,
+		"oA": 2,
 		"oAP": "\/includes\/nojs.php",
+		"oF": 0
+		},
+	"\/includes\/search-helper-functions.php": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/includes\/search-helper-functions.php",
 		"oF": 0
 		},
 	"\/includes\/walker.taxonomy-single-term.php": {
 		"ft": 8192,
-		"oA": 0,
+		"oA": 2,
 		"oAP": "\/includes\/walker.taxonomy-single-term.php",
 		"oF": 0
 		},
 	"\/includes\/widget-banner-2.php": {
 		"ft": 8192,
-		"oA": 0,
+		"oA": 2,
 		"oAP": "\/includes\/widget-banner-2.php",
 		"oF": 0
 		},
 	"\/includes\/widget-banner.php": {
 		"ft": 8192,
-		"oA": 0,
+		"oA": 2,
 		"oAP": "\/includes\/widget-banner.php",
 		"oF": 0
 		},
@@ -623,19 +639,19 @@
 		},
 	"\/includes\/widget-home.php": {
 		"ft": 8192,
-		"oA": 0,
+		"oA": 2,
 		"oAP": "\/includes\/widget-home.php",
 		"oF": 0
 		},
 	"\/includes\/widget-newswidget.php": {
 		"ft": 8192,
-		"oA": 0,
+		"oA": 2,
 		"oAP": "\/includes\/widget-newswidget.php",
 		"oF": 0
 		},
 	"\/includes\/widget-paginalinks.php": {
 		"ft": 8192,
-		"oA": 0,
+		"oA": 2,
 		"oAP": "\/includes\/widget-paginalinks.php",
 		"oF": 0
 		},
@@ -898,9 +914,9 @@
 		"ie": 1,
 		"iI": 0,
 		"ma": 0,
-		"oA": 1,
+		"oA": 0,
 		"oAP": "\/css\/11-things-with-icons.css",
-		"oF": 1,
+		"oF": 0,
 		"oS": 0,
 		"rU": 0,
 		"sI": 0,
@@ -1181,6 +1197,12 @@
 		"oAP": "\/page_evenement.php",
 		"oF": 0
 		},
+	"\/page_search.php": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/page_search.php",
+		"oF": 0
+		},
 	"\/page_show-child-pages.php": {
 		"ft": 8192,
 		"oA": 0,
@@ -1231,15 +1253,23 @@
 		},
 	"\/screenshot.png": {
 		"ft": 32768,
-		"iS": 110683,
+		"iS": 172449,
 		"oA": 0,
 		"oAP": "\/screenshot.png",
 		"oF": 0,
 		"opt": 0
 		},
+	"\/screenshot_development.png": {
+		"ft": 32768,
+		"iS": 0,
+		"oA": 0,
+		"oAP": "\/screenshot_development.png",
+		"oF": 0,
+		"opt": 0
+		},
 	"\/search.php": {
 		"ft": 8192,
-		"oA": 0,
+		"oA": 2,
 		"oAP": "\/search.php",
 		"oF": 0
 		},
@@ -1287,6 +1317,12 @@
 		"ft": 8192,
 		"oA": 0,
 		"oAP": "\/xxx_deleteme_page.php.html",
+		"oF": 0
+		},
+	"\/XXXXsearch.php": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/XXXXsearch.php",
 		"oF": 0
 		}
 	},
@@ -2637,7 +2673,7 @@
 			}
 		},
 	"esLintSourceType": 0,
-	"externalServerAddress": "http:\/\/digitaleoverheid.gebruikercentraal.co.uk\/",
+	"externalServerAddress": "http:\/\/digitaleoverheid-accept.gebruikercentraal.co.uk\/",
 	"gitIgnoreBuildFolder": 1,
 	"hideConfigFile": 0,
 	"jsCheckerReservedNamesString": "",

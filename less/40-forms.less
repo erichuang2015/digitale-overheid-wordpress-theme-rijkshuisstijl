@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.6.35
-// * @desc.   Screen reader response added for CF7
+// * @version 0.7.1
+// * @desc.   Search functions - search via SearchWP
 // * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 //
 
@@ -190,6 +190,29 @@
       border-radius: 0;
     }
   }
+
+  main .search-form  {
+    padding: 1em;
+    background: @grijs;
+
+    input[type="search"] {
+      border-bottom: 2px solid @communicatiekleur_vol;
+    }
+
+    input[type="submit"] {
+      background: @communicatiekleur_vol;
+      color: @wit;
+      
+      &:hover,
+      &:active,
+      &:focus {
+        color: @txt;
+        background: @wit;
+      }
+    }
+    
+  }
+
 
   .screen-reader-response {
   	position: absolute;

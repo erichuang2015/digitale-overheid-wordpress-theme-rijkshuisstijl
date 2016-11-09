@@ -3,8 +3,8 @@
   Description: Theme voor ibewustzijnoverheid.nl
   Author: Paul van Buuren
   Author URI: https://wbvb.nl/themes/ibewustzijn/
-  Version: 0.6.35
-  Version description: 0.6.35 - Screen reader response added for CF7
+  Version: 0.7.1
+  Version description: 0.7.1 - Search functions - search via SearchWP
   Text Domain: wp-rijkshuisstijl
   
   Template: genesis
@@ -1407,6 +1407,23 @@ fieldset textarea {
 .search-form input[type="search"] {
   -webkit-appearance: none;
   border-radius: 0;
+}
+main .search-form {
+  padding: 1em;
+  background: #e6e6e6;
+}
+main .search-form input[type="search"] {
+  border-bottom: 2px solid #275937;
+}
+main .search-form input[type="submit"] {
+  background: #275937;
+  color: #fff;
+}
+main .search-form input[type="submit"]:hover,
+main .search-form input[type="submit"]:active,
+main .search-form input[type="submit"]:focus {
+  color: #000;
+  background: #fff;
 }
 .screen-reader-response {
   position: absolute;
@@ -2982,6 +2999,7 @@ footer {
 .dossieroverzicht p + p {
   margin-top: 1em;
 }
+.page-template-page_search .post-date:before,
 .search .post-date:before {
   content: '|';
   display: inline-block;
@@ -2989,12 +3007,28 @@ footer {
   margin-right: .3em;
   speak: none;
 }
+.page-template-page_search article,
+.search article {
+  border-left: 10px solid #1C5BB7;
+  padding-left: 1em;
+}
+.page-template-page_search .post,
 .search .post {
   border-color: #275937;
 }
+.page-template-page_search .taxonomy,
+.search .taxonomy {
+  border: 10px solid #d52b1e;
+}
+.page-template-page_search .taxonomy .dossiers,
+.search .taxonomy .dossiers {
+  border-color: yellow;
+}
+.page-template-page_search .attachment.pdf,
 .search .attachment.pdf {
   border-color: #d52b1e;
 }
+.page-template-page_search .attachment.pdf.pdf,
 .search .attachment.pdf.pdf {
   border-color: #dfe6e1;
 }
@@ -3081,6 +3115,11 @@ p.debugstring + p.debugstring {
 	overflow: hidden;
 }
 */
+.searchwp-highlight {
+  background: yellow;
+  font-weight: bold;
+  font-family: 'Rijksoverheid Sans bold', Helvetica, Arial, sans-serif;
+}
 .more-link {
   position: relative;
 }
