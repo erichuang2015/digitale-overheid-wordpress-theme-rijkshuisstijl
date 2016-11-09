@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.6.33
- * @desc.   Search results - mark PDF attachments
+ * @version 0.6.34
+ * @desc.   Alt-attribute added to slider
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "http://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.6.33" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Search results - mark PDF attachments" );
+define( 'CHILD_THEME_VERSION',              "0.6.34" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Alt-attribute added to slider" );
 define( 'SHOW_CSS_DEBUG',                   false );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
@@ -1719,14 +1719,14 @@ function rhswp_caroussel_checker() {
           
           if ( $link && $type == 'pagina' ) {
             $linkid         = array_pop($link);
-            $link_img_start     = '<a href="' . get_permalink( $linkid ) . '" tabindex="-1" class="img-container" aria-label="Bekijk de pagina ' . $titel . '">';   	
+            $link_img_start     = '<a href="' . get_permalink( $linkid ) . '" tabindex="-1" class="img-container">';   	
             $link_end           = '</a>';
 
             $link_caption_start = '<a href="' . get_permalink( $dossier ) . '" class="caption">';   	
             $link_caption_end   = '</a>';   	
           }
           elseif ( $dossier && $type == 'dossier' ) {
-            $link_img_start     = '<a href="' . get_term_link( $dossier ) . '" tabindex="-1" class="img-container" aria-label="Bekijk het dossier ' . $titel . '">';   	
+            $link_img_start     = '<a href="' . get_term_link( $dossier ) . '" tabindex="-1" class="img-container">';   	
             $link_end           = '</a>';
 
             $link_caption_start = '<a href="' . get_term_link( $dossier ) . '" class="caption">';   	
@@ -1743,12 +1743,12 @@ function rhswp_caroussel_checker() {
 
 
           if ( $image ) {
-            $thumb = $image['sizes'][ $size ];
-            $width = $image['sizes'][ $size . '-width' ];
+            $thumb  = $image['sizes'][ $size ];
+            $width  = $image['sizes'][ $size . '-width' ];
             $height = $image['sizes'][ $size . '-height' ];
 
             echo $link_img_start;   		
-            echo '<img src="' . $thumb . '" alt="" width="' . $width . '" height="' . $height . '" />';
+            echo '<img src="' . $thumb . '" alt="Bekijk de pagina ' . $titel . '" width="' . $width . '" height="' . $height . '" />';
             echo $link_end;   		
 
 
