@@ -11,8 +11,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.6.19
- * @desc.   Form elements. Contact form validation.
+ * @version 0.7.3
+ * @desc.   Content-blokken herzien
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -1141,16 +1141,19 @@ if( function_exists('acf_add_local_field_group') ):
   // extra contentblocks onderaan een pagina.
   // - of vrij ingevoerde links
   // - of berichten (algemeen of gefilterd op categorie)
+
+  
+
   acf_add_local_field_group(array (
   	'key' => 'group_5804cc93cxac6',
-  	'title' => 'Extra content-blokken',
+  	'title' => __( 'Content-blokken', 'wp-rijkshuisstijl' ),
   	'fields' => array (
   		array (
   			'key' => 'field_5804cd3ef7829',
   			'label'   => __( 'Voeg 1 of meer blokken toe', 'wp-rijkshuisstijl' ),
   			'name' => 'extra_contentblokken',
   			'type' => 'repeater',
-  			'instructions'   => __( 'Deze blokken bestaan uit berichten of uit links. Links moet je handmatig toevoegen. Berichten worden automatisch geselecteerd.', 'wp-rijkshuisstijl' ),
+  			'instructions'   => __( 'Deze blokken bestaan uit berichten, pagina\s of uit links. Berichten worden automatisch geselecteerd. Links moet je handmatig toevoegen. ', 'wp-rijkshuisstijl' ),
   			'required' => 0,
   			'conditional_logic' => 0,
   			'wrapper' => array (
@@ -1197,8 +1200,9 @@ if( function_exists('acf_add_local_field_group') ):
   						'id' => '',
   					),
   					'choices' => array (
-  						'algemeen' => __( 'Algemeen: zowel pagina\'s als berichten in de volgorde die ik bepaal', 'wp-rijkshuisstijl' ),
-  						'berichten' => __( 'Alleen berichten; nieuwe berichten worden automatisch toegevoegd', 'wp-rijkshuisstijl' ),
+  						'berichten'           => __( 'Automatische lijst berichten', 'wp-rijkshuisstijl' ),
+  						'berichten_paginas'   => __( 'Berichten of pagina\'s', 'wp-rijkshuisstijl' ),
+  						'algemeen'            => __( 'Vrije invoer: links in de volgorde die ik bepaal', 'wp-rijkshuisstijl' ),
   					),
   					'allow_null' => 0,
   					'other_choice' => 0,
@@ -1270,7 +1274,8 @@ if( function_exists('acf_add_local_field_group') ):
   							'placeholder' => '',
   						),
   					),
-  				),  				array (
+  				),
+  				array (
   					'key' => 'field_5804d01355657',
       			'label'   => __( 'Wil je de berichten filteren op categorie?', 'wp-rijkshuisstijl' ),
   					'name' => 'extra_contentblok_categoriefilter',
@@ -1430,6 +1435,74 @@ if( function_exists('acf_add_local_field_group') ):
   					'return_format' => 'value',
   					'placeholder' => '',
   				),
+
+  				array (
+  					'key' => 'field_58247045955a9',
+  					'label' => 'Berichten, documenten en pagina\'s',
+  					'name' => 'select_berichten_paginas',
+  					'type' => 'relationship',
+  					'instructions' => '',
+  					'required' => 1,
+  					'conditional_logic' => array (
+  						array (
+  							array (
+  								'field' => 'field_5804cde25e99a',
+  								'operator' => '==',
+  								'value' => 'berichten_paginas',
+  							),
+  						),
+  					),
+  					'wrapper' => array (
+  						'width' => '',
+  						'class' => '',
+  						'id' => '',
+  					),
+  					'post_type' => array (
+  					),
+  					'taxonomy' => array (
+  					),
+  					'filters' => array (
+  						0 => 'search',
+  						1 => 'post_type',
+  						2 => 'taxonomy',
+  					),
+  					'elements' => '',
+  					'min' => '',
+  					'max' => '',
+  					'return_format' => 'object',
+  				),
+				array (
+					'key' => 'field_58247630e21bb',
+					'label' => 'Toon samenvattingen?',
+					'name' => 'select_berichten_paginas_toon_samenvatting',
+					'type' => 'radio',
+					'instructions' => '',
+					'required' => 1,
+					'conditional_logic' => array (
+						array (
+							array (
+								'field' => 'field_5804cde25e99a',
+								'operator' => '==',
+								'value' => 'berichten_paginas',
+							),
+						),
+					),
+					'wrapper' => array (
+						'width' => '',
+						'class' => '',
+						'id' => '',
+					),
+					'choices' => array (
+						'ja' => 'Ja, toon samenvattingen onder de link.',
+						'nee' => 'Nee, toon alleen de link',
+					),
+					'allow_null' => 0,
+					'other_choice' => 0,
+					'save_other_choice' => 0,
+					'default_value' => 'nee',
+					'layout' => 'horizontal',
+					'return_format' => 'value',
+				),  				
   			),
   		),
   	),
@@ -1458,6 +1531,7 @@ if( function_exists('acf_add_local_field_group') ):
   	'active' => 1,
   	'description' => '',
   ));
+
 
 
 endif;

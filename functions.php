@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.7.2
- * @desc.   Search functions - paging
+ * @version 0.7.3
+ * @desc.   Content-blokken herzien
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -23,7 +23,7 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "http://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.7.2" );
+define( 'CHILD_THEME_VERSION',              "0.7.3" );
 define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Content-blokken herzien" );
 define( 'SHOW_CSS_DEBUG',                   false );
 
@@ -1458,13 +1458,15 @@ function rhswp_write_extra_contentblokken() {
 
         foreach( $contentblokken as $row ) {
   
-          $titel                = esc_html( $row['extra_contentblok_title'] );
-          $type_block           = esc_html( $row['extra_contentblok_type_block'] );
-          $algemeen_links       = $row['extra_contentblok_algemeen_links'];
-          $categoriefilter      = esc_html( $row['extra_contentblok_categoriefilter'] );
-          $chosen_category      = $row['extra_contentblok_chosen_category'];
-          $maxnr_posts          = esc_html( $row['extra_contentblok_maxnr_posts'] );
-          $with_featured_image  = esc_html( $row['extra_contentblok_maxnr_posts_with_featured_image'] );
+          $titel                  = esc_html( $row['extra_contentblok_title'] );
+          $type_block             = esc_html( $row['extra_contentblok_type_block'] );
+          $algemeen_links         = $row['extra_contentblok_algemeen_links'];
+          $selected_content       = $row['select_berichten_paginas'];
+          $selected_content_full  = $row['select_berichten_paginas_toon_samenvatting'];
+          $categoriefilter        = esc_html( $row['extra_contentblok_categoriefilter'] );
+          $chosen_category        = $row['extra_contentblok_chosen_category'];
+          $maxnr_posts            = esc_html( $row['extra_contentblok_maxnr_posts'] );
+          $with_featured_image    = esc_html( $row['extra_contentblok_maxnr_posts_with_featured_image'] );
 
           echo '<div class="block">';
 
@@ -1494,6 +1496,71 @@ function rhswp_write_extra_contentblokken() {
             }
           }
           elseif ( 'berichten_paginas' == $type_block ) {
+
+            if ( $titel ) {
+              echo '<h2>' . $titel . '</h2>';
+            }
+
+if ( $selected_content_full != 'ja' ) {
+  
+  echo '<ul class="links">';
+
+  foreach ( $selected_content as $post ) {
+    
+    setup_postdata($post);                
+    
+    $title  = get_the_title();
+    $url    = get_permalink();
+    if ( $title && $url ) {
+      echo '<li>';
+      echo '<a href="';
+      echo $url;
+      echo '">';
+      echo $selected_content_full . ' / ';
+      echo $title;
+      echo '</a></li>';
+    }
+  }
+  
+  echo '</ul>';
+}
+else {
+
+  foreach ( $selected_content as $post ) {
+    
+    setup_postdata($post);                
+
+    $postcounter++;
+
+    $doimage = false;
+    
+    $classattr = genesis_attr( 'entry' );
+
+    do_action( 'genesis_before_entry' );
+
+    $classattr  = str_replace( 'has-post-thumbnail', '', $classattr );
+
+    $permalink  = get_permalink();
+    $excerpt    = wp_strip_all_tags( get_the_excerpt( $post ) );
+
+    if ( !$excerpt ) {
+      $excerpt = get_the_title();
+    }
+    $postdate   = '';
+    if ( 'post'    == get_post_type() ) {
+        $postdate   = get_the_date( );
+    }
+    
+    printf( '<article %s>', $classattr );
+    printf( '<a href="%s"><h3>%s</h3><p>%s</p><p class="meta">%s</p></a>', get_permalink(), get_the_title(), $excerpt, $postdate );
+    echo '</article>';
+    
+    do_action( 'genesis_after_entry' );
+
+  }
+  
+}
+
           }
           elseif ( 'berichten' == $type_block ) {
             if ( $titel ) {

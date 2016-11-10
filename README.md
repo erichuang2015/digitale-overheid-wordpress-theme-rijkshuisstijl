@@ -83,6 +83,7 @@ themes/wp-rijkshuisstijl/                     # → Folder met alle theme-bestan
 
 ## Version history
 
+0.7.3 - Content-blokken herzien 
 0.7.2 - Search functions - paging 
 0.7.1 - Search functions - search via SearchWP 
 0.6.35 - Screen reader response added for CF7 
