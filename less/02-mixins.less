@@ -7,8 +7,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.6.19
-// * @desc.   01-home .blocks, pagination, 404 content list, translation updated.
+// * @version 0.7.2
+// * @desc.   Search functions - paging
 // * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 // **
 
@@ -17,6 +17,7 @@
 
 @strokeheight: 		        43px;
 @pixel:                   1px;
+@prem:                    1rem;
 @viewport:                1vw;
 @basefontsize:            12;
 @basefont:                ( @basefontsize * @pixel );
@@ -48,8 +49,7 @@
 @logowidth:             450px;
 @logoheight:            92px;
 
-@gutter:                16px;
-@padding:               16px;
+@padding:               1em;
 @contentpadding:        @padding;
 
 @position_navbar:       180px;
@@ -270,7 +270,7 @@
 
 .font-size(@input: 16) {
     font-size: ( ( ( @input / @basefontsize ) * @basefontsize ) * @pixel );
-//    font-size: ( ( @input / @basefontsize )  * @viewport );
+    font-size: ( ( @input / @basefontsize ) * @prem );
 }
 
 //=========================================================================================================

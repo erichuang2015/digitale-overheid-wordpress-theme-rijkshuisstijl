@@ -87,16 +87,6 @@
 		"oF": 0,
 		"oS": 0
 		},
-	"\/css\/style.css": {
-		"aP": 0,
-		"bl": 0,
-		"ft": 16,
-		"ma": 0,
-		"oA": 2,
-		"oAP": "\/css\/style-ck.css",
-		"oF": 0,
-		"oS": 0
-		},
 	"\/deleteme-code-voor-dossier-checker.html": {
 		"ft": 8192,
 		"oA": 0,
@@ -422,6 +412,24 @@
 		"oAP": "\/images\/opmaak-verwijderen.png",
 		"oF": 0,
 		"opt": 0
+		},
+	"\/images\/rhs-icons.png": {
+		"ft": 32768,
+		"iS": 44686,
+		"oA": 0,
+		"oAP": "\/images\/rhs-icons.png",
+		"oF": 0,
+		"opt": 1
+		},
+	"\/images\/rhs-icons.svg": {
+		"ft": 2097152,
+		"miP": 0,
+		"oA": 2,
+		"oAP": "\/images\/rhs-icons.svg",
+		"oF": 0,
+		"opt": 0,
+		"plM": 3758088159,
+		"prP": 0
 		},
 	"\/images\/search-button.png": {
 		"ft": 32768,
@@ -914,9 +922,9 @@
 		"ie": 1,
 		"iI": 0,
 		"ma": 0,
-		"oA": 0,
+		"oA": 1,
 		"oAP": "\/css\/11-things-with-icons.css",
-		"oF": 0,
+		"oF": 1,
 		"oS": 0,
 		"rU": 0,
 		"sI": 0,
@@ -1104,7 +1112,7 @@
 		"oA": 0,
 		"oAP": "\/css\/editor-styles.css",
 		"oF": 0,
-		"oS": 0,
+		"oS": 1,
 		"rU": 0,
 		"sI": 0,
 		"sM": 0,
@@ -1155,7 +1163,7 @@
 		"oA": 0,
 		"oAP": "\/style.css",
 		"oF": 2,
-		"oS": 0,
+		"oS": 1,
 		"rU": 0,
 		"sI": 0,
 		"sM": 0,

@@ -9,8 +9,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.7.1
- * @desc.   Search functions - search via SearchWP
+ * @version 0.7.2
+ * @desc.   Search functions - paging
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -48,7 +48,7 @@ function rhswp_add_search_description() {
 
   $search_text = get_search_query() ? apply_filters( 'the_search_query', get_search_query() ) : apply_filters( 'genesis_search_text', __( 'Search this website', 'genesis' ) . ' &#x02026;' );
     
-  echo '<h1>' . __( "Zoekresultaat voor ", 'wp-rijkshuisstijl' ) . ' ' . $search_text . '"</h1>';
+  echo '<h1>' . __( "Zoekresultaat voor ", 'wp-rijkshuisstijl' ) . ' "' . $search_text . '"</h1>';
   
   get_search_form();
   
@@ -59,7 +59,7 @@ function rhswp_add_search_description_without_searchwp() {
 
   $search_text = get_search_query() ? apply_filters( 'the_search_query', get_search_query() ) : apply_filters( 'genesis_search_text', __( 'Search this website', 'genesis' ) . ' &#x02026;' );
     
-  echo '<h1>' . __( "Zoekresultaat voor ", 'wp-rijkshuisstijl' ) . ' ' . $search_text . '"</h1>';
+  echo '<h1>' . __( "Zoekresultaat voor ", 'wp-rijkshuisstijl' ) . ' "' . $search_text . '"</h1>';
 
   dodebug( ' searchWP plugin wordt niet gebruikt ' );
   
@@ -157,6 +157,12 @@ function rhswp_archive_custom_search_with_searchWP() {
       endforeach; 
 
       echo '</div>';
+
+      wp_reset_postdata();
+
+      genesis_posts_nav();
+
+
 
     endif; 
 

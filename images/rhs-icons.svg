@@ -1,0 +1,423 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1174" height="506" viewBox="0 0 1174 506" version="1.1">
+  <title>
+    rhs-icons
+  </title>
+  <desc>
+    Created with Sketch.
+  </desc>
+  <defs>
+    <rect id="path-1" x="0" y="0" width="64" height="64"/>
+    <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="64" height="64" fill="white">
+      <use xlink:href="#path-1"/>
+    </mask>
+    <rect id="path-3" x="0" y="0" width="64" height="64"/>
+    <mask id="mask-4" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="64" height="64" fill="white">
+      <use xlink:href="#path-3"/>
+    </mask>
+    <rect id="path-5" x="0" y="0" width="64" height="64"/>
+    <mask id="mask-6" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="64" height="64" fill="white">
+      <use xlink:href="#path-5"/>
+    </mask>
+    <rect id="path-7" x="0" y="0" width="64" height="64"/>
+    <mask id="mask-8" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="64" height="64" fill="white">
+      <use xlink:href="#path-7"/>
+    </mask>
+    <rect id="path-9" x="0" y="0" width="64" height="64"/>
+    <mask id="mask-10" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="64" height="64" fill="white">
+      <use xlink:href="#path-9"/>
+    </mask>
+    <rect id="path-11" x="0" y="0" width="64" height="64"/>
+    <mask id="mask-12" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="64" height="64" fill="white">
+      <use xlink:href="#path-11"/>
+    </mask>
+    <rect id="path-13" x="0" y="0" width="64" height="64"/>
+    <mask id="mask-14" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="64" height="64" fill="white">
+      <use xlink:href="#path-13"/>
+    </mask>
+    <rect id="path-15" x="0" y="0" width="64" height="64"/>
+    <mask id="mask-16" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="64" height="64" fill="white">
+      <use xlink:href="#path-15"/>
+    </mask>
+    <rect id="path-17" x="0" y="0" width="64" height="64"/>
+    <mask id="mask-18" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="64" height="64" fill="white">
+      <use xlink:href="#path-17"/>
+    </mask>
+    <rect id="path-19" x="0" y="0" width="64" height="64"/>
+    <mask id="mask-20" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="64" height="64" fill="white">
+      <use xlink:href="#path-19"/>
+    </mask>
+    <rect id="path-21" x="0" y="0" width="64" height="64"/>
+    <mask id="mask-22" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="64" height="64" fill="white">
+      <use xlink:href="#path-21"/>
+    </mask>
+    <rect id="path-23" x="0" y="0" width="64" height="64"/>
+    <mask id="mask-24" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="64" height="64" fill="white">
+      <use xlink:href="#path-23"/>
+    </mask>
+    <rect id="path-25" x="0" y="0" width="64" height="64"/>
+    <mask id="mask-26" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="64" height="64" fill="white">
+      <use xlink:href="#path-25"/>
+    </mask>
+    <rect id="path-27" x="0" y="0" width="64" height="64"/>
+    <mask id="mask-28" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="64" height="64" fill="white">
+      <use xlink:href="#path-27"/>
+    </mask>
+    <rect id="path-29" x="0" y="0" width="64" height="64"/>
+    <mask id="mask-30" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="64" height="64" fill="white">
+      <use xlink:href="#path-29"/>
+    </mask>
+    <rect id="path-31" x="0" y="0" width="64" height="64"/>
+    <mask id="mask-32" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="64" height="64" fill="white">
+      <use xlink:href="#path-31"/>
+    </mask>
+    <rect id="path-33" x="0" y="0" width="64" height="64"/>
+    <mask id="mask-34" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="64" height="64" fill="white">
+      <use xlink:href="#path-33"/>
+    </mask>
+    <rect id="path-35" x="0" y="0" width="64" height="64"/>
+    <mask id="mask-36" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="64" height="64" fill="white">
+      <use xlink:href="#path-35"/>
+    </mask>
+    <rect id="path-37" x="0" y="0" width="64" height="64"/>
+    <mask id="mask-38" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="64" height="64" fill="white">
+      <use xlink:href="#path-37"/>
+    </mask>
+    <rect id="path-39" x="0" y="0" width="64" height="64"/>
+    <mask id="mask-40" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="64" height="64" fill="white">
+      <use xlink:href="#path-39"/>
+    </mask>
+    <rect id="path-41" x="0" y="0" width="64" height="64"/>
+    <mask id="mask-42" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="64" height="64" fill="white">
+      <use xlink:href="#path-41"/>
+    </mask>
+    <rect id="path-43" x="0" y="0" width="64" height="64"/>
+    <mask id="mask-44" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="64" height="64" fill="white">
+      <use xlink:href="#path-43"/>
+    </mask>
+    <rect id="path-45" x="0" y="0" width="64" height="64"/>
+    <mask id="mask-46" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="64" height="64" fill="white">
+      <use xlink:href="#path-45"/>
+    </mask>
+    <rect id="path-47" x="0" y="0" width="64" height="64"/>
+    <mask id="mask-48" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="64" height="64" fill="white">
+      <use xlink:href="#path-47"/>
+    </mask>
+    <rect id="path-49" x="0" y="0" width="64" height="64"/>
+    <mask id="mask-50" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="64" height="64" fill="white">
+      <use xlink:href="#path-49"/>
+    </mask>
+    <rect id="path-51" x="0" y="0" width="64" height="64"/>
+    <mask id="mask-52" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="64" height="64" fill="white">
+      <use xlink:href="#path-51"/>
+    </mask>
+    <rect id="path-53" x="0" y="0" width="64" height="64"/>
+    <mask id="mask-54" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="64" height="64" fill="white">
+      <use xlink:href="#path-53"/>
+    </mask>
+    <rect id="path-55" x="0" y="0" width="64" height="64"/>
+    <mask id="mask-56" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="64" height="64" fill="white">
+      <use xlink:href="#path-55"/>
+    </mask>
+    <rect id="path-57" x="0" y="0" width="64" height="64"/>
+    <mask id="mask-58" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="64" height="64" fill="white">
+      <use xlink:href="#path-57"/>
+    </mask>
+    <rect id="path-59" x="0" y="0" width="64" height="64"/>
+    <mask id="mask-60" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="64" height="64" fill="white">
+      <use xlink:href="#path-59"/>
+    </mask>
+    <rect id="path-61" x="0" y="0" width="64" height="64"/>
+    <mask id="mask-62" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="64" height="64" fill="white">
+      <use xlink:href="#path-61"/>
+    </mask>
+    <rect id="path-63" x="0" y="0" width="64" height="64"/>
+    <mask id="mask-64" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="64" height="64" fill="white">
+      <use xlink:href="#path-63"/>
+    </mask>
+    <rect id="path-65" x="0" y="0" width="64" height="64"/>
+    <mask id="mask-66" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="64" height="64" fill="white">
+      <use xlink:href="#path-65"/>
+    </mask>
+  </defs>
+  <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+    <g id="rhs-icons">
+      <g id="icon-warning" transform="translate(25.000000, 26.000000)">
+        <g id="box-background" transform="translate(0.882439, 0.315100)" stroke="#FF0000" stroke-width="2">
+          <use id="Rectangle-path" mask="url(#mask-2)" xlink:href="#path-1"/>
+        </g>
+        <g id="Group-2" transform="translate(10.382439, 9.815100)">
+          <rect id="background" fill="#D0011B" x="0" y="0" width="44.7" height="44.7"/>
+          <path d="M17.8 7L26.8 7 26.8 13.9 25 27.7 19.5 27.7 17.8 13.9 17.8 7ZM18.1 29.8L26.5 29.8 26.5 37.2 18.1 37.2 18.1 29.8Z" id="exclamation" fill="#FFFFFF"/>
+        </g>
+      </g>
+      <g id="icon-arrow-fat-up" transform="translate(114.000000, 26.000000)">
+        <g id="box-background" transform="translate(0.882439, 0.315100)" stroke="#FF0000" stroke-width="2">
+          <use id="Rectangle-path" mask="url(#mask-4)" xlink:href="#path-3"/>
+        </g>
+        <path d="M48.4 32.3C48.4 32.9 48.3 33.4 48.2 33.8 48 34.2 47.7 34.6 47.2 35.1 40.3 42 31.6 50.7 26.4 55.9 26 56.3 25.6 56.6 25.1 56.8 24.7 57 24.2 57.1 23.6 57.1 23 57.1 22.6 57 22.1 56.8 21.7 56.6 21.3 56.3 20.8 55.9 20.1 55.2 19.1 54.2 18.5 53.6 18.1 53.2 17.8 52.8 17.6 52.2 17.4 51.7 17.3 51.2 17.3 50.8 17.3 50.2 17.4 49.7 17.6 49.3 17.8 48.9 18.1 48.4 18.5 48 23.6 42.8 30.1 36.2 33.9 32.3 30.1 28.5 22.4 20.9 18.6 17.1 18.2 16.7 17.9 16.3 17.7 15.7 17.5 15.2 17.4 14.8 17.4 14.3 17.4 13.7 17.5 13.2 17.7 12.8 17.9 12.4 18.2 11.9 18.6 11.5 19.3 10.6 20.3 9.4 20.9 8.7 21.3 8.3 21.7 8 22.1 7.8 22.6 7.7 23.1 7.6 23.7 7.6 24.3 7.6 24.8 7.7 25.2 7.8 25.6 8 26 8.3 26.5 8.7 33.4 15.7 42 24.4 47.2 29.6 47.6 30 47.9 30.4 48.1 30.8 48.3 31.2 48.4 31.7 48.4 32.3L48.4 32.3 48.4 32.3Z" id="path" fill="#000000" transform="translate(32.882439, 32.315100) rotate(270.000000) translate(-32.882439, -32.315100) "/>
+      </g>
+      <g id="icon-arrow-fat-downd" transform="translate(199.000000, 26.000000)">
+        <g id="box-background" transform="translate(0.882439, 0.315100)" stroke="#FF0000" stroke-width="2">
+          <use id="Rectangle-path" mask="url(#mask-6)" xlink:href="#path-5"/>
+        </g>
+        <path d="M48.4 32.3C48.4 32.9 48.3 33.4 48.2 33.8 48 34.2 47.7 34.6 47.2 35.1 40.3 42 31.6 50.7 26.4 55.9 26 56.3 25.6 56.6 25.1 56.8 24.7 57 24.2 57.1 23.6 57.1 23 57.1 22.6 57 22.1 56.8 21.7 56.6 21.3 56.3 20.8 55.9 20.1 55.2 19.1 54.2 18.5 53.6 18.1 53.2 17.8 52.8 17.6 52.2 17.4 51.7 17.3 51.2 17.3 50.8 17.3 50.2 17.4 49.7 17.6 49.3 17.8 48.9 18.1 48.4 18.5 48 23.6 42.8 30.1 36.2 33.9 32.3 30.1 28.5 22.4 20.9 18.6 17.1 18.2 16.7 17.9 16.3 17.7 15.7 17.5 15.2 17.4 14.8 17.4 14.3 17.4 13.7 17.5 13.2 17.7 12.8 17.9 12.4 18.2 11.9 18.6 11.5 19.3 10.6 20.3 9.4 20.9 8.7 21.3 8.3 21.7 8 22.1 7.8 22.6 7.7 23.1 7.6 23.7 7.6 24.3 7.6 24.8 7.7 25.2 7.8 25.6 8 26 8.3 26.5 8.7 33.4 15.7 42 24.4 47.2 29.6 47.6 30 47.9 30.4 48.1 30.8 48.3 31.2 48.4 31.7 48.4 32.3L48.4 32.3 48.4 32.3Z" id="path" fill="#000000" transform="translate(32.882439, 32.315100) rotate(90.000000) translate(-32.882439, -32.315100) "/>
+      </g>
+      <g id="icon-arrow-fat-right" transform="translate(284.000000, 26.000000)">
+        <g id="box-background" transform="translate(0.039604, 0.000000)" stroke="#FF0000" stroke-width="2">
+          <use id="Rectangle-path" mask="url(#mask-8)" xlink:href="#path-7"/>
+        </g>
+        <path d="M47.6 32C47.6 32.6 47.5 33.1 47.3 33.5 47.1 33.9 46.8 34.3 46.4 34.8 39.4 41.7 30.8 50.4 25.5 55.6 25.1 56 24.7 56.3 24.3 56.5 23.9 56.7 23.4 56.8 22.8 56.8 22.2 56.8 21.7 56.7 21.3 56.5 20.9 56.3 20.4 56 20 55.6 19.2 54.8 18.3 53.9 17.7 53.3 17.3 52.9 17 52.4 16.8 51.9 16.6 51.4 16.5 50.9 16.5 50.5 16.5 49.9 16.6 49.4 16.8 49 16.9 48.6 17.2 48.1 17.7 47.7 22.8 42.5 29.2 35.9 33.1 32 29.2 28.2 21.6 20.6 17.7 16.7 17.4 16.4 17.1 15.9 16.9 15.4 16.7 14.9 16.6 14.4 16.6 14 16.6 13.4 16.7 12.9 16.9 12.5 17 12.1 17.3 11.6 17.7 11.2 18.5 10.3 19.5 9.1 20 8.4 20.4 8 20.9 7.7 21.3 7.5 21.7 7.3 22.2 7.2 22.8 7.2 23.4 7.2 23.9 7.3 24.3 7.5 24.7 7.7 25.2 8 25.6 8.4 32.5 15.4 41.2 24.1 46.4 29.3 46.8 29.7 47.1 30.1 47.3 30.5 47.5 30.9 47.6 31.4 47.6 32L47.6 32 47.6 32Z" id="path" fill="#000000"/>
+      </g>
+      <g id="icon-arrow-fat-left" transform="translate(369.000000, 26.000000)">
+        <g id="box-background" transform="translate(0.316832, 0.000000)" stroke="#FF0000" stroke-width="2">
+          <use id="Rectangle-path" mask="url(#mask-10)" xlink:href="#path-9"/>
+        </g>
+        <path d="M16.8 31.9C16.8 31.4 16.9 30.9 17 30.5 17.2 30.1 17.5 29.6 18 29.2 24.9 22.2 33.6 13.5 38.8 8.3 39.2 7.9 39.6 7.7 40.1 7.5 40.5 7.3 41 7.2 41.5 7.2 42.1 7.2 42.6 7.3 43.1 7.5 43.5 7.7 43.9 7.9 44.4 8.3 45.1 9.1 46.1 10.1 46.7 10.7 47.1 11.1 47.4 11.5 47.6 12 47.8 12.5 47.9 13 47.9 13.5 47.9 14 47.8 14.5 47.6 15 47.4 15.4 47.1 15.8 46.7 16.2 41.6 21.5 35.1 28 31.3 31.9 35.1 35.8 42.8 43.4 46.6 47.3 47 47.6 47.3 48.1 47.5 48.6 47.7 49.1 47.8 49.6 47.8 50 47.8 50.6 47.7 51.1 47.5 51.5 47.3 51.9 47 52.4 46.6 52.8 45.9 53.8 44.9 54.9 44.3 55.6 43.9 56 43.5 56.3 43.1 56.5 42.6 56.7 42.1 56.8 41.5 56.8 40.9 56.8 40.4 56.7 40 56.5 39.6 56.3 39.2 56 38.7 55.6 31.8 48.7 23.2 40 18 34.7 17.6 34.3 17.3 33.9 17.1 33.5 16.9 33 16.8 32.5 16.8 31.9L16.8 31.9 16.8 31.9Z" id="path" fill="#000000"/>
+      </g>
+      <g id="icon-search" transform="translate(454.000000, 26.000000)">
+        <g id="box-background" transform="translate(0.500000, 0.401782)" stroke="#FF0000" stroke-width="2">
+          <use id="Rectangle-path" mask="url(#mask-12)" xlink:href="#path-11"/>
+        </g>
+        <path d="M53.9 48.5C51.5 46.1 46.7 41.4 44.3 39 44.3 39 44.2 39 44.2 38.9 44.2 38.9 44.1 38.9 44.1 38.9 45.1 37.4 45.9 35.9 46.4 34.2 46.9 32.5 47.1 30.8 47.1 28.9 47.1 25.7 46.3 22.7 44.6 19.9 43 17.2 40.9 15 38.2 13.4 35.3 11.8 32.3 11 29 11 25.8 11 22.7 11.8 19.9 13.4 17.2 15 15 17.2 13.4 19.9 11.7 22.7 10.9 25.7 10.9 29 10.9 32.2 11.7 35.2 13.4 38 15 40.7 17.2 42.9 19.9 44.4 22.7 46.1 25.7 46.9 29 46.9 30.8 46.9 32.6 46.7 34.3 46.2 36 45.7 37.5 44.9 39 44 39 44 39.1 44.1 39.1 44.1 39.1 44.1 39.1 44.1 39.1 44.1 42.3 47.3 46.3 51.2 48.7 53.6 49.4 54.3 50.3 54.7 51.3 54.7 52.4 54.7 53.2 54.3 53.9 53.6 54.7 52.9 55 52 55 51 55 50.1 54.6 49.2 53.9 48.5L53.9 48.5ZM29 40.7C26.9 40.7 24.9 40.2 23.1 39.1 21.3 38.1 19.8 36.6 18.7 34.8 17.7 33 17.2 31.1 17.2 28.9 17.2 26.8 17.7 24.9 18.7 23.1 19.8 21.3 21.3 19.9 23.1 18.8 24.9 17.7 26.9 17.2 29 17.2 31.1 17.2 33.1 17.7 34.9 18.8 36.8 19.9 38.2 21.3 39.3 23.1 40.3 24.9 40.8 26.8 40.8 28.9 40.8 31.1 40.3 33 39.3 34.8 38.2 36.6 36.8 38.1 34.9 39.1 33.1 40.2 31.1 40.7 29 40.7L29 40.7Z" id="looking-glass" fill="#000000"/>
+      </g>
+      <g id="icon-rss" transform="translate(539.000000, 26.000000)">
+        <g id="box-background" stroke="#FF0000" stroke-width="2">
+          <use id="Rectangle-path" mask="url(#mask-14)" xlink:href="#path-13"/>
+        </g>
+        <path d="M13.5 42.9C12.3 42.9 11.3 43.2 10.3 43.8 9.3 44.4 8.5 45.1 7.9 46.2 7.3 47.1 7 48.2 7 49.4 7 50.6 7.3 51.7 7.9 52.7 8.5 53.7 9.3 54.5 10.3 55 11.3 55.6 12.3 55.9 13.5 55.9 14.7 55.9 15.8 55.6 16.8 55 17.8 54.5 18.6 53.7 19.1 52.7 19.7 51.7 20 50.6 20 49.4 20 48.3 19.7 47.2 19.1 46.2 18.6 45.2 17.8 44.4 16.8 43.8 15.8 43.2 14.7 42.9 13.5 42.9L13.5 42.9ZM7 23.6L7 33C10.1 33 13 33.6 15.8 34.8 18.6 35.9 21 37.6 23.2 39.7 25.4 41.9 27 44.4 28.2 47.2 29.4 50 30 52.9 30 56L39.4 56C39.4 51.6 38.5 47.4 36.8 43.4 35.2 39.5 32.9 36.1 29.9 33.1 26.9 30.1 23.5 27.8 19.6 26.2 15.6 24.5 11.4 23.6 7 23.6L7 23.6ZM7 7L7 16.4C12.4 16.4 17.5 17.4 22.4 19.5 27.1 21.6 31.3 24.4 35 28 38.6 31.7 41.4 35.9 43.5 40.6 45.6 45.5 46.6 50.6 46.6 56L56 56C56 49.4 54.7 43 52.1 37 49.7 31.1 46.2 25.9 41.6 21.4 37.1 16.8 31.9 13.3 26 10.9 20 8.3 13.6 7 7 7Z" id="rss" fill="#000000"/>
+      </g>
+      <g id="icon-arrow-thin-right" transform="translate(623.000000, 26.000000)">
+        <g id="box-background" transform="translate(0.000000, 0.500000)" stroke="#FF0000" stroke-width="2">
+          <use id="Rectangle-path" mask="url(#mask-16)" xlink:href="#path-15"/>
+        </g>
+        <g id="icon" transform="translate(7.000000, 11.000000)" fill="#000000">
+          <polygon id="pijl" points="38.6 18.2 0 18.2 0 24.6 37.3 24.6 24.8 37.7 29.3 42.1 49.5 21.3 29.3 0.5 24.8 5.3 37.9 18.6"/>
+        </g>
+      </g>
+      <g id="icon-arrow-thin-left" transform="translate(707.000000, 26.000000)">
+        <g id="box-background" stroke="#FF0000" stroke-width="2">
+          <use id="Rectangle-path" mask="url(#mask-18)" xlink:href="#path-17"/>
+        </g>
+        <g id="icon" transform="translate(7.000000, 10.500000)" fill="#000000">
+          <polygon id="pijl" transform="translate(24.752475, 21.287129) rotate(180.000000) translate(-24.752475, -21.287129) " points="38.6 18.2 0 18.2 0 24.6 37.3 24.6 24.8 37.7 29.3 42.1 49.5 21.3 29.3 0.5 24.8 5.3 37.9 18.6"/>
+        </g>
+      </g>
+      <g id="icon-arrow-thin-bottom" transform="translate(791.000000, 26.000000)">
+        <g id="box-background" stroke="#FF0000" stroke-width="2">
+          <use id="Rectangle-path" mask="url(#mask-20)" xlink:href="#path-19"/>
+        </g>
+        <g id="icon" transform="translate(10.500000, 6.500000)" fill="#000000">
+          <polygon id="pijl" transform="translate(21.752475, 25.287129) rotate(90.000000) translate(-21.752475, -25.287129) " points="35.6 22.2 -3 22.2 -3 28.6 34.3 28.6 21.8 41.7 26.3 46.1 46.5 25.3 26.3 4.5 21.8 9.3 34.9 22.6"/>
+        </g>
+      </g>
+      <g id="icon-arrow-thin-top" transform="translate(25.000000, 115.000000)">
+        <g id="box-background" stroke="#FF0000" stroke-width="2">
+          <use id="Rectangle-path" mask="url(#mask-22)" xlink:href="#path-21"/>
+        </g>
+        <g id="icon" transform="translate(10.500000, 6.500000)" fill="#000000">
+          <polygon id="pijl" transform="translate(21.752475, 25.287129) rotate(270.000000) translate(-21.752475, -25.287129) " points="35.6 22.2 -3 22.2 -3 28.6 34.3 28.6 21.8 41.7 26.3 46.1 46.5 25.3 26.3 4.5 21.8 9.3 34.9 22.6"/>
+        </g>
+      </g>
+      <g id="icon-external-link" transform="translate(109.000000, 115.000000)">
+        <g id="box-background" stroke="#FF0000" stroke-width="2">
+          <use id="Rectangle-path" mask="url(#mask-24)" xlink:href="#path-23"/>
+        </g>
+        <g id="Group-3" transform="translate(7.000000, 7.000000)" fill="#000000">
+          <path d="M40.6 32.4C42.1 32.4 45.3 32.4 46.9 32.4L46.9 49.5 40.6 49.5 40.6 32.4 40.6 32.4ZM0.3 43.1C10.7 43.1 31.6 43.1 42 43.1L42 49.5 0.3 49.5 0.3 43.1 0.3 43.1ZM0.3 8.9C1.9 8.9 5.1 8.9 6.7 8.9L6.7 43.1 0.3 43.1C0.3 34.5 0.3 17.4 0.3 8.9L0.3 8.9ZM0.3 3.3L17.4 3.3 17.4 9.7 0.3 9.7 0.3 3.3 0.3 3.3ZM19.2 28C24.8 21.6 35.9 9 41.4 2.6 42.6 3.7 45 5.8 46.2 6.8 40.7 13.2 29.6 25.9 24.1 32.2 22.9 31.1 20.5 29 19.2 28L19.2 28ZM49.1 0.1C49.1 1.5 49.1 4.2 49.1 5.5 43.2 5.5 31.4 5.4 25.5 5.3L25.5 0C31.4 0 43.2 0.1 49.1 0.1L49.1 0.1ZM49.1 23.7L43.7 23.7C43.8 17.8 43.8 6 43.9 0.1L49.2 0.1C49.2 6 49.1 17.8 49.1 23.7L49.1 23.7Z" id="right"/>
+        </g>
+      </g>
+      <g id="icon-download" transform="translate(193.000000, 115.000000)">
+        <g id="box-background" transform="translate(0.465347, 0.000000)" stroke="#FF0000" stroke-width="2">
+          <use id="Rectangle-path" mask="url(#mask-26)" xlink:href="#path-25"/>
+        </g>
+        <path d="M49.8 20.8C49.5 20.4 49 20 48.4 19.8 48 19.6 47.4 19.4 46.8 19.4 46.3 19.4 45.9 19.4 45.4 19.5 45.2 19.5 45 19.6 44.9 19.6 43 20.9 39.2 23.4 37.3 24.7L37.3 8.5C37.3 8.4 37.3 8.3 37.3 8.2 37.3 7.9 37.2 7.7 37 7.5 36.8 7.3 36.5 7.2 36.1 7.2L28.6 7.2C28.2 7.2 27.9 7.3 27.7 7.5 27.5 7.7 27.4 7.9 27.4 8.2 27.4 8.3 27.4 8.4 27.3 8.5L27.3 24.7C25.5 23.4 21.7 20.9 19.9 19.6 19.7 19.6 19.4 19.5 19.3 19.5 18.8 19.4 18.4 19.4 17.9 19.4 17.3 19.4 16.8 19.6 16.3 19.8 15.7 20 15.2 20.4 14.8 20.8 14.3 21.6 14 22.4 14 23.2 14 23.8 14.1 24.5 14.3 25.1 14.5 25.5 14.7 25.8 14.8 25.9 14.9 25.9 15.7 26.9 17.4 29 19.6 31.6 21.4 33.8 22.8 35.5 25.2 38.3 27.1 40.5 28.6 42.1 29.2 42.7 29.8 43.2 30.5 43.6 30.9 44 31.4 44.2 31.8 44.4 32 44.4 32.2 44.5 32.3 44.5 32.4 44.5 32.7 44.4 32.8 44.4 33.3 44.2 33.7 44 34.2 43.6 34.8 43.2 35.4 42.7 36 42.1 37.5 40.5 39.4 38.3 41.7 35.5 42.9 34.1 44.7 31.9 47.2 29 48.9 26.9 49.7 25.9 49.8 25.9 50 25.8 50.1 25.5 50.3 25.1 50.6 24.5 50.7 23.8 50.7 23.2 50.7 22.4 50.4 21.6 49.8 20.8L49.8 20.8ZM54.3 54.3C54.3 51.9 54.3 47 54.3 44.6L48.3 44.6 48.3 48.2C48.3 48.6 48.2 48.9 47.9 49.1 47.8 49.3 47.6 49.4 47.3 49.4 47.2 49.4 47.1 49.5 47 49.5L17.9 49.5C17.8 49.5 17.6 49.4 17.5 49.4 17.3 49.4 17.1 49.3 16.9 49.1 16.7 48.9 16.6 48.6 16.6 48.2L16.6 44.6 10.6 44.6 10.6 54.3 10.6 54.7C10.6 55 10.7 55.3 10.8 55.5 11 55.9 11.2 56.2 11.6 56.4 12 56.6 12.5 56.8 13.1 56.8L52 56.8C52.6 56.8 53.1 56.6 53.5 56.4 53.8 56.2 54 55.9 54.2 55.5 54.3 55.3 54.3 55 54.3 54.7L54.3 54.3 54.3 54.3Z" id="path" fill="#000000"/>
+      </g>
+      <g id="icon-close" transform="translate(278.000000, 115.000000)">
+        <path d="M8 15.2C9.8 13.4 13.4 9.8 15.2 8 19.6 12.4 28.4 21.2 32.8 25.6 37.2 21.2 45.9 12.4 50.3 8 52.1 9.8 55.7 13.4 57.5 15.2 53.1 19.6 44.3 28.3 39.9 32.7 44.3 37.1 53.1 45.9 57.5 50.3 55.7 52.1 52.1 55.7 50.3 57.5 45.9 53.1 37.2 44.3 32.8 39.9 28.4 44.3 19.6 53.1 15.2 57.5 13.4 55.7 9.8 52.1 8 50.3 12.4 45.9 21.2 37.1 25.6 32.7 21.2 28.3 12.4 19.6 8 15.2L8 15.2Z" id="path" fill="#000000"/>
+        <g id="box-background" transform="translate(0.752475, 0.752475)" stroke="#FF0000" stroke-width="2">
+          <use id="Rectangle-path" mask="url(#mask-28)" xlink:href="#path-27"/>
+        </g>
+      </g>
+      <g id="2015" transform="translate(363.000000, 115.000000)">
+        <g id="box-background" stroke="#FF0000" stroke-width="2">
+          <use id="Rectangle-path" mask="url(#mask-30)" xlink:href="#path-29"/>
+        </g>
+        <g id="icon" transform="translate(9.000000, 9.000000)" fill="#000000">
+          <path d="M44.9 5.1C44.5 3.1 42.9 1.5 40.9 1.1 34.9 0.2 25 0.2 23 0.2 21 0.2 11.1 0.2 5.1 1.1 3.1 1.5 1.5 3.1 1.1 5.1 0.2 11.1 0.2 21 0.2 23 0.2 25 0.2 34.9 1.1 40.9 1.5 42.9 3.1 44.5 5.1 44.9 11.1 45.8 21 45.8 23 45.8 25 45.8 34.9 45.8 40.9 44.9 42.9 44.5 44.5 42.9 44.9 40.9 45.8 34.9 45.8 25 45.8 23 45.8 17 45.8 11.1 44.9 5.1ZM11.5 39.5C8.2 39.5 6.5 37.8 6.5 34.5 6.5 31.2 8.2 29.5 11.5 29.5 14.8 29.5 16.5 31.2 16.5 34.5 16.5 37.8 14.8 39.5 11.5 39.5ZM26.1 40C25.1 40 24 40 22.9 40 22 40 21 40 20.1 40 21 38.5 21.5 36.7 21.5 34.6 21.5 28.6 17.4 24.5 11.4 24.5 9.3 24.5 7.5 25 6 25.9 6 25 6 24 6 23.1 6 22 6 20.9 6 19.9 7.7 19.3 9.5 19 11.4 19 20.4 19 27 25.6 27 34.6 27 36.5 26.7 38.3 26.1 40ZM38.2 39.3C36.4 39.5 34.3 39.7 31.9 39.8 32.3 38.2 32.5 36.4 32.5 34.6 32.5 22.6 23.4 13.5 11.4 13.5 9.6 13.5 7.8 13.7 6.2 14.1 6.3 11.7 6.5 9.6 6.7 7.8 8.2 7.6 9.8 7.5 11.4 7.5 26.9 7.5 38.5 19.1 38.5 34.6 38.5 36.3 38.4 37.8 38.2 39.3Z" id="Shape"/>
+        </g>
+      </g>
+      <g id="2028" transform="translate(447.000000, 115.000000)">
+        <g id="box-background" stroke="#FF0000" stroke-width="2">
+          <use id="Rectangle-path" mask="url(#mask-32)" xlink:href="#path-31"/>
+        </g>
+        <g id="Icon" transform="translate(6.000000, 4.000000)" fill="#000000">
+          <path d="M42 38C40 38 38.1 38.7 36.6 39.8L17.9 29.1C18 28.8 18 28.4 18 28 18 25.9 17.3 23.9 16 22.4 16.1 22.3 16.3 22.3 16.5 22.4 16.9 22.7 18.3 23.7 19.9 25.8L36.6 16.2C38.1 17.3 40 18 42 18 47 18 51 14 51 9 51 4 47 0 42 0 37 0 33 4 33 9 33 9.4 33 9.7 33.1 10.1L14.5 20.9C12.9 19.7 11.1 19 9 19 4 19 0 23 0 28 0 33 4 37 9 37 11 37 12.9 36.3 14.4 35.2L33.1 45.9C33 46.3 33 46.6 33 47 33 52 37 56 42 56 47 56 51 52 51 47 51 42 47 38 42 38Z" id="Shape"/>
+        </g>
+      </g>
+      <g id="2012" transform="translate(531.000000, 115.000000)">
+        <g id="box-background" stroke="#FF0000" stroke-width="2">
+          <use id="Rectangle-path" mask="url(#mask-34)" xlink:href="#path-33"/>
+        </g>
+        <g id="Production" transform="translate(7.000000, 15.000000)" fill="#000000">
+          <path d="M48 0L2 0C0.9 0 0 0.9 0 2L0 32C0 33.1 0.9 34 2 34L48 34C49.1 34 50 33.1 50 32L50 2C50 0.9 49.1 0 48 0ZM44 5L25 17.6 6 5 44 5ZM5 9.2L23.9 21.7C24.2 21.9 24.6 22 25 22 25.4 22 25.8 21.9 26.1 21.7L45 9.2 45 28.9 33.2 20.3C33.2 20.3 32.9 20.5 33.1 20.7 33.4 21 40 29 40 29L10.2 29C10.2 29 16.8 21 17 20.8 17.2 20.5 17 20.3 17 20.3L5 29 5 29 5 9.2Z" id="Shape"/>
+        </g>
+      </g>
+      <g id="2053" transform="translate(615.000000, 115.000000)">
+        <g id="box-background" stroke="#FF0000" stroke-width="2">
+          <use id="Rectangle-path" mask="url(#mask-36)" xlink:href="#path-35"/>
+        </g>
+        <g id="Icon" transform="translate(7.000000, 10.000000)" fill="#000000">
+          <g id="Group">
+            <path d="M0 13L0 46C0 46.6 0.4 47 1 47L49 47C49.6 47 50 46.6 50 46L50 13C50 12.4 49.6 12 49 12L1 12C0.4 12 0 12.4 0 13ZM18 20L32 20 32 27 18 27 18 20ZM35 40.5C35 41.3 34.3 42 33.5 42L16.5 42C15.7 42 15 41.3 15 40.5L15 37C15 36.2 15.7 35.5 16.5 35.5 17.3 35.5 18 36.2 18 37L18 39 32 39 32 37C32 36.2 32.7 35.5 33.5 35.5 34.3 35.5 35 36.2 35 37L35 40.5ZM44 6L6 6C5.4 6 5 6.4 5 7L5 10 45 10 45 7C45 6.4 44.6 6 44 6ZM39 0L11 0C10.4 0 10 0.4 10 1L10 4 40 4 40 1C40 0.4 39.6 0 39 0Z" id="Shape"/>
+          </g>
+        </g>
+      </g>
+      <g id="1001" transform="translate(699.000000, 115.000000)">
+        <g id="box-background" stroke="#FF0000" stroke-width="2">
+          <use id="Rectangle-path" mask="url(#mask-38)" xlink:href="#path-37"/>
+        </g>
+        <g id="icon" transform="translate(11.000000, 13.000000)" fill="#000000">
+          <path d="M1.9 16.3L20.9 1.3C22.2 0.3 24 0.4 25.2 1.4 26.4 2.5 26.7 4.3 25.9 5.7L21.2 14 38.5 14C41.2 14 42 16.3 42 19 42 21.7 41.2 24 38.5 24L14.7 24C14.7 24 14.5 24.3 15 24.4 15.6 24.5 22.6 26.4 22.6 26.4L25.9 32.3C26.7 33.7 26.4 35.5 25.2 36.6 24.6 37.1 23.8 37.4 23 37.4 22.3 37.4 21.5 37.1 20.9 36.7L1.9 21.7C1.1 21 0.6 20 0.6 19 0.6 18 1.1 17 1.9 16.3Z" id="Shape"/>
+        </g>
+      </g>
+      <g id="1002" transform="translate(783.000000, 115.000000)">
+        <g id="box-background" stroke="#FF0000" stroke-width="2">
+          <use id="Rectangle-path" mask="url(#mask-40)" xlink:href="#path-39"/>
+        </g>
+        <g id="icon" transform="translate(13.000000, 11.000000)" fill="#000000">
+          <path d="M16.3 40.1L1.3 21.1C0.3 19.8 0.4 18 1.4 16.8 2.5 15.6 4.3 15.3 5.7 16.1L14 20.8 14 3.5C14 0.8 16.3 0 19 0 21.7 0 24 0.8 24 3.5L24 27.3C24 27.3 24.3 27.5 24.4 27 24.5 26.4 26.4 19.4 26.4 19.4L32.3 16.1C33.7 15.3 35.5 15.6 36.6 16.8 37.1 17.4 37.4 18.2 37.4 19 37.4 19.7 37.1 20.5 36.7 21.1L21.7 40.1C21 40.9 20 41.4 19 41.4 18 41.4 17 40.9 16.3 40.1Z" id="Shape"/>
+        </g>
+      </g>
+      <g id="1003" transform="translate(25.000000, 200.000000)">
+        <g id="box-background" stroke="#FF0000" stroke-width="2">
+          <use id="Rectangle-path" mask="url(#mask-42)" xlink:href="#path-41"/>
+        </g>
+        <g id="icon" transform="translate(11.000000, 13.000000)" fill="#000000">
+          <path d="M40.1 16.3L21.1 1.3C19.8 0.3 18 0.4 16.8 1.4 15.6 2.5 15.3 4.3 16.1 5.7L20.8 14 3.5 14C0.8 14 0 16.3 0 19 0 21.7 0.8 24 3.5 24L27.3 24C27.3 24 27.5 24.3 27 24.4 26.4 24.5 19.4 26.4 19.4 26.4L16.1 32.3C15.3 33.7 15.6 35.5 16.8 36.6 17.4 37.1 18.2 37.4 19 37.4 19.7 37.4 20.5 37.1 21.1 36.7L40.1 21.7C40.9 21 41.4 20 41.4 19 41.4 18 40.9 17 40.1 16.3Z" id="Shape"/>
+        </g>
+      </g>
+      <g id="1004" transform="translate(109.000000, 200.000000)">
+        <g id="box-background" stroke="#FF0000" stroke-width="2">
+          <use id="Rectangle-path" mask="url(#mask-44)" xlink:href="#path-43"/>
+        </g>
+        <g id="icon" transform="translate(13.000000, 11.000000)" fill="#000000">
+          <path d="M16.3 1.9L1.3 20.9C0.3 22.2 0.4 24 1.4 25.2 2.5 26.4 4.3 26.7 5.7 25.9L14 21.2 14 38.5C14 41.2 16.3 42 19 42 21.7 42 24 41.2 24 38.5L24 14.7C24 14.7 24.3 14.5 24.4 15 24.5 15.6 26.4 22.6 26.4 22.6L32.3 25.9C33.7 26.7 35.5 26.4 36.6 25.2 37.1 24.6 37.4 23.8 37.4 23 37.4 22.3 37.1 21.5 36.7 20.9L21.7 1.9C21 1.1 20 0.6 19 0.6 18 0.6 17 1.1 16.3 1.9Z" id="Shape"/>
+        </g>
+      </g>
+      <g id="1005" transform="translate(193.000000, 200.000000)">
+        <g id="box-background" stroke="#FF0000" stroke-width="2">
+          <use id="Rectangle-path" mask="url(#mask-46)" xlink:href="#path-45"/>
+        </g>
+        <g id="icon" transform="translate(3.000000, 6.000000)" fill="#000000">
+          <path d="M23 1C23 1 20.5 14.4 20.4 14.7 20.3 15.1 20 15 20 15L20 0 1.2 8.6C0.5 8.9 0 9.6 0 10.4L0 50C0 50.7 0.8 51.2 1.4 50.9L20 41.9 37.1 50.6C37.7 50.8 38.3 50.9 38.9 50.6L56.8 42.4C57.5 42.1 58 41.4 58 40.6L58 1C58 0.3 57.2-0.2 56.6 0.1L38 9.1 23 1Z" id="Shape"/>
+        </g>
+      </g>
+      <g id="1035" transform="translate(277.000000, 200.000000)">
+        <g id="box-background" stroke="#FF0000" stroke-width="2">
+          <use id="Rectangle-path" mask="url(#mask-48)" xlink:href="#path-47"/>
+        </g>
+        <g id="Icon" transform="translate(4.000000, 3.000000)" fill="#000000">
+          <g id="Group">
+            <path d="M54.7 11.6L51.6 6.9C51.2 6.3 50.6 6 49.8 6L25.5 6C25.5 5.9 25.4 5.7 25.8 5.6 26 5.6 28.3 5.1 30 4.8L30 1.7C30 0.5 28.4 0.2 26.5 0.2 24.6 0.2 23 0.5 23 1.7L23 6 18 6C17.4 6 17 6.4 17 7L17 17C17 17.6 17.4 18 18 18L49.8 18C50.6 18 51.2 17.7 51.6 17.1L54.7 12.4C54.9 12.2 54.9 11.8 54.7 11.6ZM37 20L5.2 20C4.4 20 3.8 20.3 3.4 20.9L0.3 25.6C0.1 25.8 0.1 26.2 0.3 26.4L3.4 31.1C3.8 31.7 4.4 32 5.2 32L23 32 27.5 32C27.5 32.1 27.6 32.3 27.2 32.4 27 32.4 24.7 32.9 23 33.2L23 60 30 60 30 32 37 32C37.6 32 38 31.6 38 31L38 21C38 20.4 37.6 20 37 20Z" id="Shape"/>
+          </g>
+        </g>
+      </g>
+      <g id="1045" transform="translate(361.000000, 200.000000)">
+        <g id="box-background" stroke="#FF0000" stroke-width="2">
+          <use id="Rectangle-path" mask="url(#mask-50)" xlink:href="#path-49"/>
+        </g>
+        <g id="Icon" transform="translate(6.000000, 6.000000)" fill="#000000">
+          <path d="M47.9 4.1C42.5-1.4 33.6-1.4 28.1 4.1L21.8 10.4C16.3 15.9 16.3 24.8 21.8 30.2 23.6 32 25.7 33.2 28 33.8 27.7 35.1 27 36.3 26 37.3L19.6 43.7C16.5 46.8 11.4 46.8 8.3 43.7 5.2 40.6 5.2 35.5 8.3 32.4L14.7 26C15.1 25.6 15.6 25.2 16 24.9 15.4 22.9 15.3 20.7 15.5 18.6 13.6 19.2 11.9 20.3 10.4 21.8L4.1 28.1C-1.4 33.6-1.4 42.5 4.1 47.9 6.8 50.6 10.4 52 14 52 17.6 52 21.1 50.6 23.9 47.9L30.2 41.6 30.2 41.6C33.4 38.4 34.9 33.9 34.2 29.4 33.7 26.5 32.3 23.9 30.2 21.8 28.9 20.4 27.4 19.4 25.7 18.8 24.9 20.3 25.1 22.3 25.5 23.9 25.7 24.9 26.1 25.4 26.1 25.8 26.2 25.9 26 26 26 26 24.2 24.1 23.6 21.9 23.7 19.9 23.8 18 24.7 16 26 14.7L32.4 8.3C33.9 6.8 36 6 38 6 40.1 6 42.1 6.8 43.7 8.3 46.8 11.4 46.8 16.5 43.7 19.6L37.3 26C36.9 26.4 36.4 26.8 35.9 27.1 36.5 29.1 36.7 31.3 36.5 33.4 38.3 32.8 40.1 31.7 41.6 30.2L47.9 23.9 47.9 23.9C53.4 18.4 53.4 9.5 47.9 4.1Z" id="Shape"/>
+        </g>
+      </g>
+      <g id="2016" transform="translate(445.000000, 200.000000)">
+        <g id="box-background" stroke="#FF0000" stroke-width="2">
+          <use id="Rectangle-path" mask="url(#mask-52)" xlink:href="#path-51"/>
+        </g>
+        <g id="icon" transform="translate(4.000000, 7.000000)" fill="#000000">
+          <path d="M54.1 4C53.8 2.4 52.6 1.2 51.1 0.9 46.5 0.1 39 0.1 37.4 0.1 35.9 0.1 28.4 0.1 23.8 0.9 22.3 1.2 21.1 2.4 20.8 4 20.6 5.4 20.4 6.7 20.3 7.9 24.3 7.9 30.8 8.1 35 8.8 37.7 9.3 39.8 11.4 40.2 14.1 41.1 19.5 41.1 20.9 41.1 26.1 41.1 26.7 41.1 27.6 41.1 28.8L48.5 34.9C49.1 35.2 49.6 35 49.9 34.7 50.1 34.4 50.1 34.1 49.9 33.7L47.9 28.3C49.1 28.2 50.1 28.1 51.1 27.9 52.6 27.6 53.8 26.4 54.1 24.8 54.9 20.1 54.9 16 54.9 14.4 54.9 9.8 54.9 8.7 54.1 4ZM34.6 11C29.6 10.1 21.1 10.1 19.4 10.1 17.8 10.1 9.3 10.1 4.3 11 2.5 11.3 1.2 12.7 0.9 14.5 0 19.7 0 24.3 0 26.1 0 27.8 0 32.4 0.9 37.6 1.2 39.4 2.5 40.8 4.3 41.1 4.9 41.2 5.6 41.3 6.4 41.4L10.1 36.2C10.3 35.9 10.5 36.1 10.5 36.1L7.3 47.6 7.3 47.6 7.2 47.8C7.2 48 7.2 48.3 7.4 48.5 7.7 49 8.3 49.1 8.8 48.8L20.1 42C22.7 42 30 41.9 34.6 41.1 36.4 40.8 37.7 39.4 38 37.6 38.9 32.4 38.9 27.8 38.9 26.1 38.9 20.9 38.9 19.7 38 14.5 37.7 12.7 36.4 11.3 34.6 11ZM18.5 37C16.9 37 16 36.1 16 34.5 16 33.1 16.9 32 18.5 32 20.1 32 21 32.9 21 34.5 21 35.9 20.2 37 18.5 37ZM21.9 25.4L20.3 26.3C19.4 26.7 19 27.4 19 28 19 28.6 19.3 29.3 19.6 30L16.5 30C15.9 29.4 15.6 28.6 15.6 27.6 15.6 26.2 16.3 25.2 18 24.2L19.6 23.2C21 22.4 21.4 21.8 21.4 20.8 21.4 19.8 20.4 19 18.4 19 17 19 15.6 19.3 14 19.9L14 16.8C15.7 16.1 17.4 15.8 19.3 15.8 22.9 15.8 25.3 17.6 25.3 20.4 25.3 22.8 24.4 24.1 21.9 25.4Z" id="Shape"/>
+        </g>
+      </g>
+      <g id="2014" transform="translate(529.000000, 200.000000)">
+        <g id="box-background" stroke="#FF0000" stroke-width="2">
+          <use id="Rectangle-path" mask="url(#mask-54)" xlink:href="#path-53"/>
+        </g>
+        <g id="icon" transform="translate(5.000000, 11.000000)" fill="#000000">
+          <g id="Group" transform="translate(18.000000, 18.000000)">
+            <path d="M10.4 13C10.7 12.1 10.8 11.1 10.9 10L0.9 10C0.9 11 0.7 12 0.6 13L10.4 13Z" id="Shape"/>
+            <rect id="Rectangle-path" x="1" y="5" width="10" height="3"/>
+            <rect id="Rectangle-path" x="1" y="0" width="10" height="3"/>
+          </g>
+          <g id="Group">
+            <path d="M52 0L11 0C9.9 0 9 0.9 9 2L9 26.2C9 27.8 8.8 29.3 8.5 30.6 8.5 30.6 8.2 30.7 8.2 30.3 7.8 26.8 5.9 10 5.9 10L1.8 10C0.7 10 0.1 10.8 0.2 11.7 0.7 16.3 2 24.3 2.6 28.4 3.5 34.9 4.4 41 12 41L44.2 41C50.1 41 54 35.2 54 26.2L54 2C54 0.9 53.1 0 52 0ZM49 26.2C49 30.9 47.5 36 44.2 36L11.9 36C13.2 33.5 14 30 14 25L14 5 49 5 49 26.2Z" id="Shape"/>
+            <rect id="Rectangle-path" x="19" y="10" width="25" height="5"/>
+            <path d="M32 24L32 26.2C32 27.9 31.8 29.5 31.6 31L43.4 31C43.9 29.9 44 27.8 44 26L44 18 32 18 32 24ZM28.9 28L18.9 28C18.9 29 18.7 30 18.6 31L28.4 31C28.7 30.1 28.8 29.1 28.9 28Z" id="Shape"/>
+            <rect id="Rectangle-path" x="19" y="23" width="10" height="3"/>
+            <rect id="Rectangle-path" x="19" y="18" width="10" height="3"/>
+          </g>
+        </g>
+      </g>
+      <g id="2007" transform="translate(613.000000, 200.000000)">
+        <g id="box-background" stroke="#FF0000" stroke-width="2">
+          <use id="Rectangle-path" mask="url(#mask-56)" xlink:href="#path-55"/>
+        </g>
+        <g id="icon" transform="translate(7.000000, 11.000000)" fill="#000000">
+          <g id="Group">
+            <path d="M13 4L36 4 36.2 6 40 6 39.7 1.6C39.7 0.7 39.2 0 38.3 0L10.9 0C10 0 9.3 0.7 9.3 1.6L9 6 12.8 6 13 4ZM48 8L2 8C0.9 8 0 8.9 0 10L0 27C0 28.1 0.9 29 2 29L6.5 29 18.5 41.4C18.8 41.8 19.4 42 20 42L42.4 42C43.3 42 44 41.3 44 40.4L42.7 29 48 29C49.1 29 50 28.1 50 27L50 10C50 8.9 49.1 8 48 8ZM21.2 38C21.2 38 20.5 40.1 20.4 40.4 20.3 40.8 20.1 40.8 20 40.7L20 38 20 35.9 20 30C20 29.4 19.6 29 19 29L10.5 29 11.6 20 37.4 20 39.5 38 21.2 38ZM45 15.2C43.8 15.2 42.8 14.2 42.8 13 42.8 11.8 43.8 10.8 45 10.8 46.2 10.8 47.2 11.8 47.2 13 47.2 14.2 46.2 15.2 45 15.2Z" id="Shape"/>
+          </g>
+        </g>
+      </g>
+      <g id="2005" transform="translate(697.000000, 200.000000)">
+        <g id="box-background" stroke="#FF0000" stroke-width="2">
+          <use id="Rectangle-path" mask="url(#mask-58)" xlink:href="#path-57"/>
+        </g>
+        <g id="icon" transform="translate(5.000000, 9.000000)" fill="#000000">
+          <g id="Group">
+            <path d="M54.2 4C54 2.4 52.8 1.2 51.2 0.9 46.7 0.2 39.1 0.2 37.6 0.2 36.1 0.2 28.5 0.2 24 0.9 22.4 1.2 21.2 2.4 20.9 4 20.7 5.4 20.6 6.7 20.5 7.9 24.4 7.9 30.9 8.1 35.2 8.8 37.9 9.3 39.9 11.4 40.4 14.1 41.3 19.5 41.3 20.9 41.3 26.1 41.3 26.7 41.2 27.6 41.2 28.8L48.7 34.9C49.2 35.2 49.7 35 50 34.7 50.2 34.4 50.2 34.1 50.1 33.7L48.1 28.3C49.2 28.2 50.3 28.1 51.2 27.9 52.8 27.6 54 26.4 54.2 24.8 55 20.1 55 16 55 14.4 55 9.8 55 8.7 54.2 4ZM34.8 11C29.7 10.2 21.3 10.2 19.6 10.2 17.9 10.2 9.5 10.2 4.4 11 2.7 11.3 1.3 12.7 1 14.5 0.2 19.7 0.2 24.3 0.2 26.1 0.2 27.8 0.2 32.4 1 37.6 1.3 39.4 2.7 40.8 4.4 41.1 5.1 41.2 5.8 41.3 6.5 41.4L10.3 36.2C10.5 35.9 10.7 36.1 10.7 36.1L7.4 47.6 7.4 47.6 7.4 47.8C7.3 48 7.4 48.3 7.5 48.5 7.8 49 8.5 49.1 9 48.8L20.2 42C22.8 42 30.2 41.9 34.8 41.1 36.5 40.8 37.9 39.4 38.2 37.6 39 32.4 39 27.8 39 26.1 39 20.9 39 19.7 38.2 14.5 37.9 12.7 36.5 11.3 34.8 11ZM10.5 29.1C9.1 29.1 7.9 27.9 7.9 26.5 7.9 25.1 9.1 23.9 10.5 23.9 11.9 23.9 13.1 25.1 13.1 26.5 13.1 27.9 11.9 29.1 10.5 29.1ZM19.5 29.1C18.1 29.1 16.9 27.9 16.9 26.5 16.9 25.1 18.1 23.9 19.5 23.9 20.9 23.9 22.1 25.1 22.1 26.5 22.1 27.9 20.9 29.1 19.5 29.1ZM28.5 29.1C27.1 29.1 25.9 27.9 25.9 26.5 25.9 25.1 27.1 23.9 28.5 23.9 29.9 23.9 31.1 25.1 31.1 26.5 31.1 27.9 29.9 29.1 28.5 29.1Z" id="Shape"/>
+          </g>
+        </g>
+      </g>
+      <g id="2004" transform="translate(781.000000, 200.000000)">
+        <g id="box-background" stroke="#FF0000" stroke-width="2">
+          <use id="Rectangle-path" mask="url(#mask-60)" xlink:href="#path-59"/>
+        </g>
+        <g id="icon" transform="translate(7.000000, 8.000000)" fill="#000000">
+          <path d="M49.4 22L25.7 0.3C25.3-0.1 24.7-0.1 24.3 0.3L0.6 22C0.2 22.4 0 23 0 23.5L0 25C0 25.6 0.4 26 1 26L5 26 5 47 20 47 20 32 30 32 30 47 45 47 45 26 49 26C49.6 26 50 25.6 50 25L50 23.5C50 23 49.8 22.4 49.4 22Z" id="Shape"/>
+        </g>
+      </g>
+      <g id="2003" transform="translate(25.000000, 284.000000)">
+        <g id="box-background" stroke="#FF0000" stroke-width="2">
+          <use id="Rectangle-path" mask="url(#mask-62)" xlink:href="#path-61"/>
+        </g>
+        <g id="icon" transform="translate(8.000000, 8.000000)" fill="#000000">
+          <path d="M44.9 5.1C44.5 3.1 42.9 1.5 40.9 1.1 34.9 0.1 25 0.1 23 0.1 21 0.1 11.1 0.1 5.1 1.1 3.1 1.5 1.5 3.1 1.1 5.1 0.1 11.1 0.1 21 0.1 23 0.1 25 0.1 34.9 1.1 40.9 1.5 42.9 3.1 44.5 5.1 44.9 11.1 45.9 21 45.9 23 45.9 25 45.9 34.9 45.9 40.9 44.9 42.9 44.5 44.5 42.9 44.9 40.9 45.9 34.9 45.9 25 45.9 23 45.9 17 45.9 11.1 44.9 5.1ZM23 39C20.8 39 19.5 37.8 19.5 35.5 19.5 33.6 20.7 32 23 32 25.2 32 26.5 33.3 26.5 35.5 26.5 37.5 25.3 39 23 39ZM28.1 21.9L25.7 23.2C24.3 24 23.6 24.9 23.6 26 23.6 26.6 23.8 27.3 24.1 28L19.1 28C18.6 27.2 18.4 26.3 18.4 25.3 18.4 23.1 19.4 21.6 22 20L24.6 18.5C26.6 17.3 27.3 16.3 27.3 14.8 27.3 13.2 25.8 12 22.7 12 20.5 12 18.4 12.4 16 13.3L16 8.5C18.7 7.5 21.1 7 24.1 7 29.6 7 33.2 9.9 33.2 14.1 33.2 17.9 31.8 19.8 28.1 21.9Z" id="Shape"/>
+        </g>
+      </g>
+      <g id="2002" transform="translate(109.000000, 284.000000)">
+        <g id="box-background" stroke="#FF0000" stroke-width="2">
+          <use id="Rectangle-path" mask="url(#mask-64)" xlink:href="#path-63"/>
+        </g>
+        <g id="icon" transform="translate(9.000000, 9.000000)" fill="#000000">
+          <path d="M44.9 5.1C44.5 3.1 42.9 1.5 40.9 1.1 34.9 0.1 25 0.1 23 0.1 21 0.1 11.1 0.1 5.1 1.1 3.1 1.5 1.5 3.1 1.1 5.1 0.1 11.1 0.1 21 0.1 23 0.1 25 0.1 34.9 1.1 40.9 1.5 42.9 3.1 44.5 5.1 44.9 11.1 45.9 21 45.9 23 45.9 25 45.9 34.9 45.9 40.9 44.9 42.9 44.5 44.5 42.9 44.9 40.9 45.9 34.9 45.9 25 45.9 23 45.9 17 45.9 11.1 44.9 5.1ZM26 39L19.4 39 20 25 20 17 26 17 26 39ZM23 13C20.8 13 19.5 11.7 19.5 9.5 19.5 7.5 20.7 6 23 6 25.2 6 26.5 7.2 26.5 9.5 26.5 11.4 25.3 13 23 13Z" id="Shape"/>
+        </g>
+      </g>
+      <g id="1016" transform="translate(193.000000, 284.000000)">
+        <g id="box-background" stroke="#FF0000" stroke-width="2">
+          <use id="Rectangle-path" mask="url(#mask-66)" xlink:href="#path-65"/>
+        </g>
+        <g id="Icon" transform="translate(12.000000, 7.000000)" fill="#000000">
+          <g id="Group">
+            <rect id="Rectangle-path" x="8" y="8" width="24" height="5"/>
+            <rect id="Rectangle-path" x="8" y="34" width="24" height="3"/>
+            <rect id="Rectangle-path" x="8" y="39" width="18" height="3"/>
+            <rect id="Rectangle-path" x="8" y="17" width="10" height="3"/>
+            <rect id="Rectangle-path" x="8" y="22" width="10" height="3"/>
+            <rect id="Rectangle-path" x="8" y="27" width="10" height="3"/>
+            <rect id="Rectangle-path" x="21" y="17" width="11" height="13"/>
+            <path d="M38 0L2 0C0.9 0 0 0.9 0 2L0 48C0 49.1 0.9 50 2 50L38 50C39.1 50 40 49.1 40 48L40 2C40 0.9 39.1 0 38 0ZM35 45L5 45 5 5 35 5 35 45Z" id="Shape"/>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

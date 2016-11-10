@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.7.1
- * @desc.   Search functions - search via SearchWP
+ * @version 0.7.2
+ * @desc.   Search functions - paging
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "http://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.7.1" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Search functions - search via SearchWP" );
+define( 'CHILD_THEME_VERSION',              "0.7.2" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Content-blokken herzien" );
 define( 'SHOW_CSS_DEBUG',                   false );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
@@ -1466,8 +1466,6 @@ function rhswp_write_extra_contentblokken() {
           $maxnr_posts          = esc_html( $row['extra_contentblok_maxnr_posts'] );
           $with_featured_image  = esc_html( $row['extra_contentblok_maxnr_posts_with_featured_image'] );
 
-
-
           echo '<div class="block">';
 
           
@@ -1494,9 +1492,8 @@ function rhswp_write_extra_contentblokken() {
               
               echo '</ul>';
             }
-
-                        
-
+          }
+          elseif ( 'berichten_paginas' == $type_block ) {
           }
           elseif ( 'berichten' == $type_block ) {
             if ( $titel ) {
