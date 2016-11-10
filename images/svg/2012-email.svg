@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="64px" height="64px" viewBox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 41 (35326) - http://www.bohemiancoding.com/sketch -->
+    <title>2012-email</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="64" height="64"></rect>
+        <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="64" height="64" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="rhs-icons" transform="translate(-531.000000, -115.000000)">
+            <g id="2012-email" transform="translate(531.000000, 115.000000)">
+                <g id="box" stroke="#FF0000" stroke-width="2">
+                    <use id="Rectangle-path" mask="url(#mask-2)" xlink:href="#path-1"></use>
+                </g>
+                <g id="Production" transform="translate(7.000000, 15.000000)" fill="#000000">
+                    <path d="M48,0 L2,0 C0.8955,0 0,0.8955 0,2 L0,32 C0,33.1045 0.8955,34 2,34 L48,34 C49.1045,34 50,33.1045 50,32 L50,2 C50,0.8955 49.1045,0 48,0 Z M44.0419,5 L25,17.6016 L5.9581,5 L44.0419,5 Z M5,9.1625 L23.8965,21.668 C24.2305,21.8892 24.6152,22 25,22 C25.3848,22 25.7695,21.8892 26.1035,21.668 L45,9.1625 L45,28.9351 L33.165,20.3242 C33.165,20.3242 32.9238,20.4775 33.1406,20.7422 C33.3574,21.0069 39.9511,29 39.9511,29 L10.1689,29 C10.1689,29 16.753,21.0225 16.9688,20.7578 C17.1846,20.4931 16.9561,20.3242 16.9561,20.3242 L5.0318,29 L5,29 L5,9.1625 Z" id="Shape"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

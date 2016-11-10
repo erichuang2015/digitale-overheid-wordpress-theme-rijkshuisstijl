@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="64px" height="64px" viewBox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 41 (35326) - http://www.bohemiancoding.com/sketch -->
+    <title>icon-arrow-thin-bottom</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="64" height="64"></rect>
+        <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="64" height="64" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="rhs-icons" transform="translate(-791.000000, -26.000000)">
+            <g id="icon-arrow-thin-bottom" transform="translate(791.000000, 26.000000)">
+                <g id="Box" stroke="#FF0000" stroke-width="2">
+                    <use id="Rectangle-path" mask="url(#mask-2)" xlink:href="#path-1"></use>
+                </g>
+                <g id="icon" transform="translate(10.500000, 6.500000)" fill="#000000">
+                    <polygon id="pijl" transform="translate(21.752475, 25.287129) rotate(90.000000) translate(-21.752475, -25.287129) " points="35.6248784 22.1961604 -3 22.1961604 -3 28.6253748 34.3222149 28.6253748 21.777203 41.6816252 26.3271084 46.0831644 46.5049505 25.262401 26.3271084 4.49109307 21.777203 9.28827624 34.9021346 22.5777836"></polygon>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

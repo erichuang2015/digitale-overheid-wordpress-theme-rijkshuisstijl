@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="64px" height="64px" viewBox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 41 (35326) - http://www.bohemiancoding.com/sketch -->
+    <title>1035-sturing</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="64" height="64"></rect>
+        <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="64" height="64" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="rhs-icons" transform="translate(-277.000000, -200.000000)">
+            <g id="1035-sturing" transform="translate(277.000000, 200.000000)">
+                <g id="box" stroke="#FF0000" stroke-width="2">
+                    <use id="Rectangle-path" mask="url(#mask-2)" xlink:href="#path-1"></use>
+                </g>
+                <g id="Icon" transform="translate(4.000000, 3.000000)" fill="#000000">
+                    <g id="Group">
+                        <path d="M54.7165,11.5748 L51.5759,6.8638 C51.2197,6.3297 50.5571,6 49.8394,6 L25.5152,6 C25.4943,5.9438 25.4479,5.7377 25.7651,5.6359 C25.9622,5.5727 28.2742,5.1183 30,4.7827 L30,1.6564 C30,0.4926 28.433,0.2028 26.5,0.2028 C24.567,0.2028 23,0.4926 23,1.6564 L23,6 L18,6 C17.4477,6 17,6.4477 17,7 L17,17 C17,17.5523 17.4477,18 18,18 L49.8394,18 C50.5571,18 51.2198,17.6703 51.5759,17.1362 L54.7165,12.4252 C54.8882,12.1677 54.8882,11.8323 54.7165,11.5748 Z" id="Shape"></path>
+                        <path d="M37,20 L5.1606,20 C4.4429,20 3.7802,20.3297 3.4241,20.8638 L0.2835,25.5748 C0.1118,25.8323 0.1118,26.1678 0.2835,26.4253 L3.4241,31.1363 C3.7803,31.6703 4.4429,32 5.1606,32 L23,32 L27.4848,32 C27.5057,32.0562 27.5521,32.2623 27.2349,32.3641 C27.0378,32.4273 24.7257,32.8817 23,33.2173 L23,60 L30,60 L30,32 L37,32 C37.5523,32 38,31.5523 38,31 L38,21 C38,20.4477 37.5523,20 37,20 Z" id="Shape"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
