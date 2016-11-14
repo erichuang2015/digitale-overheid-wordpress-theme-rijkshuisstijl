@@ -11,8 +11,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.7.3
- * @desc.   Content-blokken herzien
+ * @version 0.7.5
+ * @desc.   Text changes ACF contentblock
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -1138,7 +1138,7 @@ if( function_exists('acf_add_local_field_group') ):
     
 
   //====================================================================================================
-  // extra contentblocks onderaan een pagina.
+  // contentblocks onderaan een pagina.
   // - of vrij ingevoerde links
   // - of berichten (algemeen of gefilterd op categorie)
 
@@ -1169,7 +1169,7 @@ if( function_exists('acf_add_local_field_group') ):
   			'sub_fields' => array (
   				array (
   					'key' => 'field_5804cd67f782a',
-      			'label'   => __( 'Titel boven extra contentblok', 'wp-rijkshuisstijl' ),
+      			'label'   => __( 'Titel boven contentblok', 'wp-rijkshuisstijl' ),
   					'name' => 'extra_contentblok_title',
   					'type' => 'text',
   					'instructions'   => '',
@@ -1188,7 +1188,7 @@ if( function_exists('acf_add_local_field_group') ):
   				),
   				array (
   					'key' => 'field_5804cde25e99a',
-      			'label'   => __( 'Wat wil je tonen in dit extra contentblok?', 'wp-rijkshuisstijl' ),
+      			'label'   => __( 'Wat wil je tonen in dit contentblok?', 'wp-rijkshuisstijl' ),
   					'name' => 'extra_contentblok_type_block',
   					'type' => 'radio',
   					'instructions'   => '',
@@ -1207,7 +1207,7 @@ if( function_exists('acf_add_local_field_group') ):
   					'allow_null' => 0,
   					'other_choice' => 0,
   					'save_other_choice' => 0,
-  					'default_value' => 'algemeen',
+  					'default_value' => 'berichten_paginas',
   					'layout' => 'vertical',
   					'return_format' => 'value',
   				),
@@ -1459,8 +1459,8 @@ if( function_exists('acf_add_local_field_group') ):
   					),
   					'post_type' => array (
   					),
-  					'taxonomy' => array (
-  					),
+      			'taxonomy' => array (
+      			),
   					'filters' => array (
   						0 => 'search',
   						1 => 'post_type',

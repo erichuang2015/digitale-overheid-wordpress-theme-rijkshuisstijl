@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.7.4
- * @desc.   Added SVG icons
+ * @version 0.7.6
+ * @desc.   Fixed text for 2nd menu item in dossiers
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "http://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.7.4" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Added SVG icons" );
+define( 'CHILD_THEME_VERSION',              "0.7.6" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Fixed text for 2nd menu item in dossiers" );
 define( 'SHOW_CSS_DEBUG',                   false );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
@@ -1501,65 +1501,64 @@ function rhswp_write_extra_contentblokken() {
               echo '<h2>' . $titel . '</h2>';
             }
 
-if ( $selected_content_full != 'ja' ) {
-  
-  echo '<ul class="links">';
-
-  foreach ( $selected_content as $post ) {
-    
-    setup_postdata($post);                
-    
-    $title  = get_the_title();
-    $url    = get_permalink();
-    if ( $title && $url ) {
-      echo '<li>';
-      echo '<a href="';
-      echo $url;
-      echo '">';
-      echo $selected_content_full . ' / ';
-      echo $title;
-      echo '</a></li>';
-    }
-  }
-  
-  echo '</ul>';
-}
-else {
-
-  foreach ( $selected_content as $post ) {
-    
-    setup_postdata($post);                
-
-    $postcounter++;
-
-    $doimage = false;
-    
-    $classattr = genesis_attr( 'entry' );
-
-    do_action( 'genesis_before_entry' );
-
-    $classattr  = str_replace( 'has-post-thumbnail', '', $classattr );
-
-    $permalink  = get_permalink();
-    $excerpt    = wp_strip_all_tags( get_the_excerpt( $post ) );
-
-    if ( !$excerpt ) {
-      $excerpt = get_the_title();
-    }
-    $postdate   = '';
-    if ( 'post'    == get_post_type() ) {
-        $postdate   = get_the_date( );
-    }
-    
-    printf( '<article %s>', $classattr );
-    printf( '<a href="%s"><h3>%s</h3><p>%s</p><p class="meta">%s</p></a>', get_permalink(), get_the_title(), $excerpt, $postdate );
-    echo '</article>';
-    
-    do_action( 'genesis_after_entry' );
-
-  }
-  
-}
+            if ( $selected_content_full != 'ja' ) {
+              
+              echo '<ul class="links">';
+            
+              foreach ( $selected_content as $post ) {
+                
+                setup_postdata($post);                
+                
+                $title  = get_the_title();
+                $url    = get_permalink();
+                if ( $title && $url ) {
+                  echo '<li>';
+                  echo '<a href="';
+                  echo $url;
+                  echo '">';
+                  echo $title;
+                  echo '</a></li>';
+                }
+              }
+              
+              echo '</ul>';
+            }
+            else {
+            
+              foreach ( $selected_content as $post ) {
+                
+                setup_postdata($post);                
+            
+                $postcounter++;
+            
+                $doimage = false;
+                
+                $classattr = genesis_attr( 'entry' );
+            
+                do_action( 'genesis_before_entry' );
+            
+                $classattr  = str_replace( 'has-post-thumbnail', '', $classattr );
+            
+                $permalink  = get_permalink();
+                $excerpt    = wp_strip_all_tags( get_the_excerpt( $post ) );
+            
+                if ( !$excerpt ) {
+                  $excerpt = get_the_title();
+                }
+                $postdate   = '';
+                if ( 'post'    == get_post_type() ) {
+                    $postdate   = get_the_date( );
+                }
+                
+                printf( '<article %s>', $classattr );
+                printf( '<a href="%s"><h3>%s</h3><p>%s</p><p class="meta">%s</p></a>', get_permalink(), get_the_title(), $excerpt, $postdate );
+                echo '</article>';
+                
+                do_action( 'genesis_after_entry' );
+            
+              }
+              
+            }
 
           }
           elseif ( 'berichten' == $type_block ) {

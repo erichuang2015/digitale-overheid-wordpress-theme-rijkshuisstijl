@@ -10,8 +10,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.6.31
- * @desc.   Rewrite rules added to prevent 404 after URL tampering
+ * @version 0.7.6
+ * @desc.   Fixed text for 2nd menu item in dossiers
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -143,11 +143,16 @@ function rhswp_dossier_title_checker( ) {
             else {
 //              $args['currentpageid'] = $parentID;
             }            
+
+            $args['preferedtitle'] = _x( 'Inhoud', 'Standaardlabel voor het 2de item in het dossiermenu', 'wp-rijkshuisstijl' );
             $subpaginas .= rhswp_dossier_get_pagelink( $dossier_overzichtpagina, $args );
 
           }
           
         }
+
+        // reset the page title
+        $args['preferedtitle'] = '';
         
         if ( is_tax() ) {
           // dit is de pagina met informatie over het dossier

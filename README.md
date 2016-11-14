@@ -5,6 +5,7 @@ WP-rijkshuisstijl is ontwikkeld als WordPress-theme voor [digitaleoverheid.nl](h
 
 ## Contact
 * Victor Zuydweg
+* Pim Nieuwenburg
 * Paul van Buuren: paul@wbvb.nl
 
 
@@ -83,6 +84,8 @@ themes/wp-rijkshuisstijl/                     # → Folder met alle theme-bestan
 
 ## Version history
 
+0.7.6 - Fixed text for 2nd menu item in dossiers
+0.7.5 - Text changes ACF contentblock
 0.7.4 - Added SVG icons
 0.7.3 - Content-blokken herzien 
 0.7.2 - Search functions - paging 
