@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.7.6
- * @desc.   Fixed text for 2nd menu item in dossiers
+ * @version 0.7.7
+ * @desc.   Removed double paging block on archives
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "http://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.7.6" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Fixed text for 2nd menu item in dossiers" );
+define( 'CHILD_THEME_VERSION',              "0.7.7" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Removed double paging block on archives" );
 define( 'SHOW_CSS_DEBUG',                   false );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
@@ -1963,10 +1963,8 @@ function rhswp_archive_custom_loop() {
   
     echo '</div>';
 
-        genesis_posts_nav();
+    wp_reset_query();        
 
-        wp_reset_query();        
-  
   }
 }
 
