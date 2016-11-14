@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Rijkshuisstijl (Digitale Overheid) (v1.0.0)\n"
-"POT-Creation-Date: 2016-11-10 16:24+0100\n"
-"PO-Revision-Date: 2016-11-10 16:24+0100\n"
+"POT-Creation-Date: 2016-11-14 12:37+0100\n"
+"PO-Revision-Date: 2016-11-14 12:37+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: nl_NL\n"
@@ -20,7 +20,7 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
-#: XXXXsearch.php:31 page_search.php:35 search.php:49 search.php:60
+#: XXXXsearch.php:31
 msgid "Search this website"
 msgstr ""
 
@@ -56,7 +56,7 @@ msgstr ""
 msgid "Tags"
 msgstr ""
 
-#: functions.php:380 search.php:51 search.php:62
+#: functions.php:380 search.php:50 search.php:61
 msgid "Zoekresultaat voor "
 msgstr ""
 
@@ -173,64 +173,64 @@ msgctxt "title for link to homepage"
 msgid "Naar de homepage van digitaleoverheid.nl"
 msgstr ""
 
-#: functions.php:1570 functions.php:1709
+#: functions.php:1569 functions.php:1708
 msgid "Geen titel ingevoerd"
 msgstr ""
 
-#: functions.php:1981
+#: functions.php:1978
 msgid "Bericht"
 msgstr ""
 
-#: functions.php:1984 includes/cpt-acf.php:321
+#: functions.php:1981 includes/cpt-acf.php:321
 msgid "Pagina"
 msgstr ""
 
-#: functions.php:1987 includes/cpt-acf.php:29 includes/cpt-acf.php:34
+#: functions.php:1984 includes/cpt-acf.php:29 includes/cpt-acf.php:34
 msgid "Dossier"
 msgstr ""
 
-#: functions.php:1990 functions.php:1993 functions.php:2035
+#: functions.php:1987 functions.php:1990 functions.php:2032
 #: includes/cpt-acf.php:96
 msgid "Document"
 msgstr ""
 
-#: functions.php:1996
+#: functions.php:1993
 msgid "Agenda"
 msgstr ""
 
-#: functions.php:1999
+#: functions.php:1996
 msgid "Deze hoort hier niet tussen"
 msgstr ""
 
-#: functions.php:2019
+#: functions.php:2016
 msgid "Plaatje"
 msgstr ""
 
-#: functions.php:2024
+#: functions.php:2021
 msgid "Tekstbestand"
 msgstr ""
 
-#: functions.php:2029
+#: functions.php:2026
 msgid "Filmbestand"
 msgstr ""
 
-#: functions.php:2032
+#: functions.php:2029
 msgid "PDF-bestand"
 msgstr ""
 
-#: functions.php:2068
+#: functions.php:2065
 msgid "Oudere berichten"
 msgstr ""
 
-#: functions.php:2071
+#: functions.php:2068
 msgid "Volgende pagina"
 msgstr ""
 
-#: functions.php:2080
+#: functions.php:2077
 msgid "Nieuwere berichten"
 msgstr ""
 
-#: functions.php:2083
+#: functions.php:2080
 msgid "Vorige pagina"
 msgstr ""
 
@@ -566,11 +566,11 @@ msgid ""
 msgstr ""
 
 #: includes/cpt-acf.php:1172
-msgid "Titel boven extra contentblok"
+msgid "Titel boven contentblok"
 msgstr ""
 
 #: includes/cpt-acf.php:1191
-msgid "Wat wil je tonen in dit extra contentblok?"
+msgid "Wat wil je tonen in dit contentblok?"
 msgstr ""
 
 #: includes/cpt-acf.php:1203
@@ -688,13 +688,18 @@ msgstr ""
 msgid "Kies een dossier:"
 msgstr ""
 
-#: includes/dossier-helper-functions.php:157
-#: includes/dossier-helper-functions.php:164
+#: includes/dossier-helper-functions.php:147
+msgctxt "Standaardlabel voor het 2de item in het dossiermenu"
+msgid "Inhoud"
+msgstr ""
+
+#: includes/dossier-helper-functions.php:162
+#: includes/dossier-helper-functions.php:169
 msgctxt "Standaardlabel voor het menu in de dossiers"
 msgid "Overzicht"
 msgstr ""
 
-#: includes/dossier-helper-functions.php:217
+#: includes/dossier-helper-functions.php:222
 #, php-format
 msgid "Dit dossier bevat %s items."
 msgstr ""
@@ -750,295 +755,17 @@ msgctxt "Kopje op bericht- of evenementpagina"
 msgid "Links"
 msgstr ""
 
-#: includes/example-cmb2.php:122
-msgid "Test Metabox"
-msgstr ""
-
-#: includes/example-cmb2.php:138 includes/example-cmb2.php:449
-msgid "Test Text"
-msgstr ""
-
-#: includes/example-cmb2.php:139 includes/example-cmb2.php:152
-#: includes/example-cmb2.php:165 includes/example-cmb2.php:173
-#: includes/example-cmb2.php:181 includes/example-cmb2.php:190
-#: includes/example-cmb2.php:198 includes/example-cmb2.php:213
-#: includes/example-cmb2.php:221 includes/example-cmb2.php:229
-#: includes/example-cmb2.php:246 includes/example-cmb2.php:255
-#: includes/example-cmb2.php:268 includes/example-cmb2.php:275
-#: includes/example-cmb2.php:282 includes/example-cmb2.php:296
-#: includes/example-cmb2.php:309 includes/example-cmb2.php:322
-#: includes/example-cmb2.php:334 includes/example-cmb2.php:343
-#: includes/example-cmb2.php:351 includes/example-cmb2.php:360
-#: includes/example-cmb2.php:367 includes/example-cmb2.php:381
-#: includes/example-cmb2.php:450 includes/example-cmb2.php:546
-#: includes/example-cmb2.php:554 includes/example-cmb2.php:561
-#: includes/example-cmb2.php:568 includes/example-cmb2.php:575
-#: includes/example-cmb2.php:582 includes/example-cmb2.php:589
-#: includes/example-cmb2.php:619 includes/example-cmb2.php:627
-#: includes/example-cmb2.php:634 includes/example-cmb2.php:674
-#: includes/metadata-boxes.php:61 includes/metadata-boxes.php:70
-#: includes/metadata-boxes.php:100
-msgid "field description (optional)"
-msgstr ""
-
-#: includes/example-cmb2.php:151
-msgid "Test Text Small"
-msgstr ""
-
-#: includes/example-cmb2.php:164
-msgid "Test Text Medium"
-msgstr ""
-
-#: includes/example-cmb2.php:172
-msgid "Custom Rendered Field"
-msgstr ""
-
-#: includes/example-cmb2.php:180
-msgid "Website URL"
-msgstr ""
-
-#: includes/example-cmb2.php:189
-msgid "Test Text Email"
-msgstr ""
-
-#: includes/example-cmb2.php:197
-msgid "Test Time"
-msgstr ""
-
-#: includes/example-cmb2.php:205 includes/example-cmb2.php:206
-msgid "Time zone"
-msgstr ""
-
-#: includes/example-cmb2.php:212
-msgid "Test Date Picker"
-msgstr ""
-
-#: includes/example-cmb2.php:220
-msgid "Test Date Picker (UNIX timestamp)"
-msgstr ""
-
-#: includes/example-cmb2.php:228
-msgid "Test Date/Time Picker Combo (UNIX timestamp)"
-msgstr ""
-
-#: includes/example-cmb2.php:245
-msgid "Test Money"
-msgstr ""
-
-#: includes/example-cmb2.php:254
-msgid "Test Color Picker"
-msgstr ""
-
-#: includes/example-cmb2.php:267
-msgid "Test Text Area"
-msgstr ""
-
-#: includes/example-cmb2.php:274
-msgid "Test Text Area Small"
-msgstr ""
-
-#: includes/example-cmb2.php:281
-msgid "Test Text Area for Code"
-msgstr ""
-
-#: includes/example-cmb2.php:288
-msgid "Test Title Weeeee"
-msgstr ""
-
-#: includes/example-cmb2.php:289
-msgid "This is a title description"
-msgstr ""
-
-#: includes/example-cmb2.php:295
-msgid "Test Select"
-msgstr ""
-
-#: includes/example-cmb2.php:301 includes/example-cmb2.php:314
-#: includes/example-cmb2.php:326
-msgid "Option One"
-msgstr ""
-
-#: includes/example-cmb2.php:302 includes/example-cmb2.php:315
-#: includes/example-cmb2.php:327
-msgid "Option Two"
-msgstr ""
-
-#: includes/example-cmb2.php:303 includes/example-cmb2.php:316
-#: includes/example-cmb2.php:328
-msgid "Option Three"
-msgstr ""
-
-#: includes/example-cmb2.php:308
-msgid "Test Radio inline"
-msgstr ""
-
-#: includes/example-cmb2.php:321
-msgid "Test Radio"
-msgstr ""
-
-#: includes/example-cmb2.php:333 includes/metadata-boxes.php:60
-msgid "Test Taxonomy Radio"
-msgstr ""
-
-#: includes/example-cmb2.php:342
-msgid "Test Taxonomy Select"
-msgstr ""
-
-#: includes/example-cmb2.php:350
-msgid "Test Taxonomy Multi Checkbox"
-msgstr ""
-
-#: includes/example-cmb2.php:359
-msgid "Test Checkbox"
-msgstr ""
-
-#: includes/example-cmb2.php:366
-msgid "Test Multi Checkbox"
-msgstr ""
-
-#: includes/example-cmb2.php:372
-msgid "Check One"
-msgstr ""
-
-#: includes/example-cmb2.php:373
-msgid "Check Two"
-msgstr ""
-
-#: includes/example-cmb2.php:374
-msgid "Check Three"
-msgstr ""
-
-#: includes/example-cmb2.php:380
-msgid "Test wysiwyg"
-msgstr ""
-
-#: includes/example-cmb2.php:388
-msgid "Test Image"
-msgstr ""
-
-#: includes/example-cmb2.php:389
-msgid "Upload an image or enter a URL."
-msgstr ""
-
-#: includes/example-cmb2.php:395
-msgid "Multiple Files"
-msgstr ""
-
-#: includes/example-cmb2.php:396
-msgid "Upload or add multiple images/attachments."
-msgstr ""
-
-#: includes/example-cmb2.php:403
-msgid "oEmbed"
-msgstr ""
-
-#: includes/example-cmb2.php:404
-msgid ""
-"Enter a youtube, twitter, or instagram URL. Supports services listed at <a "
-"href=\"http://codex.wordpress.org/Embeds\">http://codex.wordpress.org/"
-"Embeds</a>."
-msgstr ""
-
-#: includes/example-cmb2.php:437 includes/metadata-boxes.php:48
+#: includes/metadata-boxes.php:48
 msgid "Bijbehorende tag / categorie"
 msgstr ""
 
-#: includes/example-cmb2.php:438
-msgid ""
-"Selecteer de tag / categorie van berichten die op deze pagina getoond moeten "
-"worden."
+#: includes/metadata-boxes.php:60
+msgid "Test Taxonomy Radio"
 msgstr ""
 
-#: includes/example-cmb2.php:471
-msgid "Repeating Field Group"
-msgstr ""
-
-#: includes/example-cmb2.php:479
-msgid "Generates reusable form entries"
-msgstr ""
-
-#: includes/example-cmb2.php:481
-msgid "Entry {#}"
-msgstr ""
-
-#: includes/example-cmb2.php:482
-msgid "Add Another Entry"
-msgstr ""
-
-#: includes/example-cmb2.php:483
-msgid "Remove Entry"
-msgstr ""
-
-#: includes/example-cmb2.php:496
-msgid "Entry Title"
-msgstr ""
-
-#: includes/example-cmb2.php:503
-msgid "Description"
-msgstr ""
-
-#: includes/example-cmb2.php:504
-msgid "Write a short description for this entry"
-msgstr ""
-
-#: includes/example-cmb2.php:510
-msgid "Entry Image"
-msgstr ""
-
-#: includes/example-cmb2.php:516
-msgid "Image Caption"
-msgstr ""
-
-#: includes/example-cmb2.php:538
-msgid "User Profile Metabox"
-msgstr ""
-
-#: includes/example-cmb2.php:545 includes/example-cmb2.php:618
-msgid "Extra Info"
-msgstr ""
-
-#: includes/example-cmb2.php:553
-msgid "Avatar"
-msgstr ""
-
-#: includes/example-cmb2.php:560
-msgid "Facebook URL"
-msgstr ""
-
-#: includes/example-cmb2.php:567
-msgid "Twitter URL"
-msgstr ""
-
-#: includes/example-cmb2.php:574
-msgid "Google+ URL"
-msgstr ""
-
-#: includes/example-cmb2.php:581
-msgid "Linkedin URL"
-msgstr ""
-
-#: includes/example-cmb2.php:588
-msgid "User Field"
-msgstr ""
-
-#: includes/example-cmb2.php:611
-msgid "Category Metabox"
-msgstr ""
-
-#: includes/example-cmb2.php:626
-msgid "Term Image"
-msgstr ""
-
-#: includes/example-cmb2.php:633
-msgid "Arbitrary Term Field"
-msgstr ""
-
-#: includes/example-cmb2.php:658
-msgid "Theme Options Metabox"
-msgstr ""
-
-#: includes/example-cmb2.php:673
-msgid "Site Background Color"
+#: includes/metadata-boxes.php:61 includes/metadata-boxes.php:70
+#: includes/metadata-boxes.php:100
+msgid "field description (optional)"
 msgstr ""
 
 #: includes/metadata-boxes.php:75
@@ -1131,11 +858,11 @@ msgid "Sorteervolgorde"
 msgstr ""
 
 #: includes/widget-events.php:227
-msgid "Ascending"
+msgid "Aflopend"
 msgstr ""
 
 #: includes/widget-events.php:228
-msgid "Descending"
+msgid "Oplopend"
 msgstr ""
 
 #: includes/widget-events.php:239
@@ -1231,7 +958,7 @@ msgid "documenten in het dossier %s"
 msgstr ""
 
 #: page_dossier-document-overview.php:107 page_dossier-events-overview.php:96
-#: page_dossiersingleactueel.php:190
+#: page_dossiersingleactueel.php:190 search.php:169
 #, php-format
 msgctxt "foutboodschap als er geen content gevonden is"
 msgid "We zochten naar %s, maar konden helaas niets vinden."
@@ -1250,6 +977,10 @@ msgstr ""
 #: page_show-child-pages.php:54
 msgctxt "Standaardtekst als pagina geen tekst heeft."
 msgid "Eh, dit is een pagina zonder tekst"
+msgstr ""
+
+#: search.php:48 search.php:59
+msgid "Zoek op deze website"
 msgstr ""
 
 #: sidebar.php:21

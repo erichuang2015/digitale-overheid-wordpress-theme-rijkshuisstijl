@@ -9,8 +9,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.7.2
- * @desc.   Search functions - paging
+ * @version 0.7.8
+ * @desc.   Added message for no results on search page. Translations updated.
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -20,13 +20,12 @@
 
 if (class_exists('SearchWP')) {
 
+  // add description
+  add_action( 'genesis_before_loop', 'rhswp_add_search_description', 15 );
 
   /** Replace the standard loop with our custom loop */
   remove_action( 'genesis_loop', 'genesis_do_loop' );
   add_action( 'genesis_loop', 'rhswp_archive_custom_search_with_searchWP' );
-
-  // add description
-  add_action( 'genesis_before_loop', 'rhswp_add_search_description', 15 );
 
 }
 else {
@@ -46,7 +45,7 @@ genesis();
 
 function rhswp_add_search_description() {
 
-  $search_text = get_search_query() ? apply_filters( 'the_search_query', get_search_query() ) : apply_filters( 'genesis_search_text', __( 'Search this website', 'genesis' ) . ' &#x02026;' );
+  $search_text = get_search_query() ? apply_filters( 'the_search_query', get_search_query() ) : apply_filters( 'genesis_search_text', __( 'Zoek op deze website', 'genesis' ) . ' &#x02026;' );
     
   echo '<h1>' . __( "Zoekresultaat voor ", 'wp-rijkshuisstijl' ) . ' "' . $search_text . '"</h1>';
   
@@ -57,8 +56,8 @@ function rhswp_add_search_description() {
 
 function rhswp_add_search_description_without_searchwp() {
 
-  $search_text = get_search_query() ? apply_filters( 'the_search_query', get_search_query() ) : apply_filters( 'genesis_search_text', __( 'Search this website', 'genesis' ) . ' &#x02026;' );
-    
+  $search_text = get_search_query() ? apply_filters( 'the_search_query', get_search_query() ) : apply_filters( 'genesis_search_text', __( 'Zoek op deze website', 'genesis' ) . ' &#x02026;' );
+      
   echo '<h1>' . __( "Zoekresultaat voor ", 'wp-rijkshuisstijl' ) . ' "' . $search_text . '"</h1>';
 
   dodebug( ' searchWP plugin wordt niet gebruikt ' );
@@ -163,7 +162,14 @@ function rhswp_archive_custom_search_with_searchWP() {
       genesis_posts_nav();
 
 
+    else:
 
+      echo '<p>';
+
+      echo sprintf( _x( 'We zochten naar %s, maar konden helaas niets vinden.', 'foutboodschap als er geen content gevonden is', 'wp-rijkshuisstijl' ), '"' . $query . '"' );
+
+      echo '</p>';
+      
     endif; 
 
   endif; 

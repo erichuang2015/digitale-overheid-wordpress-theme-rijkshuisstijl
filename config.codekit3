@@ -927,10 +927,10 @@
 		"oAP": "\/includes\/event-manager-functions.php",
 		"oF": 0
 		},
-	"\/includes\/example-cmb2.php": {
+	"\/includes\/example-cmb2.php.txt": {
 		"ft": 8192,
 		"oA": 2,
-		"oAP": "\/includes\/example-cmb2.php",
+		"oAP": "\/includes\/example-cmb2.php.txt",
 		"oF": 0
 		},
 	"\/includes\/metadata-boxes.php": {
@@ -1535,10 +1535,10 @@
 		"oAP": "\/page_evenement.php",
 		"oF": 0
 		},
-	"\/page_search.php": {
+	"\/page_search.php.txt": {
 		"ft": 8192,
 		"oA": 2,
-		"oAP": "\/page_search.php",
+		"oAP": "\/page_search.php.txt",
 		"oF": 0
 		},
 	"\/page_show-child-pages.php": {

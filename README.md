@@ -10,6 +10,7 @@ WP-rijkshuisstijl is ontwikkeld als WordPress-theme voor [digitaleoverheid.nl](h
 
 ## Version history
 
+* 0.7.8 - Added message for no results on search page. Translations updated.
 * 0.7.7 - Removed double paging block on archives
 * 0.7.6 - Fixed text for 2nd menu item in dossiers
 * 0.7.5 - Text changes ACF contentblock

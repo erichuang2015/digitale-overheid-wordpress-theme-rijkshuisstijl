@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.6.24
- * @desc.   Modified Event Widget, updated pagination - bugfixes
+ * @version 0.7.8
+ * @desc.   Added message for no results on search page. Translations updated.
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -224,8 +224,8 @@ class GC_event_widget extends WP_Widget {
       <select id="<?php echo $this->get_field_id('order'); ?>" name="<?php echo $this->get_field_name('order'); ?>" class="widefat">
         <?php 
         $order_options = apply_filters('GC_event_widget_order_ddm', array(
-          'ASC' => __('Ascending','wp-rijkshuisstijl'),
-          'DESC' => __('Descending','wp-rijkshuisstijl')
+          'ASC' => __('Aflopend','wp-rijkshuisstijl'),
+          'DESC' => __('Oplopend','wp-rijkshuisstijl')
         )); 
         ?>
         <?php foreach( $order_options as $key => $value) : ?>   
