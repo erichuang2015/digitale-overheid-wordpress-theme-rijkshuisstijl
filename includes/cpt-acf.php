@@ -1200,7 +1200,7 @@ if( function_exists('acf_add_local_field_group') ):
   						'id' => '',
   					),
   					'choices' => array (
-  						'berichten'           => __( 'Automatische lijst berichten', 'wp-rijkshuisstijl' ),
+  						'berichten'           => __( 'Automatische lijst van berichten', 'wp-rijkshuisstijl' ),
   						'berichten_paginas'   => __( 'Berichten of pagina\'s', 'wp-rijkshuisstijl' ),
   						'algemeen'            => __( 'Vrije invoer: links in de volgorde die ik bepaal', 'wp-rijkshuisstijl' ),
   					),
@@ -1298,7 +1298,7 @@ if( function_exists('acf_add_local_field_group') ):
   					),
   					'choices' => array (
   						'ja' => 'Ja, toon alleen berichten uit een bepaalde categorie.',
-  						'nee' => 'Neen, toon alle berichten.',
+  						'nee' => 'Nee, toon alle berichten.',
   					),
   					'allow_null' => 0,
   					'other_choice' => 0,

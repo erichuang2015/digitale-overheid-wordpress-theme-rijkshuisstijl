@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.7.8
- * @desc.   Added message for no results on search page. Translations updated.
+ * @version 0.7.9
+ * @desc.   CSS for pagination updated
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "http://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.7.8" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Added message for no results on search page. Translations updated." );
+define( 'CHILD_THEME_VERSION',              "0.7.9" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "CSS for pagination updated" );
 define( 'SHOW_CSS_DEBUG',                   false );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
