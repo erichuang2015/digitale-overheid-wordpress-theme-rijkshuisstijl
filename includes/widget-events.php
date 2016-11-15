@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.7.8
- * @desc.   Added message for no results on search page. Translations updated.
+ * @version 0.7.10
+ * @desc.   CSS: list item arrow, flex on .home, search form in header
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -291,6 +291,6 @@ if ( function_exists( 'em_get_scopes' ) ) {
 function viezelinks( $text = '' ) {
 	$text = ($text == '') ? get_option ( "dbem_events_page_title" ) : $text;
 	$text = ($text == '') ? __('Events','dbem') : $text; //In case options aren't there....
-	return '<a href="'.EM_URI.'">' . $text . '</a>';
+	return '<p class="more"><a href="'.EM_URI.'">' . $text . '</a></p>';
 }
 ?>

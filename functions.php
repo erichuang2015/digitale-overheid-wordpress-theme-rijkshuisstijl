@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.7.9
- * @desc.   CSS for pagination updated
+ * @version 0.7.10
+ * @desc.   CSS: list item arrow, flex on .home, search form in header
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "http://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.7.9" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "CSS for pagination updated" );
+define( 'CHILD_THEME_VERSION',              "0.7.10" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "CSS: list item arrow, flex on .home, search form in header" );
 define( 'SHOW_CSS_DEBUG',                   false );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
@@ -1524,6 +1524,8 @@ function rhswp_write_extra_contentblokken() {
               echo '</ul>';
             }
             else {
+              // dus $selected_content_full == 'ja'
+
             
               foreach ( $selected_content as $post ) {
                 
@@ -1557,11 +1559,14 @@ function rhswp_write_extra_contentblokken() {
                 do_action( 'genesis_after_entry' );
             
               }
-              
             }
-
           }
           elseif ( 'berichten' == $type_block ) {
+            // dus $type_block != 'algemeen' && $type_block != 'berichten_paginas'
+
+            $overviewurl        = '';
+            $overviewlinktext   = '';
+
             if ( $titel ) {
               echo '<h2>' . $titel . '</h2>';
             }
@@ -1577,12 +1582,14 @@ function rhswp_write_extra_contentblokken() {
                 'posts_per_page'  => $maxnr_posts,
                 'tax_query' => array(
                   array(
-                    'taxonomy' => RHSWP_CT_DOSSIER,
-                    'field' => 'term_id',
-                    'terms' => $currentterm
+                    'taxonomy'  => RHSWP_CT_DOSSIER,
+                    'field'     => 'term_id',
+                    'terms'     => $currentterm
                   ),
                 )
               );
+              
+              $overviewlinktext = $currentterm;
                 
             }
             else {
@@ -1603,21 +1610,24 @@ function rhswp_write_extra_contentblokken() {
 
                 foreach( $chosen_category as $filter ): 
 
-                  $terminfo = get_term_by( 'id', $filter, 'category' );
-                  $slugs[] = $terminfo->slug;
+                  $terminfo     = get_term_by( 'id', $filter, 'category' );
+                  $slugs[]      = $terminfo->slug;
+
+                  $overviewlinktext = $terminfo->name;
+                  $overviewurl      = $terminfo->slug;
             
                 endforeach;
 
                 if ( $currentterm ) {
-                
+                  // filter op dossier
                   $args = array(
                     'post_type' => 'post',
                     'tax_query' => array(
                       'relation' => 'AND',
                       array(
-                        'taxonomy' => RHSWP_CT_DOSSIER,
-                        'field' => 'term_id',
-                        'terms' => $currentterm
+                        'taxonomy'  => RHSWP_CT_DOSSIER,
+                        'field'     => 'term_id',
+                        'terms'     => $currentterm
                       ),
                       array(
                         'taxonomy'  => 'category',
@@ -1629,7 +1639,7 @@ function rhswp_write_extra_contentblokken() {
                     
                 }
                 else {
-                  
+                  // geen verder filter
                   $args = array(
                     'post_type' => 'post',
                     'post_status'     => 'publish',
@@ -1642,7 +1652,6 @@ function rhswp_write_extra_contentblokken() {
                       )
                     )
                   );
-                  
                 }
               } 
             }
@@ -1650,6 +1659,11 @@ function rhswp_write_extra_contentblokken() {
             // Assign predefined $args to your query
             $sidebarposts = new WP_query();
             $sidebarposts->query($args);
+
+            $currentpage      = get_permalink();
+            $currentsite      = get_site_url();
+
+            
             if ( $sidebarposts->have_posts() ) {
 
               $postcounter = 0;
@@ -1674,18 +1688,39 @@ function rhswp_write_extra_contentblokken() {
                   $classattr = str_replace( 'has-post-thumbnail', '', $classattr );
                 }
 
-                $permalink  = get_permalink();
+                $theurl     = get_permalink();
                 $excerpt    = wp_strip_all_tags( get_the_excerpt( $post ) );
                 $postdate   = get_the_date( );
+                $title      = get_the_title();
+                
+    
+                if ( $currentsite && $currentpage && $currentterm ) {
+                  // aaaaa, what a fuckup.
+                  // o holy ToDo: make me use a page for this URL (bug: 
+                  
+                  $postpermalink  = get_term_link( $currentterm );
+                  $postpermalink  = str_replace( $currentsite, '', $postpermalink);
+                  $postpermalink  = '/' . $post->post_name;
+      
+                  $crumb          = str_replace( $currentsite, '', $currentpage);
+                  
+                  $theurl         = get_term_link( $currentterm )  . RHSWP_DOSSIERPOSTCONTEXT . $postpermalink;
+      
+                }
+                else {
+                  $theurl         = get_the_permalink();
+                }
+
+            		
 
                 printf( '<article %s>', $classattr );
 
                 if ( $doimage ) {
                   printf( '<div class="article-container"><div class="article-visual">%s</div>', get_the_post_thumbnail( $post->ID, 'featured-post-widget' ) );
-                  printf( '<div class="article-excerpt"><a href="%s"><h3>%s</h3><p>%s</p><p class="meta">%s</p></a></div></div>', get_permalink(), get_the_title(), $excerpt, $postdate );
+                  printf( '<div class="article-excerpt"><a href="%s"><h3>%s</h3><p>%s</p><p class="meta">%s</p></a></div></div>', $theurl, $title, $excerpt, $postdate );
                 }
                 else {
-                  printf( '<a href="%s"><h3>%s</h3><p>%s</p><p class="meta">%s</p></a>', get_permalink(), get_the_title(), $excerpt, $postdate );
+                  printf( '<a href="%s"><h3>%s</h3><p>%s</p><p class="meta">%s</p></a>', $theurl, $title, $excerpt, $postdate );
                 }
 
                 
@@ -1694,6 +1729,11 @@ function rhswp_write_extra_contentblokken() {
                 do_action( 'genesis_after_entry' );
 
               endwhile;
+
+              if ( $overviewurl && $overviewlinktext ) {
+                echo '<p class="more"><a href="'.$overviewurl.'">' . $overviewlinktext . '</a></p>';
+              }
+              
             }
             // RESET THE QUERY
             wp_reset_query();

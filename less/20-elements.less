@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.6.31
-// * @desc.   Rewrite rules added to prevent 404 after URL tampering
+// * @version 0.7.10
+// * @desc.   CSS: list item arrow, flex on .home, search form in header
 // * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 // **
 
@@ -133,6 +133,8 @@
   }
 
   .flexbox {
+    .page-template-page_showalldossiers,
+    .home,
     .archive {
       .block {
         display: flex;
@@ -142,15 +144,12 @@
         article {
     	    flex-grow: 1;
           float: left;
-    
         }
       }
     }  
   }  
   
   .block {
-
-
     h2,
     h3 {
       width: 100%;
@@ -170,7 +169,6 @@
           text-decoration: underline;
         }
       }
-      
     }
         
     article {
@@ -243,8 +241,6 @@
       img {
         margin: 0;
         display: block;
-//        height: auto;
-//        width: 100%;
       }
     }
     .article-excerpt {
@@ -280,7 +276,6 @@
       margin: 0 0 0 -22px;
       padding: 0;
       border-left: 44px solid @rijksblauw;
-//      width: 270px;
       width: 135px;
       height: 31px;
       background: 0;
@@ -314,6 +309,20 @@
     }
   }  
 
+
+  .more {
+    width: 100%;
+    margin-top: 1em;
+    font-weight: 700;
+    font-family: @fontstrong;
+    a {
+      color: @a_color_default;
+    }
+
+		padding-left: 1.5em;
+		.listitem_arrow( @a_color_default, 1em );
+
+  }
 
   
   .dojs {
@@ -711,22 +720,30 @@
   
 
   @media only screen and (min-width: ( @break_tablet ) ) {
-
     .flexbox {
+      .page-template-page_showalldossiers,
+      .home,
       .archive {
         .block {
+
           article {
             padding: 0 1em 0 0;
-            max-width: @floatleft_width;
+//            max-width: @floatleft_width;
+            flex-basis: @floatleft_width;
   
             &.has-post-thumbnail {
               max-width: 100%;
-            }        
-            
+              flex-basis: 100%;
+            }
+                    
+            &:only-of-type {
+              flex-basis: 100%;
+            }
           }
         }
       }
     }
+    
     .block {
 
       .has-post-thumbnail {
@@ -747,10 +764,13 @@
 
   @media only screen and (min-width: ( @break_tablet ) ) {
     .flexbox {
-      .block {
-        article {
-          h3 {
-            min-height: 3.5rem;
+      .home,
+      .archive {
+        .block {
+          article {
+            h3 {
+              min-height: 3.5rem;
+            }
           }
         }
       }

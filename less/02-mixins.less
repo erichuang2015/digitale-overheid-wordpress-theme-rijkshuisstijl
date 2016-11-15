@@ -7,8 +7,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.7.2
-// * @desc.   Search functions - paging
+// * @version 0.7.10
+// * @desc.   CSS: list item arrow, flex on .home, search form in header
 // * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 // **
 
@@ -317,7 +317,34 @@
 
 //=========================================================================================================
 
-.listitem_arrow( @itemcolor: @txt, @fontsize: 16px, @topdistance: 5px, @leftdistance: 0 ) {
+.arrow_after( @itemcolor: @txt, @fontsize: 1em, @topdistance: 5px, @leftdistance: 0 ) {
+  display: block;
+  position: relative;
+  padding-right: 1.5em;
+  
+  &:after {
+    font-weight: normal;
+    font-family: "RO Icons";
+    display: inline-block;
+    vertical-align: middle;
+    content: "";
+    speak: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: @itemcolor;
+    font-size: @fontsize;
+    line-height: @fontsize;
+    position: absolute;
+    right: @leftdistance;
+    top: @topdistance;
+    width: 1.5em;
+  }  
+  
+}
+
+//=========================================================================================================
+
+.listitem_arrow( @itemcolor: @txt, @fontsize: 1em, @topdistance: 5px, @leftdistance: 0 ) {
 
   display: block;
   position: relative;

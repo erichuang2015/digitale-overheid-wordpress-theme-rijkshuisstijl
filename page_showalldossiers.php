@@ -9,8 +9,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.6.13
- * @desc.   Improved  dossier-helper-functions. Only direct descendants in menu shown.
+ * @version 0.7.10
+ * @desc.   CSS: list item arrow, flex on .home, search form in header
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -42,16 +42,27 @@ function rhswp_show_all_dossiers() {
 
   if ($terms && ! is_wp_error( $terms ) ) { 
 
+    echo '<div class="block">';
+
     foreach ( $terms as $term ) {
 
-      echo '<article class="dossieroverzicht">';  
-      echo '<h2 class="entry-title"><a href="' . get_term_link( $term->term_id, RHSWP_CT_DOSSIER ) . '">' . $term->name .'</a></h2>';  
+      $excerpt    = '';
+      $classattr  = 'dossieroverzicht';
       if ( $term->description ) {
-        echo '<p>' . $term->description .'</p>';  
+        $excerpt  =  $term->description;
       }
-      echo '</article>';  
+      
+      $href       = get_term_link( $term->term_id, RHSWP_CT_DOSSIER );
+      
+      printf( '<article %s>', $classattr );
+      printf( '<a href="%s"><h3>%s</h3><p>%s</p></a>', $href, $term->name, $excerpt );
+      echo '</article>';
+      
     
     }
+
+
+    echo '</div>';
 
     wp_reset_postdata();
   

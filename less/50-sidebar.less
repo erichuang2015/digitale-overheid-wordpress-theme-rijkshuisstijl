@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.6.24
-// * @desc.   Modified Event Widget, updated pagination - bugfixes
+// * @version 0.7.10
+// * @desc.   CSS: list item arrow, flex on .home, search form in header
 // * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 // **
 
@@ -101,10 +101,27 @@
       padding-top: 1em;
       border-top: 1px solid @grijs;
     }
-    a h4 {
-      color: @a_color_default;
-      font-weight: 700;
-      font-family: @fontstrong;
+    a {
+      color: @txt;
+      text-decoration: none;
+      display: block;
+      overflow: hidden; 
+
+      &:hover,
+      &:focus,
+      &:active {
+        text-decoration: none;
+
+        h4 {
+          text-decoration: underline;
+        }
+      }
+      
+      h4 {
+        color: @a_color_default;
+        font-weight: 700;
+        font-family: @fontstrong;
+      }
     }
   }
 
