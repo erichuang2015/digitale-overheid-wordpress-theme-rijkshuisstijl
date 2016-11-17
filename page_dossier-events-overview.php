@@ -9,8 +9,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.6.30
- * @desc.   Event context added for a dossier
+ * @version 0.7.11
+ * @desc.   Contentblok check op dossier archive pages. 
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -18,6 +18,14 @@
 //* Template Name: 02 - (dossiers) events voor een dossier 
 
 add_action( 'genesis_entry_content', 'rhswp_get_documents_for_dossier', 15 );
+
+// Remove the standard pagination, so we don't get two sets
+remove_action( 'genesis_after_endwhile', 'genesis_posts_nav' );
+
+if ( rhswp_extra_contentblokken_checker() ) {
+  add_action( 'genesis_entry_footer', 'rhswp_write_extra_contentblokken');
+}
+
 
 genesis();
 

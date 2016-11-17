@@ -10,6 +10,7 @@ WP-rijkshuisstijl is ontwikkeld als WordPress-theme voor [digitaleoverheid.nl](h
 
 ## Version history
 
+* 0.7.11 - Contentblok check op dossier archive pages. 
 * 0.7.10 - CSS: list item arrow, flex on .home, search form in header
 * 0.7.9 - CSS for pagination updated
 * 0.7.8 - Added message for no results on search page. Translations updated.

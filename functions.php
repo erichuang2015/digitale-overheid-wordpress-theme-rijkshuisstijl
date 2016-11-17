@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.7.10
- * @desc.   CSS: list item arrow, flex on .home, search form in header
+ * @version 0.7.11
+ * @desc.   Contentblok check op dossier archive pages. 
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "http://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.7.10" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "CSS: list item arrow, flex on .home, search form in header" );
+define( 'CHILD_THEME_VERSION',              "0.7.11" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Contentblok check op dossier archive pages. " );
 define( 'SHOW_CSS_DEBUG',                   false );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {

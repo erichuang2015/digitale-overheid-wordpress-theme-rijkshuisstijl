@@ -633,7 +633,7 @@ if( function_exists('acf_add_options_page') ):
 
 	$args = array(
 		'slug' => 'instellingen',
-		'title' => __( 'Theme-instellingen', 'wp-rijkshuisstijl' ),
+		'title' => __( 'Instellingen theme', 'wp-rijkshuisstijl' ),
 		'parent' => 'themes.php'
 	); 
 	
