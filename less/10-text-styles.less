@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.7.10
-// * @desc.   CSS: list item arrow, flex on .home, search form in header
+// * @version 0.7.12
+// * @desc.   Added extra styling for <table>
 // * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 // **
 
@@ -220,6 +220,9 @@
   	line-height: 2;
   	margin-bottom: @padding;
   	width: 100%;
+  	border: 0 none @wit;
+  	outline: none;
+  	
   	
   	.time {
       	width: 20%;
@@ -232,22 +235,25 @@
       	width: 45%;
   	}
   
-      tbody {
-      	border-top: 1px solid @grijs;
-      }
-      
-      th,
-      td {
-      	text-align: left;
-          vertical-align: top;
-      }
-      
-      th {
-      	font-weight: bold;
-      	text-transform: uppercase;
-      }
-      
-
+    tbody {
+    	border-top: 1px solid @grijs;
+    }
+    
+    th,
+    td {
+      text-align: left;
+      vertical-align: top;
+      background: @grijs_1;
+      padding: .25em;      
+    }
+    
+    th {
+      font-weight: bold;
+      font-family: @fontstrong;
+//      	text-transform: uppercase;
+    }
+    td {
+    }
   }
   
   .entry-content {
@@ -267,40 +273,7 @@
         }
       }    
     }
-    
-    .teammembers, table {
-      
-      td, p, h1, h2, h3, h4, h5, h6 {
-        font-family: @bodyfont;
-        font-weight: normal;
-        line-height: 1.4;
-        margin: 0;
-        padding: 0;
-      }
-      h1, h2, h3, h4 {
-        font-size: 18px;
-      }
-      td, p, h5, h6 {
-        font-size: 16px;
-      }
-      h5, h6 {
-        margin: 0 0 6px 0;
-        font-style: italic;
-      }
-      
-      &, li {
-        list-style: none;
-        padding-left: 0;
-        margin-left: 0;
-      }
-      li {
-        margin-bottom: 1em;
-      }
-      
-      td {
-        padding: 0 ( @padding / 4 ) ( @padding ) 0;
-      }
-    }
+
   }
 
 
