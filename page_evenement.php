@@ -8,14 +8,19 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.6.23
- * @desc.   Modified Event Widget, updated pagination. Extra event functions and page.
+ * @version 0.7.13
+ * @desc.   Contentblok-checker op diverse pagina's
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
  
 
 //* Display author box on single posts
 add_filter( 'get_the_author_genesis_author_box_single', '__return_false' );
+
+
+if ( rhswp_extra_contentblokken_checker() ) {
+  add_action( 'genesis_entry_content', 'rhswp_write_extra_contentblokken', 14 );
+}
 
 
  

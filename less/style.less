@@ -3,8 +3,8 @@
   Description: Theme voor ibewustzijnoverheid.nl
   Author: Paul van Buuren
   Author URI: https://wbvb.nl/themes/ibewustzijn/
-  Version: 0.7.12
-  Version description: 0.7.12 - Added extra styling for <table>
+  Version: 0.7.13
+  Version description: 0.7.13 - Contentblok-checker op diverse pagina's
   Text Domain: wp-rijkshuisstijl
   
   Template: genesis
@@ -634,22 +634,6 @@ input[type="text"] {
   padding: 0;
 }
 
-.page-template-page_sitemap .entry-content {
-  ul, li {
-    list-style: none;
-    margin-left: 0;
-    padding-left: 0;
-  } 
-  li {
-    margin-bottom: .2em;
-  }
-  ul ul {
-    margin-left: .5em;
-    li {
-      padding-left: .5em;
-    }
-  }
-}
 
 .home {
   header .page-title {
@@ -1117,5 +1101,19 @@ p.debugstring + p.debugstring {
 }
 
 
+.js-menu-open {
+//  border: 1px solid red !important;
+}
 
+.menu .menu-item:focus {
+	position: static;
+}
+
+nav.nav-primary .menu-item > a:focus + ul.sub-menu,
+nav.nav-primary .menu-item.js-menu-open > ul.sub-menu {
+	left: auto;
+	opacity: 1;
+//	border: 1px solid black;
+	display: block;
+}
 

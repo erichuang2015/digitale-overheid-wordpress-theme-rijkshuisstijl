@@ -9,19 +9,25 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.6.25
- * @desc.   Check on number of found document in dossier menu. CSS bugfixes
+ * @version 0.7.13
+ * @desc.   Contentblok-checker op diverse pagina's
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
 
 //* Template Name: 11 - toon onderliggende pagina's
 
-add_action( 'genesis_entry_content', 'rhswp_get_page_dossiersoverview', 15 );
+add_action( 'genesis_entry_content', 'rhswp_get_page_childpages', 15 );
+
+if ( rhswp_extra_contentblokken_checker() ) {
+  add_action( 'genesis_entry_content', 'rhswp_write_extra_contentblokken', 14 );
+}
+
+
 
 genesis();
 
-function rhswp_get_page_dossiersoverview() {
+function rhswp_get_page_childpages() {
 
   global $post;
   

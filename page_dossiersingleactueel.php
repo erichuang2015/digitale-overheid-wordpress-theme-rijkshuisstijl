@@ -9,8 +9,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.7.11
- * @desc.   Contentblok check op dossier archive pages. 
+ * @version 0.7.13
+ * @desc.   Contentblok-checker op diverse pagina's
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -174,8 +174,6 @@ function rhswp_get_page_dossiersingleactueel() {
           <section>
             <h2><a href="<?php echo $theurl ?>"><?php the_title(); ?></a></h2>
             <?php the_excerpt() ?>
-            <?php the_category( ', ' ) ?>
-            <?php echo get_the_term_list( $post->ID, RHSWP_CT_DOSSIER, 'Dossiers: ', ', ' )  ?>
           </section>
 
         <?php
