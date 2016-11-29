@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.7.12
-// * @desc.   Added extra styling for <table>
+// * @version 0.7.15
+// * @desc.   Kleine CSS bugs
 // * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 // **
 
@@ -250,31 +250,39 @@
     th {
       font-weight: bold;
       font-family: @fontstrong;
-//      	text-transform: uppercase;
     }
     td {
     }
   }
   
-  .entry-content {
-    *:not(.pagination) {      
+  .entry-content *:not(.pagination) {      
+    ul {
+      padding-left: 0;
+      ul {
+        margin-left: 0;
+      }
+      &, li {
+        list-style: none;
+      }
+      li {
+        margin-left: 0;
+    		padding-left: 1.5em;
+    		.listitem_arrow( @txt, .8em, 10px );
+        display: block;
+      }
+    }    
+  }
+
+  .entry-content .pagination,     
+  .entry-content .stelselplaat {      
       ul {
         padding-left: 0;
-        &, li {
-          list-style: none;
-        }
-        li {
-          margin-left: 0;
-      		padding-left: 1.5em;
-      		.listitem_arrow( @txt, 12px );
-      		a {
-//        		padding-left: 1em;
-      		}
+        li:before {
+          content: '';
+          display: none;
         }
       }    
     }
-
-  }
 
 
   

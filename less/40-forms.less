@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.7.1
-// * @desc.   Search functions - search via SearchWP
+// * @version 0.7.15
+// * @desc.   Kleine CSS bugs
 // * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 //
 
@@ -73,7 +73,6 @@
     box-shadow: none;
     color: @button_color_default;
     cursor: pointer;
-    text-transform: uppercase;
     width: auto;
     .inputpadding();
     border-color: @button_bg_default;
@@ -118,7 +117,7 @@
     margin:  0;
     padding:  0;
     border-style: none;
-    
+
     input, select, textarea {
       display: block;
     	box-sizing: border-box;
@@ -238,6 +237,7 @@
     p {
       overflow: hidden;
       display: block;
+      margin-bottom: 0;
     }
     
     .wpcf7-display-none {

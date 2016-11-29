@@ -7,27 +7,76 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.7.10
-// * @desc.   CSS: list item arrow, flex on .home, search form in header
+// * @version 0.7.15
+// * @desc.   Kleine CSS bugs
 // * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 // **
 
 .70_pagetypes() {
 
-  
-  .dossieroverzicht {
-//    border: 1px solid #d3d3d3;
-//    background: #f1f1f1;
-//    padding: 0 1em 1em 1em;
-//    margin: 1em 0 .5em 0;
+  .entry-content {
     
-    p {
-      margin-bottom: 0;
-    }
-    ul + p,
-    ol + p,
-    p + p {
-      margin-top: 1em;
+    .dossieroverzicht {
+      
+      p {
+        margin-bottom: 0;
+      }
+      ul + p,
+      ol + p,
+      p + p {
+        margin-top: 1em;
+      }
+      
+      a {
+        display: block;
+      }
+      
+      .voorbereid {
+        
+        ul {
+          margin-left: 0;
+          
+          li {
+        		padding-left: 0 !important;
+            margin-left: 0 !important;
+    
+            &:before {
+              display: none !important;
+            }
+            
+            ul {
+              display: flex;
+              flex-flow: row wrap;
+              justify-content: flex-start;
+              margin-bottom: 1em;
+              
+              li {
+                margin-left: 0;
+                padding-bottom: .5em;
+                padding-right: .5em;
+  //              display: inline-flex;
+                flex: 1;
+          	    flex-grow: 1;
+            		padding-left: 1.5em !important;
+            		.listitem_arrow( @a_color_default, .8em, 10px );
+                display: block;
+                flex-basis: 25%;
+    
+                &:before {
+                  display: block !important;
+                }
+                
+                a {
+                  display: block;
+                  &:visited {
+                    color: @a_color_default;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 
@@ -45,9 +94,6 @@
     }
     
     article {
-//      border-left: 1px solid @blauw;  
-      margin-left: 1em;    
-      margin-right: 1em;    
 
       p {
         margin: 0;        

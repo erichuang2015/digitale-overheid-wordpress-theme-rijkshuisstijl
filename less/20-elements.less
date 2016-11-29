@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.7.10
-// * @desc.   CSS: list item arrow, flex on .home, search form in header
+// * @version 0.7.15
+// * @desc.   Kleine CSS bugs
 // * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 // **
 
@@ -91,8 +91,11 @@
       padding-left: 0;
     }
   	a {
-  		padding-left: 1.5em;
-  		.listitem_arrow( @a_color_default, 16px );
+  		padding-left: 1.2em;
+  		.listitem_arrow( @a_color_default, 12px );
+  		display: block;
+
+  		
 
   		&:visited {
     		&:before {
@@ -115,11 +118,12 @@
       display: block;
       a {
         padding-top: .5em;
+        padding-right: .5em;
         padding-bottom: .5em;
         line-height: 1.2;
         
         &:before {
-          top: 9px;
+          top: 14px;
           left: 3px;
         }
       }
@@ -144,6 +148,7 @@
         article {
     	    flex-grow: 1;
           float: left;
+          flex-basis: 100%;
         }
       }
     }  
@@ -174,7 +179,7 @@
     article {
 
       overflow: hidden;
-      margin-bottom: 2em;
+      margin-bottom: 1em;
 
       h3 {
         padding: 0;
@@ -182,8 +187,8 @@
       
       a {
         display: block;
-        overflow: hidden;
-        height: 100%;
+//        overflow: hidden;
+//        height: 100%;
         padding: 0;
         margin: 0;
         p {
@@ -232,7 +237,7 @@
     }
     .article-visual {
       padding-right: .5em;      
-      width: @floatleft_width;
+      width: @flexbasis_fiftypct;
       text-decoration: none;
       a {
         vertical-align: bottom;
@@ -246,8 +251,8 @@
     .article-excerpt {
       padding-left: .5em;      
       padding-right: 1em;      
-      width: @floatleft_width;
-      width: ~"calc(100% - @{floatleft_width})";
+      width: @flexbasis_fiftypct;
+      width: ~"calc(100% - @{flexbasis_fiftypct})";
     }
     
     .post-thumbnail-bg-gray {
@@ -721,15 +726,14 @@
 
   @media only screen and (min-width: ( @break_tablet ) ) {
     .flexbox {
-      .page-template-page_showalldossiers,
       .home,
+      .page-template-page_showalldossiers,
       .archive {
         .block {
 
           article {
-            padding: 0 1em 0 0;
-//            max-width: @floatleft_width;
-            flex-basis: @floatleft_width;
+            padding: 0 1.5em 2px 2px;
+            flex-basis: @flexbasis_fiftypct;
   
             &.has-post-thumbnail {
               max-width: 100%;
@@ -762,7 +766,7 @@
     }
   }
 
-  @media only screen and (min-width: ( @break_tablet ) ) {
+  @media only screen and (min-width: ( @break_fullwidth ) ) {
     .flexbox {
       .home,
       .archive {
@@ -771,6 +775,14 @@
             h3 {
               min-height: 3.5rem;
             }
+          }
+        }
+      }
+
+      .page-template-page_showalldossiers {
+        .block {
+          article {
+            flex-basis: @flexbasis_third;
           }
         }
       }

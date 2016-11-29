@@ -9,8 +9,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.7.3
- * @desc.   Content-blokken herzien
+ * @version 0.7.15
+ * @desc.   Kleine CSS bugs
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -42,16 +42,20 @@ else {
   add_action( 'genesis_before_loop', 'rhswp_write_contentblok_waarschuwing', 16 );
 }
 
+//========================================================================================================
+
 genesis();
-    
+
+//========================================================================================================
 
 function rhswp_write_contentblok_waarschuwing() {
+  
   echo '<p>' . __( 'Hier staat alle content voor dit dossier.', 'wp-rijkshuisstijl' ) . '</p>';
 
   $user = wp_get_current_user();
   if ( in_array( 'manage_categories', (array) $user->allcaps ) ) {
-    //The user has the "author" role
 
+    //The user has capability to manage categories
     $queried_object = get_queried_object();
     $edit_link = esc_url( get_edit_term_link( $queried_object->term_id ) );    
     
@@ -59,11 +63,6 @@ function rhswp_write_contentblok_waarschuwing() {
     '</h2><p>' . __( 'Dit is een ongefilterde weergaven van alle content, aflopend gesoorteerd op de laatste toevoegingsdatum. Het verdient aanbeveling om hiervoor contentblokken te gebruiken. Deze worden getoond in plaats van deze lijst.', 'wp-rijkshuisstijl' ) . '.</a>';
     echo '<br><a href="' . $edit_link . '">' . __( 'Voeg contentblokken toe om deze pagina te structureren', 'wp-rijkshuisstijl' ) . '.</a>';
     echo '<br><em>' . __( 'Deze tekst wordt alleen getoond aan redacteuren die taxonomieën mogen wijzigen.', 'wp-rijkshuisstijl' ) . '</em></div>';
-    
 
   }  
-
-
-//  dovardump($user);
-  
 }    

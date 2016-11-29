@@ -7,8 +7,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.7.10
-// * @desc.   CSS: list item arrow, flex on .home, search form in header
+// * @version 0.7.15
+// * @desc.   Kleine CSS bugs
 // * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 // **
 
@@ -82,7 +82,8 @@
 @slider_li_minheight:         300px;
 @slider_li_title_minheight:   40px;
     
-@floatleft_width:             50%;
+@flexbasis_fiftypct:          50%;
+@flexbasis_third:             33%;
 
 //=========================================================================================================
 
@@ -344,9 +345,8 @@
 
 //=========================================================================================================
 
-.listitem_arrow( @itemcolor: @txt, @fontsize: 1em, @topdistance: 5px, @leftdistance: 0 ) {
+.listitem_arrow( @itemcolor: @txt, @fontsize: 1em, @topdistance: 8px, @leftdistance: 0 ) {
 
-  display: block;
   position: relative;
   
   &:before {

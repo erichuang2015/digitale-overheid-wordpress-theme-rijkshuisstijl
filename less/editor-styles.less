@@ -7,8 +7,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.6.15
-// * @desc.   Kaderblok toegevoegd
+// * @version 0.7.15
+// * @desc.   Kleine CSS bugs
 // * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 // **
 
@@ -131,6 +131,14 @@ div:not(.kaderblok) {
     color: @grijs_7;
     border-bottom: 1px solid @grijs_7;
     margin-bottom: 1em;
+  }
+}
+div.statusDoorlevering {
+  padding: 0;
+  border-style: none;
+    
+  &:before { 
+    display: none;
   }
 }
 
