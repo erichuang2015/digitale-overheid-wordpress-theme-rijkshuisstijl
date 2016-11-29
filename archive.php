@@ -9,8 +9,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.6.13
- * @desc.   Improved  dossier-helper-functions. Only direct descendants in menu shown.
+ * @version 0.7.14
+ * @desc.   Contentblock kan dossiers tonen. Extra check op taxonomy contentblock toegevoegd.
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -28,5 +28,6 @@ add_action( 'genesis_before_loop', 'rhswp_add_taxonomy_description', 15 );
 remove_action( 'genesis_loop', 'genesis_do_loop' );
 add_action( 'genesis_loop', 'rhswp_archive_custom_loop' );
 
-	
+//========================================================================================================
+
 genesis();

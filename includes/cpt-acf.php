@@ -11,8 +11,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.7.5
- * @desc.   Text changes ACF contentblock
+ * @version 0.7.14
+ * @desc.   Contentblock kan dossiers tonen. Extra check op taxonomy contentblock toegevoegd.
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -806,19 +806,71 @@ if( function_exists('acf_add_local_field_group') ):
     	'title' => 'Dossieroverzicht: selecteer uitgelichte dossiers',
     	'fields' => array (
     		array (
-    			'key' => 'field_57f50cf4234e6',
-    			'label'   => __( 'Uitgelichte dossiers', 'wp-rijkshuisstijl' ),
-    			'name' => 'uitgelichte_dossiers',
-    			'type' => 'taxonomy',
-          'instructions'   => __( 'De dossiers die je hier kiest worden bovenaan de pagina getoond met speciale layout.', 'wp-rijkshuisstijl' ),  			
-    			'required' => 0,
+    			'key' => 'field_58382ce90bcd4',
+    			'label' => 'Alle dossiers tonen?',
+    			'name' => 'dossier_overzicht_filter',
+    			'type' => 'radio',
+    			'instructions' => '',
+    			'required' => 1,
     			'conditional_logic' => 0,
     			'wrapper' => array (
     				'width' => '',
     				'class' => '',
     				'id' => '',
     			),
-    			'taxonomy' => 'dossiers',
+    			'choices' => array (
+    				'dossier_overzicht_filter_ongefilterd' => 'Ja, toon alle dossiers',
+    				'dossier_overzicht_filter_only_filter' => 'Toon alleen de dossiers die hieronder geselecteerd zijn',
+    				'dossier_overzicht_filter_plus' => 'Toon de dossiers die hieronder geselecteerd zijn apart en som daarna de andere dossiers op',
+    			),
+    			'allow_null' => 0,
+    			'other_choice' => 0,
+    			'save_other_choice' => 0,
+    			'default_value' => 'dossier_overzicht_filter_ongefilterd',
+    			'layout' => 'vertical',
+    			'return_format' => 'value',
+    		),
+
+        array (
+        		'key' => 'field_583838dde16cd',
+        		'label' => 'Titel boven blok met uitgelichte dossiers',
+        		'name' => 'dossier_overzicht_filter_title',
+        		'type' => 'text',
+        		'instructions' => '',
+        		'required' => 1,
+        		'conditional_logic' => array (
+        			array (
+        				array (
+        					'field' => 'field_58382ce90bcd4',
+        					'operator' => '!=',
+      						'value' => 'dossier_overzicht_filter_ongefilterd',
+        				),
+        			),
+        		),
+    		),
+    		array (
+    			'key' => 'field_57f50cf4234e6',
+    			'label'   => __( 'Uitgelichte dossiers', 'wp-rijkshuisstijl' ),
+    			'name' => 'uitgelichte_dossiers',
+    			'type' => 'taxonomy',
+          'instructions'   => __( 'De dossiers die je hier kiest worden bovenaan de pagina getoond met speciale layout.', 'wp-rijkshuisstijl' ),  			
+    			'required' => 0,
+    			'conditional_logic' => array (
+    				array (
+    					array (
+    						'field' => 'field_58382ce90bcd4',
+    						'operator' => '!=',
+    						'value' => 'dossier_overzicht_filter_ongefilterd',
+    					),
+    				),
+    			),
+
+    			'wrapper' => array (
+    				'width' => '',
+    				'class' => '',
+    				'id' => '',
+    			),
+    			'taxonomy' => RHSWP_CT_DOSSIER,
     			'field_type' => 'checkbox',
     			'allow_null' => 0,
     			'add_term' => 1,
@@ -1203,6 +1255,7 @@ if( function_exists('acf_add_local_field_group') ):
   						'berichten'           => __( 'Automatische lijst van berichten', 'wp-rijkshuisstijl' ),
   						'berichten_paginas'   => __( 'Berichten of pagina\'s', 'wp-rijkshuisstijl' ),
   						'algemeen'            => __( 'Vrije invoer: links in de volgorde die ik bepaal', 'wp-rijkshuisstijl' ),
+  						'select_dossiers'     => __( 'Een selectie van dossiers', 'wp-rijkshuisstijl' ),
   					),
   					'allow_null' => 0,
   					'other_choice' => 0,
@@ -1435,7 +1488,41 @@ if( function_exists('acf_add_local_field_group') ):
   					'return_format' => 'value',
   					'placeholder' => '',
   				),
+  				array (
+    				
 
+      			'key' => 'field_68247045955b10',
+      			'label'   => __( 'Geselecteerde dossiers', 'wp-rijkshuisstijl' ),
+      			'name' => 'select_dossiers_list',
+      			'type' => 'taxonomy',
+            'instructions'   => __( 'De dossiers die je hier kiest worden bovenaan de pagina getoond met speciale layout.', 'wp-rijkshuisstijl' ),  			
+      			'required' => 0,
+      			'conditional_logic' => array (
+      				array (
+      					array (
+  								'field' => 'field_5804cde25e99a',
+      						'operator' => '==',
+      						'value' => 'select_dossiers',
+      					),
+      				),
+      			),
+  
+      			'wrapper' => array (
+      				'width' => '',
+      				'class' => '',
+      				'id' => '',
+      			),
+      			'taxonomy' => 'dossiers',
+      			'field_type' => 'checkbox',
+      			'allow_null' => 0,
+      			'add_term' => 0,
+      			'save_terms' => 0,
+      			'load_terms' => 0,
+      			'return_format' => 'id',
+      			'multiple' => 0,
+  
+
+  				),
   				array (
   					'key' => 'field_58247045955a9',
   					'label' => 'Berichten, documenten en pagina\'s',

@@ -10,8 +10,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.7.6
- * @desc.   Fixed text for 2nd menu item in dossiers
+ * @version 0.7.14
+ * @desc.   Contentblock kan dossiers tonen. Extra check op taxonomy contentblock toegevoegd.
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -33,7 +33,7 @@ function rhswp_dossier_title_checker( ) {
   }
   
   if ( taxonomy_exists( RHSWP_CT_DOSSIER ) ) {
-      
+
   
     $subpaginas               = '';
     $shownalready             = '';
@@ -54,14 +54,11 @@ function rhswp_dossier_title_checker( ) {
     $term     = '';
     $tellertje = 1;
 
-
     if ( 'single' == $loop ) {
       if ( get_query_var( RHSWP_DOSSIERPOSTCONTEXT ) ) {
         $url = get_query_var( RHSWP_DOSSIERPOSTCONTEXT );
         $contextpageID = url_to_postid( $url );
-        
-  //      dodebug('Er is een context: '  . $url . '<br>CurrentID is: '  . $currentID . '<br>contextpageID is: '  . $contextpageID );
-  
+
         $terms        = get_the_terms( $contextpageID , RHSWP_CT_DOSSIER );
   
         $args['markerforclickableactivepage'] = $contextpageID;
@@ -114,7 +111,7 @@ function rhswp_dossier_title_checker( ) {
       $args['theterm'] = $term->term_id;
   
       echo '<div class="dossier-overview"><div class="wrap">'; 
-      
+
       if ( function_exists( 'get_field' ) ) {
 
         $dossier_overzichtpagina  = get_field('dossier_overzichtpagina', $term );
@@ -187,10 +184,10 @@ function rhswp_dossier_title_checker( ) {
           
           if ( $parentID ) {
 
-            echo '<p style="border: 1px solid black; padding: .2em .5em;"><strong>Er is nog geen menu ingevoerd voor dit dossier.</strong><br>Dit menu toont nu de directe pagina\'s onder "<a href="' . get_permalink( $parentID ) . '">' . get_the_title( $parentID ) . '</a>"</p>';
-            dodebug( 'PaginaID: ' . $parentID );
-
-//            $args['currentpageid'] = $term->term_id;
+            $user = wp_get_current_user();
+            if ( in_array( 'manage_categories', (array) $user->allcaps ) ) {
+              echo '<p style="padding: .2em .5em; background: red; color: white;"><strong>Er is nog geen menu ingevoerd voor dit dossier.</strong><br>Dit menu toont nu de directe pagina\'s onder de pagina "<a href="' . get_permalink( $parentID ) . '" style="color: white;">' . get_the_title( $parentID ) . '</a>"</p>';
+            }  
 
             $argspages = array( 
               'child_of'  => $parentID, 
@@ -214,6 +211,11 @@ function rhswp_dossier_title_checker( ) {
           }
         }
       }
+
+
+
+dodebug( $posttype . ' / ' . $loop . ' : ' . $currentID );      
+      
   
       
       if ( $dossierinhoudpagina || $subpaginas ) {

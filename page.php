@@ -9,17 +9,21 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.4.1
- * @desc.   Theme-check, carrousel en extra pagina-layout 
+ * @version 0.7.14
+ * @desc.   Contentblock kan dossiers tonen. Extra check op taxonomy contentblock toegevoegd.
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
 
 //* Template Name: standaardpagina
 
+
 if ( rhswp_extra_contentblokken_checker() ) {
-  add_action( 'genesis_entry_footer', 'rhswp_write_extra_contentblokken');
+  add_action( 'genesis_entry_content', 'rhswp_write_extra_contentblokken', 14 );
 }
+
+//========================================================================================================
+
 genesis();
 
 

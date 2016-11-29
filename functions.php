@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.7.12
- * @desc.   Added extra styling for <table>
+ * @version 0.7.14
+ * @desc.   Contentblock kan dossiers tonen. Extra check op taxonomy contentblock toegevoegd.
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "http://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.7.12" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Added extra styling for <table>" );
+define( 'CHILD_THEME_VERSION',              "0.7.14" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Contentblock kan dossiers tonen. Extra check op taxonomy contentblock toegevoegd." );
 define( 'SHOW_CSS_DEBUG',                   false );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
@@ -35,7 +35,7 @@ else {
 }
 
 define( 'ID_ZOEKEN',                        'rhswp-searchform' );
-define( 'GC_TWITTERACCOUNT',                'gebrcentraal' );
+define( 'GC_TWITTERACCOUNT',                'digioverheid' );
 define( 'SOC_MED_NO',                       'socmed_nee' );
 define( 'SOC_MED_YES',                      'socmed_ja' );
 
@@ -444,6 +444,8 @@ function rhswp_add_defer_to_javascripts( $url )
 
 function rhswp_add_taxonomy_description() {
     global $wp_query;
+    
+
     if ( ! is_category() && ! is_tag() && ! is_tax() )
         return;
 
@@ -568,6 +570,9 @@ function rhswp_sidebar_context_taxonomies() {
 
         echo '<h4>' . $obj->labels->name . '</h4>';
       }
+      else {
+        dodebug('geen overzichtspagina gevonden');
+      }
 
       echo '<ul>';
       foreach ( $terms as $term ) {
@@ -663,13 +668,13 @@ add_action( 'genesis_loop_else',    'rhswp_404', 15 );
 //========================================================================================================
 
 function rhswp_no_posts_content_header() {
-    printf( '<h2 class="entry-title">%s</h2>', __( 'Pagina niet gevonden.', 'wp-rijkshuisstijl' ) );
+    printf( '<h2 class="entry-title">%s</h2>', __( 'Pagina niet gevonden (fout 404)', 'wp-rijkshuisstijl' ) );
 }
 
 //========================================================================================================
 
 function rhswp_no_posts_content() {
-    echo '<p>' . sprintf( __( 'The page you are looking for no longer exists. Perhaps you can return back to the site\'s <a href="%s">homepage</a> and see if you can find what you are looking for. Or, you can try finding it by using the search form below.', 'wp-rijkshuisstijl' ), home_url() ) . '</p>';
+    echo '<p>' . sprintf( __( 'We konden niet vinden waar je om vroeg. Misschien helpt het om naar <a href="%s">de homepage te gaan</a>. Je kunt ook zoeken via het zoekformulier hieronder.', 'wp-rijkshuisstijl' ), home_url() ) . '</p>';
     echo '<p>' . get_search_form() . '</p>';
 }
 
@@ -1249,30 +1254,41 @@ function rhswp_show_customtax_terms( $taxonomy, $title = '', $dosection = true )
     $sectionstart = '';
     $sectionend   = '';
   }
+  
   if ( taxonomy_exists( $taxonomy ) ) { 
-    echo $sectionstart;
-    echo '<h2>' . $title . '</h2>';
       
-    $orderby      = 'name'; 
     $show_count   = false;
     $pad_counts   = false;
     $hierarchical = true;
-    $title        = '';
      
     $args = array(
-      'taxonomy'     => $taxonomy,
-      'orderby'      => $orderby,
-      'show_count'   => $show_count,
-      'pad_counts'   => $pad_counts,
-      'hierarchical' => $hierarchical,
-      'title_li'     => $title
+      'taxonomy'              => $taxonomy,
+      'orderby'               => 'name',
+      'order'                 => 'ASC',
+      'hide_empty'            => true,      
+      'ignore_custom_sort'    => TRUE,
+      'echo'                  => 0,
+      'title_li'              => ''
+
     );
-  
-    echo '<ul>';
-    wp_list_categories( $args ); 
-    echo '</ul>';
-    echo $sectionend;
+
+//    $terms  = get_terms( $args );
+    $terms = wp_list_categories( $args );
     
+    if ( ! empty( $terms ) && ! is_wp_error( $terms ) ){
+
+        echo $sectionstart;
+        echo '<h2>' . $title . '</h2>';
+    
+        echo '<ul>';
+        echo $terms;
+//        foreach ( $terms as $term ) {
+//            echo '<li><a href="' . esc_url( get_term_link( $term ) ) . '">' . $term->name . '</a></li>';
+//        }
+        echo '</ul>';
+    
+        echo $sectionend;
+    }
   }
 }
 
@@ -1411,10 +1427,11 @@ function rhswp_dossiercontext_add_query_vars($vars) {
 
 //========================================================================================================
 
-
-
 function rhswp_extra_contentblokken_checker() {
   global $post;
+
+  $debugstring  = '';
+  $returnvalue  = false;
 
   if ( is_page() ) {
     $theid          = get_the_ID();
@@ -1424,15 +1441,31 @@ function rhswp_extra_contentblokken_checker() {
     $theid          = RHSWP_CT_DOSSIER . '_' . get_queried_object()->term_id;
     $contentblokken = get_field('extra_contentblokken', $theid );
   }
-  
+  else {
+    $theid          = RHSWP_CT_DOSSIER . '_' . get_queried_object()->term_id;
+    $contentblokken = get_field('extra_contentblokken', $theid );
+    $debugstring    = 'rhswp_extra_contentblokken_checker / else ' . $theid;
+  }
+
+  $debugstring = rhswp_get_context_info();
+
   if( $contentblokken ) {
-    return true;
+    $returnvalue =  true;
+    $debugstring   .= '. Er zijn contentblokkken voor ' . $theid;
   }
   else {
-    return false;
+    $debugstring   .= '. Helaas geen contentblokkken voor ' . $theid;
   }  
   
+  if( $debugstring ) {
+//    dodebug( $debugstring );
+  }  
+  
+  return $returnvalue;
+
 }
+
+//========================================================================================================
 
 function rhswp_write_extra_contentblokken() {
   global $post;
@@ -1461,6 +1494,7 @@ function rhswp_write_extra_contentblokken() {
           $titel                  = esc_html( $row['extra_contentblok_title'] );
           $type_block             = esc_html( $row['extra_contentblok_type_block'] );
           $algemeen_links         = $row['extra_contentblok_algemeen_links'];
+          $select_dossiers_list   = $row['select_dossiers_list'];
           $selected_content       = $row['select_berichten_paginas'];
           $selected_content_full  = $row['select_berichten_paginas_toon_samenvatting'];
           $categoriefilter        = esc_html( $row['extra_contentblok_categoriefilter'] );
@@ -1738,6 +1772,39 @@ function rhswp_write_extra_contentblokken() {
             // RESET THE QUERY
             wp_reset_query();
     
+
+          }
+          elseif ( 'select_dossiers' == $type_block ) {
+
+            if ( $select_dossiers_list ) {
+              
+                          
+              if ( $titel ) {
+                echo '<h2>' . $titel . '</h2>';
+              }
+              
+              $terms = get_terms( RHSWP_CT_DOSSIER, array(
+                'hide_empty' => false,
+                'include'   => $select_dossiers_list
+              ) );
+                  
+              if ($terms && ! is_wp_error( $terms ) ) {       
+                foreach ( $terms as $term ) {
+              
+                    $excerpt    = '';
+                    $classattr  = 'class="dossieroverzicht"';
+                    if ( $term->description ) {
+                      $excerpt  =  $term->description;
+                    }
+                    $href       = get_term_link( $term->term_id, RHSWP_CT_DOSSIER );
+                    
+              
+                  printf( '<article %s>', $classattr );
+                  printf( '<a href="%s"><h3>%s</h3><p>%s</p></a>', $href, $term->name, $excerpt );
+                  echo '</article>';
+                }
+              }
+            }
 
           }
           else {
@@ -2133,4 +2200,21 @@ function human_filesize($bytes, $decimals = 1) {
 }
 
 //========================================================================================================
+
+function rhswp_deletemedeletemedeleteme() {
+
+  if ( rhswp_extra_contentblokken_checker() ) {
+  
+    // replace default loop with extra blocks
+    remove_action( 'genesis_loop', 'genesis_do_loop' );
+    add_action( 'genesis_before_loop', 'rhswp_write_extra_contentblokken', 16 );
+    
+  }
+  
+}
+
+//========================================================================================================
+
+// add description
+add_action( 'genesis_before_loop', 'rhswp_deletemedeletemedeleteme', 15 );
 

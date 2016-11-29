@@ -9,8 +9,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.7.13
- * @desc.   Contentblok-checker op diverse pagina's
+ * @version 0.7.14
+ * @desc.   Contentblock kan dossiers tonen. Extra check op taxonomy contentblock toegevoegd.
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -24,6 +24,7 @@ if ( rhswp_extra_contentblokken_checker() ) {
 }
 
 
+//========================================================================================================
 
 genesis();
 
