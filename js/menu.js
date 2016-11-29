@@ -7,8 +7,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.6.22
-// * @desc.   Script minification check.
+// * @version 0.7.16
+// * @desc.   Laat menu openklappen bij keyboardnavigatie
 // * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 
 // Vars
@@ -123,3 +123,51 @@ if (matchMedia) {
 
 // =========================================================================================================
 
+/*  Genesis Accessible Dropdown Menu JavaScript
+
+	Used by the Genesis Accessible Dropdown Menu Plugin
+
+	Version: 1.0
+ 
+	License: GPL-2.0+
+	License URI: http://www.opensource.org/licenses/gpl-license.php
+
+ */
+
+( function($) { 
+
+	$('.menu li').hover(
+		function(){$(this).addClass("js-menu-open");},
+		function(){$(this).delay('250').removeClass("js-menu-open");}
+	);
+
+var top_level_links = $(this).find('> li > a');
+
+	// Added by Terrill: (removed temporarily: doesn't fix the JAWS problem after all)
+	// Add tabindex="0" to all top-level links 
+	// Without at least one of these, JAWS doesn't read widget as a menu, despite all the other ARIA
+	//$(top_level_links).attr('tabindex','0');
+	
+	// Set tabIndex to -1 so that top_level_links can't receive focus until menu is open
+	$(top_level_links).next('ul')
+		.attr('data-test','true')
+		.attr({ 'aria-hidden': 'true', 'role': 'menu' })
+		.find('a')
+		.attr('tabIndex',-1);
+	
+
+	
+	
+  $('.menu li a').on('focus blur',
+    function(){
+//      console.log( $(this).parents(".menu-item").text() );
+//    	$(this).parents(".menu-item").toggleClass("js-menu-open");
+//    	$(this).parents(".menu-item").addClass("js-menu-open");
+    }
+	);
+	
+	}
+	
+	(jQuery)
+	
+);

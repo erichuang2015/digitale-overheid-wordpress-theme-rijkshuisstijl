@@ -993,6 +993,15 @@
 		"oAP": "\/includes\/widget-paginalinks.php",
 		"oF": 0
 		},
+	"\/js\/accessibility-menu.js": {
+		"ft": 64,
+		"mi": 1,
+		"oA": 0,
+		"oAP": "\/js\/min\/accessibility-menu-min.js",
+		"oF": 0,
+		"sC": 1,
+		"tS": 0
+		},
 	"\/js\/arrow-down.png": {
 		"ft": 32768,
 		"iS": 168,
@@ -1033,6 +1042,15 @@
 		"mi": 1,
 		"oA": 0,
 		"oAP": "\/js\/min\/menu-min.js",
+		"oF": 0,
+		"sC": 1,
+		"tS": 0
+		},
+	"\/js\/min\/accessibility-menu-min.js": {
+		"ft": 64,
+		"mi": 1,
+		"oA": 0,
+		"oAP": "\/js\/min\/min\/accessibility-menu-min-min.js",
 		"oF": 0,
 		"sC": 1,
 		"tS": 0
@@ -1483,19 +1501,19 @@
 		"sU": 0
 		},
 	"\/less\/style.less": {
-		"aP": 0,
-		"bl": 0,
+		"aP": 1,
+		"bl": 1,
 		"dJ": 0,
 		"ft": 1,
 		"ie": 1,
 		"iI": 0,
-		"ma": 0,
+		"ma": 1,
 		"oA": 0,
 		"oAP": "\/style.css",
 		"oF": 2,
 		"oS": 1,
 		"rU": 0,
-		"sI": 0,
+		"sI": 1,
 		"sM": 0,
 		"sU": 0
 		},
@@ -1632,6 +1650,12 @@
 		"oAP": "\/style-ck.css",
 		"oF": 0,
 		"oS": 0
+		},
+	"\/style.css.map": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/style.css.map",
+		"oF": 0
 		},
 	"\/taxonomy.php": {
 		"ft": 8192,
@@ -3011,7 +3035,7 @@
 			}
 		},
 	"esLintSourceType": 0,
-	"externalServerAddress": "http:\/\/digitaleoverheid-accept.gebruikercentraal.co.uk\/",
+	"externalServerAddress": "http:\/\/digitaleoverheid.gebruikercentraal.co.uk\/",
 	"gitIgnoreBuildFolder": 1,
 	"hideConfigFile": 0,
 	"jsCheckerReservedNamesString": "",
