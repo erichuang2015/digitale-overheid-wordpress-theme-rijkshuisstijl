@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.7.15
-// * @desc.   Kleine CSS bugs
+// * @version 0.7.17
+// * @desc.   Pagina-template herzien: page_show-child-pages.php
 // * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 // **
 
@@ -65,7 +65,6 @@
 
   .block {
     margin-top: 2em;
-    border-top: 3px solid @block_border_color;
     clear: both;
     overflow: hidden;
 
@@ -80,6 +79,12 @@
       }
     }
   }
+
+  .block:not(.no-top) {
+    border-top: 3px solid @block_border_color;
+  }
+
+  
 
   .block .links,
   .sidebar .widget.page-links,

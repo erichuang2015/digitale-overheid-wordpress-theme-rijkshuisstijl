@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.7.16
- * @desc.   Laat menu openklappen bij keyboardnavigatie
+ * @version 0.7.17
+ * @desc.   Pagina-template herzien: page_show-child-pages.php
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "http://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.7.16" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Laat menu openklappen bij keyboardnavigatie" );
+define( 'CHILD_THEME_VERSION',              "0.7.17" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Pagina-template herzien: page_show-child-pages.php" );
 define( 'SHOW_CSS_DEBUG',                   false );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
@@ -215,8 +215,8 @@ add_filter( 'the_content_more_link',      'wpm_get_read_more_link');
 add_filter( 'get_the_content_more_link',  'rhswp_get_read_more_link'); // Genesis Framework only
 add_filter( 'excerpt_more',               'rhswp_get_read_more_link');
 
-function rhswp_get_read_more_link( $thepermalink  ) {
-  
+function rhswp_get_read_more_link( $thepermalink ) {
+
   if ( ! is_archive() ) {
     return;
   }

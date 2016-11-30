@@ -9,8 +9,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.7.14
- * @desc.   Contentblock kan dossiers tonen. Extra check op taxonomy contentblock toegevoegd.
+ * @version 0.7.17
+ * @desc.   Pagina-template herzien: page_show-child-pages.php
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -31,39 +31,49 @@ genesis();
 function rhswp_get_page_childpages() {
 
   global $post;
+  $currentpostID    = $post->ID;
+  $pagetemplateslug = basename( get_page_template_slug( $currentpostID ) );
   
   $args = array( 
-        'child_of' => $post->ID, 
-        'parent' => $post->ID,
-        'hierarchical' => 0,
-        'sort_column' => 'menu_order', 
-        'sort_order' => 'asc'
+        'child_of'      => $currentpostID, 
+        'parent'        => $currentpostID,
+        'hierarchical'  => 0,
+        'sort_column'   => 'menu_order', 
+        'sort_order'    => 'asc'
   );
   $mypages = get_pages( $args );
+
+  echo '<div class="block">';
+  
+  echo '<h2>' . _x( "Zie verder:", 'Titel voor onderliggende paginas', 'wp-rijkshuisstijl' ) . '</h2>';
   
   foreach( $mypages as $post ) {
-  
-    echo '<section>';
-    echo '<header><h2 class="entry-title"><a href="';
-    the_permalink();
-    echo '">';
-    the_title();
-    echo '</a></h2></header>';
-    echo '<div>';
+
+    $image      = get_the_post_thumbnail( $post->ID, 'featured-post-widget' );
+    $classattr  = '';
   
     if (  has_excerpt( $post->ID ) ) {
       $text = get_the_excerpt( $post->ID );
     } 
     else {
-      $text = get_words( get_post_field('post_content', $post->ID ), 35);   
+      $thecontent = wp_strip_all_tags( get_post_field('post_content', $post->ID ) );
+      $text = get_words( $thecontent, get_option( 'excerpt_length' ) );   
     } 
     if ( !$text ) {
       $text = _x( 'Eh, dit is een pagina zonder tekst', 'Standaardtekst als pagina geen tekst heeft.', 'wp-rijkshuisstijl' );
     }
-    echo $text;
-    echo rhswp_get_read_more_link( get_permalink() );
-    echo '</div>';
-    echo '</section>';
 
-  }  
+    printf( '<article %s>', $classattr );
+    if ( $image ) {
+      printf( '<div class="article-container"><div class="article-visual">%s</div>', $image );
+      printf( '<div class="article-excerpt"><a href="%s"><h3>%s</h3><p>%s</p></a></div></div>', get_permalink(), get_the_title(), $text );
+    }
+    else {
+      printf( '<a href="%s"><h3>%s</h3><p>%s</p></a>', get_permalink(), get_the_title(), $text );
+    }
+
+  }
+
+  echo '</div>';
+    
 }
