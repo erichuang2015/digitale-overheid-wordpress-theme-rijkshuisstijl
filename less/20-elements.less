@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.7.18
-// * @desc.   Image in .block breed en groot laten uitlijnen
+// * @version 0.7.20
+// * @desc.   Pijltjes voor list-items iets aangepast
 // * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 // **
 
@@ -97,7 +97,7 @@
     }
   	a {
   		padding-left: 1.2em;
-  		.listitem_arrow( @a_color_default, 12px );
+  		.listitem_arrow( @a_color_default, .7em, 10px );
   		display: block;
 
   		
@@ -316,9 +316,8 @@
       color: @a_color_default;
     }
 
-		padding-left: 1.5em;
-		.listitem_arrow( @a_color_default, 1em );
-
+		padding-left: 1.2em;
+		.listitem_arrow( @a_color_default, .8em, 8px );
   }
 
   
