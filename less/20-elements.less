@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.7.17
-// * @desc.   Pagina-template herzien: page_show-child-pages.php
+// * @version 0.7.18
+// * @desc.   Image in .block breed en groot laten uitlijnen
 // * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 // **
 
@@ -192,8 +192,6 @@
       
       a {
         display: block;
-//        overflow: hidden;
-//        height: 100%;
         padding: 0;
         margin: 0;
         p {
@@ -201,12 +199,6 @@
         }
         h3 {
           color: @donkerblauw_vol;
-        }
-        
-
-        &:focus {
-//          padding: 1em;
-//          margin: 1px;
         }
       }
 
@@ -221,43 +213,38 @@
         background: @grijs_1;
         height: 100%;
         display: block;
+        display: flex;
+
+        h3 {
+          min-height: 1rem;
+          margin-top: 0;
+        }
+        
       }
     }
     article.has-post-thumbnail {
       max-width: 100%;
       width: 100%;
       
-      h3 {
-        min-height: 1rem;
-      }
-    }
-    .article-visual,
-    .article-excerpt {
-      float: left;
-      &, img {
-        padding: 0;
-        margin: 0;
-      }
-      
     }
     .article-visual {
       padding-right: .5em;      
-      width: @flexbasis_fiftypct;
       text-decoration: none;
+      align-items: stretch;
+      
       a {
         vertical-align: bottom;
       }
 
-      img {
-        margin: 0;
-        display: block;
-      }
     }
     .article-excerpt {
       padding-left: .5em;      
       padding-right: 1em;      
-      width: @flexbasis_fiftypct;
-      width: ~"calc(100% - @{flexbasis_fiftypct})";
+      padding-top: 1em;      
+      padding-bottom: 1em;      
+      p {
+        margin-bottom: 0;
+      }
     }
     
     .post-thumbnail-bg-gray {
@@ -497,6 +484,15 @@
       
 
     @media only screen and (max-width: ( @break_tablet ) ) {
+
+      .block {
+        article {
+          .article-visual {
+            display: none;            
+          }
+        }
+      }
+      
       .slider {
         .caption {
           padding-left: 1em;
@@ -538,6 +534,43 @@
     }
 
     @media only screen and (min-width: ( @break_tablet ) ) {
+
+    .block {
+      article {
+
+        .article-visual,
+        .article-excerpt {
+          float: left;
+          &, img {
+            padding: 0;
+            margin: 0;
+          }
+        }
+        .article-excerpt {
+          width: @flexbasis_fiftypct;
+          width: ~"calc(100% - @{flexbasis_fiftypct})";
+          padding: 1em;
+        }      
+      
+        .article-visual {
+          width: @flexbasis_fiftypct;
+          background: @grijs_3;
+          position: relative;
+          
+          img {
+            margin: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translateY(-50%) translateX(-50%);
+            width: 100%;
+            height: auto;
+          }
+        }
+      }
+    }
+
+      
       .slider {
         .active {
           padding-top: 0;
