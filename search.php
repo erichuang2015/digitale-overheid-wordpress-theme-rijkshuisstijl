@@ -9,8 +9,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.7.8
- * @desc.   Added message for no results on search page. Translations updated.
+ * @version 0.7.21
+ * @desc.   Modernizr via CDN, paginalayouts gewijzigd, CSS bugs
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -47,7 +47,7 @@ function rhswp_add_search_description() {
 
   $search_text = get_search_query() ? apply_filters( 'the_search_query', get_search_query() ) : apply_filters( 'genesis_search_text', __( 'Zoek op deze website', 'genesis' ) . ' &#x02026;' );
     
-  echo '<h1>' . __( "Zoekresultaat voor ", 'wp-rijkshuisstijl' ) . ' "' . $search_text . '"</h1>';
+  echo '<h1>' . __( "Zoekresultaat voor ", 'wp-rijkshuisstijl' ) . ' "<span class="wordbreak">' . $search_text . '</span>"</h1>';
   
   get_search_form();
   
@@ -164,9 +164,10 @@ function rhswp_archive_custom_search_with_searchWP() {
 
     else:
 
+      echo '<h2>' . _x( 'Helaas', 'foutboodschap als er geen content gevonden is', 'wp-rijkshuisstijl' ) . '</h2>';
       echo '<p>';
 
-      echo sprintf( _x( 'We zochten naar %s, maar konden helaas niets vinden.', 'foutboodschap als er geen content gevonden is', 'wp-rijkshuisstijl' ), '"' . $query . '"' );
+      echo sprintf( _x( 'We zochten naar %s, maar konden niets vinden.', 'foutboodschap als er geen content gevonden is', 'wp-rijkshuisstijl' ), '"' . $query . '"' );
 
       echo '</p>';
       

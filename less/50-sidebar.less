@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.7.19
-// * @desc.   CSS styling event widget, padding primary widget bar
+// * @version 0.7.21
+// * @desc.   Modernizr via CDN, paginalayouts gewijzigd, CSS bugs
 // * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 // **
 
@@ -89,7 +89,6 @@
       margin-top: 3em;
     }    
     .category-link {
-      float: right;
     }
   }
 
@@ -124,6 +123,15 @@
     .event-location {
       display: inline-block;
       padding-right: .2em;
+      float: left;
+    }
+    .date-badge,
+    .event-times {
+      white-space: nowrap;
+    }
+    .excerpt {
+      clear: both;
+      float: none;
     }
   }
 

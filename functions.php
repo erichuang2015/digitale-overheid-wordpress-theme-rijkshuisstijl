@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.7.20
- * @desc.   Pijltjes voor list-items iets aangepast
+ * @version 0.7.21
+ * @desc.   Modernizr via CDN, paginalayouts gewijzigd, CSS bugs
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -157,6 +157,24 @@ remove_theme_support( 'genesis-inpost-layouts' );
 //* Remove Genesis in-post SEO Settings
 remove_action( 'admin_menu', 'genesis_add_inpost_seo_box' );
 
+//* Remove content/sidebar layout
+//genesis_unregister_layout( 'content-sidebar' );
+ 
+//* Remove sidebar/content layout
+genesis_unregister_layout( 'sidebar-content' );
+ 
+//* Remove content/sidebar/sidebar layout
+genesis_unregister_layout( 'content-sidebar-sidebar' );
+ 
+//* Remove sidebar/sidebar/content layout
+genesis_unregister_layout( 'sidebar-sidebar-content' );
+ 
+//* Remove sidebar/content/sidebar layout
+genesis_unregister_layout( 'sidebar-content-sidebar' );
+ 
+//* Remove full-width content layout
+genesis_unregister_layout( 'full-width-content' );
+
 //========================================================================================================
 
 // voor de widgets
@@ -296,6 +314,9 @@ add_filter( 'wp_nav_menu_items', 'rhswp_append_search_box_to_menu', 10, 2 );
 function rhswp_append_search_box_to_menu( $menu, $args ) {
 	//* Change 'primary' to 'secondary' to add extras to the secondary navigation menu
 	if ( is_search() ) {
+		return $menu;
+	}
+	if ( is_404() ) {
 		return $menu;
 	}
 	
@@ -710,9 +731,21 @@ function rhswp_get_sitemap_for_pagenotfound() {
   ?>        
   <section>
     <h2><?php _e( "Pagina's:", 'wp-rijkshuisstijl' ); ?></h2>
+
     <ul>
-        <?php wp_list_pages( 'title_li=&depth=1' ); ?>
+        <?php
+          $args = array(    
+            'depth'                 => '1',
+            'title_li'              => '',
+            'echo'                  => 1,
+            'sort_column'           => 'post_title',
+            'walker'                => new rhswp_custom_walker_for_sitemap(),
+            'ignore_custom_sort'    => TRUE,
+          );
+          
+           wp_list_pages( $args ); ?>
     </ul>
+    
   </section>
   <?php
   rhswp_show_customtax_terms( RHSWP_CT_DOSSIER, __( 'Dossiers', 'wp-rijkshuisstijl' ) . ":" );
@@ -729,7 +762,15 @@ function rhswp_get_sitemap_content() {
   <section>
     <h2><?php _e( "Pagina's:", 'wp-rijkshuisstijl' ); ?></h2>
     <ul>
-        <?php wp_list_pages( 'exclude=78,80&title_li=' ); ?>
+        <?php
+          $args = array(    
+            'exclude'   => array(78,80),
+            'title_li'  => '',
+            'echo'      => 1,
+            'walker'    => new rhswp_custom_walker_for_sitemap()
+          );
+          
+           wp_list_pages( $args ); ?>
     </ul>
   </section>
   <?php
@@ -749,6 +790,74 @@ function rhswp_get_sitemap_content() {
     
 }
 
+//========================================================================================================
+
+class rhswp_custom_walker_for_sitemap extends Walker_Page {
+
+  function start_el( &$output, $page, $depth, $args, $current_page = 0 ) {
+    
+      if ( $depth ) {
+        $indent = str_repeat("\t", $depth);
+      }
+      else {
+        $indent = '';
+      }
+          
+      extract($args, EXTR_SKIP);
+
+      $css_class = array('page_item', 'page-item-' . $page->ID);
+  
+      if ( !empty($current_page) ) {
+          $_current_page = get_post( $current_page );
+
+          if ( in_array( $page->ID, $_current_page->ancestors ) ) {
+            $css_class[] = 'current_page_ancestor';
+          }
+          if ( $page->ID == $current_page ) {
+            $css_class[] = 'current_page_item';
+          }
+          elseif ( $_current_page && $page->ID == $_current_page->post_parent ) {
+            $css_class[] = 'current_page_parent';
+          }
+      }
+      elseif ( $page->ID == get_option('page_for_posts') ) {
+          $css_class[] = 'current_page_parent';
+      }
+  
+      $css_class = implode( ' ', apply_filters( 'page_css_class', $css_class, $page, $depth, $args, $current_page ) );
+      $icon_class = get_post_meta($page->ID, 'icon_class', true); //Retrieve stored icon class from post meta
+
+      $pagetemplate = get_page_template_slug( $page->ID );
+
+      if ( ( 'page_dossiersingleactueel.php' != $pagetemplate ) 
+          && ( 'page_dossier-document-overview.php' != $pagetemplate ) 
+          && ( 'page_dossier-events-overview.php' != $pagetemplate ) 
+          ) {
+  
+        $output .= $indent . '<li class="' . $css_class . '">';
+        $output .= '<a href="' . get_permalink( $page->ID ) . '">' . $link_before;
+    
+        if($icon_class){ //Test if $icon_class exists
+          $output .= '<span class="' . $icon_class . '"></span>'; //If it exists output a span with the $icon_class attached to it
+        }
+        
+        $output .= apply_filters( 'the_title', $page->post_title, $page->ID );
+        $output .= $link_after . '</a>';
+
+    }
+      
+  
+    if ( !empty($show_date) ) {
+      if ( 'modified' == $show_date ) {
+        $time = $page->post_modified;
+      }
+      else {
+        $time = $page->post_date;
+        $output .= " " . mysql2date($date_format, $time);
+      }
+    }
+  }
+}
 //========================================================================================================
 
 function rhswp_get_sitemap() {
@@ -813,6 +922,7 @@ function rhswp_enqueue_js_scripts() {
 
   if ( ! is_admin() ) {
 
+    wp_enqueue_script( 'modernizr', 'https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js', '', '', true );
     
     if ( DO_MINIFY_JS ) {
       // the minified file
@@ -1272,7 +1382,6 @@ function rhswp_show_customtax_terms( $taxonomy, $title = '', $dosection = true )
 
     );
 
-//    $terms  = get_terms( $args );
     $terms = wp_list_categories( $args );
     
     if ( ! empty( $terms ) && ! is_wp_error( $terms ) ){
@@ -1282,9 +1391,6 @@ function rhswp_show_customtax_terms( $taxonomy, $title = '', $dosection = true )
     
         echo '<ul>';
         echo $terms;
-//        foreach ( $terms as $term ) {
-//            echo '<li><a href="' . esc_url( get_term_link( $term ) ) . '">' . $term->name . '</a></li>';
-//        }
         echo '</ul>';
     
         echo $sectionend;
@@ -1985,7 +2091,7 @@ function rhswp_archive_custom_loop() {
   
   if ( have_posts() ) {
   
-    echo '<div class="block">';
+    echo '<div class="block no-top">';
     
     $postcounter = 0;
   

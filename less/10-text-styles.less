@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.7.20
-// * @desc.   Pijltjes voor list-items iets aangepast
+// * @version 0.7.21
+// * @desc.   Modernizr via CDN, paginalayouts gewijzigd, CSS bugs
 // * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 // **
 
@@ -187,7 +187,6 @@
   
   h1 {
   	.font-size( @fontsize_title_h1 );
-  // color: @header_color_2;
   }
   
   h2 {
@@ -208,6 +207,33 @@
   
   h6 {
   	.font-size( @fontsize_title_h6 );
+  }
+
+  
+  @media only screen and (max-width: ( @break_tablet ) ) {
+    h1 {
+    	.font-size( @fontverkleiner * @fontsize_title_h1 );
+    }
+    
+    h2 {
+    	.font-size( @fontverkleiner * @fontsize_title_h2 );
+    }
+    
+    h3 {
+    	.font-size( @fontverkleiner * @fontsize_title_h3 );
+    }
+    
+    h4 {
+    	.font-size( @fontverkleiner * @fontsize_title_h4 );
+    }
+    
+    h5 {
+    	.font-size( @fontverkleiner * @fontsize_title_h5 );
+    }
+    
+    h6 {
+    	.font-size( @fontverkleiner * @fontsize_title_h6 );
+    }
   }
 
 

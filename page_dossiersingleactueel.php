@@ -9,8 +9,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.7.14
- * @desc.   Contentblock kan dossiers tonen. Extra check op taxonomy contentblock toegevoegd.
+ * @version 0.7.21
+ * @desc.   Modernizr via CDN, paginalayouts gewijzigd, CSS bugs
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -189,7 +189,7 @@ function rhswp_get_page_dossiersingleactueel() {
       }
       else {
         echo '<p>';
-        echo sprintf( _x( 'We zochten naar %s, maar konden helaas niets vinden.', 'foutboodschap als er geen content gevonden is', 'wp-rijkshuisstijl' ), $message );
+        echo sprintf( _x( 'We zochten naar %s, maar konden niets vinden.', 'foutboodschap als er geen content gevonden is', 'wp-rijkshuisstijl' ), $message );
         echo '</p>';
       }
 }

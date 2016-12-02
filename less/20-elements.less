@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.7.20
-// * @desc.   Pijltjes voor list-items iets aangepast
+// * @version 0.7.21
+// * @desc.   Modernizr via CDN, paginalayouts gewijzigd, CSS bugs
 // * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 // **
 
@@ -242,6 +242,7 @@
       padding-right: 1em;      
       padding-top: 1em;      
       padding-bottom: 1em;      
+      
       p {
         margin-bottom: 0;
       }
@@ -534,42 +535,6 @@
 
     @media only screen and (min-width: ( @break_tablet ) ) {
 
-    .block {
-      article {
-
-        .article-visual,
-        .article-excerpt {
-          float: left;
-          &, img {
-            padding: 0;
-            margin: 0;
-          }
-        }
-        .article-excerpt {
-          width: @flexbasis_fiftypct;
-          width: ~"calc(100% - @{flexbasis_fiftypct})";
-          padding: 1em;
-        }      
-      
-        .article-visual {
-          width: @flexbasis_fiftypct;
-          background: @grijs_3;
-          position: relative;
-          
-          img {
-            margin: 0;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translateY(-50%) translateX(-50%);
-            width: 100%;
-            height: auto;
-          }
-        }
-      }
-    }
-
-      
       .slider {
         .active {
           padding-top: 0;
@@ -759,6 +724,51 @@
       }
     }
   }
+
+  @media only screen and (min-width: ( @break_tablet ) ) {
+
+    .article-visual,
+    .article-excerpt {
+      width: @flexbasis_fiftypct;
+    }          
+
+    .flexbox {
+      .block {
+        article {
+  
+          .article-visual,
+          .article-excerpt {
+            float: left;
+            &, img {
+              padding: 0;
+              margin: 0;
+            }
+          }
+          .article-excerpt {
+            width: ~"calc(100% - @{flexbasis_fiftypct})";
+            padding: 1em;
+          }      
+        
+          .article-visual {
+            width: @flexbasis_fiftypct;
+            background: @grijs_3;
+            position: relative;
+            
+            img {
+              margin: 0;
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              transform: translateY(-50%) translateX(-50%);
+              width: 100%;
+              height: auto;
+            }
+          }
+        }
+      }
+    }
+  }
+
   
 
   @media only screen and (min-width: ( @break_tablet ) ) {

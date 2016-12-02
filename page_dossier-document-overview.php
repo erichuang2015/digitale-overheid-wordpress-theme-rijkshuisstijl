@@ -9,8 +9,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.7.11
- * @desc.   Contentblok check op dossier archive pages. 
+ * @version 0.7.21
+ * @desc.   Modernizr via CDN, paginalayouts gewijzigd, CSS bugs
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -108,7 +108,7 @@ function rhswp_get_documents_for_dossier() {
       }
       else {
         echo '<p>';
-        echo sprintf( _x( 'We zochten naar %s, maar konden helaas niets vinden.', 'foutboodschap als er geen content gevonden is', 'wp-rijkshuisstijl' ), $message );
+        echo sprintf( _x( 'We zochten naar %s, maar konden niets vinden.', 'foutboodschap als er geen content gevonden is', 'wp-rijkshuisstijl' ), $message );
         echo '</p>';
       }
     }

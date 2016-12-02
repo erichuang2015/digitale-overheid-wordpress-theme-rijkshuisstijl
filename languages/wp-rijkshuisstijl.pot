@@ -962,7 +962,7 @@ msgstr ""
 #: page_dossiersingleactueel.php:190 search.php:169
 #, php-format
 msgctxt "foutboodschap als er geen content gevonden is"
-msgid "We zochten naar %s, maar konden helaas niets vinden."
+msgid "We zochten naar %s, maar konden niets vinden."
 msgstr ""
 
 #: page_dossier-events-overview.php:50

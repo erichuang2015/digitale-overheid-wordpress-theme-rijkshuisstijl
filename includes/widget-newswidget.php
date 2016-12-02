@@ -9,8 +9,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.6.6
- * @desc.   Widget title: class always widgettitle (not: widget-title)
+ * @version 0.7.21
+ * @desc.   Modernizr via CDN, paginalayouts gewijzigd, CSS bugs
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -202,9 +202,6 @@ class rhswp_news_widget extends WP_Widget {
                 echo '</a>';
                 echo '</h4>';
                 echo the_excerpt();
-                echo '<p class="read-more"><a href="' . $permalink. '" tabindex="-1">';
-                echo __( "Lees", 'wp-rijkshuisstijl' ) . ' ' . get_the_title();
-                echo '</a></p>';
                 echo '</div>'; 
             
             endwhile;
@@ -214,7 +211,7 @@ class rhswp_news_widget extends WP_Widget {
 
             if ( $countertje > 2 ) 
             {
-                echo '<div class="category-link"><a href="' . $category_link . '">' . __( "Meer", 'wp-rijkshuisstijl' ) . ' ' . strtolower( get_the_category_by_ID( $categorie ) ). '</a></div>';
+                echo '<div class="category-link more"><a href="' . $category_link . '">' . __( "Meer", 'wp-rijkshuisstijl' ) . ' ' . strtolower( get_the_category_by_ID( $categorie ) ). '</a></div>';
             }
 
             echo $after_widget;
