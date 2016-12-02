@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.7.21
- * @desc.   Modernizr via CDN, paginalayouts gewijzigd, CSS bugs
+ * @version 0.7.22
+ * @desc.   Wordbreak class toegevoegd
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
