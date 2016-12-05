@@ -9,8 +9,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.6.32
- * @desc.   Incorrect styling for content without featured image corrected
+ * @version 0.7.27
+ * @desc.   Versienummer aan editor-styles.css toegevoegd.
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -102,7 +102,7 @@ function rhswp_admin_dump_wpquery() {
 //========================================================================================================
 
 function admin_append_editor_styles() {
-    add_editor_style(RHSWP_THEMEFOLDER . '/css/editor-styles.css');
+    add_editor_style(RHSWP_THEMEFOLDER . '/css/editor-styles.css?v=' . CHILD_THEME_VERSION);
 }
 add_action( 'init', 'admin_append_editor_styles' );
 

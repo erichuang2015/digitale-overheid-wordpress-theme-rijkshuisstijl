@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.7.26
- * @desc.   Waarschuwingen uit editor-styles.css opgeschoond.
+ * @version 0.7.27
+ * @desc.   Versienummer aan editor-styles.css toegevoegd.
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "http://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.7.20" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Pijltjes voor list-items iets aangepast" );
+define( 'CHILD_THEME_VERSION',              "0.7.27" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Versienummer aan editor-styles.css toegevoegd." );
 define( 'SHOW_CSS_DEBUG',                   false );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
