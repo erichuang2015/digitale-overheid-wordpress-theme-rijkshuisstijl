@@ -1019,7 +1019,7 @@ msgid "Rijkshuisstijl (Digitale Overheid)"
 msgstr ""
 
 #. Description of the plugin/theme
-msgid "Theme voor ibewustzijnoverheid.nl"
+msgid "Theme voor digitaleoverheid.nl"
 msgstr ""
 
 #. Author of the plugin/theme

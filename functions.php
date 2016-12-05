@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.7.25
- * @desc.   Versienummer beter. section weer zichbaar.
+ * @version 0.7.26
+ * @desc.   Waarschuwingen uit editor-styles.css opgeschoond.
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
