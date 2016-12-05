@@ -125,19 +125,16 @@ class GC_event_widget extends WP_Widget {
           echo $event->event_name;
           echo '</h4>';
           
-          echo '<span class="date-badge" itemprop="startDate" content="' . date('c', $eventstart) . '"><span class="dag">' . date_i18n('d', $eventstart) . '</span> <span class="maand">' . date_i18n('M', $eventstart) . '</span>' . $jaar . '</span>';        
           
-          echo '<span class="tijdenplaats">';
-          
-          if ( $event->output( '#_EVENTTIMES' ) ) {
-            echo '<span class="event-times">' . $event->output( '#_EVENTTIMES' ) . '</span>';
-          }
+          echo '<p class="tijdenplaats">';
+
+          echo '<span class="date-badge" itemprop="startDate" content="' . date('c', $eventstart) . '">' . $event->output( '#_EVENTDATES' ) . '</span>';        
           
           if ( $event->output( '#_LOCATIONNAME' ) ) {
             echo '<span class="event-location">' . $event->output( '#_LOCATIONNAME' ) . '</span>';
           }
           
-          echo '</span>';
+          echo '</p>';
 
 
           echo '</header>';

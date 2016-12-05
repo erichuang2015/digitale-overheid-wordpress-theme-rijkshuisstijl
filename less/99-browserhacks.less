@@ -8,7 +8,41 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.1.14
-// * @desc.   CSS styling voor RHS 
+// * @version 0.7.24.2
+// * @desc.   Logo voor IE, opmaak widget voor events
 // * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 // **
+
+
+.no-svg {
+  #logotype {
+    width: 160px;
+    height: 120px;
+    display: block;
+    background: url('images/logo-digitaleoverheid.png');
+    background-position: left top;
+    background-repeat: no-repeat;
+    img {
+      display: none;
+    }
+  }
+
+  .search-form {
+    input[type="submit"] {
+      background-image: url('images/svg/looking-glass-15px.png');
+      background-position: left center;
+      background-size: 12px 12px;
+    }
+  }  
+  .social-media {
+    a {
+      width: auto !important;
+      border: 1px solid red;
+    }
+    .visuallyhidden {
+      position: static;
+      width: auto;
+      height: auto;
+    }
+  }
+}

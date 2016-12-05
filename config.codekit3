@@ -397,6 +397,14 @@
 		"oF": 0,
 		"opt": 0
 		},
+	"\/images\/logo-digitaleoverheid.png": {
+		"ft": 32768,
+		"iS": 4519,
+		"oA": 0,
+		"oAP": "\/images\/logo-digitaleoverheid.png",
+		"oF": 0,
+		"opt": 0
+		},
 	"\/images\/Logo_rijksoverheid.png": {
 		"ft": 32768,
 		"iS": 19772,
@@ -828,6 +836,14 @@
 		"opt": 0,
 		"plM": 3758088159,
 		"prP": 0
+		},
+	"\/images\/svg\/looking-glass-15px.png": {
+		"ft": 32768,
+		"iS": 1272,
+		"oA": 0,
+		"oAP": "\/images\/svg\/looking-glass-15px.png",
+		"oF": 0,
+		"opt": 1
 		},
 	"\/images\/svg\/looking-glass.png": {
 		"ft": 32768,

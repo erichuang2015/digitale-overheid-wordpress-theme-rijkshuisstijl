@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.7.21
-// * @desc.   Modernizr via CDN, paginalayouts gewijzigd, CSS bugs
+// * @version 0.7.24.2
+// * @desc.   Logo voor IE, opmaak widget voor events
 // * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 // **
 
@@ -118,17 +118,43 @@
         color: @a_color_default;
       }
     }
+    .tijdenplaats {
+      overflow: hidden;
+      margin-bottom: .3em;
+      font-size: 85%;
+      
+      span {
+        display: block;
+        float: left;
+        margin-right: .75em;
+      }
+      span + span {
+      }
+    }
+/*    
     .date-badge,
-    .event-times,
+    .tijdenplaats,
     .event-location {
       display: inline-block;
       padding-right: .2em;
       float: left;
+      border: 1px solid red;
+
+      span {
+        display: block;
+        float: left;
+        white-space: nowrap;
+        background: yellow;
+      }
+
     }
     .date-badge,
+    .date-badge,
     .event-times {
-      white-space: nowrap;
+      border: 1px solid green;
+      display: block;
     }
+*/    
     .excerpt {
       clear: both;
       float: none;

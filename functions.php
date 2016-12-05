@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.7.22
- * @desc.   Wordbreak class toegevoegd
+ * @version 0.7.24.2
+ * @desc.   Logo voor IE, opmaak widget voor events
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -934,7 +934,7 @@ function rhswp_enqueue_js_scripts() {
       wp_enqueue_script( 'wp-rijkshuisstijl-polyfill-eventlistener', RHSWP_THEMEFOLDER . '/js/polyfill-eventlistener.js', array( 'jquery' ), '', true );
       wp_enqueue_script( 'wp-rijkshuisstijl-polyfill-matchmedia', RHSWP_THEMEFOLDER . '/js/polyfill-matchmedia.js', array( 'jquery' ), '', true );
       wp_enqueue_script( 'slider2', RHSWP_THEMEFOLDER . '/js/carousel-actions.js', array( 'jquery' ), '', true );
-      wp_enqueue_script( 'wp-rijkshuisstijl-menu', RHSWP_THEMEFOLDER . '/js/min/menu-min.js', '', '', true );
+      wp_enqueue_script( 'wp-rijkshuisstijl-menu', RHSWP_THEMEFOLDER . '/js/menu.js', '', '', true );
     }
   }
 
@@ -1351,7 +1351,7 @@ function cmb2_render_human_name( $field, $escaped_value, $object_id,
 add_action( 'genesis_site_title',   'rhswp_append_site_logo' );
 
 function rhswp_append_site_logo() {
-  echo '<a href="' . get_home_url() . '" title="' . _x( 'Naar de homepage van digitaleoverheid.nl', 'title for link to homepage', 'wp-rijkshuisstijl' ) . '"><img src="' . RHSWP_THEMEFOLDER . '/images/svg/logo-digitaleoverheid.svg" alt="Logo digitaleoverheid.nl" id="logotype"></a>';
+  echo '<a href="' . get_home_url() . '" title="' . _x( 'Naar de homepage van digitaleoverheid.nl', 'title for link to homepage', 'wp-rijkshuisstijl' ) . '"><span id="logotype"><img src="' . RHSWP_THEMEFOLDER . '/images/svg/logo-digitaleoverheid.svg" alt="Logo digitaleoverheid.nl"></span></a>';
 }
 
 //========================================================================================================
@@ -1976,10 +1976,6 @@ function rhswp_caroussel_checker() {
 
         echo '<p class="visuallyhidden">' . $carouseltitle . '</p>';
         
-        if ( count( $carrousel_items ) > 1 ) {
-//          echo '<button class="carouselControl" type="button">Pauzeer diashow</button>';
-        }
-        
         echo '<ul class="carousel" id="carousel" data-slidecount="' . $itemcounter . '">';
 
         $slidecounter = 0;
@@ -2053,7 +2049,7 @@ function rhswp_caroussel_checker() {
             echo $link_caption_start;   		
             
             if ( $titel ) {
-              echo '<p class="caption-title">' .  $titel . '</p>';   		
+              echo '<h2 class="caption-title">' .  $titel . '</h2>';   		
             }
             if ( $text ) {
               echo '<p class="caption-text">' .  $text . '</p>';   		

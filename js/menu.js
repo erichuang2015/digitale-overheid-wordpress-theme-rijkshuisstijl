@@ -7,8 +7,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.7.16
-// * @desc.   Laat menu openklappen bij keyboardnavigatie
+// * @version 0.7.24.2
+// * @desc.   Logo voor IE, opmaak widget voor events
 // * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 
 // Vars
@@ -96,28 +96,30 @@ function showMenuButton(document, window, undefined) {
 
 // media query change
 function WidthChange(mq) {
-
+  
+  if ( mq.addListener ) {
     if (mq.matches) {
-        // window width is at least 900px
-        // don't show menu button
-        hideMenuButton(document, window);
+      // window width is at least 900px
+      // don't show menu button
+      hideMenuButton(document, window);
     }
     else {
-        // window width is less than 900px
-        // DO show menu button
-        showMenuButton(document, window);
-
+      // window width is less than 900px
+      // DO show menu button
+      showMenuButton(document, window);
     }
-
+  }
 }
 
 // =========================================================================================================
 
 // media query event handler
 if (matchMedia) {
-    var mq = window.matchMedia('(min-width: 900px)');
-    mq.addListener(WidthChange);
-    WidthChange(mq);
+  var mq = window.matchMedia('(min-width: 900px)');
+  if ( mq.addListener ) {
+     mq.addListener( WidthChange );
+  }
+  WidthChange(mq);
 }
 
 

@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.7.21
-// * @desc.   Modernizr via CDN, paginalayouts gewijzigd, CSS bugs
+// * @version 0.7.24.2
+// * @desc.   Logo voor IE, opmaak widget voor events
 // * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 // **
 
@@ -40,6 +40,10 @@
 
 @keyframes slowBounce {
    0% {
+      bottom: 0;
+      top: ( @minheighttablet - @headerheight );
+   }
+   70% {
       bottom: 0;
       top: ( @minheighttablet - @headerheight );
    }
@@ -546,6 +550,7 @@
             a {
               color: @txt;
               .caption-title {
+                font-size: 1rem;
                 color: @donkerblauw_vol;
                 font-weight: bold;
                 font-family: @fontstrong;

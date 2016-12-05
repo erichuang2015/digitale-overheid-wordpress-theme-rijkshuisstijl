@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.7.21
-// * @desc.   Modernizr via CDN, paginalayouts gewijzigd, CSS bugs
+// * @version 0.7.24.2
+// * @desc.   Logo voor IE, opmaak widget voor events
 // * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 //
 
@@ -200,14 +200,16 @@
     }
 
     input[type="submit"] {
-      background: @communicatiekleur_vol;
+      background-color: @communicatiekleur_vol;
+      .iconaddfill('../images/svg/looking-glass.svg', @wit);
       color: @wit;
       
       &:hover,
       &:active,
       &:focus {
         color: @txt;
-        background: @wit;
+        background-color: @wit;
+      .iconaddfill('../images/svg/looking-glass.svg', @txt);
       }
     }
     
