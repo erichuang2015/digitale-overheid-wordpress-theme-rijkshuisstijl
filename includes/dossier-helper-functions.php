@@ -10,8 +10,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.7.14
- * @desc.   Contentblock kan dossiers tonen. Extra check op taxonomy contentblock toegevoegd.
+ * @version 0.8.1
+ * @desc.   Sitemap uitgebreid (filtersitemap=nee), 'article-visual' als nieuw beeldformaat toegevoegd. CSS wijzigingen voor list-items. Revisie van dossier-menu. 
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -40,6 +40,8 @@ function rhswp_dossier_title_checker( ) {
     $dossier_overzichtpagina  = '';
   
     $args = array(
+      'dossier_overzichtpagina' => '',
+      'menu_voor_dossier' => '',
       'markerforclickableactivepage' => '',
       'currentpageid' => '',
       'preferedtitle' => '',
@@ -116,29 +118,45 @@ function rhswp_dossier_title_checker( ) {
 
         $dossier_overzichtpagina  = get_field('dossier_overzichtpagina', $term );
         $menu_voor_dossier        = get_field('menu_pages', $term );
+
+        $itemsinmenu   = [];
+
+        if ( $dossier_overzichtpagina ) {
+            $itemsinmenu[] = $dossier_overzichtpagina->ID;
+        }
+
+        if ( $menu_voor_dossier ) {
+
+          foreach( $menu_voor_dossier as $menuitem ): 
+            $itemsinmenu[] = $menuitem->ID;
+          endforeach; 
+          
+          $args['menu_voor_dossier'] = $itemsinmenu;
+
+        }
         
         $titletag_start           = '<p class="entry-title">';
         $titletag_end             = '</p>';
 
         if ( $dossier_overzichtpagina ) {
+          // de overzichtspagina is bekend
 
           // check of we deze pagina wel of niet nu al moeten tonen
           $tonen  = get_field('toon_overzichtspagina_in_het_menu', $term );
 
-          $parentID = $dossier_overzichtpagina->ID;
+          $parentID     = $dossier_overzichtpagina->ID;
 
           if ( $tonen !== 'nee' ) {
             // we mogen de inhoudspagina tonen
 
             $shownalready = $dossier_overzichtpagina->ID;
             $parentID     = $dossier_overzichtpagina->ID;
-
+            $args['dossier_overzichtpagina'] = $dossier_overzichtpagina->ID;
 
             if ( is_tax() ) {
               $args['currentpageid'] = $term->term_id;
             }
             else {
-//              $args['currentpageid'] = $parentID;
             }            
 
             $args['preferedtitle'] = _x( 'Inhoud', 'Standaardlabel voor het 2de item in het dossiermenu', 'wp-rijkshuisstijl' );
@@ -174,6 +192,7 @@ function rhswp_dossier_title_checker( ) {
         if ( $menu_voor_dossier ) {
 
           foreach( $menu_voor_dossier as $menuitem ): 
+
             if ( ( $parentID !== $menuitem->ID ) && ( $shownalready !== $menuitem->ID ) )  {
               $subpaginas .= rhswp_dossier_get_pagelink( $menuitem, $args );
             }
@@ -181,6 +200,8 @@ function rhswp_dossier_title_checker( ) {
             
         }
         else {
+
+          dodebug('er is geen menu ingevoerd...');
           
           if ( $parentID ) {
 
@@ -213,11 +234,6 @@ function rhswp_dossier_title_checker( ) {
       }
 
 
-
-dodebug( $posttype . ' / ' . $loop . ' : ' . $currentID );      
-      
-  
-      
       if ( $dossierinhoudpagina || $subpaginas ) {
         if ( $tellertje > 1 ) {
           echo '<p class="screen-reader-text">';
@@ -244,7 +260,7 @@ function rhswp_dossier_get_pagelink( $theobject, $args ) {
   global $tellertje;
   
   $tellertje++;
-  $childpages = [];
+  $childpages   = [];
 
   if ( $args['currentpageid'] ) {
     $pagerequestedbyuser = $args['currentpageid'];
@@ -303,6 +319,10 @@ function rhswp_dossier_get_pagelink( $theobject, $args ) {
     $addlink        = true;    
   }
 
+//dodebug( 'echte parent URL:<br>' . get_permalink( wp_get_post_parent_id( $post->ID ) ) );      
+
+// dodebug( 'rhswp_dossier_get_pagelink:<br>selectposttype: ' . $selectposttype . '<br>checkpostcount: ' . $checkpostcount . '<br>current_menuitem_id: ' . $current_menuitem_id . '<br>URL of current ID:<br>' . get_permalink( $current_menuitem_id )  . '<br>URL of parent:<br>' . get_permalink( wp_get_post_parent_id( $current_menuitem_id ) ) );      
+
 
   if ( $checkpostcount && $selectposttype ) {
     
@@ -324,8 +344,7 @@ function rhswp_dossier_get_pagelink( $theobject, $args ) {
         foreach( $mypages as $childpage ): 
           $childpages[] = $childpage->ID;
         endforeach;
-        
-        
+
       }
 
     }
@@ -400,8 +419,41 @@ function rhswp_dossier_get_pagelink( $theobject, $args ) {
   }
 
 
-  $parentID     = wp_get_post_parent_id( $current_menuitem_id );
+  // haal de ancestors op voor de huidige pagina
+  $ancestors = get_post_ancestors( $pagerequestedbyuser );
 
+
+  // check of the parent niet al ergens in het menu voorkomt  
+  $postparent =  wp_get_post_parent_id( $pagerequestedbyuser );
+
+  $komtvoorinderestvanmenu_en_isnietdehuidigepagina = false;
+
+  if ( isset( $args['menu_voor_dossier'] ) ) {
+
+    if ( in_array( $pagerequestedbyuser, $args['menu_voor_dossier'] )  ) {
+      // de gevraagde pagina komt voor in het menu
+
+      if ( in_array( $postparent, $args['menu_voor_dossier'] )  ) {
+        $komtvoorinderestvanmenu_en_isnietdehuidigepagina = true;
+      }
+      
+    }
+    
+  }
+
+
+// is het het huidige item?
+// ja
+
+// nee, het is niet het huidige item
+// mogen 'm wel tonen?
+// ja, we mogen 'm tonen
+// fijn, we mogen 'm tonen. 
+
+// het kan een directe parent zijn
+
+// het kan een verre voorvader zijn
+  
 
   if ( $pagerequestedbyuser == $current_menuitem_id ) {
     // the user asked for this particular page / post
@@ -417,10 +469,23 @@ function rhswp_dossier_get_pagelink( $theobject, $args ) {
         // this is requested page itself
         return '<li class="selected"><a href="' . get_permalink( $current_menuitem_id ) . '">' . $maxposttitle . '</a></li>';
       }
+
+      elseif ( in_array( $current_menuitem_id, $ancestors ) && ( $args['dossier_overzichtpagina'] !=  $current_menuitem_id ) ) {
+        // user requested a page that is a child of the current menu item
+        return '<li class="selected"><a href="' . get_permalink( $current_menuitem_id ) . '">' . $maxposttitle . '</a></li>';
+      }
+
+      elseif ( wp_get_post_parent_id( $pagerequestedbyuser ) ==  $current_menuitem_id && ( ! $komtvoorinderestvanmenu_en_isnietdehuidigepagina ) ) {
+        // this is the direct parent of the requested page
+        return '<li class="selected"><a href="' . get_permalink( $current_menuitem_id ) . '">' . $maxposttitle . '</a></li>';
+      }
+      
+
       elseif ( in_array( $pagerequestedbyuser, $childpages ) ) {
         // this is a child of the current menu item
         return '<li class="selected"><a href="' . get_permalink( $current_menuitem_id ) . '">' . $maxposttitle . '</a></li>';
       }
+
       else {
         // this menu item should be clickable
         return '<li><a href="' . get_permalink( $current_menuitem_id ) . '">' . $maxposttitle . '</a></li>';

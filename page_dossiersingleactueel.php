@@ -9,28 +9,30 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.7.21
- * @desc.   Modernizr via CDN, paginalayouts gewijzigd, CSS bugs
+ * @version 0.8.1
+ * @desc.   Sitemap uitgebreid (filtersitemap=nee), 'article-visual' als nieuw beeldformaat toegevoegd. CSS wijzigingen voor list-items. Revisie van dossier-menu. 
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
 
 //* Template Name: 01 - (dossiers) berichtenpagina (evt. met filter)
 
+//========================================================================================================
 
 add_action( 'genesis_entry_content', 'rhswp_get_page_dossiersingleactueel', 15 );
 
+if ( rhswp_extra_contentblokken_checker() ) {
+  add_action( 'genesis_entry_content', 'rhswp_write_extra_contentblokken', 16 );
+}
+
 // Remove the standard pagination, so we don't get two sets
 remove_action( 'genesis_after_endwhile', 'genesis_posts_nav' );
-
-if ( rhswp_extra_contentblokken_checker() ) {
-  add_action( 'genesis_entry_footer', 'rhswp_write_extra_contentblokken');
-}
 
 //========================================================================================================
 
 genesis();
 
+//========================================================================================================
 
 function rhswp_get_page_dossiersingleactueel() {
 
@@ -174,7 +176,15 @@ function rhswp_get_page_dossiersingleactueel() {
   
           <section>
             <h2><a href="<?php echo $theurl ?>"><?php the_title(); ?></a></h2>
-            <?php the_excerpt() ?>
+            <?php 
+              the_excerpt();
+              
+                if ( WP_DEBUG && SHOW_CSS_DEBUG ) {
+                  dodebug('Check category & dossier:');
+                  the_category( ', ' ); 
+                  dodebug(get_the_term_list( $post->ID, RHSWP_CT_DOSSIER, 'Dossiers: ', ', ' ) );  
+                }
+            ?>            
           </section>
 
         <?php

@@ -7,8 +7,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.7.17
-// * @desc.   Pagina-template herzien: page_show-child-pages.php
+// * @version 0.8.1
+// * @desc.   Sitemap uitgebreid (filtersitemap=nee), 'article-visual' als nieuw beeldformaat toegevoegd. CSS wijzigingen voor list-items. Revisie van dossier-menu. 
 // * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 // **
 
@@ -93,6 +93,17 @@
     }
   }
 
+  .error404,
+  .page-template-page_sitemap {
+    ul, ol {
+      li {
+        margin-bottom: 0;
+      }
+      ul, ol {
+        margin-top: 0;
+      }
+    }
+  }
 
   .page-template-page_search,
   .search {
@@ -108,7 +119,6 @@
     }
     
     article {
-
       p {
         margin: 0;        
       }
@@ -141,7 +151,6 @@
         border-color: @communicatiekleur_lichtst;      
       }
     }
-    
   }
 
   

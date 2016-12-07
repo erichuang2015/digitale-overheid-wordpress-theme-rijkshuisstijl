@@ -3,8 +3,8 @@
   Description: Theme voor digitaleoverheid.nl
   Author: Paul van Buuren
   Author URI: https://wbvb.nl/themes/ibewustzijn/
-  Version: 0.7.27
-  Version description: 0.7.27 - Versienummer aan editor-styles.css toegevoegd.
+  Version: 0.8.1
+  Version description: 0.8.1 - Sitemap uitgebreid (filtersitemap=nee), 'article-visual' als nieuw beeldformaat toegevoegd. CSS wijzigingen voor list-items. Revisie van dossier-menu. 
   Text Domain: wp-rijkshuisstijl
   
   Template: genesis
@@ -327,27 +327,29 @@ Content Area
 .entry-content p,
 .entry-content ul,
 .quote-caption {
-	margin-bottom: @contentpadding;
-}
-
-.entry-content ol,
-.entry-content ul {
-	margin-left: @padding;
-	padding-left: @padding;
-}
-
-.entry-content ol li {
-	list-style-type: decimal;
-}
-
-.entry-content ul li {
-	list-style-type: disc;
-}
-
-.entry-content ol ol,
-.entry-content ul ul {
 	margin-bottom: 0;
+	& + p {
+  	margin-top: 1em;
+	}
 }
+.entry-content p {
+	& + ol,
+	& + ul {
+  	margin-top: .5em;
+	}
+}
+.entry-content {
+  ol,
+  ul {
+    & + h2,
+    & + h3,
+    & + h4,
+    & + h5 {
+    	margin-top: 1em;
+    }
+	}
+}
+
 
 .entry-content .search-form {
 	width: 100%;
@@ -374,7 +376,6 @@ Content Area
       display: inline-block;
       margin-left: .5em;
       margin-right: .3em;
-//      float: left;
       speak: none;
     }
   }
@@ -401,7 +402,36 @@ Content Area
 /* Pagination
 --------------------------------------------- */
 
+.em-pagination {
+  display: block;
+  width: 100%;
+  padding-left: 1em;
+  font-size: 120%;
+  
+  strong {
+		background: @donkerblauw_vol;
+		color: @wit;
+    font-weight: bold;
+    font-family: @fontstrong;
+		display: inline-block;
+		padding: .3em .5em;
+		text-decoration: none;
+  }
+	a {
+		cursor: pointer;
+		display: inline-block;
+		padding: .3em .5em;
+		text-decoration: none;
+		&:hover,
+		&:active,
+		&:focus {
+			text-decoration: underline;
+		}
+	}
+  
+}
 
+.em-pagination,
 .archive-pagination {
 
   border-top: 4px solid @donkerblauw_vol;
@@ -413,6 +443,11 @@ Content Area
     margin-left: 1em;
     margin-top: 0;
     font-size: 120%;
+    li {
+      padding-left: 0;
+      display: inline-block;
+      float: left;
+    }
   }
 
 	.alignright {
@@ -428,6 +463,9 @@ Content Area
 			display: inline-block;
 			padding: .3em .5em;
 			text-decoration: none;
+			&:visited {
+  			color: @a_color_default;
+			}
 			&:hover,
 			&:active,
 			&:focus {
@@ -455,8 +493,17 @@ Content Area
     }
   }
   .pagination-previous a {
+    &:before {
+      font-size: 120%;
+      content: '< ';
+      speak: none;
+    }
   }
   .pagination-next a {
+    &:after {
+      content: ' >';
+      speak: none;
+    }
   }
 	
 }

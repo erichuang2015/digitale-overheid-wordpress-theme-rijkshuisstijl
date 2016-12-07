@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.6.19
- * @desc.   Form elements. Contact form validation.
+ * @version 0.8.1
+ * @desc.   Sitemap uitgebreid (filtersitemap=nee), 'article-visual' als nieuw beeldformaat toegevoegd. CSS wijzigingen voor list-items. Revisie van dossier-menu. 
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -22,7 +22,7 @@
 add_action( 'wp_enqueue_scripts', 'rhswp_remove_external_styles' );
 
 function rhswp_remove_external_styles() {
-		wp_deregister_style( 'contact-form-7' );
+//		wp_deregister_style( 'contact-form-7' );
 //		wp_deregister_script( 'contact-form-7' );
 } 
 

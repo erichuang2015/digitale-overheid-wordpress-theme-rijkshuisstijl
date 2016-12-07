@@ -9,8 +9,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.7.17
- * @desc.   Pagina-template herzien: page_show-child-pages.php
+ * @version 0.8.1
+ * @desc.   Sitemap uitgebreid (filtersitemap=nee), 'article-visual' als nieuw beeldformaat toegevoegd. CSS wijzigingen voor list-items. Revisie van dossier-menu. 
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -43,9 +43,6 @@ function rhswp_get_page_childpages() {
   );
   $mypages = get_pages( $args );
 
-  echo '<div class="block">';
-  
-  echo '<h2>' . _x( "Zie verder:", 'Titel voor onderliggende paginas', 'wp-rijkshuisstijl' ) . '</h2>';
   
   foreach( $mypages as $post ) {
 
@@ -66,14 +63,12 @@ function rhswp_get_page_childpages() {
     printf( '<article %s>', $classattr );
     if ( $image ) {
       printf( '<div class="article-container"><div class="article-visual">%s</div>', $image );
-      printf( '<div class="article-excerpt"><a href="%s"><h3>%s</h3><p>%s</p></a></div></div>', get_permalink(), get_the_title(), $text );
+      printf( '<div class="article-excerpt"><a href="%s"><h2>%s</h2><p>%s</p></a></div></div>', get_permalink(), get_the_title(), $text );
     }
     else {
-      printf( '<a href="%s"><h3>%s</h3><p>%s</p></a>', get_permalink(), get_the_title(), $text );
+      printf( '<a href="%s"><h2>%s</h2><p>%s</p></a>', get_permalink(), get_the_title(), $text );
     }
 
   }
-
-  echo '</div>';
     
 }

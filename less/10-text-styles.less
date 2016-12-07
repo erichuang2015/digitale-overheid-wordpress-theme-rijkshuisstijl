@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.7.21
-// * @desc.   Modernizr via CDN, paginalayouts gewijzigd, CSS bugs
+// * @version 0.8.1
+// * @desc.   Sitemap uitgebreid (filtersitemap=nee), 'article-visual' als nieuw beeldformaat toegevoegd. CSS wijzigingen voor list-items. Revisie van dossier-menu. 
 // * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 // **
 
@@ -52,6 +52,11 @@
   a:hover {
   	text-decoration: underline;
   }
+
+  	a.extern {
+      .listitem_arrow_extern();
+  	}     
+  
   
   p {
   	margin: 0 0 @padding 0;
@@ -280,8 +285,21 @@
     td {
     }
   }
+
   
-  .entry-content *:not(.pagination) {      
+  .entry-content {      
+    ul, ol {
+    	margin-top: 0;
+    	margin-bottom: 1em;
+    	li {
+      	margin-bottom: .5em;
+    	}
+    }
+
+    ol li {
+    	list-style-type: decimal;
+    }    
+    
     ul {
       padding-left: 0;
       ul {
@@ -295,23 +313,31 @@
     		padding-left: 1.2em;
     		.listitem_arrow( @txt, .7em, 10px );
         display: block;
+      }
+    }
+
+    ul, ol {
+      ul, ol {
+      	margin-top: .5em;
+      	margin-bottom: 0;
+      }
+    }
         
-        
-        
+  }
+
+
+
+  .entry-content .block,     
+  .entry-content .pagination,     
+  .entry-content .stelselplaat {      
+    ul {
+      padding-left: 0;
+      li:before {
+        content: '';
+        display: none;
       }
     }    
   }
-
-  .entry-content .pagination,     
-  .entry-content .stelselplaat {      
-      ul {
-        padding-left: 0;
-        li:before {
-          content: '';
-          display: none;
-        }
-      }    
-    }
 
 
   
