@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.8.3
- * @desc.   Banner-widget met plaatje
+ * @version 0.8.4
+ * @desc.   Bugfix tbv pagelinks-widget
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "http://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.8.3" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Banner-widget met plaatje" );
+define( 'CHILD_THEME_VERSION',              "0.8.4" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Bugfix tbv pagelinks-widget" );
 define( 'SHOW_CSS_DEBUG',                   false );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
@@ -1810,6 +1810,10 @@ function rhswp_write_extra_contentblokken() {
               echo '</ul>';
               echo '</div>';
             }
+
+            // RESET THE QUERY
+            wp_reset_query();
+            
           }
           elseif ( 'berichten_paginas' == $type_block ) {
 
@@ -1838,6 +1842,9 @@ function rhswp_write_extra_contentblokken() {
                   echo '</a></li>';
                 }
               }
+
+              wp_reset_query();
+              
               
               echo '</ul>';
             }
@@ -1873,6 +1880,9 @@ function rhswp_write_extra_contentblokken() {
                 printf( '<article %s>', $classattr );
                 printf( '<a href="%s"><h3>%s</h3><p>%s</p><p class="meta">%s</p></a>', get_permalink(), get_the_title(), $excerpt, $postdate );
                 echo '</article>';
+                
+                // RESET THE QUERY
+                wp_reset_query();
                 
                 do_action( 'genesis_after_entry' );
             
@@ -2199,6 +2209,9 @@ function rhswp_write_extra_contentblokken() {
               }
 
               echo '</div>';
+
+              // RESET THE QUERY
+              wp_reset_query();
               
             }
 

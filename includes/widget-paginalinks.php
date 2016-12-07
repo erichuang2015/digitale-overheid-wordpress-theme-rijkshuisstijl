@@ -9,8 +9,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.6.11
- * @desc.   Various small code and CSS bugfixes - widget, archive-loop
+ * @version 0.8.4
+ * @desc.   Bugfix tbv pagelinks-widget
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -252,58 +252,46 @@ class rhswp_pagelinks_widget extends WP_Widget {
   * Sets up the widgets name etc
   */
   public function __construct() {
-  
-  $widget_ops = array(
-  	'classname'   => 'page-links',
-  	'description' => _x( 'Mogelijkheid voor het tonen van de bijbehorende links die je op pagina / berichtniveau hebt ingevoerd.', 'paginalinkswidget', 'wp-rijkshuisstijl' ),
-  );
-  
-  parent::__construct( RHSWP_WIDGET_PAGELINKS_ID, RHSWP_WIDGET_PAGELINKS_DESC, $widget_ops );
-  
-  
+    
+    $widget_ops = array(
+    	'classname'   => 'page-links',
+    	'description' => _x( 'Mogelijkheid voor het tonen van de bijbehorende links die je op pagina / berichtniveau hebt ingevoerd.', 'paginalinkswidget', 'wp-rijkshuisstijl' ),
+    );
+    
+    parent::__construct( RHSWP_WIDGET_PAGELINKS_ID, RHSWP_WIDGET_PAGELINKS_DESC, $widget_ops );
   }
   
    
   function form($instance) {
-      $instance = wp_parse_args( (array) $instance, 
-          array( 
-              'rhswp_pagelinks_widget_title'    => '', 
-              ) 
-          );
-  
-      $rhswp_pagelinks_widget_title          = empty( $instance['rhswp_pagelinks_widget_title'] )         ? '' : $instance['rhswp_pagelinks_widget_title'];
-  
-
-      echo '<p>' . _x( 'Dit widget doet pas iets als je op pagina- of berichtniveau links hebt toegevoegd. Die links worden dan op deze plaats getoond.</p><p>De titel hieronder wordt getoond als op pagina-niveau geen titel is ingevoerd.', 'paginalinkswidget', 'wp-rijkshuisstijl' );
-
-  
-      ?>
-  
-        <br><label for="<?php echo $this->get_field_id('rhswp_pagelinks_widget_title'); ?>"><?php echo _x( 'Titel', 'paginalinkswidget', 'wp-rijkshuisstijl' ) ?><input id="<?php echo $this->get_field_id('rhswp_pagelinks_widget_title'); ?>" name="<?php echo $this->get_field_name('rhswp_pagelinks_widget_title'); ?>" type="text" value="<?php echo esc_attr($rhswp_pagelinks_widget_title); ?>" /></label></p>  
-      <?php      
-          
+    $instance = wp_parse_args( (array) $instance, 
+      array( 
+      'rhswp_pagelinks_widget_title'    => '', 
+      ) 
+    );
+    
+    $rhswp_pagelinks_widget_title          = empty( $instance['rhswp_pagelinks_widget_title'] )         ? '' : $instance['rhswp_pagelinks_widget_title'];
+    
+    
+    echo '<p>' . _x( 'Dit widget doet pas iets als je op pagina- of berichtniveau links hebt toegevoegd. Die links worden dan op deze plaats getoond.</p><p>De titel hieronder wordt getoond als op pagina-niveau geen titel is ingevoerd.', 'paginalinkswidget', 'wp-rijkshuisstijl' );
+    ?>
+    <br><label for="<?php echo $this->get_field_id('rhswp_pagelinks_widget_title'); ?>"><?php echo _x( 'Titel', 'paginalinkswidget', 'wp-rijkshuisstijl' ) ?><input id="<?php echo $this->get_field_id('rhswp_pagelinks_widget_title'); ?>" name="<?php echo $this->get_field_name('rhswp_pagelinks_widget_title'); ?>" type="text" value="<?php echo esc_attr($rhswp_pagelinks_widget_title); ?>" /></label></p>  
+    <?php      
+      
   }
    
   function update($new_instance, $old_instance) {
-      $instance = $old_instance;
-      $instance['rhswp_pagelinks_widget_title']            = empty( $new_instance['rhswp_pagelinks_widget_title'] ) ? '' : $new_instance['rhswp_pagelinks_widget_title'];
-      return $instance;
+    $instance = $old_instance;
+    $instance['rhswp_pagelinks_widget_title']            = empty( $new_instance['rhswp_pagelinks_widget_title'] ) ? '' : $new_instance['rhswp_pagelinks_widget_title'];
+    return $instance;
   }
    
   function widget($args, $instance) {
-  
-
 
     if ( is_page() || is_single() ) {
   
       extract($args, EXTR_SKIP);
     
       $rhswp_pagelinks_widget_title          = empty($instance['rhswp_pagelinks_widget_title']) ? '' : $instance['rhswp_pagelinks_widget_title'] ;
-    
-      $text_color     = empty( get_field( 'rhswp_widget_tekstkleur', 'widget_' . $widget_id) ) ? '#000000' : get_field( 'rhswp_widget_tekstkleur', 'widget_' . $widget_id);
-       
-    
-      $rhswp_pagelinks_widget_title          = empty($instance['rhswp_pagelinks_widget_title'])         ? '' : $instance['rhswp_pagelinks_widget_title'] ;
   
       global $post;
   
@@ -314,8 +302,7 @@ class rhswp_pagelinks_widget extends WP_Widget {
         $toon_extra_links         = get_field(RHSWP_WIDGET_PAGELINKS_ID . '_widget_show_extra_links', $post->ID );
         $widgettitle              = get_field(RHSWP_WIDGET_PAGELINKS_ID . '_widget_title', $post->ID );
         $links                    = get_field(RHSWP_WIDGET_PAGELINKS_ID . '_widget_links', $post->ID );
-        
-        
+
         if ( !$widgettitle ) {
         
           if ( $instance['rhswp_pagelinks_widget_title'] !== '') {
@@ -324,7 +311,6 @@ class rhswp_pagelinks_widget extends WP_Widget {
           else {
             $widgettitle = _x( 'Extra links voor ', 'paginalinkswidget', 'wp-rijkshuisstijl' ) . get_the_title();
           }
-        
         }
   
         if ( 'ja' == $toon_extra_links ) {
@@ -333,7 +319,7 @@ class rhswp_pagelinks_widget extends WP_Widget {
           echo $before_title . $widgettitle . $after_title;
   
           if( have_rows(RHSWP_WIDGET_PAGELINKS_ID . '_widget_links') ) {
-            
+
             echo '<ul>';
   
             while( have_rows(RHSWP_WIDGET_PAGELINKS_ID . '_widget_links') ): the_row(); 
@@ -353,23 +339,15 @@ class rhswp_pagelinks_widget extends WP_Widget {
               else {
                 // interne link
                 $interne_link  = get_sub_field('interne_link');
-  
-              foreach ( $interne_link as $linkobject ) {
                 
-                $content .= '<li><a href="' . get_permalink( $linkobject->ID ) . '">' . $linkobject->post_title . '</a></li>';
-  
+                foreach ( $interne_link as $linkobject ) {
+                  $content .= '<li><a href="' . get_permalink( $linkobject->ID ) . '">' . $linkobject->post_title . '</a></li>';
+                }
               }
-              
-  
-  
-              }
-    
               echo $content; 
             
             endwhile; 
-  
             echo '</ul>';
-    
           }
           else {
             echo _x( 'Er zijn geen extra links ingevoerd.', 'paginalinkswidget', 'wp-rijkshuisstijl' );
@@ -382,7 +360,6 @@ class rhswp_pagelinks_widget extends WP_Widget {
           // do nothing
         }
       }
-      
     }
     else {
       
