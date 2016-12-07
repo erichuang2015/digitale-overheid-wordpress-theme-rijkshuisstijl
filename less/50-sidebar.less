@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.7.25
-// * @desc.   Versienummer beter. section weer zichbaar.
+// * @version 0.8.3
+// * @desc.   Banner-widget met plaatje
 // * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 // **
 
@@ -52,12 +52,53 @@
   	
   	.widget.banner {
     	border-top-style: none;
+    	max-width: 400px;
     	
     	.widget-wrap {
       	border: 3px solid @grijs_3;
+      	overflow: hidden;
+      	img {
+        	margin-top: 0;
+        	margin-bottom: 0;
+      	}
+
+        h2, h3 {
+          margin-top: 0;
+        }
+        p {
+          margin: 0;
+        }
+        .text {
+          padding: .5em;
+        }
+        img.aligntop {
+          width: 100%;
+          height: auto;
+        }
+
+ul, ol {
+  margin: 0 0 0 .5em;
+}
+
+        a {
+          text-decoration: none;
+          color: inherit;
+          
+          &:hover,
+          &:active,
+          &:focus {
+            text-decoration: underline;
+          }
+        } 
+      	
     	}
-    	
+    	.widgettitle {
+      	margin-bottom: 0;
+    	}
   	}
+
+
+  	
 	}
 	.sidebar {
   	

@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.8.2
- * @desc.   Marges voor sitemap-lijst
+ * @version 0.8.3
+ * @desc.   Banner-widget met plaatje
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "http://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.8.2" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Marges voor sitemap-lijst" );
+define( 'CHILD_THEME_VERSION',              "0.8.3" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Banner-widget met plaatje" );
 define( 'SHOW_CSS_DEBUG',                   false );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
@@ -89,6 +89,8 @@ add_image_size( 'Carrousel (preview: 400px wide)', 400, 200, false );
 add_image_size( 'Carrousel (full width: 1200px wide)', 1200, 400, false );
 add_image_size( 'featured-post-widget', 400, 250, false );
 add_image_size( 'article-visual', 400, 400, true );
+add_image_size( 'widget-image', 100, 100, false );
+add_image_size( 'widget-image-top', 400, 1200, false );
 
 //========================================================================================================
 
@@ -962,7 +964,7 @@ function rhswp_get_sitemap_content() {
 
 class rhswp_custom_walker_for_sitemap extends Walker_Page {
 
-  function start_el( &$output, $page, $depth, $args, $current_page = 0 ) {
+  function start_el( &$output, $page, $depth = 0, $args, $current_page = 0 ) {
     
       if ( $depth ) {
         $indent = str_repeat("\t", $depth);

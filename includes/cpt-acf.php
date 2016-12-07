@@ -11,8 +11,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.7.14
- * @desc.   Contentblock kan dossiers tonen. Extra check op taxonomy contentblock toegevoegd.
+ * @version 0.8.3
+ * @desc.   Banner-widget met plaatje
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -558,13 +558,82 @@ if( function_exists('acf_add_local_field_group') ):
   	'key' => 'group_57e4e9cdb7b83',
   	'title' => 'Layout-opties voor banner-widget',
   	'fields' => array (
+
+  		array (
+  			'default_value' => '',
+  			'placeholder' => '',
+  			'key' => 'field_5848103f0be5b',
+  			'label' => 'Link in de banner',
+  			'name' => 'rhswp_widget_link',
+  			'type' => 'url',
+  			'instructions' => 'Een link is niet verplicht',
+  			'required' => 0,
+  			'conditional_logic' => 0,
+  			'wrapper' => array (
+  				'width' => '',
+  				'class' => '',
+  				'id' => '',
+  			),
+  		),
+
+      array (
+      	'return_format' => 'array',
+      	'preview_size' => 'thumbnail',
+      	'library' => 'all',
+      	'min_width' => '',
+      	'min_height' => '',
+      	'min_size' => '',
+      	'max_width' => '',
+      	'max_height' => '',
+      	'max_size' => '',
+      	'mime_types' => '',
+      	'key' => 'field_5847d2d9a31f8',
+      	'label' => 'Image in de banner',
+      	'name' => 'rhswp_widget_bannerimage',
+      	'type' => 'image',
+      	'instructions' => '',
+      	'required' => 0,
+      	'conditional_logic' => 0,
+      	'wrapper' => array (
+      		'width' => '',
+      		'class' => '',
+      		'id' => '',
+      	),
+      ),  		
+  
+  		array (
+  			'layout' => 'vertical',
+  			'choices' => array (
+  				'top' => 'Boven de tekst (volle breedte)',
+  				'left' => 'Links van de tekst (100px breed)',
+  				'right' => 'Rechts van de tekst (100px breed)',
+  			),
+  			'default_value' => 'top',
+  			'other_choice' => 0,
+  			'save_other_choice' => 0,
+  			'allow_null' => 0,
+  			'return_format' => 'value',
+  			'key' => 'field_58480b91f296f',
+  			'label' => 'Hoe wil je het plaatje uitlijnen?',
+  			'name' => 'rhswp_widget_image_alignment',
+  			'type' => 'radio',
+  			'instructions' => 'Kies de plek van het plaatje: boven de tekst, links van de tekst of rechts van de tekst.',
+  			'required' => 0,
+  			'conditional_logic' => 0,
+  			'wrapper' => array (
+  				'width' => '',
+  				'class' => '',
+  				'id' => '',
+  			),
+  		),
+    	
   		array (
   			'key' => 'field_57e4e9d8216a4',
   			'label'   => __( 'Randkleur', 'wp-rijkshuisstijl' ),
   			'name' => 'rhswp_widget_randkleur',
   			'type' => 'color_picker',
   			'instructions'   => '',
-  			'required' => 1,
+  			'required' => 0,
   			'conditional_logic' => 0,
   			'wrapper' => array (
   				'width' => '',
@@ -579,7 +648,7 @@ if( function_exists('acf_add_local_field_group') ):
   			'name' => 'rhswp_widget_achtergrondkleur',
   			'type' => 'color_picker',
   			'instructions'   => '',
-  			'required' => 1,
+  			'required' => 0,
   			'conditional_logic' => 0,
   			'wrapper' => array (
   				'width' => '',
@@ -591,7 +660,7 @@ if( function_exists('acf_add_local_field_group') ):
   		array (
   			'key' => 'field_57e4ea5206fbe',
   			'label'   => __( 'Tekstkleur', 'wp-rijkshuisstijl' ),
-  			'name' => 'rhswp_widget_tekstkleur',
+    			'name' => 'rhswp_widget_tekstkleur',
   			'type' => 'color_picker',
   			'instructions'   => '',
   			'required' => 0,
