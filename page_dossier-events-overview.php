@@ -9,8 +9,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.8.1
- * @desc.   Sitemap uitgebreid (filtersitemap=nee), 'article-visual' als nieuw beeldformaat toegevoegd. CSS wijzigingen voor list-items. Revisie van dossier-menu. 
+ * @version 0.8.5
+ * @desc.   Sortering van agenda-pagina aangepast
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -19,7 +19,8 @@
 
 //========================================================================================================
 
-add_action( 'genesis_entry_content', 'rhswp_get_documents_for_dossier', 15 );
+add_action( 'genesis_entry_content', 'rhswp_get_events_for_dossier2', 14 );
+//add_action( 'genesis_entry_content', 'rhswp_get_events_for_dossier', 15 );
 
 if ( rhswp_extra_contentblokken_checker() ) {
   add_action( 'genesis_entry_content', 'rhswp_write_extra_contentblokken', 16 );
@@ -35,8 +36,53 @@ genesis();
 
 //========================================================================================================
 
-function rhswp_get_documents_for_dossier() {
+function rhswp_get_events_for_dossier2() {
   global $post;
+
+  $terms = get_the_terms( $post->ID , RHSWP_CT_DOSSIER );
+
+  if ($terms && ! is_wp_error( $terms ) ) { 
+    
+    $term = array_pop($terms);
+    
+    $args = array(
+      'paged'           => $paged,
+      'orderby'         => 'meta_value_num',
+      'posts_per_page'  => get_option('posts_per_page'),
+      'post_type'       => RHSWP_CPT_EVENT,
+        'tax_query'     => array(
+        'relation'      => 'AND',
+        array(
+          'taxonomy'  => RHSWP_CT_DOSSIER,
+          'field'     => 'term_id',
+          'terms'     => $term->term_id
+        )
+      )
+    );
+
+//echo EM_Events::output( array('post_category'=>'featured,-hidden') );
+//echo EM_Locations::output( array('post_category'=>'featured,-hidden') );
+
+
+    $varledinges =  EM_Events::output(     array( RHSWP_CT_DOSSIER  => $term->term_id ) );
+
+//dovardump( $varledinges );
+
+    echo $varledinges ;
+
+
+
+  }    
+
+
+}
+
+//========================================================================================================
+
+function rhswp_get_events_for_dossier() {
+  global $post;
+
+
 
   $currentpage      = get_permalink();
   $currentsite      = get_site_url();
@@ -49,14 +95,15 @@ function rhswp_get_documents_for_dossier() {
     
     $args = array(
       'paged'           => $paged,
+      'orderby'         => 'meta_value_num',
       'posts_per_page'  => get_option('posts_per_page'),
       'post_type'       => RHSWP_CPT_EVENT,
-      'tax_query' => array(
-        'relation' => 'AND',
+        'tax_query'     => array(
+        'relation'      => 'AND',
         array(
-          'taxonomy' => RHSWP_CT_DOSSIER,
-          'field' => 'term_id',
-          'terms' => $term->term_id
+          'taxonomy'  => RHSWP_CT_DOSSIER,
+          'field'     => 'term_id',
+          'terms'     => $term->term_id
         )
       )
     );
@@ -85,10 +132,6 @@ function rhswp_get_documents_for_dossier() {
           else {
             $theurl         = get_the_permalink();
           }
-      		
-
-
-        
         ?>
           <article>
             <h2><a href="<?php echo $theurl; ?>"><?php the_title(); ?></a></h2>
