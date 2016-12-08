@@ -9,8 +9,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.8.6
- * @desc.   Banner-widget: classes voor achtergrondkleuren in plaats van colorpicker
+ * @version 0.8.7
+ * @desc.   Banner-widget: bug-fixes
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -141,9 +141,14 @@ function filter_for_rhswp_banner_widget( $params ) {
 
     $rhswp_widget_bannerimage_alignment = empty( get_field( 'rhswp_widget_image_alignment', 'widget_' . $widget_id) ) ? 'top' : get_field( 'rhswp_widget_image_alignment', 'widget_' . $widget_id);
 
-    if ( $rhswp_widget_bannerimage_alignment == 'top' ) {
+    if ( $rhswp_widget_bannerimage_alignment == 'top' || $rhswp_widget_class == 'text-over-plaatje' ) {
       $imagesize = 'widget-image-top';
     }
+
+    if( $rhswp_widget_class ) {
+      
+    }
+
 
     $params[0]['before_widget'] .= sprintf('<img src="%s" alt="" class="align' . $rhswp_widget_bannerimage_alignment . '" width="%s" height="%s" />',
       $rhswp_widget_bannerimage['sizes'][$imagesize], 

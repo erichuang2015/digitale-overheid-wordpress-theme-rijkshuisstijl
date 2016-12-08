@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.8.6
-// * @desc.   Banner-widget: classes voor achtergrondkleuren in plaats van colorpicker
+// * @version 0.8.7
+// * @desc.   Banner-widget: bug-fixes
 // * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 // **
 
@@ -61,13 +61,41 @@
         &:hover {
           border-color: @grijs_4 !important;
         }
-      	
-      	
+
       	&.standaard {
         	border: 3px solid @grijs_1;
+
+          h2, h3 {
+            color: @donkerblauw_vol;
+          }
+
+          a {
+            &, &:visited {
+
+
+              h2, h3 {
+                color: @donkerblauw_vol !important;
+              }
+              
+            }
+
+            &:hover,
+            &:active,
+            &:focus {
+
+            color: @donkerblauw_vol;
+  
+              h2, h3 {
+                color: @donkerblauw_vol;
+                text-decoration: none;
+              }
+          	}
+          }
       	}
+      	
       	&.do-groen {
-        	color: @wit;
+         	border: 3px solid @communicatiekleur_vol;
+         	color: @wit;
         	background: @communicatiekleur_vol;
 
         	a {
@@ -78,16 +106,18 @@
           a:hover,
           a:active,
           a:focus {
+           	color: @communicatiekleur_vol;
           	background: @wit;
         	}
       	}
+      	
       	&.do-groen-light {
-        	border: 3px solid @communicatiekleur_vol;
+        	border: 3px solid @communicatiekleur_licht;
         	color: @txt;
-        	background: @communicatiekleur_licht;
+        	background: @communicatiekleur_lichtst;
 
         	a {
-          	background: @communicatiekleur_licht;
+          	background: @communicatiekleur_lichtst;
           	display: block;
         	}
         	
@@ -102,6 +132,11 @@
         	background: @communicatiekleur_licht;
         	color: @txt;
         	position: relative;
+        	
+        	img {
+          	width: 100%;
+          	height: auto;
+        	}
 
 
           .text {
@@ -112,7 +147,7 @@
           	bottom: 0;
             padding: .5em;
             h2, h3 {
-              color: @blauw;
+              color: @donkerblauw_vol;
             }
           }
           
