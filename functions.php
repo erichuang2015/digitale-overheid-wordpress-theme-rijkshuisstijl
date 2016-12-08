@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.8.7
- * @desc.   Banner-widget: bug-fixes
+ * @version 0.8.8
+ * @desc.   Featured image toegevoegd aan post
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "http://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.8.7" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Banner-widget: bug-fixes" );
+define( 'CHILD_THEME_VERSION',              "0.8.8" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Featured image toegevoegd aan post" );
 define( 'SHOW_CSS_DEBUG',                   false );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
@@ -2601,4 +2601,32 @@ function human_filesize($bytes, $decimals = 1) {
 }
 
 //========================================================================================================
+
+add_action( 'genesis_entry_content', 'rhswp_singlepost_add_featured_image', 9 );
+
+function rhswp_singlepost_add_featured_image() {
+  global $post;
+// has-post-thumbnail
+  if ( is_single() && ( 'post' == get_post_type() ) && ( has_post_thumbnail() ) ) {
+
+
+    $theimageobject = get_post(get_post_thumbnail_id());
+
+    $get_description = $theimageobject->post_excerpt;
+
+
+    if(!empty( $theimageobject->post_excerpt )){//If description is not empty show the div
+      echo '<div class="wp-caption alignright">';
+    }
+    echo get_the_post_thumbnail( $post->ID, 'article-visual', array( 'class' => 'alignright' ) );
+
+    if(!empty( $theimageobject->post_excerpt )){
+      echo '<p class="wp-caption-text">' . $theimageobject->post_excerpt . '</p></div>';
+    }
+      
+  }
+}
+
+//========================================================================================================
+
 
