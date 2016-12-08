@@ -7,8 +7,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.7.21
-// * @desc.   Modernizr via CDN, paginalayouts gewijzigd, CSS bugs
+// * @version 0.8.6
+// * @desc.   Banner-widget: classes voor achtergrondkleuren in plaats van colorpicker
 // * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 // **
 
@@ -375,5 +375,13 @@
     content: "";
   }  
 }
-          		
-        
+
+//=========================================================================================================
+
+.semitransbackground() {
+  background-color: @wit;
+  background-color: rgba(red(@grijs_1), green(@grijs_1), blue(@grijs_1), 0.8);
+}
+
+//=========================================================================================================
+

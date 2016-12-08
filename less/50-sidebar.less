@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.8.3
-// * @desc.   Banner-widget met plaatje
+// * @version 0.8.6
+// * @desc.   Banner-widget: classes voor achtergrondkleuren in plaats van colorpicker
 // * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 // **
 
@@ -55,11 +55,103 @@
     	max-width: 400px;
     	
     	.widget-wrap {
-      	border: 3px solid @grijs_3;
       	overflow: hidden;
+      	text-align: left;
+
+        &:hover {
+          border-color: @grijs_4 !important;
+        }
+      	
+      	
+      	&.standaard {
+        	border: 3px solid @grijs_1;
+      	}
+      	&.do-groen {
+        	color: @wit;
+        	background: @communicatiekleur_vol;
+
+        	a {
+          	background: @communicatiekleur_vol;
+          	display: block;
+        	}
+
+          a:hover,
+          a:active,
+          a:focus {
+          	background: @wit;
+        	}
+      	}
+      	&.do-groen-light {
+        	border: 3px solid @communicatiekleur_vol;
+        	color: @txt;
+        	background: @communicatiekleur_licht;
+
+        	a {
+          	background: @communicatiekleur_licht;
+          	display: block;
+        	}
+        	
+          a:hover,
+          a:active,
+          a:focus {
+          	background: @wit;
+        	}
+      	}
+      	&.text-over-plaatje {
+        	border: 3px solid @grijs_3;
+        	background: @communicatiekleur_licht;
+        	color: @txt;
+        	position: relative;
+
+
+          .text {
+            .semitransbackground();
+          	position: absolute;
+          	left: 0;
+          	right: 0;
+          	bottom: 0;
+            padding: .5em;
+            h2, h3 {
+              color: @blauw;
+            }
+          }
+          
+          a {
+            display: block;
+          }
+
+          a:hover,
+          a:active,
+          a:focus {
+            img {
+              -webkit-filter: grayscale(100%);
+              -moz-filter: grayscale(100%);
+              -ms-filter: grayscale(100%);
+              -o-filter: grayscale(100%);
+              filter: grayscale(100%);
+              filter: gray;
+            }
+
+            .text {
+              background-color: @wit;
+              background-color: rgba(256,256,256,.9);
+            }
+            
+          }
+      	}
+      	&.text-align-right {
+        	text-align: right;
+      	}
+      	&.text-align-center {
+        	text-align: center;
+      	}
+
+
+      	
       	img {
         	margin-top: 0;
         	margin-bottom: 0;
+        	display: table-cell;
       	}
 
         h2, h3 {
@@ -76,9 +168,9 @@
           height: auto;
         }
 
-ul, ol {
-  margin: 0 0 0 .5em;
-}
+        ul, ol {
+          margin: 0 0 0 .5em;
+        }
 
         a {
           text-decoration: none;

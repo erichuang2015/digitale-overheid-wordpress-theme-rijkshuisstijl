@@ -11,8 +11,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.8.3
- * @desc.   Banner-widget met plaatje
+ * @version 0.8.6
+ * @desc.   Banner-widget: classes voor achtergrondkleuren in plaats van colorpicker
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -184,6 +184,9 @@ if ( 22 == 33 ) {
 
 if( function_exists('acf_add_local_field_group') ):
 
+  //======================================================================================================
+  // upload voor CPT RHSWP_CPT_DOCUMENT 
+  //======================================================================================================
   acf_add_local_field_group(array (
   	'key' => 'group_57e8f17964532',
   	'title' => 'Document',
@@ -266,209 +269,110 @@ if( function_exists('acf_add_local_field_group') ):
   	'description' => '',
   ));
 
-  //========================================================================================================
-  // dit is de oude code, dus die bewaar ik voor nu, maar gebruik deze niet.
-  if ( 22 == 33 ) {
-    
-    acf_add_local_field_group(array (
-    	'key' => 'group_57dfd27420525',
-    	'title' => 'Voor taxonomie: selecteer menu en overzichtpagina',
-    	'fields' => array (
-    		array (
-    			'key' => 'field_57e411ac51413',
-    			'label'   => __( 'Welke inhoudspagina hier hierbij?', 'wp-rijkshuisstijl' ),
-    			'name' => 'dossier_overzichtpagina',
-    			'type' => 'post_object',
-          'instructions'   => __( 'Welke pagina beschrijft de inhoud van dit dossier? Deze pagina is belangrijk, omdat we hiermee de verdere structuur van het dossier kunnen bepalen.', 'wp-rijkshuisstijl' ),  			
-    			'required' => 0,
-    			'conditional_logic' => 0,
-    			'wrapper' => array (
-    				'width' => '',
-    				'class' => '',
-    				'id' => '',
-    			),
-    			'post_type' => array (
-    				0 => 'page',
-    			),
-    			'taxonomy' => array (
-    			),
-    			'allow_null' => 0,
-    			'multiple' => 0,
-    			'return_format' => 'object',
-    			'ui' => 1,
-    		),
-    		array (
-    			'key' => 'field_57e4122051414',
-    			'label'   => __( 'Menu voor dossier', 'wp-rijkshuisstijl' ),
-    			'name' => 'menu_voor_dossier',
-    			'type' => 'repeater',
-    			'instructions'   => '',
-    			'required' => 0,
-    			'conditional_logic' => 0,
-    			'wrapper' => array (
-    				'width' => '',
-    				'class' => '',
-    				'id' => '',
-    			),
-    			'collapsed' => '',
-    			'min' => '',
-    			'max' => '',
-    			'layout' => 'table',
-    			'button_label' => 'Nieuw item toevoegen aan het menu',
-    			'sub_fields' => array (
-    				array (
-    					'key' => 'field_57e4124751415',
-        			'label'   => __( 'Pagina', 'wp-rijkshuisstijl' ),
-    					'name' => 'dossier_menu_pagina',
-    					'type' => 'post_object',
-    					'instructions'   => '',
-    					'required' => 0,
-    					'conditional_logic' => 0,
-    					'wrapper' => array (
-    						'width' => '',
-    						'class' => '',
-    						'id' => '',
-    					),
-    					'post_type' => array (
-    					),
-    					'taxonomy' => array (
-    					),
-    					'allow_null' => 0,
-    					'multiple' => 0,
-    					'return_format' => 'object',
-    					'ui' => 1,
-    				),
-    			),
-    		),
-    	),
-    	'location' => array (
-    		array (
-    			array (
-    				'param' => 'taxonomy',
-    				'operator' => '==',
-    				'value' => RHSWP_CT_DOSSIER,
-    			),
-    		),
-    		array (
-    			array (
-    				'param' => 'user_form',
-    				'operator' => '==',
-    				'value' => 'edit',
-    			),
-    		),
-    	),
-    	'menu_order' => 0,
-    	'position' => 'normal',
-    	'style' => 'default',
-    	'label_placement' => 'top',
-    	'instruction_placement' => 'label',
-    	'hide_on_screen' => '',
-    	'active' => 1,
-    	'description' => '',
-    ));
-  }
-  else {
-    
-    acf_add_local_field_group(array (
-    	'key' => 'group_57f90d0a441e4',
-    	'title' => 'Dossier-informatie',
-    	'fields' => array (
-    		array (
-    			'key' => 'field_57f90d20c2fdf',
-    			'label'   => __( 'Inhoudspagina', 'wp-rijkshuisstijl' ),
-    			'name' => 'dossier_overzichtpagina',
-    			'type' => 'post_object',
-          'instructions'   => __( 'Welke pagina beschrijft de inhoud van dit dossier? Deze pagina is belangrijk, omdat we hiermee de verdere structuur van het dossier kunnen bepalen.', 'wp-rijkshuisstijl' ),  			
-    			'required' => 0,
-    			'conditional_logic' => 0,
-    			'wrapper' => array (
-    				'width' => '',
-    				'class' => '',
-    				'id' => '',
-    			),
-    			'post_type' => array (
-    				0 => 'page',
-    			),
-    			'taxonomy' => array (
-    			),
-    			'allow_null' => 0,
-    			'multiple' => 0,
-    			'return_format' => 'object',
-    			'ui' => 1,
-    		),
-    		array (
-    			'key' => 'field_57fa70f9fe7a3',
-    			'label'   => __( 'Toon inhoudspagina in het menu?', 'wp-rijkshuisstijl' ),
-    			'name' => 'toon_overzichtspagina_in_het_menu',
-    			'type' => 'radio',
-    			'instructions'   => '',
-    			'required' => 1,
-    			'conditional_logic' => 0,
-    			'wrapper' => array (
-    				'width' => '',
-    				'class' => '',
-    				'id' => '',
-    			),
-    			'choices' => array (
-    				'ja' => 'Toon wel',
-    				'nee' => 'Toon niet',
-    			),
-    			'allow_null' => 0,
-    			'other_choice' => 0,
-    			'save_other_choice' => 0,
-    			'default_value' => 'ja',
-    			'layout' => 'vertical',
-    			'return_format' => 'value',
-    		),
-    		array (
-    			'key' => 'field_57f90f281dcfb',
-    			'label'   => __( 'Andere pagina\'s in het menu', 'wp-rijkshuisstijl' ),
-    			'name' => 'menu_pages',
-    			'type' => 'relationship',
-    			'instructions'   => '',
-    			'required' => 0,
-    			'conditional_logic' => 0,
-    			'wrapper' => array (
-    				'width' => '',
-    				'class' => '',
-    				'id' => '',
-    			),
-    			'post_type' => array (
-    				0 => 'page',
-    			),
-    			'taxonomy' => array (
-    			),
-    			'filters' => array (
-    				0 => 'search',
-    				1 => 'taxonomy',
-    			),
-    			'elements' => '',
-    			'min' => '',
-    			'max' => '',
-    			'return_format' => 'object',
-    		),
-    	),
-    	'location' => array (
-    		array (
-    			array (
-    				'param' => 'taxonomy',
-    				'operator' => '==',
-    				'value' => 'dossiers',
-    			),
-    		),
-    	),
-    	'menu_order' => 0,
-    	'position' => 'normal',
-    	'style' => 'default',
-    	'label_placement' => 'top',
-    	'instruction_placement' => 'label',
-    	'hide_on_screen' => '',
-    	'active' => 1,
-    	'description' => '',
-    ));
-  }
+  //======================================================================================================
+  // metadata voor CT RHSWP_CT_DOSSIER 
+  //======================================================================================================
+  acf_add_local_field_group(array (
+  	'key' => 'group_57f90d0a441e4',
+  	'title' => 'Dossier-informatie',
+  	'fields' => array (
+  		array (
+  			'key' => 'field_57f90d20c2fdf',
+  			'label'   => __( 'Inhoudspagina', 'wp-rijkshuisstijl' ),
+  			'name' => 'dossier_overzichtpagina',
+  			'type' => 'post_object',
+        'instructions'   => __( 'Welke pagina beschrijft de inhoud van dit dossier? Deze pagina is belangrijk, omdat we hiermee de verdere structuur van het dossier kunnen bepalen.', 'wp-rijkshuisstijl' ),  			
+  			'required' => 0,
+  			'conditional_logic' => 0,
+  			'wrapper' => array (
+  				'width' => '',
+  				'class' => '',
+  				'id' => '',
+  			),
+  			'post_type' => array (
+  				0 => 'page',
+  			),
+  			'taxonomy' => array (
+  			),
+  			'allow_null' => 0,
+  			'multiple' => 0,
+  			'return_format' => 'object',
+  			'ui' => 1,
+  		),
+  		array (
+  			'key' => 'field_57fa70f9fe7a3',
+  			'label'   => __( 'Toon inhoudspagina in het menu?', 'wp-rijkshuisstijl' ),
+  			'name' => 'toon_overzichtspagina_in_het_menu',
+  			'type' => 'radio',
+  			'instructions'   => '',
+  			'required' => 1,
+  			'conditional_logic' => 0,
+  			'wrapper' => array (
+  				'width' => '',
+  				'class' => '',
+  				'id' => '',
+  			),
+  			'choices' => array (
+  				'ja' => 'Toon wel',
+  				'nee' => 'Toon niet',
+  			),
+  			'allow_null' => 0,
+  			'other_choice' => 0,
+  			'save_other_choice' => 0,
+  			'default_value' => 'ja',
+  			'layout' => 'vertical',
+  			'return_format' => 'value',
+  		),
+  		array (
+  			'key' => 'field_57f90f281dcfb',
+  			'label'   => __( 'Andere pagina\'s in het menu', 'wp-rijkshuisstijl' ),
+  			'name' => 'menu_pages',
+  			'type' => 'relationship',
+  			'instructions'   => '',
+  			'required' => 0,
+  			'conditional_logic' => 0,
+  			'wrapper' => array (
+  				'width' => '',
+  				'class' => '',
+  				'id' => '',
+  			),
+  			'post_type' => array (
+  				0 => 'page',
+  			),
+  			'taxonomy' => array (
+  			),
+  			'filters' => array (
+  				0 => 'search',
+  				1 => 'taxonomy',
+  			),
+  			'elements' => '',
+  			'min' => '',
+  			'max' => '',
+  			'return_format' => 'object',
+  		),
+  	),
+  	'location' => array (
+  		array (
+  			array (
+  				'param' => 'taxonomy',
+  				'operator' => '==',
+  				'value' => 'dossiers',
+  			),
+  		),
+  	),
+  	'menu_order' => 0,
+  	'position' => 'normal',
+  	'style' => 'default',
+  	'label_placement' => 'top',
+  	'instruction_placement' => 'label',
+  	'hide_on_screen' => '',
+  	'active' => 1,
+  	'description' => '',
+  ));
 
-
+  //======================================================================================================
+  // metadata voor page_dossiersingleactueel.php
+  //======================================================================================================
   acf_add_local_field_group(array (
   	'key' => 'group_57fa9232d034a',
   	'title' => 'Actueelpagina voor een dossier',
@@ -551,9 +455,9 @@ if( function_exists('acf_add_local_field_group') ):
   	'local' => 'php',
   ));
 
-
-
-
+  //======================================================================================================
+  // metadata voor RHSWP_WIDGET_BANNER
+  //======================================================================================================
   acf_add_local_field_group(array (
   	'key' => 'group_57e4e9cdb7b83',
   	'title' => 'Layout-opties voor banner-widget',
@@ -575,7 +479,34 @@ if( function_exists('acf_add_local_field_group') ):
   				'id' => '',
   			),
   		),
-
+      array (
+      	'multiple' => 0,
+      	'allow_null' => 0,
+      	'choices' => array (
+      		'standaard'         => 'Standaard - grijze rand, witte achtergrond, blauwe titel',
+      		'do-groen'          => 'DO-groen - Donkergroene achtergrond, witte tekst',
+      		'do-groen-light'    => 'DO-lichtgroen - Lichtgroene achtergrond, zwarte tekst',
+      		'text-over-plaatje' => 'Plaats de tekst over het plaatje',
+      	),
+      	'default_value' => array (
+      	),
+      	'ui' => 0,
+      	'ajax' => 0,
+      	'placeholder' => '',
+      	'return_format' => 'value',
+      	'key' => 'field_58491e20452d3',
+      	'label' => 'Vormgeving',
+      	'name' => 'rhswp_widget_class',
+      	'type' => 'select',
+      	'instructions' => '',
+      	'required' => 0,
+      	'conditional_logic' => 0,
+      	'wrapper' => array (
+      		'width' => '',
+      		'class' => '',
+      		'id' => '',
+      	),
+      ),
       array (
       	'return_format' => 'array',
       	'preview_size' => 'thumbnail',
@@ -626,52 +557,31 @@ if( function_exists('acf_add_local_field_group') ):
   				'id' => '',
   			),
   		),
-    	
-  		array (
-  			'key' => 'field_57e4e9d8216a4',
-  			'label'   => __( 'Randkleur', 'wp-rijkshuisstijl' ),
-  			'name' => 'rhswp_widget_randkleur',
-  			'type' => 'color_picker',
-  			'instructions'   => '',
-  			'required' => 0,
-  			'conditional_logic' => 0,
-  			'wrapper' => array (
-  				'width' => '',
-  				'class' => '',
-  				'id' => '',
-  			),
-  			'default_value' => '#000000',
-  		),
-  		array (
-  			'key' => 'field_57e4ea1a06fbd',
-  			'label'   => __( 'Achtergrondkleur', 'wp-rijkshuisstijl' ),
-  			'name' => 'rhswp_widget_achtergrondkleur',
-  			'type' => 'color_picker',
-  			'instructions'   => '',
-  			'required' => 0,
-  			'conditional_logic' => 0,
-  			'wrapper' => array (
-  				'width' => '',
-  				'class' => '',
-  				'id' => '',
-  			),
-  			'default_value' => '#ffffff',
-  		),
-  		array (
-  			'key' => 'field_57e4ea5206fbe',
-  			'label'   => __( 'Tekstkleur', 'wp-rijkshuisstijl' ),
-    			'name' => 'rhswp_widget_tekstkleur',
-  			'type' => 'color_picker',
-  			'instructions'   => '',
-  			'required' => 0,
-  			'conditional_logic' => 0,
-  			'wrapper' => array (
-  				'width' => '',
-  				'class' => '',
-  				'id' => '',
-  			),
-  			'default_value' => '#000000',
-  		),
+      array (
+      	'layout' => 'vertical',
+      	'choices' => array (
+      		'left' => 'Links uitgelijnd',
+      		'center' => 'Gecentreerd',
+      		'right' => 'Rechts uitgelijnd',
+      	),
+      	'default_value' => 'left',
+      	'other_choice' => 0,
+      	'save_other_choice' => 0,
+      	'allow_null' => 0,
+      	'return_format' => 'value',
+      	'key' => 'field_584927f5927b8',
+      	'label' => 'Uitlijning van de tekst',
+      	'name' => 'rhswp_widget_textalignment',
+      	'type' => 'radio',
+      	'instructions' => '',
+      	'required' => 0,
+      	'conditional_logic' => 0,
+      	'wrapper' => array (
+      		'width' => '',
+      		'class' => '',
+      		'id' => '',
+      	),
+      ),  		
   	),
   	'location' => array (
   		array (
