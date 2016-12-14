@@ -142,7 +142,7 @@ themes/wp-rijkshuisstijl/                     # → Folder met alle theme-bestan
 │  
 ├── 404.php                                   # → Afhandeling voor niet-gevonden pagina's
 ├── archive.php                               # → Algemeen berichten-overzicht
-├── front-page.php                            # → Algemene functies, theme includes
+├── front-page.php                            # → Home page
 ├── functions.php                             # → Algemene functies, theme includes
 ├── page_dossier-document-overview.php        # → 
 ├── page_dossier-events-overview.php          # → 
