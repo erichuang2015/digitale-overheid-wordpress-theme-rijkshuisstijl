@@ -10,8 +10,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.8.9
- * @desc.   Bugjes verwijderd. debug.log een stuk schoner nu
+ * @version 0.8.11
+ * @desc.   Check in dossierbalk op pagina met onderliggende pagina's uitgezet
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -313,10 +313,10 @@ function rhswp_dossier_get_pagelink( $theobject, $args ) {
     $selectposttype = RHSWP_CPT_EVENT;
     $checkpostcount = true;
   }    
-  elseif ( 'page_show-child-pages.php' == $pagetemplateslug ) {
-    $selectposttype = 'pagina-met-onderliggende-paginas';
-    $checkpostcount = true;
-  }    
+//  elseif ( 'page_show-child-pages.php' == $pagetemplateslug ) {
+//    $selectposttype = 'pagina-met-onderliggende-paginas';
+//    $checkpostcount = true;
+//  }    
   else {
     $selectposttype = '';
     $checkpostcount = false;
