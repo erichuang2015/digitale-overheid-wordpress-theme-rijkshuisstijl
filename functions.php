@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.8.11
- * @desc.   Check in dossierbalk op pagina met onderliggende pagina's uitgezet
+ * @version 0.8.12
+ * @desc.   CSS voor citaten bijgewerkt
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
