@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.8.9
- * @desc.   Bugjes verwijderd. debug.log een stuk schoner nu
+ * @version 0.8.10
+ * @desc.   Paginering op de actueelpagina verbeterd
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -214,9 +214,23 @@ remove_action ( 'genesis_before_header', 'genwpacc_skip_links' );
 
 function rhswp_add_title_to_blog_page() {
   if ( is_home() && 'page' == get_option( 'show_on_front' ) ) {
+
+    global $wp_query;
+
     $actueelpageid    = get_option( 'page_for_posts' );
     $actueelpagetitle = rhswp_filter_alternative_title( $actueelpageid, get_the_title( $actueelpageid ) );
-    echo '<header class="entry-header"><h1 class="entry-title" itemprop="headline">' . $actueelpagetitle . '</h1> </header>';
+    $paging           = ''; 
+    $aantalpaginas    = $wp_query->max_num_pages;
+    $paged            = ( get_query_var('paged') ) ? get_query_var('paged') : 1;
+
+
+    if ( $paged > 1 ) {
+      $paging = ' Pagina ' . $paged . ' van ' . $aantalpaginas . '.';
+    }
+    
+    echo '<header class="entry-header"><h1 class="entry-title" itemprop="headline">' . $actueelpagetitle  . '</h1> </header>';
+    echo '<p>' . _x( 'Alle berichten rondom de digitale overheid.', 'Tekst op de actueelpagina', 'wp-rijkshuisstijl' ) . $paging . '</p>';
+
   }
   
 }
@@ -1660,8 +1674,6 @@ function rhswp_dossiercontext_add_rewrite_rules() {
   add_rewrite_rule( '(.+?)(/' . RHSWP_DOSSIEREVENTCONTEXT . '/)(.+?)/?$', 'index.php?event=$matches[3]&' . RHSWP_DOSSIERPOSTCONTEXT . '=$matches[1]', 'top');
   add_rewrite_rule( '(.+?)/' . RHSWP_DOSSIEREVENTCONTEXT . '/?$', 'index.php?pagename=$matches[1]', 'top');
 
-
-
   if( get_field('global_search_page', 'option') ) {
     
     $zoekpagina = get_field('global_search_page', 'option');
@@ -1671,6 +1683,18 @@ function rhswp_dossiercontext_add_rewrite_rules() {
     
   }  
 
+}
+
+//========================================================================================================
+
+add_action( 'init', 'rhswp_fix_blog_pagination' );
+
+function rhswp_fix_blog_pagination(){
+    add_rewrite_rule(
+        'actueel/page/([0-9]+)/?$',
+        'index.php?pagename=actueel&paged=$matches[1]',
+        'top'
+    );
 }
 
 //========================================================================================================
