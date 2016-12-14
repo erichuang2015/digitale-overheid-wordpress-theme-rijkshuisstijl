@@ -3,8 +3,8 @@
   Description: Theme voor digitaleoverheid.nl
   Author: Paul van Buuren
   Author URI: https://wbvb.nl/themes/ibewustzijn/
-  Version: 0.8.12
-  Version description: 0.8.12 - CSS voor citaten bijgewerkt
+  Version: 0.8.13
+  Version description: 0.8.13 - CSS voor tabellen bijgewerkt
   Text Domain: wp-rijkshuisstijl
   
   Template: genesis
@@ -348,6 +348,30 @@ Content Area
     	margin-top: 1em;
     }
 	}
+}
+.entry-content {
+  table {
+    font-size: 95%;
+    tr {
+      border-top: 1px solid @grijs_2;
+    }
+    th,
+    td {
+      padding: .5em .5em .75em .5em;
+      h2,
+      h3,
+      h4 {
+        margin: 0;
+      }
+      p, 
+      ol,
+      ul {
+        & + p {
+          margin-top: 0;
+        }
+      }
+    }
+  }        
 }
 
 

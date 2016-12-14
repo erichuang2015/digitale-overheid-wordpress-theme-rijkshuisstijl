@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.8.12
- * @desc.   CSS voor citaten bijgewerkt
+ * @version 0.8.13
+ * @desc.   CSS voor tabellen bijgewerkt
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
