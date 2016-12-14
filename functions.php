@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.8.8
- * @desc.   Featured image toegevoegd aan post
+ * @version 0.8.9
+ * @desc.   Bugjes verwijderd. debug.log een stuk schoner nu
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -232,7 +232,7 @@ function rhswp_add_excerpts_to_pages() {
 // Add Read More Link to Excerpts
 add_filter( 'excerpt_more',               'rhswp_get_read_more_link');
 add_filter( 'the_content_more_link',      'rhswp_get_read_more_link' );
-add_filter( 'the_content_more_link',      'wpm_get_read_more_link');
+//add_filter( 'the_content_more_link',      'wpm_get_read_more_link');
 add_filter( 'get_the_content_more_link',  'rhswp_get_read_more_link'); // Genesis Framework only
 add_filter( 'excerpt_more',               'rhswp_get_read_more_link');
 
@@ -964,7 +964,7 @@ function rhswp_get_sitemap_content() {
 
 class rhswp_custom_walker_for_sitemap extends Walker_Page {
 
-  function start_el( &$output, $page, $depth = 0, $args, $current_page = 0 ) {
+  function start_el( &$output, $page, $depth = 0, $args = array(), $current_page = 0 ) {
     
       if ( $depth ) {
         $indent = str_repeat("\t", $depth);
@@ -2258,9 +2258,8 @@ function rhswp_caroussel_checker() {
 
     if ( 'ja' == $carousselcheck ) {
       
-      $getcarousel    = get_field('kies_carrousel', $theid );
+      $getcarousel      = get_field('kies_carrousel', $theid );
 
-      
       $carouselid       = $getcarousel->ID;
       $carouseltitle    = $getcarousel->post_title;
       $carrousel_items  = get_field( 'carrousel_items', $carouselid );
@@ -2312,7 +2311,7 @@ function rhswp_caroussel_checker() {
             $link_img_start     = '<a href="' . get_permalink( $linkid ) . '" tabindex="-1" class="img-container">';   	
             $link_end           = '</a>';
 
-            $link_caption_start = '<a href="' . get_permalink( $dossier ) . '" class="caption">';   	
+            $link_caption_start = '<a href="' . get_permalink( $linkid ) . '" class="caption">';   	
             $link_caption_end   = '</a>';   	
           }
           elseif ( $dossier && $type == 'dossier' ) {

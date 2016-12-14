@@ -9,8 +9,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.7.27
- * @desc.   Versienummer aan editor-styles.css toegevoegd.
+ * @version 0.8.9
+ * @desc.   Bugjes verwijderd. debug.log een stuk schoner nu
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -77,9 +77,11 @@ function dodebug2($file = '', $extra = '') {
 //========================================================================================================
 
 function dovardump($data) {
+  if ( WP_DEBUG ) {
     echo '<hr><pre>';
     print_r($data);
     echo '</pre><hr>';
+  }        
 }        
 
 
@@ -123,9 +125,10 @@ if ( WP_DEBUG ) {
 if ( SHOW_CSS_DEBUG ) {
   //* Add role to header
   add_filter('genesis_attr_site-header', 'rhswp_add_attribute_role_banner');
+
   
   function rhswp_add_attribute_role_banner($attributes) {
-  	$attributes['role'] .= 'banner';
+  	$attributes['role'] = 'banner';
   	return $attributes;
   }
 
@@ -133,7 +136,7 @@ if ( SHOW_CSS_DEBUG ) {
   add_filter('genesis_attr_site-footer', 'rhswp_add_attribute_role_contentinfo');
   
   function rhswp_add_attribute_role_contentinfo($attributes) {
-    $attributes['role'] .= 'contentinfo';
+    $attributes['role'] = 'contentinfo';
     return $attributes;
   }
 }
