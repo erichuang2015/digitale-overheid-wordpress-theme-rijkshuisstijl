@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.8.6
-// * @desc.   Banner-widget: classes voor achtergrondkleuren in plaats van colorpicker
+// * @version 0.8.16
+// * @desc.   Header font sizes drastisch aangepast
 // * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 // **
 
@@ -123,32 +123,38 @@
   	}     
   }
 
-  .block .links {
-    li {
-      display: block;
-      a {
-        padding-top: .5em;
-        padding-right: .5em;
-        padding-bottom: .5em;
-        line-height: 1.2;
-        
-        &:before {
-          top: 14px;
-          left: 3px;
+  .block {
+    .links {
+      li {
+        display: block;
+        a {
+          padding-top: .5em;
+          padding-right: .5em;
+          padding-bottom: .5em;
+          line-height: 1.2;
+          
+          &:before {
+            top: 14px;
+            left: 3px;
+          }
         }
       }
+      li:nth-child(odd) {
+        clear: left;
+      }
+      li:nth-child(even) {
+        clear: right;
+      }
     }
-    li:nth-child(odd) {
-      clear: left;
-    }
-    li:nth-child(even) {
-      clear: right;
+    h2 + .links {
+      margin-top: 0;
     }
   }
 
   .flexbox {
     .page-template-page_showalldossiers,
     .home,
+    .blog,
     .archive {
       .block {
         display: flex;
@@ -193,6 +199,7 @@
 
       h3 {
         padding: 0;
+        margin-top: 0;
       }
       
       a {
@@ -201,6 +208,7 @@
         margin: 0;
         p {
           color: @txt;
+          margin: 0;
         }
         h3 {
           color: @donkerblauw_vol;
@@ -209,7 +217,8 @@
 
       .meta {
         color: @a_color_visited;
-        margin: 0;
+        margin: .5em 0 0 0;
+        font-size: 90%;
       }
 
       .article-container {
@@ -781,6 +790,7 @@
     .flexbox {
       .home,
       .page-template-page_showalldossiers,
+      .blog,
       .archive {
         .block {
 
@@ -822,6 +832,7 @@
   @media only screen and (min-width: ( @break_fullwidth ) ) {
     .flexbox {
       .home,
+      .blog,
       .archive {
         .block {
           article {

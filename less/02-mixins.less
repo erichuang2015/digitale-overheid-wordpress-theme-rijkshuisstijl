@@ -7,8 +7,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.8.6
-// * @desc.   Banner-widget: classes voor achtergrondkleuren in plaats van colorpicker
+// * @version 0.8.16
+// * @desc.   Header font sizes drastisch aangepast
 // * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 // **
 
@@ -17,7 +17,7 @@
 
 @strokeheight: 		        43px;
 @pixel:                   1px;
-@prem:                    1rem;
+@prem:                    .75rem;
 @viewport:                1vw;
 @basefontsize:            12;
 @basefont:                ( @basefontsize * @pixel );
@@ -27,8 +27,8 @@
 @blockradius: 		        5px;
 
 
-@hoogte_tooltip_button:   36;
-@hoogte_tooltip_button_px:   36px;
+@hoogte_tooltip_button:     36;
+@hoogte_tooltip_button_px:  36px;
 
 
 @seachform_element_height_normal:       50px;
@@ -69,10 +69,10 @@
 @headerfont:			     @bodyfont;
 
 
-@fontsize_title_h1:     ( 2.6 * @basefontsize );
-@fontsize_title_h2:     ( 2 * @basefontsize );
-@fontsize_title_h3:     ( 1.8 * @basefontsize );
-@fontsize_title_h4:     ( 1.6 * @basefontsize );
+@fontsize_title_h1:     ( 2.6 * @basefontsize ); // zou moeten uitkomen op etwa 32px
+@fontsize_title_h2:     ( 2.3 *   @basefontsize );
+@fontsize_title_h3:     ( 1.9 * @basefontsize );
+@fontsize_title_h4:     ( 1.7 * @basefontsize );
 @fontsize_title_h5:     ( 1.3 * @basefontsize );
 @fontsize_title_h6:     ( 1.2 * @basefontsize );
 
@@ -356,7 +356,7 @@
     font-family: "RO Icons";
     display: inline-block;
     vertical-align: middle;
-    content: "";
+content: "";    
     speak: none;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;

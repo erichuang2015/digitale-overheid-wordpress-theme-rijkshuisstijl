@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.8.15
- * @desc.   Bannerwidget CSS bijgewerkt
+ * @version 0.8.16
+ * @desc.   Header font sizes drastisch aangepast
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "http://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.8.8" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Featured image toegevoegd aan post" );
+define( 'CHILD_THEME_VERSION',              "0.8.16" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Header font sizes drastisch aangepast" );
 define( 'SHOW_CSS_DEBUG',                   false );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
@@ -554,13 +554,15 @@ function rhswp_add_taxonomy_description() {
         
     $headline   = '';
     $intro_text = '';
-    if ( $term->name ) {
-        $headline = sprintf( '<h1 class="archive-title">%s</h1>', $prefix . strip_tags( $term->name ) );
-    }
-        
-    if ( isset( $term->meta['headline'] ) && $term->meta['headline'] ) {
-        $headline = sprintf( '<h1 class="archive-title">%s</h1>', $prefix . strip_tags( $term->meta['headline'] ) );
-    }
+
+    $tax = $wp_query->query_vars['taxonomy'];
+    
+      if ( $term->name ) {
+          $headline = sprintf( '<h1 class="archive-title">%s</h1>', $prefix . strip_tags( $term->name ) );
+      }
+      if ( isset( $term->meta['headline'] ) && $term->meta['headline'] ) {
+          $headline = sprintf( '<h1 class="archive-title">%s</h1>', $prefix . strip_tags( $term->meta['headline'] ) );
+      }
         
     if ( isset( $term->meta['intro_text'] ) && $term->meta['intro_text'] ) {
         $intro_text = apply_filters( 'genesis_term_intro_text_output', $term->meta['intro_text'] );
