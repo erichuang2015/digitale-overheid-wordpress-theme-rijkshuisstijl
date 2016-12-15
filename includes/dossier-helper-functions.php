@@ -10,8 +10,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.8.11
- * @desc.   Check in dossierbalk op pagina met onderliggende pagina's uitgezet
+ * @version 0.8.17
+ * @desc.   Opmaak voor dossier overzicht aangepast
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -138,8 +138,8 @@ function rhswp_dossier_title_checker( ) {
           $args['menu_voor_dossier'] = $itemsinmenu;
 
         }
-        
-        $titletag_start           = '<p class="entry-title">';
+
+        $titletag_start           = '<p class="taxonomy-title">';
         $titletag_end             = '</p>';
 
         if ( $dossier_overzichtpagina ) {
@@ -188,9 +188,25 @@ function rhswp_dossier_title_checker( ) {
           $dossierinhoudpagina = '<li><a href="' . get_term_link( $term ) . '">' . _x( 'Overzicht', 'Standaardlabel voor het menu in de dossiers', 'wp-rijkshuisstijl' ) . '</a></li>';
 
         }
-        
 
-        echo $titletag_start . $term->name  . $titletag_end; 
+        $value = get_term_meta( $term->term_id, 'headline', true );
+        
+        // Use term name if empty
+        if( empty( $value ) ) {
+        	$term = get_term_by( 'term_taxonomy_id', $term->term_id );
+        	$value = $term->name;
+        }
+        else {
+          $value = $term->name . ' - ' . $value;
+        }
+
+        if ( is_tax() ) {
+          $titletag_start           = '<h1 class="taxonomy-title">';
+          $titletag_end             = '</h1>';
+        }        
+        $zetaxonomyname = $value;
+
+        echo $titletag_start . $zetaxonomyname  . $titletag_end; 
 
         
         if ( $menu_voor_dossier ) {
@@ -301,6 +317,9 @@ function rhswp_dossier_get_pagelink( $theobject, $args ) {
   $checkpostcount = false;
   $addlink        = false;
 
+  // IS GEPUBLICEERD?
+  $poststatus = get_post_status( $current_menuitem_id );
+
   if ( 'page_dossiersingleactueel.php' == $pagetemplateslug ) {
     $selectposttype = 'post';
     $checkpostcount = true;
@@ -313,20 +332,15 @@ function rhswp_dossier_get_pagelink( $theobject, $args ) {
     $selectposttype = RHSWP_CPT_EVENT;
     $checkpostcount = true;
   }    
-//  elseif ( 'page_show-child-pages.php' == $pagetemplateslug ) {
-//    $selectposttype = 'pagina-met-onderliggende-paginas';
-//    $checkpostcount = true;
-//  }    
   else {
     $selectposttype = '';
     $checkpostcount = false;
     $addlink        = true;    
   }
 
-//dodebug( 'echte parent URL:<br>' . get_permalink( wp_get_post_parent_id( $post->ID ) ) );      
-
-// dodebug( 'rhswp_dossier_get_pagelink:<br>selectposttype: ' . $selectposttype . '<br>checkpostcount: ' . $checkpostcount . '<br>current_menuitem_id: ' . $current_menuitem_id . '<br>URL of current ID:<br>' . get_permalink( $current_menuitem_id )  . '<br>URL of parent:<br>' . get_permalink( wp_get_post_parent_id( $current_menuitem_id ) ) );      
-
+  if ( $poststatus != 'publish' ) {
+    $addlink        = false;    
+  }
 
   if ( $checkpostcount && $selectposttype ) {
     
@@ -445,19 +459,6 @@ function rhswp_dossier_get_pagelink( $theobject, $args ) {
     
   }
 
-
-// is het het huidige item?
-// ja
-
-// nee, het is niet het huidige item
-// mogen 'm wel tonen?
-// ja, we mogen 'm tonen
-// fijn, we mogen 'm tonen. 
-
-// het kan een directe parent zijn
-
-// het kan een verre voorvader zijn
-  
 
   if ( $pagerequestedbyuser == $current_menuitem_id ) {
     // the user asked for this particular page / post

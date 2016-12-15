@@ -9,8 +9,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.7.14
- * @desc.   Contentblock kan dossiers tonen. Extra check op taxonomy contentblock toegevoegd.
+ * @version 0.8.17
+ * @desc.   Opmaak voor dossier overzicht aangepast
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -79,89 +79,27 @@ function rhswp_show_all_dossiers() {
   if ($terms && ! is_wp_error( $terms ) ) { 
 
     echo $wrapper_start;
-    
-//    if ( $wrapper_start  && $wrapper_title && $wrapper_end ) {
-//      echo $wrapper_start;
-//      echo '<h2>' . $wrapper_title . '</h2>';
-//    }    
 
-//    if ( 'dossier_overzicht_filter_ongefilterd' != $dossierfilter ) {
 
-      echo '<div class="block">';
-
-//      if ( $title ) {
-//        echo '<h2>' . $title . '</h2>';
-//      }
-
-//      echo '<div class="dossieroverzicht">';
-//      echo '<ul>';
-//      echo $terms;
-//      echo '</ul>';
-//      echo '</div>';
-
+      echo '<div class="block no-top">';
   
       foreach ( $terms as $term ) {
   
         $excerpt    = '';
         $classattr  = 'class="dossieroverzicht"';
         if ( $term->description ) {
-          $excerpt  =  $term->description;
+          $excerpt  =  wp_strip_all_tags( $term->description );
         }
         
         $href       = get_term_link( $term->term_id, RHSWP_CT_DOSSIER );
         
         printf( '<article %s>', $classattr );
-        printf( '<a href="%s"><h3>%s</h3><p>%s</p></a>', $href, $term->name, $excerpt );
+        printf( '<a href="%s"><h2>%s</h2><p>%s</p></a>', $href, $term->name, $excerpt );
         echo '</article>';
 
       }
 
       echo '</div>';
-      
-//    }
-//    else {
-
-//      echo '<div class="block">';
-//      echo '<ul>';
-//      echo $terms;
-//      echo '</ul>';
-//      echo '</div>';
-
-  
-//      foreach ( $terms as $term ) {
-  
-//        $excerpt    = '';
-//        $classattr  = 'class="dossieroverzicht"';
-//        if ( $term->description ) {
-//          $excerpt  =  $term->description;
-//        }
-//        
-//        $href//       = get_term_link( $term->term_id, RHSWP_CT_DOSSIER );
-//        
-//        printf( '<article %s>', $classattr );
-//        printf( '<a href="%s"><h3>%s</h3><p>%s</p></a>', $href, $term->name, $excerpt );
-//        echo '</article>';
-//        
-//      
-//      }
-  
-  
-//      echo '</div>';
-
-
-//      echo '<div class="dossieroverzicht">';
-//      echo '<ul>';
-//      echo $terms;
-//      echo '</ul>';
-//      echo '</div>';
-
-//      echo '<ul>';
-//      foreach ( $terms as $term ) {
-//          echo '<li><a href="' . esc_url( get_term_link( $term ) ) . '">' . $term->name . '</a></li>';
-//      }
-//      echo '</ul>';
-      
-//    }
     
     wp_reset_postdata();
 

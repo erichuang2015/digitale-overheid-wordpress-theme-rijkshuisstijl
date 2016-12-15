@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.8.16
-// * @desc.   Header font sizes drastisch aangepast
+// * @version 0.8.17
+// * @desc.   Opmaak voor dossier overzicht aangepast
 // * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 // **
 
@@ -806,7 +806,11 @@
             &:only-of-type {
               flex-basis: 100%;
             }
+            &:last-of-type {
+              max-width: @flexbasis_fiftypct;
+            }
           }
+          
         }
       }
     }
@@ -835,7 +839,7 @@
       .blog,
       .archive {
         .block {
-          article {
+          article.post {
             h3 {
               min-height: 3.5rem;
             }
@@ -847,6 +851,10 @@
         .block {
           article {
             flex-basis: @flexbasis_third;
+
+            &:last-of-type {
+              max-width: @flexbasis_third;
+            }
           }
         }
       }

@@ -9,8 +9,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.7.15
- * @desc.   Kleine CSS bugs
+ * @version 0.8.17
+ * @desc.   Opmaak voor dossier overzicht aangepast
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -39,7 +39,16 @@ if ( rhswp_extra_contentblokken_checker() ) {
   
 }
 else {
+
   add_action( 'genesis_before_loop', 'rhswp_write_contentblok_waarschuwing', 16 );
+
+  /** Replace the standard loop with our custom loop */
+  remove_action( 'genesis_loop', 'genesis_do_loop' );
+  add_action( 'genesis_loop', 'rhswp_archive_custom_loop' );
+  
+  // post navigation verplaatsen tot buiten de flex-ruimte
+  add_action( 'genesis_after_loop', 'genesis_posts_nav', 3 );
+
 }
 
 //========================================================================================================
@@ -50,8 +59,6 @@ genesis();
 
 function rhswp_write_contentblok_waarschuwing() {
   
-  echo '<p>' . __( 'Hier staat alle content voor dit dossier.', 'wp-rijkshuisstijl' ) . '</p>';
-
   $user = wp_get_current_user();
   if ( in_array( 'manage_categories', (array) $user->allcaps ) ) {
 
