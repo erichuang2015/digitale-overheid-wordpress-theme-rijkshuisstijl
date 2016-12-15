@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.8.14
- * @desc.   CSS voor tabellen bijgewerkt
+ * @version 0.8.15
+ * @desc.   Bannerwidget CSS bijgewerkt
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -213,6 +213,7 @@ remove_action ( 'genesis_before_header', 'genwpacc_skip_links' );
 //========================================================================================================
 
 function rhswp_add_title_to_blog_page() {
+  
   if ( is_home() && 'page' == get_option( 'show_on_front' ) ) {
 
     global $wp_query;
@@ -230,6 +231,14 @@ function rhswp_add_title_to_blog_page() {
     
     echo '<header class="entry-header"><h1 class="entry-title" itemprop="headline">' . $actueelpagetitle  . '</h1> </header>';
     echo '<p>' . _x( 'Alle berichten rondom de digitale overheid.', 'Tekst op de actueelpagina', 'wp-rijkshuisstijl' ) . $paging . '</p>';
+
+    /** Replace the standard loop with our custom loop */
+    remove_action( 'genesis_loop', 'genesis_do_loop' );
+    add_action( 'genesis_loop', 'rhswp_archive_custom_loop' );
+    
+    // post navigation verplaatsen tot buiten de flex-ruimte
+    add_action( 'genesis_after_loop', 'genesis_posts_nav', 3 );
+    
 
   }
   
