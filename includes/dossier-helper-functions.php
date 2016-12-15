@@ -10,7 +10,7 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.8.17
+ * @version 0.8.18
  * @desc.   Opmaak voor dossier overzicht aangepast
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
@@ -204,9 +204,8 @@ function rhswp_dossier_title_checker( ) {
           $titletag_start           = '<h1 class="taxonomy-title">';
           $titletag_end             = '</h1>';
         }        
-        $zetaxonomyname = $value;
-
-        echo $titletag_start . $zetaxonomyname  . $titletag_end; 
+        
+        echo $titletag_start . $value . $titletag_end; 
 
         
         if ( $menu_voor_dossier ) {

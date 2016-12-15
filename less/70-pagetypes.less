@@ -7,8 +7,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.8.2
-// * @desc.   Marges voor sitemap-lijst 
+// * @version 0.8.18
+// * @desc.   Opmaak voor dossier overzicht aangepast
 // * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 // **
 
@@ -104,7 +104,16 @@
         margin-top: 0;
       }
     }
-    
+    .category,
+    .dossiers {
+      display: flex;
+      flex-wrap: wrap;
+      li {
+        flex-basis: 33%;
+        padding-right: 1em;
+        padding-bottom: .5em;
+      }
+    }
   }
 
   .page-template-page_search,

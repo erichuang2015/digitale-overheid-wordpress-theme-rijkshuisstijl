@@ -8,7 +8,7 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.8.17
+ * @version 0.8.18
  * @desc.   Opmaak voor dossier overzicht aangepast
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
@@ -23,9 +23,9 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "http://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.8.16" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Header font sizes drastisch aangepast" );
-define( 'SHOW_CSS_DEBUG',                   false );
+define( 'CHILD_THEME_VERSION',              "0.8.18" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Opmaak voor dossier overzicht aangepast" );
+define( 'SHOW_CSS_DEBUG',                   true );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
   define( 'DO_MINIFY_JS',                   false );
@@ -185,6 +185,7 @@ require_once( RHSWP_FOLDER . '/includes/widget-home.php' );
 require_once( RHSWP_FOLDER . '/includes/widget-banner.php' );
 require_once( RHSWP_FOLDER . '/includes/widget-newswidget.php' );
 require_once( RHSWP_FOLDER . '/includes/widget-paginalinks.php' );
+require_once( RHSWP_FOLDER . '/includes/widget-subpages.php' );
 require_once( RHSWP_FOLDER . '/includes/widget-events.php' );
 
 // Add support for 3-column footer widgets
@@ -1589,7 +1590,7 @@ function rhswp_show_customtax_terms( $taxonomy, $title = '', $dosection = true )
         echo $sectionstart;
         echo '<h2>' . $title . '</h2>';
     
-        echo '<ul>';
+        echo '<ul class="' . strtolower($taxonomy) . '">';
         echo $terms;
         echo '</ul>';
     
@@ -1948,7 +1949,7 @@ function rhswp_write_extra_contentblokken() {
               if ( in_array( 'edit_pages', (array) $user->allcaps ) ) {
                 //The user has capability to edit pages
 
-                echo '<div style="border: 1px solid black; padding: 1em;">';
+                echo '<div style="border: 1px solid black; padding: .1em 1em; margin-bottom: 2em;">';
   
                 echo '<div class="block">';
   
@@ -2189,7 +2190,7 @@ function rhswp_write_extra_contentblokken() {
                   //The user has capability to edit pages
   
   
-                  echo '<div style="border: 1px solid black; padding: 1em;">';
+                  echo '<div style="border: 1px solid black; padding: .1em 1em; margin-bottom: 2em;">';
   
                   echo '<div class="block">';
     

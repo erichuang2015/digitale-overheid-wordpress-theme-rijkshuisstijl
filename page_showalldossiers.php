@@ -9,7 +9,7 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.8.17
+ * @version 0.8.18
  * @desc.   Opmaak voor dossier overzicht aangepast
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
@@ -23,7 +23,7 @@ add_filter( 'genesis_pre_get_option_site_layout', '__genesis_return_full_width_c
 $wrapper_title  = '';
 $checker        = '';
 
-$wrapper_start  = '<div class="block">';
+$wrapper_start  = '<div class="block no-top">';
 $wrapper_end    = '</div>';
 
 
@@ -42,6 +42,8 @@ genesis();
 
 function rhswp_show_all_dossiers() {
   global $post;
+  global $wrapper_start;
+  global $wrapper_end;
 
   $title          = get_field('dossier_overzicht_filter_title', $post->ID );
   $dossierfilter  = get_field('dossier_overzicht_filter', $post->ID );

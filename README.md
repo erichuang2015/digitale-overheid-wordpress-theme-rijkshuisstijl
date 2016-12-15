@@ -10,7 +10,7 @@ WP-rijkshuisstijl is ontwikkeld als WordPress-theme voor [digitaleoverheid.nl](h
 
 ## Version history
 
-* 0.8.17 - Opmaak voor dossier overzicht aangepast
+* 0.8.17 en 0.8.18 - Opmaak voor dossier overzicht aangepast
 * 0.8.16 - Header font sizes drastisch aangepast
 * 0.8.15 - Bannerwidget CSS bijgewerkt
 * 0.8.13 en 0.8.14 - CSS voor tabellen bijgewerkt
