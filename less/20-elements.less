@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.8.18
-// * @desc.   Opmaak voor dossier overzicht aangepast
+// * @version 0.8.19
+// * @desc.   Extra filter op content-lijst dossiers. Kleine CSS bugs verwijderd
 // * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 // **
 
@@ -809,6 +809,10 @@
             &:last-of-type {
               max-width: @flexbasis_fiftypct;
             }
+
+            &.has-post-thumbnail:last-of-type {
+              max-width: 100%;
+            }            
           }
           
         }

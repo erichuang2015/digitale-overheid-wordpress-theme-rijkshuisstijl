@@ -10,8 +10,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.7.1
- * @desc.   Search functions - search via SearchWP
+ * @version 0.8.19
+ * @desc.   Extra filter op content-lijst dossiers. Kleine CSS bugs verwijderd
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -45,6 +45,35 @@ function my_maybe_include_term_archive( $include, $engine, $terms ) {
 }
 
 add_filter( 'searchwp_term_archive_enabled', 'my_maybe_include_term_archive', 10, 3 );
+
+//========================================================================================================
+
+// exclude anything to do with Forum ID 133643 from search results in SearchWP
+function my_searchwp_exclude( $ids, $engine, $terms ) {
+
+	$entries_to_exclude = get_posts(
+		array(
+			'nopaging'    => true,
+			'fields'      => 'ids',
+      'post_type'   => 'page', 
+      'meta_query'  => array( 
+        array(
+          'key'     => '_wp_page_template', 
+          'value'   => 'page_dossiersingleactueel.php'
+        )
+      )
+		)
+	);
+	
+	dovardump($entries_to_exclude);
+	die();
+	
+	$ids = array_unique( array_merge( $ids, array_map( 'absint', $entries_to_exclude ) ) );
+	return $ids;
+
+}
+
+// add_filter( 'searchwp_exclude', 'my_searchwp_exclude', 10, 3 );
 
 //========================================================================================================
 

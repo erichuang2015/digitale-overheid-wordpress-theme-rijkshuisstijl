@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.8.16
-// * @desc.   Header font sizes drastisch aangepast
+// * @version 0.8.19
+// * @desc.   Extra filter op content-lijst dossiers. Kleine CSS bugs verwijderd
 // * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 // **
 
@@ -144,11 +144,15 @@
   }
 
   p {
-      -webkit-hyphens: auto;
-      -moz-hyphens: auto;
-      -ms-hyphens: auto;
-      -o-hyphens: auto;
-      hyphens: auto;
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    -ms-hyphens: auto;
+    -o-hyphens: auto;
+    hyphens: auto;
+    
+    a {
+      text-decoration: underline;
+    }
   }
   b,strong {
       -webkit-hyphens: manual;

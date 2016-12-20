@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.8.18
- * @desc.   Opmaak voor dossier overzicht aangepast
+ * @version 0.8.19
+ * @desc.   Extra filter op content-lijst dossiers. Kleine CSS bugs verwijderd
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -23,9 +23,9 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "http://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.8.18" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Opmaak voor dossier overzicht aangepast" );
-define( 'SHOW_CSS_DEBUG',                   true );
+define( 'CHILD_THEME_VERSION',              "0.8.19" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Extra filter op content-lijst dossiers. Kleine CSS bugs verwijderd" );
+define( 'SHOW_CSS_DEBUG',                   false );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
   define( 'DO_MINIFY_JS',                   false );
@@ -1971,17 +1971,16 @@ function rhswp_write_extra_contentblokken() {
               }
             }
             else {
-                
-  
-  
+              // er moet contentblock getoond worden van het type 'berichten'  
+
               $overviewurl        = '';
               $overviewlinktext   = '';
               $toonlinksindossiercontext = false;
 
-  
               if ( $dossier_in_content_block ) {
-  
-                $term             = array_pop($dossier_in_content_block);
+                // we zijn op een dossieroverzicht
+
+                $term             = get_term( $dossier_in_content_block, RHSWP_CT_DOSSIER );
                 $currentterm      = $term->term_id;
                 $currenttermname  = $term->name;
                 $currenttermslug  = $term->slug; 
@@ -2008,6 +2007,7 @@ function rhswp_write_extra_contentblokken() {
                   
               }
               else {
+                // niet op een dossieroverzicht
   
                 $args = array(
                   'post_type'       => 'post',
@@ -2488,6 +2488,9 @@ function rhswp_archive_custom_loop() {
         if ( get_post_status( $post->ID ) != 'publish' ) {
           $toonitem = false;
         }
+        if ( 'page_dossiersingleactueel.php' == $pagetemplateslug ) {
+          $toonitem = false;
+        }
         
         if ( $selectposttype && $checkpostcount ) {
 
@@ -2752,5 +2755,27 @@ function rhswp_singlepost_add_featured_image() {
 }
 
 //========================================================================================================
+
+add_action( 'pre_get_posts', 'rhswp_modify_query_for_dossieroverview' );
+
+/**
+ * Filter the list of content to be shown on the dossier overview
+ * 
+ * @param object $query data
+ *
+ */
+function rhswp_modify_query_for_dossieroverview( $query ) {
+	
+	if( $query->is_main_query() && !is_admin() && is_tax( RHSWP_CT_DOSSIER ) ) {
+  	
+    // remove all posts that are marked 'private'
+    $query->set( 'perm', 'readable' );
+    return $query;
+		
+	}
+}
+
+//========================================================================================================
+
 
 
