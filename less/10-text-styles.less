@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.8.19
-// * @desc.   Extra filter op content-lijst dossiers. Kleine CSS bugs verwijderd
+// * @version 0.8.20
+// * @desc.   icons voor Twitter en RSS
 // * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 // **
 
@@ -323,6 +323,19 @@
     		padding-left: 1.2em;
     		.listitem_arrow( @txt, .7em, 10px );
         display: block;
+        
+        &.rss {
+          &:before {
+            content: '';
+          }
+        }
+        &.twitter {
+          &:before {
+            content: '';
+            font-size: 110%;
+            width: 1.6em;
+          }
+        }
       }
     }
 
