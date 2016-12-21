@@ -8,8 +8,8 @@
  * @author  Rian Rietveld
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.8.22 (wp-theme) / 1.2.0 (genesis accessible)
- * @desc.   Skiplinks with own ID
+ * @version 0.8.23 (wp-theme) / 1.2.0 (genesis accessible)
+ * @desc.   Added javascript for skiplinks
  * @link    http://genesis-accessible.org/
  */
 
@@ -176,11 +176,4 @@ function rhswp_skiplinks_attr_sidebar_secondary( $attributes ) {
 function rhswp_skiplinks_attr_footer_widgets( $attributes ) {
 	$attributes['id'] = 'genesis-footer-widgets';
 	return $attributes;
-}
-
-add_action( 'wp_enqueue_scripts', 'rhswp_skiplinks_scripts' );
-function rhswp_skiplinks_scripts() {
-
-	wp_enqueue_script( 'genwpacc-skiplinks-js',  RHSWP_FOLDER . 'js/genwpacc-skiplinks.js' );
-
 }

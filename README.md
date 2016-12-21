@@ -10,6 +10,7 @@ WP-rijkshuisstijl is ontwikkeld als WordPress-theme voor [digitaleoverheid.nl](h
 
 ## Version history
 
+* 0.8.23 - Added javascript for skiplinks
 * 0.8.22 - Skiplinks with own ID
 * 0.8.20 - icons voor Twitter en RSS
 * 0.8.19 - Extra filter op content-lijst dossiers. Kleine CSS bugs verwijderd

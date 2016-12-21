@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.8.22
- * @desc.   Skiplinks with own ID
+ * @version 0.8.23
+ * @desc.   Added javascript for skiplinks
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "http://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.8.22" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Skiplinks with own ID" );
+define( 'CHILD_THEME_VERSION',              "0.8.23" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Added javascript for skiplinks" );
 define( 'SHOW_CSS_DEBUG',                   true );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
