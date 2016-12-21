@@ -3,8 +3,8 @@
   Description: Theme voor digitaleoverheid.nl
   Author: Paul van Buuren
   Author URI: https://wbvb.nl/themes/ibewustzijn/
-  Version: 0.8.21
-  Version description: 0.8.21 - Favicons, touch icons
+  Version: 0.8.22
+  Version description: 0.8.22 - Skiplinks with own ID
   Text Domain: wp-rijkshuisstijl
   
   Template: genesis
@@ -1151,20 +1151,6 @@ p.debugstring + p.debugstring {
 }
 
 
-/*    such a nasty bug 
-  
-html section:first-of-type {
-  border: 1px solid red;  
-	clip: rect(0, 0, 0, 0);
-	height: 0;
-	width: 1px;
-	border: 0;
-	overflow: hidden;
-}
-
-Rian, ik hou van je. Maareh...
-
-*/
 
 .searchwp-highlight {
   background: yellow;
@@ -1185,10 +1171,6 @@ Rian, ik hou van je. Maareh...
 }
 
 
-.js-menu-open {
-//  border: 1px solid red !important;
-}
-
 .menu .menu-item:focus {
 	position: static;
 }
@@ -1201,3 +1183,20 @@ nav.nav-primary .menu-item.js-menu-open > ul.sub-menu {
 	display: block;
 }
 
+#skiplinkscontainer {
+	height: 0;
+	width: 400px;
+    margin: -1px;
+    padding: 0;
+    position: absolute;
+
+}
+
+.title-area {
+  a {
+    img {
+      display: table;
+      vertical-align: top;
+    }
+  }
+}

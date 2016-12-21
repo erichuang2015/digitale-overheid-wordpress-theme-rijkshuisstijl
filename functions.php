@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.8.21
- * @desc.   Favicons, touch icons
+ * @version 0.8.22
+ * @desc.   Skiplinks with own ID
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -23,9 +23,9 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "http://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.8.21" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Favicons, touch icons" );
-define( 'SHOW_CSS_DEBUG',                   false );
+define( 'CHILD_THEME_VERSION',              "0.8.22" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Skiplinks with own ID" );
+define( 'SHOW_CSS_DEBUG',                   true );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
   define( 'DO_MINIFY_JS',                   false );
@@ -114,6 +114,9 @@ include_once( RHSWP_FOLDER . '/includes/event-manager-functions.php' );
 
 // Include for contact form 7 validation
 include_once( RHSWP_FOLDER . '/includes/search-helper-functions.php' );
+
+// Skiplinks
+include_once( RHSWP_FOLDER . '/includes/skip-links.php' );
 
 //========================================================================================================
 
@@ -1184,7 +1187,7 @@ function rhswp_trackercode() {
   (function() {
     var u="//statistiek.rijksoverheid.nl/piwik/";
     _paq.push(["setTrackerUrl", u+"js/tracker.php"]);
-    _paq.push(["setSiteId", 388]);
+    _paq.push(["setSiteId", 147]);
     var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0];
     g.type="text/javascript"; g.async=true; g.defer=true; g.src=u+"js/tracker.php"; s.parentNode.insertBefore(g,s);
   })();
