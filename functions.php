@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.8.23
- * @desc.   Added javascript for skiplinks
+ * @version 0.8.24
+ * @desc.   Div. bug fixes ( is_tax() ); paging in search results
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -23,9 +23,9 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "http://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.8.23" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Added javascript for skiplinks" );
-define( 'SHOW_CSS_DEBUG',                   true );
+define( 'CHILD_THEME_VERSION',              "0.8.24" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Div. bug fixes ( is_tax() ); paging in search results" );
+define( 'SHOW_CSS_DEBUG',                   false );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
   define( 'DO_MINIFY_JS',                   false );
@@ -507,7 +507,7 @@ function rhswp_breadcrumb_args( $args ) {
           $args['labels']['tax'] = '<a href="/' . CTAX_thema . '/">' . __( 'Onderwerpen', 'wp-rijkshuisstijl' ) . '</a>' . $separator;
         }
         else {
-          $args['labels']['tax'] = '<a href="/' . $tax . '/">' . $tax . '</a>' . $args['sep'] . $selector;
+          $args['labels']['tax'] = '<a href="/' . $tax . '/">' . $tax . '</a>' . $args['sep'] ;
         }
     }
     
@@ -1757,7 +1757,7 @@ function rhswp_extra_contentblokken_checker() {
     $theid          = get_the_ID();
     $contentblokken = get_field('extra_contentblokken', $theid );
   }
-  elseif ( is_tax() ) {
+  elseif ( is_tax( RHSWP_CT_DOSSIER ) ) {
     $theid          = RHSWP_CT_DOSSIER . '_' . get_queried_object()->term_id;
     $contentblokken = get_field('extra_contentblokken', $theid );
   }
@@ -1801,7 +1801,7 @@ function rhswp_write_extra_contentblokken() {
         $contentblokken = get_field('extra_contentblokken', $theid );
         $dossier_in_content_block    = get_the_terms( $theid , RHSWP_CT_DOSSIER );
       }
-      elseif ( is_tax() ) {
+      elseif ( is_tax( RHSWP_CT_DOSSIER ) ) {
         $theid          = RHSWP_CT_DOSSIER . '_' . get_queried_object()->term_id;
         $contentblokken = get_field('extra_contentblokken', $theid );
         $dossier_in_content_block    = get_queried_object()->term_id;
@@ -2136,7 +2136,7 @@ function rhswp_write_extra_contentblokken() {
                     $theurl         = $currentpage  . RHSWP_DOSSIERPOSTCONTEXT . $postpermalink;
 
                   }
-                  elseif ( is_tax() ) {
+                  elseif ( is_tax( RHSWP_CT_DOSSIER ) ) {
                   
                     $postpermalink  = get_term_link( $toonlinksindossiercontext );
                     $postpermalink  = str_replace( $currentsite, '', $postpermalink);
@@ -2292,7 +2292,7 @@ function rhswp_caroussel_checker() {
       $theid          = get_the_ID();
       $carousselcheck = get_field('carrousel_tonen_op_deze_pagina', $theid );
     }
-    elseif ( is_tax() ) {
+    elseif ( is_tax( RHSWP_CT_DOSSIER ) ) {
       $theid          = RHSWP_CT_DOSSIER . '_' . get_queried_object()->term_id;
       $carousselcheck = get_field('carrousel_tonen_op_deze_pagina', $theid );
       $currentterm    = get_queried_object()->term_id;
@@ -2452,7 +2452,7 @@ function rhswp_archive_custom_loop() {
 
       $toonitem = true;
 
-      if ( is_tax() ) {
+      if ( is_tax( RHSWP_CT_DOSSIER ) ) {
 
         $current_post_id  = isset( $post->ID  ) ? $post->ID : 0;
         $pagetemplateslug = basename( get_page_template_slug( $current_post_id ) );

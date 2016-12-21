@@ -10,8 +10,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.8.18
- * @desc.   Opmaak voor dossier overzicht aangepast
+ * @version 0.8.24
+ * @desc.   Div. bug fixes ( is_tax() ); paging in search results
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -42,6 +42,7 @@ function rhswp_dossier_title_checker( ) {
     $subpaginas               = '';
     $shownalready             = '';
     $dossier_overzichtpagina  = '';
+    $parentID                 = '';
   
     $args = array(
       'dossier_overzichtpagina' => '',
@@ -85,8 +86,10 @@ function rhswp_dossier_title_checker( ) {
     }
     elseif ( 'tax' == $loop ) {
 
-      $currentID    = get_queried_object()->term_id;
-      $term         = get_term( $currentID, RHSWP_CT_DOSSIER );
+      if ( is_tax( RHSWP_CT_DOSSIER ) ) {
+        $currentID    = get_queried_object()->term_id;
+        $term         = get_term( $currentID, RHSWP_CT_DOSSIER );
+      }
 
     }
     else {
@@ -157,7 +160,7 @@ function rhswp_dossier_title_checker( ) {
             $parentID     = $dossier_overzichtpagina->ID;
             $args['dossier_overzichtpagina'] = $dossier_overzichtpagina->ID;
 
-            if ( is_tax() ) {
+            if ( is_tax( RHSWP_CT_DOSSIER ) ) {
               $args['currentpageid'] = $term->term_id;
             }
             else {
@@ -173,7 +176,7 @@ function rhswp_dossier_title_checker( ) {
         // reset the page title
         $args['preferedtitle'] = '';
         
-        if ( is_tax() ) {
+        if ( is_tax( RHSWP_CT_DOSSIER ) ) {
           // dit is de pagina met informatie over het dossier
 
           $args['currentpageid'] = $term->term_id;
@@ -200,7 +203,7 @@ function rhswp_dossier_title_checker( ) {
           $value = $term->name . ' - ' . $value;
         }
 
-        if ( is_tax() ) {
+        if ( is_tax( RHSWP_CT_DOSSIER ) ) {
           $titletag_start           = '<h1 class="taxonomy-title">';
           $titletag_end             = '</h1>';
         }        

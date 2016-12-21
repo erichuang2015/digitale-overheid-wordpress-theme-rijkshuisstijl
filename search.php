@@ -9,8 +9,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.7.21
- * @desc.   Modernizr via CDN, paginalayouts gewijzigd, CSS bugs
+ * @version 0.8.24
+ * @desc.   Div. bug fixes ( is_tax() ); paging in search results
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -74,11 +74,11 @@ function rhswp_archive_custom_search_with_searchWP() {
 
   global $post;
   $query  = isset( $_GET['s'] ) ? sanitize_text_field( $_GET['s'] ) : '';
-  $page   = isset( $_GET['swppage'] ) ? absint( $_GET['swppage'] ) : 1;
 
-//  the_post();
+  $paged  = ( get_query_var('paged') ) ? get_query_var('paged') : 1;
+  $page   = isset( $_GET['swppage'] ) ? absint( $_GET['swppage'] ) : $paged;
 
-  
+
   if( !empty( $query ) ) :
     $engine                 = SearchWP::instance();     // instatiate SearchWP
     $supplementalEngineName = 'supplemental'; 	        // search engine name
