@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.8.20
- * @desc.   icons voor Twitter en RSS
+ * @version 0.8.21
+ * @desc.   Favicons, touch icons
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "http://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.8.20" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "icons voor Twitter en RSS" );
+define( 'CHILD_THEME_VERSION',              "0.8.21" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Favicons, touch icons" );
 define( 'SHOW_CSS_DEBUG',                   false );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
@@ -2777,5 +2777,13 @@ function rhswp_modify_query_for_dossieroverview( $query ) {
 
 //========================================================================================================
 
+add_action( 'genesis_meta', 'rhswp_add_touch_icons' );
 
+function rhswp_add_touch_icons() {
+	echo '<link rel="icon" sizes="192x192" href="' . RHSWP_THEMEFOLDER . '/images/touch-icon.png"/>
+<link rel="apple-touch-icon" href="' . RHSWP_THEMEFOLDER . '/images/apple-touch-icon.png" />';
+
+}
+
+//========================================================================================================
 
