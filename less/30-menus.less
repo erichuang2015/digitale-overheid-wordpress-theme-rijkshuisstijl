@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.7.10
-// * @desc.   CSS: list item arrow, flex on .home, search form in header
+// * @version 0.8.25
+// * @desc.   Navigation style revised: mark submenus
 // * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 // **
 
@@ -20,7 +20,6 @@
   nav.nav-primary,
   #menu-container {
     background: @nav_bg_color;
-//    overflow: hidden;
     margin: 0 0;
   }
 
@@ -28,14 +27,12 @@
   
 
   nav {
-//    overflow: hidden;
     ul, li {
       list-style: none;
       padding: 0;
     }
     ul {
       display: block;
-//      overflow: hidden;
       padding-left: 0;
       margin-top: 1em;
       margin-bottom: 0;
@@ -81,11 +78,8 @@
         margin: 0;
         display: block;
         text-decoration: none;
-//        font-weight: bold;
-//        font-family: @bodyfont;
         padding: 10px 15px;
         font-size: 18px;
-//        line-height: 1.4em;
         color: @nav_a_color_default;
         
         &:hover,
@@ -106,6 +100,7 @@
       }
     }
   }
+  
   .dossier-overview {
     nav {
       border-bottom: 1px solid @communicatiekleur_licht;
@@ -282,6 +277,50 @@
 
         li {
           float: left;
+          
+          li {
+            background: @nav_li_active_bg;
+            
+            ul {
+              border-top: 1px solid @communicatiekleur_licht;
+            }
+
+            a {
+              border-top: 1px solid transparent;
+              border-bottom: 1px solid transparent;
+              border-right: 1px solid @communicatiekleur_licht;
+
+              &:focus,
+              &:active,
+              &:hover {
+                background: white !important;
+                border-top: 1px solid @communicatiekleur_licht;
+                border-bottom: 1px solid @communicatiekleur_licht;
+              }
+
+            }
+
+            
+            &.menu-item-has-children {
+              & > a {
+                display: block;
+                width: 100%;
+              }
+              & > a:first-of-type {
+                padding-right: 10px;
+                
+
+                &:after {
+                  content: '>';
+                  color: @txt;
+                  display: block;
+                  float: right;
+                  padding: 10px 10px 10px 0;
+                  background: @nav_li_active_bg;
+                }
+              }
+            }
+          }
         }	
   
         li + li {
@@ -312,15 +351,15 @@
         position: absolute;
         width: @submenu-width;
         z-index: 9000;
-        border-left: 1px solid @communicatiekleur_licht;
         transform: translateX(-1px);
-        
-        li:last-child > a span {
+        border-left: 1px solid @communicatiekleur_licht;
+          
+        li:last-child {
           border-bottom: 1px solid @communicatiekleur_licht;
         }
         
         .sub-menu {
-          margin: -44px 0 0 @submenu-a-width;
+          margin: -52px 0 0 ( @submenu-a-width + 20px ); // <=============================
         }
         
         a {
@@ -334,9 +373,6 @@
             display: inline-block;
             background: @nav_li_active_bg;
             color: @nav_li_active_color;
-
-            border-right: 1px solid @communicatiekleur_licht;
-
           }
         }
 
