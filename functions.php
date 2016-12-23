@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.8.24
- * @desc.   Div. bug fixes ( is_tax() ); paging in search results
+ * @version 0.8.25
+ * @desc.   Sigarenbandje bijgewerkt: geen tekst meer
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "http://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.8.24" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Div. bug fixes ( is_tax() ); paging in search results" );
+define( 'CHILD_THEME_VERSION',              "0.8.25" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Sigarenbandje bijgewerkt: geen tekst meer" );
 define( 'SHOW_CSS_DEBUG',                   false );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
