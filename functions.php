@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.8.29
- * @desc.   Styling edit-link aangepast
+ * @version 0.8.30
+ * @desc.   Standaardpagina-naam voor dossier op dossier-name gezet
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "http://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.8.29" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Styling edit-link aangepast" );
+define( 'CHILD_THEME_VERSION',              "0.8.30" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Standaardpagina-naam voor dossier op dossier-name gezet" );
 define( 'SHOW_CSS_DEBUG',                   false );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
@@ -1895,7 +1895,7 @@ function rhswp_write_extra_contentblokken() {
             else {
               // dus $selected_content_full == 'ja'
 
-            
+            $postcounter = 0;
               foreach ( $selected_content as $post ) {
                 
                 setup_postdata($post);                
@@ -2242,14 +2242,14 @@ function rhswp_write_extra_contentblokken() {
               if ($terms && ! is_wp_error( $terms ) ) {       
                 foreach ( $terms as $term ) {
               
-                    $excerpt    = '';
-                    $classattr  = 'class="dossieroverzicht"';
-                    if ( $term->description ) {
-                      $excerpt  =  $term->description;
-                    }
-                    $href       = get_term_link( $term->term_id, RHSWP_CT_DOSSIER );
-                    
-              
+                  $excerpt    = '';
+                  $classattr  = 'class="dossieroverzicht"';
+                  if ( $term->description ) {
+                    $excerpt  =  $term->description;
+                  }
+                  $href       = get_term_link( $term->term_id, RHSWP_CT_DOSSIER );
+                  $excerpt    = wp_strip_all_tags( $excerpt );                    
+                  
                   printf( '<article %s>', $classattr );
                   printf( '<a href="%s"><h3>%s</h3><p>%s</p></a>', $href, $term->name, $excerpt );
                   echo '</article>';

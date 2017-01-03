@@ -10,8 +10,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.8.28
- * @desc.   Bugfixes in dossier-helper
+ * @version 0.8.30
+ * @desc.   Standaardpagina-naam voor dossier op dossier-name gezet
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -43,6 +43,7 @@ function rhswp_dossier_title_checker( ) {
     $shownalready             = '';
     $dossier_overzichtpagina  = '';
     $parentID                 = '';
+    $standaardpaginanaam      = '';
   
     $args = array(
       'dossier_overzichtpagina' => '',
@@ -72,6 +73,7 @@ function rhswp_dossier_title_checker( ) {
   
         if ($terms && ! is_wp_error( $terms ) ) { 
           $term             = array_pop($terms);
+          $standaardpaginanaam =  $term->name;       
         }
   
       }
@@ -89,6 +91,7 @@ function rhswp_dossier_title_checker( ) {
       if ( is_tax( RHSWP_CT_DOSSIER ) ) {
         $currentID    = get_queried_object()->term_id;
         $term         = get_term( $currentID, RHSWP_CT_DOSSIER );
+        $standaardpaginanaam =  $term->name;       
       }
 
     }
@@ -103,6 +106,7 @@ function rhswp_dossier_title_checker( ) {
 
       if ($terms && ! is_wp_error( $terms ) ) { 
         $term             = array_pop($terms);
+        $standaardpaginanaam =  $term->name;       
       }
       
       if ( is_single() && 'post' == $posttype ) {
@@ -205,7 +209,7 @@ function rhswp_dossier_title_checker( ) {
               $value = $term->name . ' - ' . $value;
             }
             else {
-              $value = get_the_title();
+              $value = $standaardpaginanaam;
             }
           }
           else {
