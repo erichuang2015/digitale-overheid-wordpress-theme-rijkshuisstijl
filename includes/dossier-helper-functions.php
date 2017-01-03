@@ -10,8 +10,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.8.24
- * @desc.   Div. bug fixes ( is_tax() ); paging in search results
+ * @version 0.8.28
+ * @desc.   Bugfixes in dossier-helper
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -128,11 +128,11 @@ function rhswp_dossier_title_checker( ) {
 
         $itemsinmenu   = [];
 
-        if ( $dossier_overzichtpagina ) {
+        if ( is_object( $dossier_overzichtpagina ) ) {
             $itemsinmenu[] = $dossier_overzichtpagina->ID;
         }
 
-        if ( $menu_voor_dossier ) {
+        if ( is_object( $menu_voor_dossier ) ) {
 
           foreach( $menu_voor_dossier as $menuitem ): 
             $itemsinmenu[] = $menuitem->ID;
@@ -151,14 +151,14 @@ function rhswp_dossier_title_checker( ) {
           // check of we deze pagina wel of niet nu al moeten tonen
           $tonen  = get_field('toon_overzichtspagina_in_het_menu', $term );
 
-          $parentID     = $dossier_overzichtpagina->ID;
+          $parentID     = is_object( $dossier_overzichtpagina ) ? $dossier_overzichtpagina->ID : 0;
 
           if ( $tonen !== 'nee' ) {
             // we mogen de inhoudspagina tonen
 
-            $shownalready = $dossier_overzichtpagina->ID;
-            $parentID     = $dossier_overzichtpagina->ID;
-            $args['dossier_overzichtpagina'] = $dossier_overzichtpagina->ID;
+            $shownalready = is_object( $dossier_overzichtpagina ) ? $dossier_overzichtpagina->ID : 0;
+            $parentID     = is_object( $dossier_overzichtpagina ) ? $dossier_overzichtpagina->ID : 0;
+            $args['dossier_overzichtpagina'] = is_object( $dossier_overzichtpagina ) ? $dossier_overzichtpagina->ID : 0;
 
             if ( is_tax( RHSWP_CT_DOSSIER ) ) {
               $args['currentpageid'] = $term->term_id;
@@ -200,7 +200,17 @@ function rhswp_dossier_title_checker( ) {
         	$value = $term->name;
         }
         else {
-          $value = $term->name . ' - ' . $value;
+          if ( is_array( $value ) ) {
+            if ( $value[0] ) {
+              $value = $term->name . ' - ' . $value;
+            }
+            else {
+              $value = get_the_title();
+            }
+          }
+          else {
+            $value = $term->name . ' - ' . $value;
+          }
         }
 
         if ( is_tax( RHSWP_CT_DOSSIER ) ) {
@@ -214,9 +224,10 @@ function rhswp_dossier_title_checker( ) {
         if ( $menu_voor_dossier ) {
 
           foreach( $menu_voor_dossier as $menuitem ): 
-
-            if ( ( $parentID !== $menuitem->ID ) && ( $shownalready !== $menuitem->ID ) )  {
-              $subpaginas .= rhswp_dossier_get_pagelink( $menuitem, $args );
+            if ( is_object( $menuitem ) ) {
+                if ( ( $parentID !== $menuitem->ID ) && ( $shownalready !== $menuitem->ID ) )  {
+                  $subpaginas .= rhswp_dossier_get_pagelink( $menuitem, $args );
+                }
             }
           endforeach; 
             
@@ -448,8 +459,8 @@ function rhswp_dossier_get_pagelink( $theobject, $args ) {
 
   $komtvoorinderestvanmenu_en_isnietdehuidigepagina = false;
 
-  if ( isset( $args['menu_voor_dossier'] ) ) {
-
+  if ( is_array( $args['menu_voor_dossier'] ) ) {
+    
     if ( in_array( $pagerequestedbyuser, $args['menu_voor_dossier'] )  ) {
       // de gevraagde pagina komt voor in het menu
 
