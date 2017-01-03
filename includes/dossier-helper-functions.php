@@ -10,8 +10,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.8.30
- * @desc.   Standaardpagina-naam voor dossier op dossier-name gezet
+ * @version 0.8.31
+ * @desc.   Check in dossier-checker verbeterd. $paged toegevoegd aaan page_dossier-events-overview.php
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -132,12 +132,14 @@ function rhswp_dossier_title_checker( ) {
 
         $itemsinmenu   = [];
 
+//        if ( $dossier_overzichtpagina ) {
         if ( is_object( $dossier_overzichtpagina ) ) {
-            $itemsinmenu[] = $dossier_overzichtpagina->ID;
+              $itemsinmenu[] = $dossier_overzichtpagina->ID;
         }
 
-        if ( is_object( $menu_voor_dossier ) ) {
-
+        if ( $menu_voor_dossier ) {
+//        if ( is_object( $menu_voor_dossier ) ) {
+  
           foreach( $menu_voor_dossier as $menuitem ): 
             $itemsinmenu[] = $menuitem->ID;
           endforeach; 

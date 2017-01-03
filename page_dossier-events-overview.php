@@ -9,8 +9,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.8.5
- * @desc.   Sortering van agenda-pagina aangepast
+ * @version 0.8.31
+ * @desc.   Check in dossier-checker verbeterd. $paged toegevoegd aaan page_dossier-events-overview.php
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -40,6 +40,7 @@ function rhswp_get_events_for_dossier2() {
   global $post;
 
   $terms = get_the_terms( $post->ID , RHSWP_CT_DOSSIER );
+  $paged            = ( get_query_var('paged') ) ? get_query_var('paged') : 1;
 
   if ($terms && ! is_wp_error( $terms ) ) { 
     
