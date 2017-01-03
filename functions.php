@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.8.26
- * @desc.   Bugfixes, menu-items hersteld
+ * @version 0.8.27
+ * @desc.   Correcte link naar actueelpagina voor contentblok
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "http://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.8.26" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Bugfixes, menu-items hersteld" );
+define( 'CHILD_THEME_VERSION',              "0.8.27" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Correcte link naar actueelpagina voor contentblok" );
 define( 'SHOW_CSS_DEBUG',                   false );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
@@ -2021,7 +2021,9 @@ function rhswp_write_extra_contentblokken() {
               
               if ( $categoriefilter == 'nee' ) {
   
-                $overviewlinktext = '';
+                $actueelpageid    = get_option( 'page_for_posts' );
+                $overviewlinktext = get_the_title( $actueelpageid );
+                $overviewurl      = get_permalink( $actueelpageid ); // general page_for_posts
   
               }
               else {
@@ -2036,7 +2038,9 @@ function rhswp_write_extra_contentblokken() {
                     $slugs[]      = $terminfo->slug;
   
                     $overviewlinktext = $terminfo->name;
-                    $overviewurl      = $terminfo->slug; // blog_page
+                    $actueelpageid    = get_option( 'page_for_posts' );
+                    
+                    $overviewurl      = get_permalink( $actueelpageid ) . $terminfo->slug . '/'; // page_for_posts
               
                   endforeach;
                   
