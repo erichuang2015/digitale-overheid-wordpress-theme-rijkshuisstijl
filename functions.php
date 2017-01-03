@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.8.25
- * @desc.   Sigarenbandje bijgewerkt: geen tekst meer
+ * @version 0.8.26
+ * @desc.   Bugfixes, menu-items hersteld
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "http://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.8.25" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Sigarenbandje bijgewerkt: geen tekst meer" );
+define( 'CHILD_THEME_VERSION',              "0.8.26" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Bugfixes, menu-items hersteld" );
 define( 'SHOW_CSS_DEBUG',                   false );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
@@ -2036,7 +2036,7 @@ function rhswp_write_extra_contentblokken() {
                     $slugs[]      = $terminfo->slug;
   
                     $overviewlinktext = $terminfo->name;
-                    $overviewurl      = $terminfo->slug;
+                    $overviewurl      = $terminfo->slug; // blog_page
               
                   endforeach;
                   
@@ -2303,10 +2303,13 @@ function rhswp_caroussel_checker() {
     if ( 'ja' == $carousselcheck ) {
       
       $getcarousel      = get_field('kies_carrousel', $theid );
+      $carouselid       = 0;
 
-      $carouselid       = $getcarousel->ID;
-      $carouseltitle    = $getcarousel->post_title;
-      $carrousel_items  = get_field( 'carrousel_items', $carouselid );
+      if ( is_object( $getcarousel ) ) {
+        $carouselid       = $getcarousel->ID;
+        $carouseltitle    = $getcarousel->post_title;
+        $carrousel_items  = get_field( 'carrousel_items', $carouselid );
+      }
 
 
       if( have_rows('carrousel_items', $carouselid ) ) {
