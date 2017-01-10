@@ -9,8 +9,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.8.31
- * @desc.   Check in dossier-checker verbeterd. $paged toegevoegd aaan page_dossier-events-overview.php
+ * @version 0.8.32
+ * @desc.   Menu-check voor agenda-pagina's in dossiermenu
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -19,8 +19,8 @@
 
 //========================================================================================================
 
-add_action( 'genesis_entry_content', 'rhswp_get_events_for_dossier2', 14 );
-//add_action( 'genesis_entry_content', 'rhswp_get_events_for_dossier', 15 );
+add_action( 'genesis_entry_content', 'rhswp_get_events_for_dossier', 14 );
+//add_action( 'genesis_entry_content', 'rhswp_get_events_for_dossier_oud', 15 );
 
 if ( rhswp_extra_contentblokken_checker() ) {
   add_action( 'genesis_entry_content', 'rhswp_write_extra_contentblokken', 16 );
@@ -36,7 +36,7 @@ genesis();
 
 //========================================================================================================
 
-function rhswp_get_events_for_dossier2() {
+function rhswp_get_events_for_dossier() {
   global $post;
 
   $terms = get_the_terms( $post->ID , RHSWP_CT_DOSSIER );
@@ -61,26 +61,16 @@ function rhswp_get_events_for_dossier2() {
       )
     );
 
-//echo EM_Events::output( array('post_category'=>'featured,-hidden') );
-//echo EM_Locations::output( array('post_category'=>'featured,-hidden') );
-
-
-    $varledinges =  EM_Events::output(     array( RHSWP_CT_DOSSIER  => $term->term_id ) );
-
-//dovardump( $varledinges );
-
-    echo $varledinges ;
-
-
-
+    if (class_exists('EM_Events')) {
+      $eventlist =  EM_Events::output(     array( RHSWP_CT_DOSSIER  => $term->term_id ) );
+      echo $eventlist ;
+    }
   }    
-
-
 }
 
 //========================================================================================================
 
-function rhswp_get_events_for_dossier() {
+function rhswp_get_events_for_dossier_oud() {
   global $post;
 
 

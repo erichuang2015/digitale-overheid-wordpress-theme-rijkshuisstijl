@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.8.31
- * @desc.   Check in dossier-checker verbeterd. $paged toegevoegd aaan page_dossier-events-overview.php
+ * @version 0.8.32
+ * @desc.   Menu-check voor agenda-pagina's in dossiermenu
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "http://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.8.31" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Check in dossier-checker verbeterd. $paged toegevoegd aaan page_dossier-events-overview.php" );
+define( 'CHILD_THEME_VERSION',              "0.8.32" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Check in dossier-checker verbeterd. 'paged' toegevoegd aaan page_dossier-events-overview.php" );
 define( 'SHOW_CSS_DEBUG',                   false );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
@@ -1607,16 +1607,28 @@ function rhswp_show_customtax_terms( $taxonomy, $title = '', $dosection = true )
 function rhswp_site_description() {
   
   $description = get_bloginfo( 'description' );
+  
   if ( $description ) {
+    if ( ( !is_admin() ) && ( !is_feed() ) ) {
+      
     $needle   = '&lt;strong&gt;';
-    $replacer = '<strong>';
+    $replacer = '';
     $description = str_replace( $needle, $replacer, $description);
     
     $needle   = '&lt;/strong&gt;';
-    $replacer = '</strong>';
+    $replacer = '';
     $description = str_replace( $needle, $replacer, $description);
     
+    $needle   = 'Digitale overheid';
+    $replacer = '<strong>Digitale overheid</strong>';
+    $description = str_replace( $needle, $replacer, $description);
+
+//<strong>Digitale overheid</strong>: betrouwbaar, veilig, betaalbaar    
+    
     echo '<div class="site-description"><div class="wrap">' . $description . '</div></div>';
+
+    }
+
   }
 }
 
