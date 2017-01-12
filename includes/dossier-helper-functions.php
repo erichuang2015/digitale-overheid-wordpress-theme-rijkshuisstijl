@@ -10,8 +10,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.8.32
- * @desc.   Menu-check voor agenda-pagina's in dossiermenu
+ * @version 0.8.33
+ * @desc.   Search results for releasekalender items
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -426,7 +426,6 @@ function rhswp_dossier_get_pagelink( $theobject, $args ) {
           else {
             $addlink = true;
           }
-          echo $eventlist ;
         }
       }    
       else {

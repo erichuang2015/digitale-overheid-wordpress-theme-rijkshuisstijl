@@ -9,8 +9,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.8.24
- * @desc.   Div. bug fixes ( is_tax() ); paging in search results
+ * @version 0.8.33
+ * @desc.   Search results for releasekalender items
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -102,7 +102,41 @@ function rhswp_archive_custom_search_with_searchWP() {
         $thetitle     = get_the_title();
         $documenttype = rhswp_translateposttypes( $contenttype );
         
-        if ( 'attachment' == $contenttype ) {
+        if ( 'voorzieningencpt' == $contenttype ) {
+          // to do: check op link naar planningspagina
+          
+          $documenttype = 'Releasekalender';
+
+      		$hoofdpagina = intval( get_option( 'rijksreleasekalender_hoofdpagina' ) );
+          if ( is_int( $hoofdpagina ) && $hoofdpagina > 0 ) {
+          }
+          else {
+            $hoofdpagina = 73;
+          }
+
+          $theurl   = get_the_permalink( $hoofdpagina ) . 'voorziening/' . $post->post_name . '/';
+
+          
+        }
+        elseif ( 'producten' == $contenttype ) {
+          // to do: check op link naar planningspagina
+
+          $documenttype = 'Releasekalender';
+
+      		$hoofdpagina = intval( get_option( 'rijksreleasekalender_hoofdpagina' ) );
+          if ( is_int( $hoofdpagina ) && $hoofdpagina > 0 ) {
+          }
+          else {
+            $hoofdpagina = 73;
+          }
+
+          $voorzieningslug   = get_post_meta( get_the_ID(), 'product_voorziening_real_id_slug', true );    
+
+          $theurl   = get_the_permalink( $hoofdpagina ) . 'voorziening/' . $voorzieningslug . '/product/' . $post->post_name . '/';
+
+          
+        }
+        elseif ( 'attachment' == $contenttype ) {
           
           $theurl       = wp_get_attachment_url( $post->ID );
           $parent_id    = $post->post_parent;

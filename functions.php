@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.8.32
- * @desc.   Menu-check voor agenda-pagina's in dossiermenu
+ * @version 0.8.33
+ * @desc.   Search results for releasekalender items
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -23,7 +23,7 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "http://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.8.32" );
+define( 'CHILD_THEME_VERSION',              "0.8.33" );
 define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Check in dossier-checker verbeterd. 'paged' toegevoegd aaan page_dossier-events-overview.php" );
 define( 'SHOW_CSS_DEBUG',                   false );
 
