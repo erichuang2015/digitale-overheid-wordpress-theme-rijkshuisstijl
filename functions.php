@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.8.33
- * @desc.   Search results for releasekalender items
+ * @version 0.8.34
+ * @desc.   Archive for newsletters, contactform7 validation
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -23,7 +23,7 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "http://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.8.33" );
+define( 'CHILD_THEME_VERSION',              "0.8.34" );
 define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Check in dossier-checker verbeterd. 'paged' toegevoegd aaan page_dossier-events-overview.php" );
 define( 'SHOW_CSS_DEBUG',                   false );
 
@@ -398,17 +398,19 @@ function rhswp_breadcrumb_add_newspage( $crumb, $args ) {
         $term = array_values( $terms )[0]; 
         $needle = '';
         
-        if( get_field('dossier_overzichtspagina', 'option') ) {
-        
-          $dossier_overzichtspagina       = get_field('dossier_overzichtspagina', 'option');
-          $dossier_overzichtspagina_id    = $dossier_overzichtspagina->ID;
+        if ( function_exists( 'get_field' ) ) {
+          if( get_field('dossier_overzichtspagina', 'option') ) {
           
-          $dossier_overzichtspagina_start = $span_before_start . '<a href="' . get_permalink( $dossier_overzichtspagina_id ) . '" itemprop="item">' . $span_between_start;
-          $dossier_overzichtspagina_end   = $span_before_end . '</a>' . $span_before_end;
-          $needle = $dossier_overzichtspagina_start . get_the_title( $dossier_overzichtspagina_id ) . $dossier_overzichtspagina_end  . $args['sep'];
-        
-        }
-        else {
+            $dossier_overzichtspagina       = get_field('dossier_overzichtspagina', 'option');
+            $dossier_overzichtspagina_id    = $dossier_overzichtspagina->ID;
+            
+            $dossier_overzichtspagina_start = $span_before_start . '<a href="' . get_permalink( $dossier_overzichtspagina_id ) . '" itemprop="item">' . $span_between_start;
+            $dossier_overzichtspagina_end   = $span_before_end . '</a>' . $span_before_end;
+            $needle = $dossier_overzichtspagina_start . get_the_title( $dossier_overzichtspagina_id ) . $dossier_overzichtspagina_end  . $args['sep'];
+          
+          }
+          else {
+          }
         }
         
         $replacer = $needle . $span_before_start . '<a href="' . get_term_link( $term ) . '">' . $term->name .'</a>' . $span_before_end . $args['sep'];
@@ -1706,13 +1708,15 @@ function rhswp_dossiercontext_add_rewrite_rules() {
   add_rewrite_rule( '(.+?)(/' . RHSWP_DOSSIEREVENTCONTEXT . '/)(.+?)/?$', 'index.php?event=$matches[3]&' . RHSWP_DOSSIERPOSTCONTEXT . '=$matches[1]', 'top');
   add_rewrite_rule( '(.+?)/' . RHSWP_DOSSIEREVENTCONTEXT . '/?$', 'index.php?pagename=$matches[1]', 'top');
 
-  if( get_field('global_search_page', 'option') ) {
-    
-    $zoekpagina = get_field('global_search_page', 'option');
-
-    // rewrite rules for events in dossier context
-    add_rewrite_rule( '?(s=)(.+?)?$', 'index.php?page_id=' . $zoekpagina->ID . '&searchwpquery=$matches[2]', 'top');
-    
+  if ( function_exists( 'get_field' ) ) {
+    if( get_field('global_search_page', 'option') ) {
+      
+      $zoekpagina = get_field('global_search_page', 'option');
+  
+      // rewrite rules for events in dossier context
+      add_rewrite_rule( '?(s=)(.+?)?$', 'index.php?page_id=' . $zoekpagina->ID . '&searchwpquery=$matches[2]', 'top');
+      
+    }  
   }  
 
 }

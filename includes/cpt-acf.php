@@ -11,8 +11,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.8.6
- * @desc.   Banner-widget: classes voor achtergrondkleuren in plaats van colorpicker
+ * @version 0.8.34
+ * @desc.   Archive for newsletters, contactform7 validation
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -951,6 +951,29 @@ if( function_exists('acf_add_local_field_group') ):
 				'readonly' => 0,
 				'disabled' => 0,
 			),
+/*			
+			array (
+				'key' => 'field_56a73ce794fdf',
+				'label' => 'Lege organisatie',
+				'name' => 'lege_organisatie',
+				'type' => 'text',
+				'instructions' => 'Foutboodschap als het organisatieveld leeg is',
+				'required' => 0,
+				'conditional_logic' => 0,
+				'wrapper' => array (
+					'width' => '',
+					'class' => '',
+					'id' => '',
+				),
+				'default_value' => __( 'Voer alstublieft een organisatienaam in.', 'wp-rijkshuisstijl' ),
+				'placeholder' => '',
+				'prepend' => '',
+				'append' => '',
+				'maxlength' => '',
+				'readonly' => 0,
+				'disabled' => 0,
+			),
+*/			
 			array (
 				'key' => 'field_56a73d2e94fd0',
 				'label' => 'Lege suggestie',

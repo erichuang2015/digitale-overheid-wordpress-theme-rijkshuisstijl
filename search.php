@@ -14,7 +14,7 @@
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
-//* Template Name: 30 - Speciale zoekpagina 
+//* Template Name: 60 - Speciale zoekpagina 
 
 
 

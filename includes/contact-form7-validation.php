@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.8.1
- * @desc.   Sitemap uitgebreid (filtersitemap=nee), 'article-visual' als nieuw beeldformaat toegevoegd. CSS wijzigingen voor list-items. Revisie van dossier-menu. 
+ * @version 0.8.34
+ * @desc.   Archive for newsletters, contactform7 validation
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -54,15 +54,29 @@ function rhswp_cf7_validation_check_naam_veld($result, $tag) {
 	$type = $tag['type'];
 	$name = $tag['name'];
 
-	$foutboodschap	= ( get_field('lege_naam', 'option') ) ? get_field('lege_naam', 'option') : _x('We willen graag uw naam weten.', 'Foutboodschap contactformulier', 'wp-rijkshuisstijl');
-	
+
 	if ('your-name' == $name) {
+
+    	$foutboodschap	= ( get_field('lege_naam', 'option') ) ? get_field('lege_naam', 'option') : _x('We willen graag uw naam weten.', 'Foutboodschap contactformulier', 'wp-rijkshuisstijl');
+
 	    $the_value = rhswp_filter_input_string($_POST[$name]);
 	    $myresult = trim($the_value);
 	    if ($myresult == "") {
 	        $result->invalidate($tag, $foutboodschap );
 	    }
 	}
+//	elseif ('input-organisatie' == $name) {
+//  	
+//    	$foutboodschap	= ( get_field('lege_organisatie', 'option') ) ? get_field('lege_organisatie', 'option') : _x( 'Voer alstublieft een organisatienaam in.', 'Foutboodschap contactformulier', 'wp-rijkshuisstijl');
+
+//	    $the_value = rhswp_filter_input_string($_POST[$name]);
+//	    $myresult = trim($the_value);
+//	    if ($myresult == "") {
+//	        $result->invalidate($tag, $foutboodschap );
+//	    }
+//	}
+
+	
 
 	return $result;
 }
