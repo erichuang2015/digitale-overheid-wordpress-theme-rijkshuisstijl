@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.8.34
- * @desc.   Archive for newsletters, contactform7 validation
+ * @version 0.8.35
+ * @desc.   Piwik correctie. Thumbnail voor nieuwsbrief. Correcte HTML in sitemap, nieuwsbriefarchief
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "http://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.8.34" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Check in dossier-checker verbeterd. 'paged' toegevoegd aaan page_dossier-events-overview.php" );
+define( 'CHILD_THEME_VERSION',              "0.8.35" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Piwik correctie. Thumbnail voor nieuwsbrief. Correcte HTML in sitemap, nieuwsbriefarchief" );
 define( 'SHOW_CSS_DEBUG',                   false );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
@@ -91,6 +91,22 @@ add_image_size( 'featured-post-widget', 400, 250, false );
 add_image_size( 'article-visual', 400, 400, true );
 add_image_size( 'widget-image', 100, 100, false );
 add_image_size( 'widget-image-top', 400, 1200, false );
+add_image_size( 'nieuwsbriefthumb', 88, 88, false );
+
+//========================================================================================================
+
+//* Add new image sizes to post or page editor
+add_filter( 'image_size_names_choose', 'rhswp_add_imagesize_to_editor' );
+
+function rhswp_add_imagesize_to_editor( $sizes ) {
+
+    $mythemesizes = array(
+        'nieuwsbriefthumb' 		=> __( 'Nieuwsbrief-grootte' ), 
+    );
+    $sizes = array_merge( $sizes, $mythemesizes );
+
+    return $sizes;
+}
 
 //========================================================================================================
 
@@ -787,7 +803,9 @@ function rhswp_no_posts_content() {
 //========================================================================================================
 
 function rhswp_404() {
-  echo genesis_html5() ? '<article class="entry">' : '<div class="post hentry">';
+//  echo genesis_html5() ? '<article class="entry">' : '<div class="post hentry">';
+
+  echo '<div class="entry">';
   
   if ( is_404() ) {
     rhswp_no_posts_content_header();
@@ -806,7 +824,7 @@ function rhswp_404() {
   
   echo '</div>';
   
-  echo genesis_html5() ? '</article>' : '</div>';
+//  echo genesis_html5() ? '</article>' : '</div>';
   
 }
 
@@ -822,13 +840,15 @@ function rhswp_get_sitemap_for_pagenotfound() {
           $args = array(    
             'depth'                 => '1',
             'title_li'              => '',
-            'echo'                  => 1,
+            'echo'                  => 0,
             'sort_column'           => 'post_title',
             'walker'                => new rhswp_custom_walker_for_sitemap(),
             'ignore_custom_sort'    => TRUE,
           );
           
-           wp_list_pages( $args ); ?>
+           $fulter = wp_list_pages( $args ); 
+           echo $fulter;
+           ?>
     </ul>
     
   </section>
@@ -865,7 +885,7 @@ function rhswp_get_sitemap_content() {
           
           $args = array(    
             'title_li'  => '',
-            'echo'      => 1,
+            'echo'      => 0,
             'walker'    => new rhswp_custom_walker_for_sitemap()
           );
         
@@ -874,12 +894,16 @@ function rhswp_get_sitemap_content() {
           
           $args = array(    
             'title_li'  => '',
-            'echo'      => 1,
+            'echo'      => 0,
           );
         
         }
           
-           wp_list_pages( $args ); ?>
+        $fulter   = wp_list_pages( $args ); 
+        $pattern  = "/<ul[^>]*><\\/ul[^>]*>/"; 
+        $fulter   = preg_replace($pattern, '', $fulter); 
+        echo $fulter;
+ ?>
       </<?php echo $listitem; ?>>
   </section>
   <?php
@@ -1000,8 +1024,48 @@ function rhswp_get_sitemap_content() {
 
 class rhswp_custom_walker_for_sitemap extends Walker_Page {
 
+  // -------------------------
+
+  function start_lvl( &$output, $depth = 0, $args = array() ) {
+    $output .= '<ul class="children nounou">';
+  }
+  
+  // -------------------------
+
+  function end_lvl( &$output, $depth = 0, $args = array() ) {
+    $output .= '</ul>';
+  }
+  
+  // -------------------------
+
+  function end_el( &$output, $page, $depth = 0, $args = array() ) {
+
+    $indent       = '';
+    $css_class    = '';
+    $link_before  = '';
+    $icon_class   = '';
+    $link_after   = '';
+
+    $pagetemplate = get_page_template_slug( $page->ID );
+
+    if ( ( 'page_dossiersingleactueel.php' != $pagetemplate ) 
+        && ( 'page_dossier-document-overview.php' != $pagetemplate ) 
+        && ( 'page_dossier-events-overview.php' != $pagetemplate ) 
+        ) {
+  
+//        $output .= 'BOE';
+
+    }
+    else {
+//        $output .= '-';
+    }
+
+  }
+  
+  // -------------------------
+  
   function start_el( &$output, $page, $depth = 0, $args = array(), $current_page = 0 ) {
-    
+
       if ( $depth ) {
         $indent = str_repeat("\t", $depth);
       }
@@ -1030,8 +1094,8 @@ class rhswp_custom_walker_for_sitemap extends Walker_Page {
           $css_class[] = 'current_page_parent';
       }
   
-      $css_class = implode( ' ', apply_filters( 'page_css_class', $css_class, $page, $depth, $args, $current_page ) );
-      $icon_class = get_post_meta($page->ID, 'icon_class', true); //Retrieve stored icon class from post meta
+      $css_class    = implode( ' ', apply_filters( 'page_css_class', $css_class, $page, $depth, $args, $current_page ) );
+      $icon_class   = get_post_meta($page->ID, 'icon_class', true); //Retrieve stored icon class from post meta
 
       $pagetemplate = get_page_template_slug( $page->ID );
 
@@ -1051,6 +1115,9 @@ class rhswp_custom_walker_for_sitemap extends Walker_Page {
         $output .= $link_after . '</a>';
 
     }
+    else {
+//        $output .= 'START';
+    }
       
   
     if ( !empty($show_date) ) {
@@ -1063,13 +1130,17 @@ class rhswp_custom_walker_for_sitemap extends Walker_Page {
       }
     }
   }
+
+  // -------------------------
+  
 }
 //========================================================================================================
 
 function rhswp_get_sitemap() {
   
-  
-  echo genesis_html5() ? '<article class="entry">' : '<div class="post hentry">';
+//  echo genesis_html5() ? '<article class="entry">' : '<div class="post hentry">';
+
+  echo '<div class="entry">';
   
   if ( is_404() ) {
     rhswp_no_posts_content_header();
@@ -1084,7 +1155,9 @@ function rhswp_get_sitemap() {
   rhswp_get_sitemap_content();
   echo '</div>';
   
-  echo genesis_html5() ? '</article>' : '</div>';
+  echo '</div>';
+  
+//  echo genesis_html5() ? '</article>' : '</div>';
   
 }
 
@@ -1183,7 +1256,6 @@ function rhswp_trackercode() {
   _paq.push(["enableLinkTracking"]);
   _paq.push(["setLinkTrackingTimer", 750]);
   _paq.push(["enableHeartBeatTimer"]);
-  _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);
   _paq.push(["trackPageView"]);
   _paq.push(["enableLinkTracking"]);
   (function() {

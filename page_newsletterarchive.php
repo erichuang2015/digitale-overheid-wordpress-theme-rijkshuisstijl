@@ -54,7 +54,7 @@ function wbvb_newsletter_list_newsletters() {
         echo '<li>'  . wbvb_newsletter_createlink( $newsletter['subject'], $newsletter ) . ' (' . date_i18n( get_option( 'date_format' ), $newsletter['create_date'] ) . ')</li>';
       }
       else {
-        echo '<li>'  . wbvb_newsletter_createlink( __('No email title', 'impelesix' ), $newsletter ) . ' (' . date_i18n( get_option( 'date_format' ), $newsletter['create_date'] ) . ')</li>';
+        echo '<li>'  . wbvb_newsletter_createlink( __('Geen titel bekend', 'wp-rijkshuisstijl' ), $newsletter ) . ' (' . date_i18n( get_option( 'date_format' ), $newsletter['create_date'] ) . ')</li>';
       }
     }
     echo '</ul>';
