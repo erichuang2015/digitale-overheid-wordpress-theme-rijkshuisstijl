@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.8.35
- * @desc.   Piwik correctie. Thumbnail voor nieuwsbrief. Correcte HTML in sitemap, nieuwsbriefarchief
+ * @version 0.8.36
+ * @desc.   HSTS policy toegevoegd
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "http://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.8.35" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Piwik correctie. Thumbnail voor nieuwsbrief. Correcte HTML in sitemap, nieuwsbriefarchief" );
+define( 'CHILD_THEME_VERSION',              "0.8.36" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "HSTS policy toegevoegd" );
 define( 'SHOW_CSS_DEBUG',                   false );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
@@ -2881,6 +2881,22 @@ function rhswp_add_touch_icons() {
 	echo '<link rel="icon" sizes="192x192" href="' . RHSWP_THEMEFOLDER . '/images/touch-icon.png"/>
 <link rel="apple-touch-icon" href="' . RHSWP_THEMEFOLDER . '/images/apple-touch-icon.png" />';
 
+}
+
+//========================================================================================================
+
+add_action( 'send_headers', 'rhswp_set_hsts_policy' );
+/**
+ * Enables the HTTP Strict Transport Security (HSTS) header.
+ *
+ * @since 1.0.0
+ */
+function rhswp_set_hsts_policy() {
+ 
+  // 2 year expiration: 63072000
+  header( 'Strict-Transport-Security: max-age=63072000; includeSubDomains; preload' );
+
+ 
 }
 
 //========================================================================================================
