@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.8.36
- * @desc.   HSTS policy toegevoegd
+ * @version 0.8.37
+ * @desc.   Bug in 404-list
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "http://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.8.36" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "HSTS policy toegevoegd" );
+define( 'CHILD_THEME_VERSION',              "0.8.37" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Bug in 404-list" );
 define( 'SHOW_CSS_DEBUG',                   false );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
@@ -822,6 +822,7 @@ function rhswp_404() {
   }
   
   
+  echo '</div>';
   echo '</div>';
   
 //  echo genesis_html5() ? '</article>' : '</div>';
