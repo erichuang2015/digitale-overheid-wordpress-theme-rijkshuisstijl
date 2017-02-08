@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.8.37
- * @desc.   Bug in 404-list
+ * @version 0.8.38
+ * @desc.   Bug in contentblock
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "http://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.8.37" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Bug in 404-list" );
+define( 'CHILD_THEME_VERSION',              "0.8.38" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Bug in contentblock" );
 define( 'SHOW_CSS_DEBUG',                   false );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
@@ -1915,7 +1915,6 @@ function rhswp_write_extra_contentblokken() {
           $currentpage            = '';
           $currentsite            = '';
 
-          
           if ( 'algemeen' == $type_block ) {
 
             if ( $algemeen_links ) {
@@ -2026,7 +2025,6 @@ function rhswp_write_extra_contentblokken() {
             
           }
           elseif ( 'berichten' == $type_block ) {
-            
             // dus $type_block != 'algemeen' && $type_block != 'berichten_paginas'
 
             $pagetemplate = get_page_template_slug( $theid );
@@ -2081,7 +2079,6 @@ function rhswp_write_extra_contentblokken() {
                 $currentpage      = get_permalink();
                 $currentsite      = get_site_url();
                 
-              
                 $args = array(
                   'post_type'       => 'post',
                   'post_status'     => 'publish',
@@ -2100,7 +2097,7 @@ function rhswp_write_extra_contentblokken() {
               }
               else {
                 // niet op een dossieroverzicht
-  
+
                 $args = array(
                   'post_type'       => 'post',
                   'post_status'     => 'publish',
@@ -2138,6 +2135,8 @@ function rhswp_write_extra_contentblokken() {
                     // filter op dossier
                     $args = array(
                       'post_type' => 'post',
+                      'post_status'     => 'publish',
+                      'posts_per_page'  => $maxnr_posts,
                       'tax_query' => array(
                         'relation' => 'AND',
                         array(
