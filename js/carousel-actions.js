@@ -6,8 +6,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.6.21
-// * @desc.   IE8 checks, scripts concatenated
+// * @version 0.8.39
+// * @desc.   Toegankelijkheidscheck - slideshow
 // * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 
 /*
@@ -19,12 +19,6 @@
   var w = window,
   d = w.document;
 
-  if( w.onfocusin === undefined ){
-    d.addEventListener('focus' ,addPolyfill ,true);
-    d.addEventListener('blur' ,addPolyfill ,true);
-    d.addEventListener('focusin' ,removePolyfill ,true);
-    d.addEventListener('focusout' ,removePolyfill ,true);
-  }
   function addPolyfill(e){
     var type = e.type === 'focus' ? 'focusin' : 'focusout';
     var event = new CustomEvent(type, { bubbles:true, cancelable:false });
@@ -32,17 +26,25 @@
     e.target.dispatchEvent( event );
   }
   function removePolyfill(e){
-if(!e.c1Generated){ // focus after focusin, so chrome will the first time trigger tow times focusin
-  d.removeEventListener('focus' ,addPolyfill ,true);
-  d.removeEventListener('blur' ,addPolyfill ,true);
-  d.removeEventListener('focusin' ,removePolyfill ,true);
-  d.removeEventListener('focusout' ,removePolyfill ,true);
-}
-setTimeout(function(){
-  d.removeEventListener('focusin' ,removePolyfill ,true);
-  d.removeEventListener('focusout' ,removePolyfill ,true);
-});
-}
+    if(!e.c1Generated){ // focus after focusin, so chrome will the first time trigger tow times focusin
+      d.removeEventListener('focus' ,addPolyfill ,true);
+      d.removeEventListener('blur' ,addPolyfill ,true);
+      d.removeEventListener('focusin' ,removePolyfill ,true);
+      d.removeEventListener('focusout' ,removePolyfill ,true);
+    }
+    setTimeout(function(){
+      d.removeEventListener('focusin' ,removePolyfill ,true);
+      d.removeEventListener('focusout' ,removePolyfill ,true);
+    });
+  }
+
+  if( w.onfocusin === undefined ){
+    d.addEventListener('focus' ,addPolyfill ,true);
+    d.addEventListener('blur' ,addPolyfill ,true);
+    d.addEventListener('focusin' ,removePolyfill ,true);
+    d.addEventListener('focusout' ,removePolyfill ,true);
+  }
+  
 }();
 
 /* Carousel by Eric Eggert for W3C */
@@ -78,6 +80,11 @@ var myCarousel = (function() {
       return new RegExp('(^| )' + className + '( |$)', 'gi').test(el.className);
     }
   }
+  
+  // Helper function for prepending instead of appending
+  function prependElement(parent, child) {
+    parent.insertBefore(child, parent.firstChild);
+  };
 
   // Initialization for the carousel
   // Argument: set = an object of settings
@@ -111,36 +118,35 @@ var myCarousel = (function() {
 
     // Add list of slides and/or play/pause button
     if ( ( settings.slidenav || settings.animate) && ( slides.length > 1) ) {
-      slidenav = document.createElement('li');
 
-      slidenav.className = 'slidenav';
+      slidenav = document.getElementById(settings.slidenavid);
 
-      var li = document.createElement('span');
+      var listspan = document.createElement('span');
 
       if (settings.animate) {
 
         // Add Play/Pause button if the slider is animated
         if (settings.startAnimated) {
-          li.innerHTML = '<button data-stop=true>' + settings.stoptext + '</button>';
+          listspan.innerHTML = '<button data-stop=true id="slideshowbutton">' + settings.stoptext + '</button>';
         } else {
-          li.innerHTML = '<button data-start=true>' + settings.starttext + '</button>';
+          listspan.innerHTML = '<button data-start=true id="slideshowbutton">' + settings.starttext + '</button>';
         }
 
-        slidenav.appendChild(li);
+        slidenav.appendChild(listspan);
+
       }
 
 
       // Register click event on the slidenav
       slidenav.addEventListener('click', function(event) {
+        console.log('button click for slide show');
         var button = event.target;
         if (button.localName === 'button') {
           if (button.getAttribute('data-stop')) {
             // Stop animation if the stop button is activated
-//            console.log('stopbutton 2');
             stopAnimation();
           } else if (button.getAttribute('data-start')) {
             // Start animation if the stop button is activated
-//            console.log('stopbutton 3');
             startAnimation();
           }
         }
@@ -148,8 +154,7 @@ var myCarousel = (function() {
 
 
       carousel.className = 'active carousel with-slidenav';
-      carousel.appendChild(slidenav);
-      
+
     }
 
     // Register a transitionend event so the slides can be
@@ -212,14 +217,14 @@ var myCarousel = (function() {
     // transition denotes if the transition is going into the
     // next or previous direction.
     // Here defaults are set:
-    setFocus = typeof focus !== 'undefined' ? focus : false;
-    transition = typeof transition !== 'undefined' ? transition : 'none';
+    setFocus      = typeof focus !== 'undefined' ? focus : false;
+    transition    = typeof transition !== 'undefined' ? transition : 'none';
 
-    new_current = parseFloat(new_current);
+    new_current   = parseFloat(new_current);
 
-    var length = slides.length;
-    var new_next = new_current+1;
-    var new_prev = new_current-1;
+    var length    = slides.length;
+    var new_next  = new_current+1;
+    var new_prev  = new_current-1;
 
     // If the next slide number is equal to the length,
     // the next slide should be the first one of the slides.
@@ -235,8 +240,8 @@ var myCarousel = (function() {
     // Reset slide classes
     for (var i = slides.length - 1; i >= 0; i--) {
       slides[i].className = "slide";
-      slides[i].querySelector('.img-container').setAttribute('aria-hidden', 'true');
       
+//      slides[i].querySelector('.img-container').setAttribute('aria-hidden', 'true');
     }
 
 
@@ -255,7 +260,7 @@ var myCarousel = (function() {
   
       slides[new_current].className = 'current slide';
   //    slides[new_current].removeAttribute('aria-hidden');
-      slides[new_current].querySelector('.img-container').removeAttribute('aria-hidden');
+//      slides[new_current].querySelector('.img-container').removeAttribute('aria-hidden');
   
       if (announceSlide) {
         slides[new_current].setAttribute('aria-live', 'polite');
@@ -321,7 +326,7 @@ var myCarousel = (function() {
     clearTimeout(timer);
     settings.animate = false;
     animationSuspended = false;
-    var _this = carousel.querySelector('[data-stop], [data-start]');
+    var _this = document.getElementById('slideshowbutton');
     _this.innerHTML = settings.starttext;
     _this.removeAttribute('data-stop');
     _this.setAttribute('data-start', 'true');
@@ -334,7 +339,7 @@ var myCarousel = (function() {
     timer = setTimeout(function () {
       nextSlide();
     }, 5000);
-    var _this = carousel.querySelector('[data-stop], [data-start]');
+    var _this = document.getElementById('slideshowbutton');
     _this.innerHTML = settings.stoptext;
     _this.setAttribute('data-stop', 'true');
     _this.removeAttribute('data-start');
@@ -368,9 +373,10 @@ if ( document.getElementById("carousel") ) {
   carousel.init({
     id: 'carousel',
     slidenav: true,
+    slidenavid: 'slidenavid',
     animate: true,
     startAnimated: true,
-    duration: 10000
+    duration: 100000
   });
 
 }

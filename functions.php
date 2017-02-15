@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.8.38
- * @desc.   Bug in contentblock
+ * @version 0.8.39
+ * @desc.   Toegankelijkheidscheck - slideshow
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "http://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.8.38" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Bug in contentblock" );
+define( 'CHILD_THEME_VERSION',              "0.8.39" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Toegankelijkheidscheck - slideshow" );
 define( 'SHOW_CSS_DEBUG',                   false );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
@@ -2412,8 +2412,10 @@ function rhswp_caroussel_checker() {
         echo '<div class="wrap">';
 
         echo '<p class="visuallyhidden">' . $carouseltitle . '</p>';
+        echo '<p class="slidenav" id="slidenavid">&nbsp;</p>';   	
         
-        echo '<ul class="carousel" id="carousel" data-slidecount="' . $itemcounter . '">';
+        echo '<ul class="carousel ' . $itemcounter . '" id="carousel" data-slidecount="' . $itemcounter . '">';
+
 
         $slidecounter = 0;
 
@@ -2421,10 +2423,12 @@ function rhswp_caroussel_checker() {
           
           $slidecounter++;
           
-          $link_img_start     = '';
-          $link_end           = '';
-          $link_caption_start = '';         
-          $link_caption_end   = ''; 
+          $link_img_start       = '';
+          $link_end             = '';
+          $slide_link_start     = '';         
+          $slide_link_end       = ''; 
+          $slide_caption_start  = '<div class="caption">';   	
+          $slide_caption_end    = '</div>';   	
 
           $image    = $row[ 'carrousel_item_photo' ];
           $titel    = esc_html( $row[ 'carrousel_item_title' ] );
@@ -2450,24 +2454,23 @@ function rhswp_caroussel_checker() {
             $link_img_start     = '<a href="' . get_permalink( $linkid ) . '" tabindex="-1" class="img-container">';   	
             $link_end           = '</a>';
 
-            $link_caption_start = '<a href="' . get_permalink( $linkid ) . '" class="caption">';   	
-            $link_caption_end   = '</a>';   	
+            $slide_link_start = '<a href="' . get_permalink( $linkid ) . '">';   	
+            $slide_link_end   = '</a>';   	
           }
           elseif ( $dossier && $type == 'dossier' ) {
             $link_img_start     = '<a href="' . get_term_link( $dossier ) . '" tabindex="-1" class="img-container">';   	
             $link_end           = '</a>';
 
-            $link_caption_start = '<a href="' . get_term_link( $dossier ) . '" class="caption">';   	
-            $link_caption_end   = '</a>';   	
+            $slide_link_start = '<a href="' . get_term_link( $dossier ) . '">';   	
+            $slide_link_end   = '</a>';   	
 
           }
           else {
             $link_img_start     = '<span class="img-container">';   	
             $link_end           = '</span>';
 
-            $link_caption_start = '<div class="class="caption">';   	
-            $link_caption_end   = '</div>';   	
           }
+
 
 
           if ( $image ) {
@@ -2475,25 +2478,37 @@ function rhswp_caroussel_checker() {
             $width  = $image['sizes'][ $size . '-width' ];
             $height = $image['sizes'][ $size . '-height' ];
 
-            echo $link_img_start;   		
+
+            echo $slide_link_start;   		
+
+            if ( $titel || $text ) {
+  
+
+              echo $slide_caption_start;   		
+              
+
+              if ( $titel ) {
+                echo '<h2 class="caption-title">' .  $titel . '</h2>';   		
+              }
+
+              if ( $text ) {
+                echo '<p class="caption-text">' .  $text . '</p>';   		
+              }
+
+//            echo $link_img_start;   		
+//            echo $link_end;   		
+
+
+            echo $slide_caption_end;   		
+
+            
+            }
+
             echo '<img src="' . $thumb . '" alt="Bekijk de pagina ' . $titel . '" width="' . $width . '" height="' . $height . '" />';
-            echo $link_end;   		
+
+            echo $slide_link_end;   		
 
 
-          }
-          if ( $titel || $text ) {
-
-            echo $link_caption_start;   		
-            
-            if ( $titel ) {
-              echo '<h2 class="caption-title">' .  $titel . '</h2>';   		
-            }
-            if ( $text ) {
-              echo '<p class="caption-text">' .  $text . '</p>';   		
-            }
-
-            echo $link_caption_end;   		
-            
           }
             
           
@@ -2843,11 +2858,17 @@ function rhswp_singlepost_add_featured_image() {
     if(!empty( $theimageobject->post_excerpt )){//If description is not empty show the div
       echo '<div class="wp-caption alignright">';
     }
+    else {
+      echo '<div class="featured alignright">';
+    }
+    
     echo get_the_post_thumbnail( $post->ID, 'article-visual', array( 'class' => 'alignright' ) );
 
     if(!empty( $theimageobject->post_excerpt )){
-      echo '<p class="wp-caption-text">' . $theimageobject->post_excerpt . '</p></div>';
+      echo '<p class="wp-caption-text">' . $theimageobject->post_excerpt . '</p>';
     }
+
+    echo '</div>';
       
   }
 }
