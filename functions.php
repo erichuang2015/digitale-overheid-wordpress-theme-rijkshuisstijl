@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.8.39
- * @desc.   Toegankelijkheidscheck - slideshow
+ * @version 0.8.40
+ * @desc.   Search resultaten verbeterd: paginatitel
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "http://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.8.39" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Toegankelijkheidscheck - slideshow" );
+define( 'CHILD_THEME_VERSION',              "0.8.40" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Search resultaten verbeterd: paginatitel" );
 define( 'SHOW_CSS_DEBUG',                   false );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
@@ -1577,6 +1577,13 @@ function rhswp_add_single_socialmedia_buttons() {
 //========================================================================================================
 
 function rhswp_filter_alternative_title( $postid = 0,  $title = '' ) {
+
+  $yoasttitle = get_post_meta( $postid , '_yoast_wpseo_title', true); 
+
+  if ( $yoasttitle ) {
+    $title = $yoasttitle;
+  }
+  
   if ( function_exists( 'get_field' ) ) {
     
       $alternatieve_paginatitel_gebruiken    = get_field('alternatieve_paginatitel_gebruiken', $postid );
@@ -2644,7 +2651,7 @@ function rhswp_archive_custom_loop() {
         if ( is_search() ) {
   
           $theurl       = get_permalink();
-          $thetitle     = get_the_title();
+          $thetitle     = rhswp_filter_alternative_title( get_the_id(), get_the_title() );
           $documenttype = rhswp_translateposttypes( $contenttype );
           
           if ( 'post' == $contenttype ) {
@@ -2657,9 +2664,8 @@ function rhswp_archive_custom_loop() {
             $parent_id    = $post->post_parent;
             $excerpt      = wp_strip_all_tags( get_the_excerpt( $parent_id ) );
   
-  
             $mimetype     = get_post_mime_type( $post->ID ); 
-            $thetitle     = get_the_title( $parent_id );
+            $thetitle     = rhswp_filter_alternative_title( $parent_id, get_the_title( $parent_id ) );
   
             $filesize     = filesize( get_attached_file( $post->ID ) );
             

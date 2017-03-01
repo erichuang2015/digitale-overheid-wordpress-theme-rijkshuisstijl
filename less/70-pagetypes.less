@@ -7,8 +7,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.8.18
-// * @desc.   Opmaak voor dossier overzicht aangepast
+// * @version 0.8.40
+// * @desc.   Search resultaten verbeterd: paginatitel
 // * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 // **
 
@@ -130,6 +130,19 @@
     }
     
     article {
+      padding: .1em;
+      
+      a {
+        margin: .1em;
+
+        &:hover,
+        &:focus,
+        &:active {
+          h2 {
+            text-decoration: underline;
+          }
+        }
+      }
       p {
         margin: 0;        
       }

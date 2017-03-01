@@ -99,7 +99,10 @@ function rhswp_archive_custom_search_with_searchWP() {
         $classattr    = str_replace( 'has-post-thumbnail', '', $classattr );
         $contenttype  = get_post_type();
         $theurl       = get_permalink();
-        $thetitle     = get_the_title();
+//        $thetitle     = get_the_title();
+
+        $thetitle     = rhswp_filter_alternative_title( get_the_id(), get_the_title() );
+        
         $documenttype = rhswp_translateposttypes( $contenttype );
         
         if ( 'voorzieningencpt' == $contenttype ) {

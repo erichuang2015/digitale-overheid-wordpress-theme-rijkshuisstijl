@@ -9,8 +9,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.8.1
- * @desc.   Sitemap uitgebreid (filtersitemap=nee), 'article-visual' als nieuw beeldformaat toegevoegd. CSS wijzigingen voor list-items. Revisie van dossier-menu. 
+ * @version 0.8.40
+ * @desc.   Search resultaten verbeterd: paginatitel
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -171,11 +171,13 @@ function rhswp_get_page_dossiersingleactueel() {
           else {
             $theurl         = get_the_permalink();
           }
+
+          $title = rhswp_filter_alternative_title( get_the_id(), get_the_title( ) );
       		
           ?>
   
           <section>
-            <h2><a href="<?php echo $theurl ?>"><?php the_title(); ?></a></h2>
+            <h2><a href="<?php echo $theurl ?>"><?php echo $title; ?></a></h2>
             <?php 
               the_excerpt();
               

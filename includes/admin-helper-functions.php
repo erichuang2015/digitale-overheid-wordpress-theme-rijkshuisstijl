@@ -9,8 +9,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.8.9
- * @desc.   Bugjes verwijderd. debug.log een stuk schoner nu
+ * @version 0.8.40
+ * @desc.   Search resultaten verbeterd: paginatitel
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -76,11 +76,16 @@ function dodebug2($file = '', $extra = '') {
 
 //========================================================================================================
 
-function dovardump($data) {
+function dovardump($data, $echo = true) {
   if ( WP_DEBUG ) {
-    echo '<hr><pre>';
-    print_r($data);
-    echo '</pre><hr>';
+    if ( $echo ) {
+      echo '<hr><pre>';
+      print_r($data);
+      echo '</pre><hr>';
+    }
+    else {
+      return '<hr><pre>' . print_r($data, true) . '</pre><hr>';
+    }
   }        
 }        
 
