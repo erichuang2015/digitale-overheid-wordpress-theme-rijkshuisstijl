@@ -11,6 +11,7 @@ Dit theme wordt gebruikt op [digitaleoverheid.nl](https://www.digitaleoverheid.n
 
 ## Version history
 
+* 0.8.41 - Uitgelichte afbeelding beter tonen op archives. Ook tonen bij een pagina.
 * 0.8.40 - Search resultaten verbeterd: paginatitel
 * 0.8.39 - Toegankelijkheidscheck - slideshow
 * 0.8.38 - Bug in contentblock

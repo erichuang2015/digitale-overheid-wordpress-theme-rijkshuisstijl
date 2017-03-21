@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.8.40
- * @desc.   Search resultaten verbeterd: paginatitel
+ * @version 0.8.41
+ * @desc.   Uitgelichte afbeelding beter tonen op archives. Ook tonen bij een pagina.
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "http://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.8.40" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Search resultaten verbeterd: paginatitel" );
+define( 'CHILD_THEME_VERSION',              "0.8.41" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Uitgelichte afbeelding beter tonen op archives. Ook tonen bij een pagina." );
 define( 'SHOW_CSS_DEBUG',                   false );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
@@ -82,6 +82,12 @@ define( 'RHSWP_DOSSIERPOSTCONTEXT',         'dossierpostcontext' );
 define( 'RHSWP_DOSSIEREVENTCONTEXT',        'dossiereventcontext' );
 define( 'RHSWP_DOSSIERDOCUMENTCONTEXT',     'dossierdocumentcontext' );
 define( 'RHSWP_DOSSIERPOSTCONTEXT_OPTION',  RHSWP_DOSSIERPOSTCONTEXT . CHILD_THEME_VERSION );
+
+define( 'RHSWP_NR_FEAT_IMAGES',             2 ); // max number of posts with featured images on archive pages
+define( 'RHSWP_ARCHIVE_CSS',                'featured-images' );
+
+
+
 
 //========================================================================================================
 
@@ -2545,7 +2551,7 @@ function rhswp_archive_custom_loop() {
   global $post;
   
   if ( have_posts() ) {
-  
+
     echo '<div class="block no-top">';
     
     $postcounter = 0;
@@ -2559,8 +2565,12 @@ function rhswp_archive_custom_loop() {
       $doimage      = false;
       $classattr    = genesis_attr( 'entry' );
       $contenttype  = get_post_type();
+      $current_post_id  = isset( $post->ID  ) ? $post->ID : 0;
+      $cssid        = 'image_featured_image_post_' . $current_post_id;
 
-      if ( $postcounter < 3 && has_post_thumbnail( $post->ID ) ) {
+
+
+      if ( $postcounter <= RHSWP_NR_FEAT_IMAGES && has_post_thumbnail( $post->ID ) ) {
         $doimage    = true;
       } 
       else {
@@ -2571,7 +2581,6 @@ function rhswp_archive_custom_loop() {
 
       if ( is_tax( RHSWP_CT_DOSSIER ) ) {
 
-        $current_post_id  = isset( $post->ID  ) ? $post->ID : 0;
         $pagetemplateslug = basename( get_page_template_slug( $current_post_id ) );
 
         $selectposttype   = '';
@@ -2694,7 +2703,8 @@ function rhswp_archive_custom_loop() {
           printf( '<article %s>', $classattr );
           
           if ( $doimage ) {
-            printf( '<div class="article-container"><div class="article-visual">%s</div>', get_the_post_thumbnail( $post->ID, 'featured-post-widget' ) );
+//            printf( '<div class="article-container"><div class="article-visual">%s</div>', get_the_post_thumbnail( $post->ID, 'featured-post-widget' ) );
+            printf( '<div class="article-container"><div class="article-visual" id="%s">&nbsp;</div>', $cssid );
             printf( '<div class="article-excerpt"><a href="%s"><h3>%s</h3><p>%s</p><p class="meta">%s</p></a></div></div>', get_permalink(), get_the_title(), $excerpt, $postdate );
           }
           else {
@@ -2848,12 +2858,12 @@ function human_filesize($bytes, $decimals = 1) {
 
 //========================================================================================================
 
-add_action( 'genesis_entry_content', 'rhswp_singlepost_add_featured_image', 9 );
+add_action( 'genesis_entry_content', 'rhswp_single_add_featured_image', 9 );
 
-function rhswp_singlepost_add_featured_image() {
+function rhswp_single_add_featured_image() {
   global $post;
 // has-post-thumbnail
-  if ( is_single() && ( 'post' == get_post_type() ) && ( has_post_thumbnail() ) ) {
+  if ( ( is_single() && ( 'post' == get_post_type() ) || (  'page' == get_post_type()  ) ) && ( has_post_thumbnail() ) && ( !is_front_page() && !is_home() ) ) {
 
 
     $theimageobject = get_post(get_post_thumbnail_id());
@@ -2924,6 +2934,55 @@ function rhswp_set_hsts_policy() {
   header( 'Strict-Transport-Security: max-age=63072000; includeSubDomains; preload' );
 
  
+}
+
+//========================================================================================================
+
+add_action( 'wp_enqueue_scripts', 'rhswp_add_blog_archive_css' );
+
+function rhswp_add_blog_archive_css() {
+
+  global $imgbreakpoints;
+
+  wp_enqueue_style(
+    RHSWP_ARCHIVE_CSS,
+    RHSWP_THEMEFOLDER . '/css/featured-background-images.css'
+  );
+
+
+
+  $blogberichten_css   = '';
+  $countertje   = 0;
+
+  if ( have_posts() ) : 
+  
+  
+    while ( have_posts() ) : the_post();
+  
+      // do loop stuff
+      $countertje++;
+      $getid        = get_the_ID();
+      $the_image_ID = 'image_featured_image_post_' . $getid;
+  
+      if ( $countertje <= RHSWP_NR_FEAT_IMAGES && has_post_thumbnail( $getid ) ) {
+
+        $image = wp_get_attachment_image_src( get_post_thumbnail_id( $getid ), 'full' );
+  
+        if ( $image[0] ) {
+          $blogberichten_css .= '#' . $the_image_ID . " { ";
+          $blogberichten_css .= "background-image: url('" . $image[0] . "'); ";
+          $blogberichten_css .= "} ";
+        }
+      }
+    
+    endwhile; /** end of one post **/
+
+  else : /** if no posts exist **/
+
+  endif; /** end loop **/
+
+  wp_add_inline_style( RHSWP_ARCHIVE_CSS, $blogberichten_css );
+
 }
 
 //========================================================================================================
