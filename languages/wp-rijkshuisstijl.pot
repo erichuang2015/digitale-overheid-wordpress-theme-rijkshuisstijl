@@ -1027,5 +1027,5 @@ msgid "Paul van Buuren"
 msgstr ""
 
 #. Author URI of the plugin/theme
-msgid "https://wbvb.nl/themes/ibewustzijn/"
+msgid "https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl/"
 msgstr ""

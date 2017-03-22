@@ -8,8 +8,8 @@
  * @author  Rian Rietveld
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.8.23 (wp-theme) / 1.2.0 (genesis accessible)
- * @desc.   Added javascript for skiplinks
+ * @version 0.8.42
+ * @desc.   Beschrijving toegevoegd voor skiplinks-section.
  * @link    http://genesis-accessible.org/
  */
 
@@ -67,8 +67,8 @@ function rhswp_skip_links() {
 	$links = apply_filters( 'genesis_skip_links_output', $links );
 
 	// write HTML, skiplinks in a list with a heading
-	$skiplinks  =  '<section id="skiplinkscontainer">';
-	$skiplinks .=  '<h2 class="screen-reader-text">'. __( 'Omzeilende links', 'wp-rijkshuisstijl' ) .'</h2>';
+	$skiplinks  =  '<section id="skiplinkscontainer" aria-labelledby="skiplinkstitle">';
+	$skiplinks .=  '<h2 class="screen-reader-text" id="skiplinkstitle">'. __( 'Omzeilende links', 'wp-rijkshuisstijl' ) .'</h2>';
 	$skiplinks .=  '<ul class="genesis-skip-link genwpacc-genesis-skip-link">';
 
 	// Add markup for each skiplink

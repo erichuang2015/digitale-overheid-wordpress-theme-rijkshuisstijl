@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.8.41
- * @desc.   Uitgelichte afbeelding beter tonen op archives. Ook tonen bij een pagina.
+ * @version 0.8.42
+ * @desc.   Beschrijving toegevoegd voor skiplinks-section.
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "http://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.8.41" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Uitgelichte afbeelding beter tonen op archives. Ook tonen bij een pagina." );
+define( 'CHILD_THEME_VERSION',              "0.8.42" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Beschrijving toegevoegd voor skiplinks-section." );
 define( 'SHOW_CSS_DEBUG',                   false );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
