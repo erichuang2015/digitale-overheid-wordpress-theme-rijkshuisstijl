@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.8.39
-// * @desc.   Toegankelijkheidscheck - slideshow
+// * @version 0.9.1
+// * @desc.   Grootte van headers aangepast.
 // * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 // **
 
@@ -109,6 +109,9 @@
   
   cite {
   	font-style: normal;
+  	display: block;
+  	clear: both;
+  	text-align: right;
   }
   
 
@@ -203,25 +206,44 @@
   }
   
   h2 {
-  	.font-size( @fontsize_title_h2 );
+    font-size: 1.35em;
+    line-height: 1.2;
+  	margin: 2em 0 .2em 0;
+  }
+
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: lighten( @txt, 25% );
   }
   
   h3 {
-  	.font-size( @fontsize_title_h3 );
+    font-size: 1.125em;
+    line-height: 1.4;
   }
   
   h4 {
-  	.font-size( @fontsize_title_h4 );
+    font-size: 1.07em;
   }
   
   h5 {
-  	.font-size( @fontsize_title_h5 );
+    font-size: 1em;
   }
   
   h6 {
-  	.font-size( @fontsize_title_h6 );
+    font-size: .9em;
   }
 
+  p {
+    & + h2,
+    & + h3,
+    & + h4,
+    & + h5,
+    & + h6 {
+      margin-top: 1em;
+    }
+  }  
   
   @media only screen and (max-width: ( @break_tablet ) ) {
     h1 {
@@ -230,6 +252,7 @@
     
     h2 {
     	.font-size( @fontverkleiner * @fontsize_title_h2 );
+    	margin: .952em 0 .2em 0;
     }
     
     h3 {
@@ -303,6 +326,9 @@
     	margin-bottom: 1em;
     	li {
       	margin-bottom: .5em;
+      	a {
+        	text-decoration: underline;
+      	}
     	}
     }
 

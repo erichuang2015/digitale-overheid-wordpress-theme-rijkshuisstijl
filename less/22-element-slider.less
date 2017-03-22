@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.8.39
-// * @desc.   Toegankelijkheidscheck - slideshow
+// * @version 0.9.1
+// * @desc.   Grootte van headers aangepast.
 // * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 // **
 
@@ -149,10 +149,11 @@
         display: block;
         .caption-title {
           color: @donkerblauw_vol;
+          margin: .2em 0;
         }
       }
 
-      @media only screen and (max-width: ( @break_tablet ) ) {
+      @media only screen and (max-width: ( @break_fullwidth ) ) {
 
         ul.active {
           padding-top: @minheightmobile;
@@ -175,13 +176,26 @@
             img {
               visibility: visible;
             }
+            .caption {
+              .caption-title {
+                font-family: @fontstrong;
+                text-decoration: underline;
+              }
+            }
           }
           
           .caption {
+            position: relative;
+            z-index: 999 !important;
+            
             .caption-title {
               padding-right: 1em;
               padding-left: 1em;
-              
+              background: white;
+              margin: 0;
+              padding-top: .2em;
+              padding-bottom: .2em;
+              font-family: @bodyfont;
             }
             .caption-text {
               .visuallyhidden();
@@ -192,11 +206,10 @@
 
       }
       
-      @media only screen and (min-width: ( @break_tablet ) ) {
+      @media only screen and (min-width: ( @break_fullwidth ) ) {
       
         ul.active {
-          height: 400px;
-
+          height: @slider_image_height;
 
           li {
             top: 0;
@@ -279,7 +292,7 @@
               }
             }
             img {
-              height: 400px;
+              height: @slider_image_height;
               width: auto;
               visibility: visible;
             }

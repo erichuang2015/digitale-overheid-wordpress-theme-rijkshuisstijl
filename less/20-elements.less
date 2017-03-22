@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.8.39
-// * @desc.   Toegankelijkheidscheck - slideshow
+// * @version 0.9.1
+// * @desc.   Grootte van headers aangepast.
 // * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 // **
 
@@ -348,6 +348,12 @@
 
       .block {
         article {
+          .article-container {
+            background: none;
+          }
+          .article-excerpt {
+            padding: 0;
+          }          
           .article-visual {
             display: none;            
           }
@@ -384,7 +390,6 @@
         
           .article-visual {
             width: @flexbasis_fiftypct;
-            background: @grijs_3;
             position: relative;
             
             img {

@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.8.42
- * @desc.   Beschrijving toegevoegd voor skiplinks-section.
+ * @version 0.9.1
+ * @desc.   Grootte van headers aangepast.
  * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "http://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.8.42" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Beschrijving toegevoegd voor skiplinks-section." );
+define( 'CHILD_THEME_VERSION',              "0.9.1" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Grootte van headers aangepast." );
 define( 'SHOW_CSS_DEBUG',                   false );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
@@ -2944,12 +2944,6 @@ function rhswp_add_blog_archive_css() {
 
   global $imgbreakpoints;
 
-  wp_enqueue_style(
-    RHSWP_ARCHIVE_CSS,
-    RHSWP_THEMEFOLDER . '/css/featured-background-images.css'
-  );
-
-
 
   $blogberichten_css   = '';
   $countertje   = 0;
@@ -2981,7 +2975,14 @@ function rhswp_add_blog_archive_css() {
 
   endif; /** end loop **/
 
-  wp_add_inline_style( RHSWP_ARCHIVE_CSS, $blogberichten_css );
+  wp_enqueue_style( RHSWP_ARCHIVE_CSS, RHSWP_THEMEFOLDER . '/css/featured-background-images.css', array(), CHILD_THEME_VERSION, 'screen and (min-width: 650px)' );
+
+  if ( $blogberichten_css ) {
+    wp_add_inline_style( RHSWP_ARCHIVE_CSS, $blogberichten_css );
+  }
+    
+
+
 
 }
 
