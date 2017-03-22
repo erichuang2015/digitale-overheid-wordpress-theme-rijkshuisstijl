@@ -8,7 +8,7 @@
 // * @package wp-rijkshuisstijl
 // * @version 0.8.39
 // * @desc.   Toegankelijkheidscheck - slideshow
-// * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
+// * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 
 /*
   * Focusin/out event polyfill (for Firefox) by nuxodin

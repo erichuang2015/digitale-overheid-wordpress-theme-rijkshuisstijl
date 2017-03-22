@@ -13,7 +13,7 @@
  * @package wp-rijkshuisstijl
  * @version 0.2.4
  * @desc.   Context widget added 
- * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
+ * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
 //* Output primary sidebar structure

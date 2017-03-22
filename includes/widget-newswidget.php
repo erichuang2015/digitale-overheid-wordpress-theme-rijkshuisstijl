@@ -11,7 +11,7 @@
  * @package wp-rijkshuisstijl
  * @version 0.7.21
  * @desc.   Modernizr via CDN, paginalayouts gewijzigd, CSS bugs
- * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
+ * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
 

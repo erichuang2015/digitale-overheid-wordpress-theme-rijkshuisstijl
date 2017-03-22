@@ -13,7 +13,7 @@
  * @package wp-rijkshuisstijl
  * @version 0.8.34
  * @desc.   Archive for newsletters, contactform7 validation
- * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
+ * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
 

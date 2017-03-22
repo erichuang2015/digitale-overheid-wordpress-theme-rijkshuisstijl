@@ -11,7 +11,7 @@
  * @package wp-rijkshuisstijl
  * @version 0.4.1
  * @desc.   Theme-check, carrousel en extra pagina-layout 
- * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
+ * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
 

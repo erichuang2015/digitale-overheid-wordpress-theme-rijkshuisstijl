@@ -11,7 +11,7 @@
  * @package wp-rijkshuisstijl
  * @version 0.8.24
  * @desc.   Div. bug fixes ( is_tax() ); paging in search results
- * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
+ * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
 

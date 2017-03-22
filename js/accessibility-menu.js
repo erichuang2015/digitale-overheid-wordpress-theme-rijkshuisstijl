@@ -9,7 +9,7 @@
 // * @package wp-rijkshuisstijl
 // * @version 0.7.16
 // * @desc.   Laat menu openklappen bij keyboardnavigatie
-// * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
+// * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 
 $(document).ready(function() {
   // Setup the a11y nav

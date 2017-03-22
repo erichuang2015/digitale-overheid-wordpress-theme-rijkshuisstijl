@@ -8,7 +8,7 @@
 // * @package wp-rijkshuisstijl
 // * @version 0.6.21
 // * @desc.   IE8 checks, scripts concatenated
-// * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
+// * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 
 /* 
  * https://gist.github.com/jonathantneal/3748027

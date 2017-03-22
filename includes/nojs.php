@@ -14,7 +14,7 @@
  * @license   GPL-2.0+
  * @version 0.1.0 
  * @desc.   Eerste opzet theme, code licht opgeschoond
- * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
+ * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
 class Genesis_Js_No_Js {

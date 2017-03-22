@@ -10,7 +10,7 @@
  * @package wp-rijkshuisstijl
  * @version 0.6.23
  * @desc.   Modified Event Widget, updated pagination. Extra event functions and page.
- * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
+ * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
 

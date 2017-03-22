@@ -11,7 +11,7 @@
  * @package wp-rijkshuisstijl
  * @version 0.7.2
  * @desc.   Search functions - paging
- * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
+ * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
 //* Template Name: 30 - Speciale zoekpagina 

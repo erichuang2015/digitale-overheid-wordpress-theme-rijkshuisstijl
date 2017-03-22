@@ -11,7 +11,7 @@
  * @package wp-rijkshuisstijl
  * @version 0.8.40
  * @desc.   Search resultaten verbeterd: paginatitel
- * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
+ * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
 

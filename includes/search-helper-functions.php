@@ -12,7 +12,7 @@
  * @package wp-rijkshuisstijl
  * @version 0.8.19
  * @desc.   Extra filter op content-lijst dossiers. Kleine CSS bugs verwijderd
- * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
+ * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
 

@@ -12,7 +12,7 @@
  * @package wp-rijkshuisstijl
  * @version 0.1.13
  * @desc.   Pagina-templates herzien 
- * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
+ * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
 

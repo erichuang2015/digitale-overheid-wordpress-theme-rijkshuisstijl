@@ -10,7 +10,7 @@
  * @package wp-rijkshuisstijl
  * @version 0.7.10
  * @desc.   CSS: list item arrow, flex on .home, search form in header
- * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
+ * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
 

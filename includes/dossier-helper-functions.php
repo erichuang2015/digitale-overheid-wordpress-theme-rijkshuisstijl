@@ -12,7 +12,7 @@
  * @package wp-rijkshuisstijl
  * @version 0.8.33
  * @desc.   Search results for releasekalender items
- * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
+ * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
 $tellertje = 0;

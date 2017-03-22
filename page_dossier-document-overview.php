@@ -11,7 +11,7 @@
  * @package wp-rijkshuisstijl
  * @version 0.8.1
  * @desc.   Sitemap uitgebreid (filtersitemap=nee), 'article-visual' als nieuw beeldformaat toegevoegd. CSS wijzigingen voor list-items. Revisie van dossier-menu. 
- * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
+ * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
 

@@ -11,7 +11,7 @@
  * @package wp-rijkshuisstijl
  * @version 0.8.7
  * @desc.   Banner-widget: bug-fixes
- * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
+ * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
 

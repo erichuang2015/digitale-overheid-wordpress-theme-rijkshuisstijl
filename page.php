@@ -11,7 +11,7 @@
  * @package wp-rijkshuisstijl
  * @version 0.7.14
  * @desc.   Contentblock kan dossiers tonen. Extra check op taxonomy contentblock toegevoegd.
- * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
+ * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
 
