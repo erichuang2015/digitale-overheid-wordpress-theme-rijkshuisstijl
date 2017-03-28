@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.9.2
- * @desc.   Headers, menu.
+ * @version 0.9.3
+ * @desc.   Alt. paginatitel op archives.
  * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
@@ -2699,20 +2699,27 @@ function rhswp_archive_custom_loop() {
   
         } 
         else {
+
+          if ( ! ( 'page' == get_post_type( $post->ID ) ) ) {
+            $thetitle     = get_the_title( get_the_id() );
+          }
+          else {
+            $thetitle     = rhswp_filter_alternative_title( get_the_id(), get_the_title( get_the_id() ) );
+          }
   
           printf( '<article %s>', $classattr );
           
           if ( $doimage ) {
 //            printf( '<div class="article-container"><div class="article-visual">%s</div>', get_the_post_thumbnail( $post->ID, 'featured-post-widget' ) );
             printf( '<div class="article-container"><div class="article-visual" id="%s">&nbsp;</div>', $cssid );
-            printf( '<div class="article-excerpt"><a href="%s"><h3>%s</h3><p>%s</p><p class="meta">%s</p></a></div></div>', get_permalink(), get_the_title(), $excerpt, $postdate );
+            printf( '<div class="article-excerpt"><a href="%s"><h3>%s</h3><p>%s</p><p class="meta">%s</p></a></div></div>', get_permalink(), $thetitle, $excerpt, $postdate );
           }
           else {
             if ( ! ( 'post' == get_post_type( $post->ID ) ) ) {
-              printf( '<a href="%s"><h3>%s</h3><p>%s</p></a>', get_permalink(), get_the_title(), $excerpt );
+              printf( '<a href="%s"><h3>%s</h3><p>%s</p></a>', get_permalink(), $thetitle, $excerpt );
             }
             else {
-              printf( '<a href="%s"><h3>%s</h3><p>%s</p><p class="meta">%s</p></a>', get_permalink(), get_the_title(), $excerpt, $postdate );
+              printf( '<a href="%s"><h3>%s</h3><p>%s</p><p class="meta">%s</p></a>', get_permalink(), $thetitle, $excerpt, $postdate );
             }
           }
   
