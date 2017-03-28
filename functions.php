@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.9.1
- * @desc.   Grootte van headers aangepast.
+ * @version 0.9.2
+ * @desc.   Headers, menu.
  * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "http://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.9.1" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Grootte van headers aangepast." );
+define( 'CHILD_THEME_VERSION',              "0.9.2" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Headers, menu." );
 define( 'SHOW_CSS_DEBUG',                   false );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
