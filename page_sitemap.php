@@ -10,13 +10,16 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.1.13
- * @desc.   Pagina-templates herzien 
+ * @version 0.9.4
+ * @desc.   Sitemap-styling op smalle schermen aangepast.
  * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
 
 //* Template Name: 10 - sitemap-pagina
+
+//* Force full-width-content layout
+add_filter( 'genesis_pre_get_option_site_layout', '__genesis_return_full_width_content' );
 
 //* Remove standard post content output
 remove_action( 'genesis_post_content', 'genesis_do_post_content' );

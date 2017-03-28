@@ -7,8 +7,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.8.40
-// * @desc.   Search resultaten verbeterd: paginatitel
+// * @version 0.9.4
+// * @desc.   Sitemap-styling op smalle schermen aangepast.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 // **
 
@@ -93,25 +93,38 @@
     }
   }
 
-  .error404,
-  .page-template-page_sitemap {
-    ul, ol {
-      margin-left: 1em;
-      li {
-        margin-bottom: 0;
-      }
+  @media only screen and (min-width: ( @break_tablet ) ) {
+    .error404,
+    .page-template-page_sitemap {
       ul, ol {
-        margin-top: 0;
+        margin-left: 1em;
+        li {
+          margin-bottom: 0;
+        }
+        ul, ol {
+          margin-top: 0;
+        }
+      }
+      .category,
+      .dossiers {
+        display: flex;
+        flex-wrap: wrap;
+        li {
+          flex-basis: 50%;
+          padding-right: 1em;
+          padding-bottom: .5em;
+        }
       }
     }
-    .category,
-    .dossiers {
-      display: flex;
-      flex-wrap: wrap;
-      li {
-        flex-basis: 33%;
-        padding-right: 1em;
-        padding-bottom: .5em;
+  }
+  @media only screen and (min-width: ( @break_fullwidth ) ) {
+    .error404,
+    .page-template-page_sitemap {
+      .category,
+      .dossiers {
+        li {
+          flex-basis: 25%;
+        }
       }
     }
   }

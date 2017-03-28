@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.9.3
- * @desc.   Alt. paginatitel op archives.
+ * @version 0.9.4
+ * @desc.   Sitemap-styling op smalle schermen aangepast.
  * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 

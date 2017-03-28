@@ -11,6 +11,7 @@ Dit theme wordt gebruikt op [digitaleoverheid.nl](https://www.digitaleoverheid.n
 
 ## Version history
 
+* 0.9.4 - Sitemap-styling op smalle schermen aangepast.
 * 0.9.3 - Alt. paginatitel op archives.
 * 0.9.2 - Headers, menu.
 * 0.9.1 - Grootte van headers aangepast.
