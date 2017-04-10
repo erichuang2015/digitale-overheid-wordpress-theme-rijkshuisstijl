@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.9.4
- * @desc.   Sitemap-styling op smalle schermen aangepast.
+ * @version 0.9.5
+ * @desc.   Bugfixes. Dossier-overzichtspagina.
  * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "http://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.9.2" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Headers, menu." );
+define( 'CHILD_THEME_VERSION',              "0.9.5" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Bugfixes. Dossier-overzichtspagina." );
 define( 'SHOW_CSS_DEBUG',                   false );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
@@ -593,10 +593,14 @@ function rhswp_add_taxonomy_description() {
           $headline = sprintf( '<h1 class="archive-title">%s</h1>', $prefix . strip_tags( $term->name ) );
       }
       if ( isset( $term->meta['headline'] ) && $term->meta['headline'] ) {
-          $headline = sprintf( '<h1 class="archive-title">%s</h1>', $prefix . strip_tags( $term->meta['headline'] ) );
+
+          if ( 'Array' !== $term->meta['headline'] ) {
+            $headline = sprintf( '<h1 class="archive-title">%s</h1>', $prefix . strip_tags( $term->meta['headline'] ) );
+          }
+        
       }
     }
-        
+
     if ( isset( $term->meta['intro_text'] ) && $term->meta['intro_text'] ) {
         $intro_text = apply_filters( 'genesis_term_intro_text_output', $term->meta['intro_text'] );
     }
@@ -1027,6 +1031,58 @@ function rhswp_get_sitemap_content() {
     
 }
 
+//========================================================================================================
+
+class rhswp_custom_walker_for_taxonomies extends Walker_Category {
+  function start_el( &$output, $category, $depth = 0, $args = array(), $id = 0 ) {
+
+    extract($args);
+    
+    $cat_name     = esc_attr( $category->name );
+		$value        =  wp_strip_all_tags( get_term_meta( $category->term_id, 'headline', true ) );
+
+		if ( $value ) {
+			$cat_name .= ' (' . strip_tags( $value ) . ')';
+		}
+
+//    $cat_name = apply_filters( 'list_cats', $cat_name, $category );
+
+    $link = '<a href="' . esc_url( get_term_link($category) ) . '" ';
+//    if ( $use_desc_for_title == 0 || empty($category->description) )
+//      $link .= 'title="' . esc_attr( sprintf(__( 'View all posts filed under %s' ), $cat_name) ) . '"';
+//    else
+//      $link .= 'title="' . esc_attr( strip_tags( apply_filters( 'category_description', $category->description, $category ) ) ) . '"';
+      $link .= '>';
+      $link .= $cat_name . '</a>';
+    
+    if ( !empty($show_count) )
+      $link .= ' (' . intval($category->count) . ')';
+    
+      if ( 'list' == $args['style'] ) {
+        $output .= "\t<li";
+        $class = 'cat-item cat-item-' . $category->term_id;
+        
+        $termchildren = get_term_children( $category->term_id, $category->taxonomy );
+        if(count($termchildren)>0){
+          $class .=  ' i-have-kids';
+        }
+        
+        if ( !empty($current_category) ) {
+          $_current_category = get_term( $current_category, $category->taxonomy );
+          if ( $category->term_id == $current_category )
+            $class .=  ' current-cat';
+          elseif ( $category->term_id == $_current_category->parent )
+            $class .=  ' current-cat-parent';
+        }
+        
+        $output .=  ' class="' . $class . '"';
+        $output .= ">$link\n";
+      }
+      else {
+        $output .= "\t$link<br />\n";
+      }
+  }
+}
 //========================================================================================================
 
 class rhswp_custom_walker_for_sitemap extends Walker_Page {
@@ -1648,7 +1704,7 @@ function rhswp_append_site_logo() {
 
 //========================================================================================================
 
-function rhswp_show_customtax_terms( $taxonomy, $title = '', $dosection = true ) {
+function rhswp_show_customtax_terms( $taxonomy = 'category', $title = '', $dosection = true ) {
   $sectionstart = '<section>';
   $sectionend   = '</section>';
   
@@ -1670,8 +1726,9 @@ function rhswp_show_customtax_terms( $taxonomy, $title = '', $dosection = true )
       'hide_empty'            => true,      
       'ignore_custom_sort'    => TRUE,
       'echo'                  => 0,
-      'title_li'              => ''
-
+      'hierarchical'          => TRUE,
+      'title_li'              => '',
+      'walker'                => new rhswp_custom_walker_for_taxonomies()
     );
 
     $terms = wp_list_categories( $args );
@@ -1679,7 +1736,9 @@ function rhswp_show_customtax_terms( $taxonomy, $title = '', $dosection = true )
     if ( ! empty( $terms ) && ! is_wp_error( $terms ) ){
 
         echo $sectionstart;
-        echo '<h2>' . $title . '</h2>';
+        if ( $title ) {
+          echo '<h2>' . $title . '</h2>';
+        }
     
         echo '<ul class="' . strtolower($taxonomy) . '">';
         echo $terms;

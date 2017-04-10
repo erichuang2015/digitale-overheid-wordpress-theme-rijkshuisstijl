@@ -9,8 +9,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.8.40
- * @desc.   Search resultaten verbeterd: paginatitel
+ * @version 0.9.5
+ * @desc.   Bugfixes. Dossier-overzichtspagina.
  * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
@@ -29,7 +29,7 @@ function admin_dossiers_columns($theme_columns) {
     return $new_columns;
 }
  
-
+//========================================================================================================
 
 // Add to admin_init function   
 add_filter("manage_dossiers_custom_column", 'admin_manage_theme_columns_dossiers', 10, 3);

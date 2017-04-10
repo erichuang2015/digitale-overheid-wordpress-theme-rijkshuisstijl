@@ -7,8 +7,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.9.4
-// * @desc.   Sitemap-styling op smalle schermen aangepast.
+// * @version 0.9.5
+// * @desc.   Bugfixes. Dossier-overzichtspagina.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 // **
 
@@ -79,6 +79,84 @@
       }
     }
   }
+
+  @media only screen and (min-width: ( @break_fullwidth ) ) {
+    .flexbox {
+      .home,
+      .blog,
+      .archive {
+        .block {
+          article.post {
+            h3 {
+              min-height: 3.5rem;
+            }
+          }
+        }
+      }
+
+      .topicSearchWrapper {
+        width: 50%;
+        float: left;
+        padding-right: 1em;
+        h2 {
+          .visuallyhidden();
+        }
+      }
+      .topicSearchWrapper + .dossier_overzicht_filter_plus {
+        width: 50%;
+        float: left;
+        clear: right;
+        padding-lef: 1em;
+      }
+      
+      .page-template-page_showalldossiers {
+        .block {
+          article {
+            flex-basis: @flexbasis_threecols;
+            max-width: @flexbasis_threecols;
+
+            &:last-of-type {
+              max-width: @flexbasis_threecols;
+            }
+          }
+        }
+
+        div.dossier_overzicht_filter_as_list {
+
+          ul.links {
+            column-count: 4;
+          }
+          li {
+            width: 100%;
+            float: none;
+//            border: 1px solid red;
+            overflow: hidden;
+            a {
+              display: block;
+//              border: 1px solid green;
+            }
+          }
+          
+          li {
+
+            &:nth-child(odd) {
+              clear: none;
+            }            
+          }
+        }
+        div.dossier_overzicht_popular {
+          background: @grijs_2;
+          padding: 0 1em 1em 1em;
+
+          ul.links {
+            overflow: hidden;
+            margin: 1em 0;
+          }
+          
+        }        
+      }
+    }
+  }  
   
   .page-template-page_show-child-pages {
     .content {
@@ -95,6 +173,7 @@
 
   @media only screen and (min-width: ( @break_tablet ) ) {
     .error404,
+    .page-template-page_showalldossiers,
     .page-template-page_sitemap {
       ul, ol {
         margin-left: 1em;
@@ -119,11 +198,13 @@
   }
   @media only screen and (min-width: ( @break_fullwidth ) ) {
     .error404,
+    .page-template-page_showalldossiers,
     .page-template-page_sitemap {
       .category,
       .dossiers {
         li {
-          flex-basis: 25%;
+          flex-basis: @flexbasis_fourcols;
+          max-width: @flexbasis_fourcols;
         }
       }
     }

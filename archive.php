@@ -9,8 +9,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.7.14
- * @desc.   Contentblock kan dossiers tonen. Extra check op taxonomy contentblock toegevoegd.
+ * @version 0.9.5
+ * @desc.   Bugfixes. Dossier-overzichtspagina.
  * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
@@ -20,6 +20,9 @@
 add_action( 'genesis_after_loop', 'genesis_posts_nav', 3 );
 
 remove_action( 'genesis_after_endwhile', 'genesis_posts_nav' );
+
+//Removes Title and Description on Archive, Taxonomy, Category, Tag
+remove_action( 'genesis_before_loop', 'genesis_do_taxonomy_title_description', 15 );
 
 // add description
 add_action( 'genesis_before_loop', 'rhswp_add_taxonomy_description', 15 );
@@ -31,3 +34,6 @@ add_action( 'genesis_loop', 'rhswp_archive_custom_loop' );
 //========================================================================================================
 
 genesis();
+
+
+

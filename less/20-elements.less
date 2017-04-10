@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.9.2
-// * @desc.   Headers, menu.
+// * @version 0.9.5
+// * @desc.   Bugfixes. Dossier-overzichtspagina.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 // **
 
@@ -64,6 +64,7 @@
 
   
 
+  .block .info,
   .block .links,
   .sidebar .widget.page-links,
   .sidebar .context-info ul,
@@ -376,7 +377,7 @@
 
     .article-visual,
     .article-excerpt {
-      width: @flexbasis_fiftypct;
+      width: @flexbasis_twocols;
     }          
 
     .flexbox {
@@ -392,12 +393,12 @@
             }
           }
           .article-excerpt {
-            width: ~"calc(100% - @{flexbasis_fiftypct})";
+            width: ~"calc(100% - @{flexbasis_twocols})";
             padding: 1em;
           }      
         
           .article-visual {
-            width: @flexbasis_fiftypct;
+            width: @flexbasis_twocols;
             position: relative;
             
             img {
@@ -427,7 +428,7 @@
 
           article {
             padding: 0 1.5em 2px 2px;
-            flex-basis: @flexbasis_fiftypct;
+            flex-basis: @flexbasis_twocols;
   
             &.has-post-thumbnail {
               max-width: 100%;
@@ -438,7 +439,7 @@
               flex-basis: 100%;
             }
             &:last-of-type {
-              max-width: @flexbasis_fiftypct;
+              max-width: @flexbasis_twocols;
             }
 
             &.has-post-thumbnail:last-of-type {
@@ -477,18 +478,6 @@
           article.post {
             h3 {
               min-height: 3.5rem;
-            }
-          }
-        }
-      }
-
-      .page-template-page_showalldossiers {
-        .block {
-          article {
-            flex-basis: @flexbasis_third;
-
-            &:last-of-type {
-              max-width: @flexbasis_third;
             }
           }
         }

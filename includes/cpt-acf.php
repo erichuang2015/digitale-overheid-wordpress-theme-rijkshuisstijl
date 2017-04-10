@@ -11,8 +11,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.8.34
- * @desc.   Archive for newsletters, contactform7 validation
+ * @version 0.9.5
+ * @desc.   Bugfixes. Dossier-overzichtspagina.
  * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
@@ -786,7 +786,7 @@ if( function_exists('acf_add_local_field_group') ):
     	'fields' => array (
     		array (
     			'key' => 'field_58382ce90bcd4',
-    			'label' => 'Alle dossiers tonen?',
+    			'label' => 'Hoe wil je de dossiers tonen?',
     			'name' => 'dossier_overzicht_filter',
     			'type' => 'radio',
     			'instructions' => '',
@@ -798,14 +798,15 @@ if( function_exists('acf_add_local_field_group') ):
     				'id' => '',
     			),
     			'choices' => array (
-    				'dossier_overzicht_filter_ongefilterd' => 'Ja, toon alle dossiers',
-    				'dossier_overzicht_filter_only_filter' => 'Toon alleen de dossiers die hieronder geselecteerd zijn',
-    				'dossier_overzicht_filter_plus' => 'Toon de dossiers die hieronder geselecteerd zijn apart en som daarna de andere dossiers op',
+    				'dossier_overzicht_filter_uitgebreid' => 'Uitgebreid: toon alle dossiers en bijbehorende beschrijving',
+    				'dossier_overzicht_filter_as_list' => 'Kort: toon alle dossiers maar alleen de titel',
+    				'dossier_overzicht_filter_plus' => 'Extra: de dossiers die hieronder geselecteerd zijn apart en som daarna de andere dossiers op',
+    				'dossier_overzicht_filter_only_filter' => 'Filter: Toon alleen de dossiers die hieronder geselecteerd zijn',
     			),
     			'allow_null' => 0,
     			'other_choice' => 0,
     			'save_other_choice' => 0,
-    			'default_value' => 'dossier_overzicht_filter_ongefilterd',
+    			'default_value' => 'dossier_overzicht_filter_uitgebreid',
     			'layout' => 'vertical',
     			'return_format' => 'value',
     		),
@@ -821,8 +822,8 @@ if( function_exists('acf_add_local_field_group') ):
         			array (
         				array (
         					'field' => 'field_58382ce90bcd4',
-        					'operator' => '!=',
-      						'value' => 'dossier_overzicht_filter_ongefilterd',
+        					'operator' => '==',
+      						'value' => 'dossier_overzicht_filter_plus',
         				),
         			),
         		),
@@ -835,13 +836,20 @@ if( function_exists('acf_add_local_field_group') ):
           'instructions'   => __( 'De dossiers die je hier kiest worden bovenaan de pagina getoond met speciale layout.', 'wp-rijkshuisstijl' ),  			
     			'required' => 0,
     			'conditional_logic' => array (
-    				array (
-    					array (
-    						'field' => 'field_58382ce90bcd4',
-    						'operator' => '!=',
-    						'value' => 'dossier_overzicht_filter_ongefilterd',
-    					),
-    				),
+        			array (
+        				array (
+        					'field' => 'field_58382ce90bcd4',
+        					'operator' => '==',
+      						'value' => 'dossier_overzicht_filter_plus',
+        				),
+        			),
+        			array (
+        				array (
+        					'field' => 'field_58382ce90bcd4',
+        					'operator' => '==',
+      						'value' => 'dossier_overzicht_filter_only_filter',
+        				),
+        			),
     			),
 
     			'wrapper' => array (
@@ -1170,13 +1178,6 @@ if( function_exists('acf_add_local_field_group') ):
     				'param' => 'post_type',
     				'operator' => '==',
     				'value' => 'page',
-    			),
-    		),
-    		array (
-    			array (
-    				'param' => 'taxonomy',
-    				'operator' => '==',
-    				'value' => 'dossiers',
     			),
     		),
     	),
@@ -1622,6 +1623,55 @@ if( function_exists('acf_add_local_field_group') ):
   ));
 
 
+
+endif;
+
+//========================================================================================================
+
+if( function_exists('acf_add_local_field_group') ):
+  
+  acf_add_local_field_group(array (
+  	'key' => 'group_58da405ecc1c5',
+  	'title' => ' Korte beschrijving',
+  	'fields' => array (
+  		array (
+  			'default_value' => '',
+  			'maxlength' => '',
+  			'placeholder' => '',
+  			'prepend' => '',
+  			'append' => '',
+  			'key' => 'field_58da406ee63df',
+  			'label' => 'Korte beschrijving voor dossieroverzicht',
+  			'name' => 'dossier_korte_beschrijving_voor_dossieroverzicht',
+  			'type' => 'text',
+  			'instructions' => '',
+  			'required' => 0,
+  			'conditional_logic' => 0,
+  			'wrapper' => array (
+  				'width' => '',
+  				'class' => '',
+  				'id' => '',
+  			),
+  		),
+  	),
+  	'location' => array (
+  		array (
+  			array (
+  				'param' => 'taxonomy',
+  				'operator' => '==',
+  				'value' => RHSWP_CT_DOSSIER,
+  			),
+  		),
+  	),
+  	'menu_order' => 0,
+  	'position' => 'acf_after_title',
+  	'style' => 'default',
+  	'label_placement' => 'top',
+  	'instruction_placement' => 'label',
+  	'hide_on_screen' => '',
+  	'active' => 1,
+  	'description' => '',
+  ));
 
 endif;
 
