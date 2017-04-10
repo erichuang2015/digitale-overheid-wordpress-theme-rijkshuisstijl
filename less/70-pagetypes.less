@@ -7,8 +7,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.9.4
-// * @desc.   Sitemap-styling op smalle schermen aangepast.
+// * @version 0.9.5
+// * @desc.   Bugfixes. Dossier-overzichtspagina.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 // **
 
@@ -129,11 +129,11 @@
           li {
             width: 100%;
             float: none;
-            border: 1px solid red;
+//            border: 1px solid red;
             overflow: hidden;
             a {
               display: block;
-              border: 1px solid green;
+//              border: 1px solid green;
             }
           }
           
@@ -173,6 +173,7 @@
 
   @media only screen and (min-width: ( @break_tablet ) ) {
     .error404,
+    .page-template-page_showalldossiers,
     .page-template-page_sitemap {
       ul, ol {
         margin-left: 1em;
@@ -197,6 +198,7 @@
   }
   @media only screen and (min-width: ( @break_fullwidth ) ) {
     .error404,
+    .page-template-page_showalldossiers,
     .page-template-page_sitemap {
       .category,
       .dossiers {

@@ -11,8 +11,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.8.34
- * @desc.   Archive for newsletters, contactform7 validation
+ * @version 0.9.5
+ * @desc.   Bugfixes. Dossier-overzichtspagina.
  * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
@@ -836,13 +836,20 @@ if( function_exists('acf_add_local_field_group') ):
           'instructions'   => __( 'De dossiers die je hier kiest worden bovenaan de pagina getoond met speciale layout.', 'wp-rijkshuisstijl' ),  			
     			'required' => 0,
     			'conditional_logic' => array (
-    				array (
-    					array (
-    						'field' => 'field_58382ce90bcd4',
-    						'operator' => '!=',
-    						'value' => 'dossier_overzicht_filter_uitgebreid',
-    					),
-    				),
+        			array (
+        				array (
+        					'field' => 'field_58382ce90bcd4',
+        					'operator' => '==',
+      						'value' => 'dossier_overzicht_filter_plus',
+        				),
+        			),
+        			array (
+        				array (
+        					'field' => 'field_58382ce90bcd4',
+        					'operator' => '==',
+      						'value' => 'dossier_overzicht_filter_only_filter',
+        				),
+        			),
     			),
 
     			'wrapper' => array (

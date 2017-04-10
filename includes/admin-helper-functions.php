@@ -9,8 +9,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.8.40
- * @desc.   Search resultaten verbeterd: paginatitel
+ * @version 0.9.5
+ * @desc.   Bugfixes. Dossier-overzichtspagina.
  * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
@@ -29,24 +29,6 @@ function admin_dossiers_columns($theme_columns) {
     return $new_columns;
 }
  
-//========================================================================================================
-
-/**
- * Remove the term meta added by the Genesis Framework.
- * 
- * @author Joshua David Nelson, josh@joshuadnelson.com
- */
-add_action( 'admin_init', 'rhswp_genesis_term_meta', 11 ); // hook in after genesis adds the tax meta
-
-function rhswp_genesis_term_meta() {
-
-  $taxonomy = RHSWP_CT_DOSSIER; // change this to your custom taxonomy
-  remove_action( "{$taxonomy}_edit_form", 'genesis_taxonomy_archive_options', 10 );
-  remove_action( "{$taxonomy}_edit_form", 'genesis_taxonomy_seo_options', 10 );
-  remove_action( "{$taxonomy}_edit_form", 'genesis_taxonomy_layout_options', 10 );
-
-}
-
 //========================================================================================================
 
 // Add to admin_init function   

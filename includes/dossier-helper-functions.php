@@ -10,8 +10,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.8.33
- * @desc.   Search results for releasekalender items
+ * @version 0.9.5
+ * @desc.   Bugfixes. Dossier-overzichtspagina.
  * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
@@ -71,8 +71,8 @@ function rhswp_dossier_title_checker( ) {
         $args['markerforclickableactivepage'] = $contextpageID;
   
         if ($terms && ! is_wp_error( $terms ) ) { 
-          $term             = array_pop($terms);
-          $standaardpaginanaam =  $term->name;       
+          $term                 = array_pop($terms);
+          $standaardpaginanaam  = $term->name;       
         }
   
       }
@@ -209,7 +209,7 @@ function rhswp_dossier_title_checker( ) {
 
         }
 
-        $value = get_term_meta( $term->term_id, 'headline', true );
+    		$value        =  wp_strip_all_tags( get_term_meta( $term->term_id, 'headline', true ) );
 
         // Use term name if empty
         if( empty( $value ) ) {
@@ -226,7 +226,12 @@ function rhswp_dossier_title_checker( ) {
             }
           }
           else {
-            $value = $term->name . ' - ' . $value;
+            if ( 'Array' !== $value ) {
+              $value = $term->name . ' - ' . $value;
+            }
+            else {
+              $value = $term->name;
+            }
           }
         }
 

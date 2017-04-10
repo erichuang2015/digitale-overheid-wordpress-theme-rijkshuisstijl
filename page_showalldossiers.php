@@ -9,8 +9,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.8.18
- * @desc.   Opmaak voor dossier overzicht aangepast
+ * @version 0.9.5
+ * @desc.   Bugfixes. Dossier-overzichtspagina.
  * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
@@ -65,7 +65,7 @@ function rhswp_show_all_dossiers() {
     'title_li'              => ''
   );
   
-	echo '<div class="topicSearchWrapper"><form tabindex="-1" id="rhswp-searchform" class="search-form" itemprop="potentialAction" itemscope="" itemtype="http://schema.org/SearchAction" method="get" action="/" role="search"><meta itemprop="target" content="/?s={s}"><label class="search-form-label screen-reader-text" for="searchform-58da65bb69ca2">Zoek een onderwerp</label><input itemprop="query-input" type="search" name="s" id="searchform-58da65bb69ca2" placeholder="Zoek een onderwerp"><input type="submit" value="Zoek"></form></div>';  
+//	echo '<div class="topicSearchWrapper"><form tabindex="-1" id="rhswp-searchform" class="search-form" itemprop="potentialAction" itemscope="" itemtype="http://schema.org/SearchAction" method="get" action="/" role="search"><meta itemprop="target" content="/?s={s}"><label class="search-form-label screen-reader-text" for="searchform-58da65bb69ca2">Zoek een onderwerp</label><input itemprop="query-input" type="search" name="s" id="searchform-58da65bb69ca2" placeholder="Zoek een onderwerp"><input type="submit" value="Zoek"></form></div>';  
 	  
 	
   if ( ( $grootte ) &&  ( ( 'dossier_overzicht_filter_plus' == $dossierfilter ) || ( 'dossier_overzicht_filter_only_filter' == $dossierfilter ) ) ) {
@@ -88,6 +88,7 @@ function rhswp_show_all_dossiers() {
 		  if ($terms && ! is_wp_error( $terms ) ) { 
 		
 	      echo '<div class="block no-top dossier_overzicht_popular ' . $dossierfilter . '">';
+	      
 	      echo '<h2>' . $title . '</h2>';
 	      echo '<ul class="links">';
 	  
@@ -95,9 +96,15 @@ function rhswp_show_all_dossiers() {
 	  
 	        $excerpt    = '';
 	        $classattr  = 'class="dossieroverzicht"';
+	        $title  		= $term->name;
 	        $href       = get_term_link( $term->term_id, RHSWP_CT_DOSSIER );
+
+					if ( isset( $term->meta['headline'] ) && $term->meta['headline'] ) {
+						$title .= ' (' . strip_tags( $term->meta['headline'] ) . ')';
+					}
+
 	        
-	        printf( '<li><a href="%s">%s</a>', $href, $term->name );
+	        printf( '<li><a href="%s">%s</a>', $href, $title );
 	
 	      }
 	
@@ -121,57 +128,70 @@ function rhswp_show_all_dossiers() {
 	  }
   }
 
-  $terms = get_terms( RHSWP_CT_DOSSIER, $args );
+	if ( 'dossier_overzicht_filter_as_list' == $dossierfilter ) {
+	  rhswp_show_customtax_terms( RHSWP_CT_DOSSIER, '', true );
+	}
+	else {
 
-	if ($terms && ! is_wp_error( $terms ) ) { 
-		
-    echo '<div class="block no-top ' . $dossierfilter . '">';
+	  $terms = get_terms( RHSWP_CT_DOSSIER, $args );
+	
+		if ($terms && ! is_wp_error( $terms ) ) { 
 
-	  if ( 'dossier_overzicht_filter_as_list' == $dossierfilter ) {
-			echo '<ul class="links">';
-	  }
-		
-		foreach ( $terms as $term ) {
-
-			$href       = get_term_link( $term->term_id, RHSWP_CT_DOSSIER );
-
-			if ( 'dossier_overzicht_filter_as_list' == $dossierfilter ) {
-				printf( '<li><a href="%s">%s</a></li>', $href, $term->name );
-			}
-			else {
+	    echo '<div class="block no-top ' . $dossierfilter . '">';
+	
+		  if ( 'dossier_overzicht_filter_as_list' == $dossierfilter ) {
+				echo '<ul class="links">';
+		  }
 			
-				$excerpt    	= '';
-				$classattr  	= 'class="dossieroverzicht"';
-				$kortebeschr	= get_field( 'dossier_korte_beschrijving_voor_dossieroverzicht', RHSWP_CT_DOSSIER . '_' . $term->term_id );
-				
+			foreach ( $terms as $term ) {
+	
+				$href       = get_term_link( $term->term_id, RHSWP_CT_DOSSIER );
+	      $title  		= $term->name;
+	  		$value      =  wp_strip_all_tags( get_term_meta( $term->term_id, 'headline', true ) );
+				$excerpt    = '';
 				if ( $kortebeschr ) {
 					$excerpt  =  wp_strip_all_tags( $kortebeschr );
 				}        
 				elseif ( $term->description ) {
 					$excerpt  =  wp_strip_all_tags( $term->description );
-					$excerptarr = explode( '.', $excerpt );
-					$excerpt = $excerptarr[0] . '.';
+	//				$excerptarr = explode( '.', $excerpt );
+	//				$excerpt = $excerptarr[0] . '.';
 				}
 				
+	
+				if ( isset( $value ) && $value ) {
+					$title .= ' - ' . strip_tags( $value );
+				}
+	
+				if ( 'dossier_overzicht_filter_as_list' == $dossierfilter ) {
+					printf( '<li><a href="%s" data-linkdescription="' . $excerpt . '">%s</a></li>', $href, $title );
+				}
+				else {
 				
-				printf( '<article %s>', $classattr );
-				printf( '<a href="%s"><h2>%s</h2><p>%s</p></a>', $href, $term->name, $excerpt );
-				echo '</article>';
+					$classattr  	= 'class="dossieroverzicht"';
+					$kortebeschr	= get_field( 'dossier_korte_beschrijving_voor_dossieroverzicht', RHSWP_CT_DOSSIER . '_' . $term->term_id );
+					
+					
+					printf( '<article %s>', $classattr );
+					printf( '<a href="%s"><h2>%s</h2><p>%s</p></a>', $href, $title, $excerpt );
+					echo '</article>';
+				
+				}			
+				
+			}
 			
-			}			
+		  if ( 'dossier_overzicht_filter_as_list' == $dossierfilter ) {
+				echo '</ul>';
+		  }
+	
+			echo '</div>';
 			
+			wp_reset_postdata();
+			
+	
 		}
-		
-	  if ( 'dossier_overzicht_filter_as_list' == $dossierfilter ) {
-			echo '</ul>';
-	  }
-
-		echo '</div>';
-		
-		wp_reset_postdata();
-		
-
 	}
+
 }
 
 
