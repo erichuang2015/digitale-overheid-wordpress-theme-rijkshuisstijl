@@ -130,7 +130,6 @@ function rhswp_dossier_title_checker( ) {
         $menu_voor_dossier        = get_field('menu_pages', $term );
 
         $itemsinmenu   = [];
-
 //        if ( $dossier_overzichtpagina ) {
         if ( is_object( $dossier_overzichtpagina ) ) {
               $itemsinmenu[] = $dossier_overzichtpagina->ID;
