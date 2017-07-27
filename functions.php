@@ -591,12 +591,12 @@ function rhswp_add_taxonomy_description() {
     }
     else {
       if ( $term->name ) {
-          $headline = sprintf( '<h1 class="archive-title">%s</h1>', $prefix . strip_tags( $term->name ) );
+          $headline = sprintf( '<h1 class="archive-title">%s</h1>', $prefix . strip_tags( strval( $term->name ) ) );
       }
       if ( isset( $term->meta['headline'] ) && $term->meta['headline'] ) {
 
           if ( 'Array' !== $term->meta['headline'] ) {
-            $headline = sprintf( '<h1 class="archive-title">%s</h1>', $prefix . strip_tags( $term->meta['headline'] ) );
+            $headline = sprintf( '<h1 class="archive-title">%s</h1>', $prefix . strip_tags( strval( $term->meta['headline'] ) ) );
           }
         
       }
@@ -1043,16 +1043,12 @@ class rhswp_custom_walker_for_taxonomies extends Walker_Category {
 		$value        =  wp_strip_all_tags( get_term_meta( $category->term_id, 'headline', true ) );
 
 		if ( $value ) {
-			$cat_name .= ' (' . strip_tags( $value ) . ')';
+			$cat_name .= ' (' . strip_tags( strval( $value ) ) . ')';
 		}
 
 //    $cat_name = apply_filters( 'list_cats', $cat_name, $category );
 
     $link = '<a href="' . esc_url( get_term_link($category) ) . '" ';
-//    if ( $use_desc_for_title == 0 || empty($category->description) )
-//      $link .= 'title="' . esc_attr( sprintf(__( 'View all posts filed under %s' ), $cat_name) ) . '"';
-//    else
-//      $link .= 'title="' . esc_attr( strip_tags( apply_filters( 'category_description', $category->description, $category ) ) ) . '"';
       $link .= '>';
       $link .= $cat_name . '</a>';
     
@@ -3011,7 +3007,7 @@ function rhswp_add_blog_archive_css() {
 
   global $imgbreakpoints;
 
-
+  
   $blogberichten_css   = '';
   $countertje   = 0;
 
