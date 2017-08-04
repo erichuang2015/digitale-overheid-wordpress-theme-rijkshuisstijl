@@ -722,7 +722,7 @@ if( function_exists('register_field_group') ):
   			'name' => 'alternatieve_paginatitel',
   			'type' => 'text',
   			'instructions'   => '',
-  			'required' => 1,
+  			'required' => 0,
   			'conditional_logic' => array (
   				array (
   					array (
@@ -1146,7 +1146,7 @@ if( function_exists('acf_add_local_field_group') ):
     			'name' => 'kies_carrousel',
     			'type' => 'post_object',
     			'instructions' => '',
-    			'required' => 1,
+    			'required' => 0,
     			'conditional_logic' => array (
     				array (
     					array (
