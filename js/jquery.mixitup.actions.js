@@ -100,6 +100,7 @@ var rhswp_mixitupfilter = {
       self.$filterUi.find('input[type="search"]').val( cookieFilterKeyword );
     }
 
+    self.parseFilters();
 
   },
 
@@ -338,10 +339,40 @@ console.log('wel keyword: ' + this.value + " / " + searchTerm );
     
     if ( !self.outputString.length && (self.outputString = 'all') ) {
   		self.$resetbutton.hide();
+      jQuery('#mixitupfilterlist').removeClass('filtered');
+      jQuery('#mixitupfilterlist').addClass('unfiltered');
     }
     else {
   		self.$resetbutton.show();
+      jQuery('#mixitupfilterlist').removeClass('unfiltered');
+      jQuery('#mixitupfilterlist').addClass('filtered');
+
+
+var $active = jQuery('#mixitupfilterlist li[style*="inline-block"]');
+
+var theRun = 0;
+
+$active.each(function() {
+    //Do stuff
+    theRun++;
+
+  jQuery(this).parent().parent().addClass('lala');
+  jQuery(this).parent().parent().addClass('lala-' + theRun);
+
+var thelink =  jQuery(this).find('a');
+  
+console.log( theRun + ' / ' + thelink.text() + ' - style: ' + jQuery(this).attr('style') );
+  
+//  jQuery(this).closest('li.i-have-kids').addClass('poep');  
+//  jQuery(this).closest('li.i-have-kids').addClass('poep-' + theRun);  
+  
+  
+});
+
+       
     }
+
+
 
 
     // If the output string is empty, show all rather than none:
@@ -373,25 +404,45 @@ jQuery(function(){
       enable: false // we won't be needing these
     },
     selectors: {
-//      target: '[data-mixible]'
-      target: '.filterbaardinges'
+      target: '.cat-item'
+//      target: '.filterbaardinges'
     },
     animation: {
       duration: 1,
-      effects: 'none',
+      effects: 'translateZ(-360px) stagger(1ms) fade',
+      easing: 'ease'
     },
     callbacks: {
       onMixStart: function(state, futureState){
-        jQuery('.filtercounter').text('');
-        jQuery('.filtertotal').text('');
+        jQuery('#h-result').text('Onderwerpen');
         jQuery('.reset').hide();
         rhswp_mixitupfilter.checkSavedSelection();
       },
       onMixEnd: function(state){
+
+        var cookieFilterKeyword  = readCookie('do_filter_keyword');
+        if (  !cookieFilterKeyword ) {
+           // no cookie     
+          cookieFilterKeyword = '';
+        }
+        else {
+          cookieFilterKeyword = ' voor \'' + cookieFilterKeyword + '\'';
+        }
         
         if ( state.totalShow !== state.totalTargets ) {
-          jQuery('.filtercounter').text(theLabelTekst + ' ' + state.totalShow + ' van ' + state.totalTargets);
+
+          if ( state.totalShow < 1 ) {
+            jQuery('#h-result').text( 'Niets gevonden' + cookieFilterKeyword);
+          }
+          else if( state.totalShow < 2 ) {
+            jQuery('#h-result').text( state.totalShow + ' onderwerp gevonden' + cookieFilterKeyword);
+          }
+          else {
+            jQuery('#h-result').text( state.totalShow + ' onderwerpen gevonden' + cookieFilterKeyword);
+          }
           jQuery('.reset').show();
+        }
+        else {
         }
       }	
     }
