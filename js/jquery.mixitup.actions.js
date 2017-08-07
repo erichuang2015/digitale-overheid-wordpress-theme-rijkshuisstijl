@@ -262,8 +262,6 @@ var rhswp_mixitupfilter = {
 
           group.active[0] = '[data-titel*="' + searchTerm + '"]'; 
 
-console.log('wel keyword: ' + this.value + " / " + searchTerm );
-
         }
         else {
           eraseCookie(self.$cookieFilterKeyword);
@@ -346,34 +344,7 @@ console.log('wel keyword: ' + this.value + " / " + searchTerm );
   		self.$resetbutton.show();
       jQuery('#mixitupfilterlist').removeClass('unfiltered');
       jQuery('#mixitupfilterlist').addClass('filtered');
-
-
-var $active = jQuery('#mixitupfilterlist li[style*="inline-block"]');
-
-var theRun = 0;
-
-$active.each(function() {
-    //Do stuff
-    theRun++;
-
-  jQuery(this).parent().parent().addClass('lala');
-  jQuery(this).parent().parent().addClass('lala-' + theRun);
-
-var thelink =  jQuery(this).find('a');
-  
-console.log( theRun + ' / ' + thelink.text() + ' - style: ' + jQuery(this).attr('style') );
-  
-//  jQuery(this).closest('li.i-have-kids').addClass('poep');  
-//  jQuery(this).closest('li.i-have-kids').addClass('poep-' + theRun);  
-  
-  
-});
-
-       
     }
-
-
-
 
     // If the output string is empty, show all rather than none:
     // ^ we can check the console here to take a look at the filter string that is produced
@@ -416,7 +387,7 @@ jQuery(function(){
       onMixStart: function(state, futureState){
         jQuery('#h-result').text('Onderwerpen');
         jQuery('.reset').hide();
-        rhswp_mixitupfilter.checkSavedSelection();
+//        rhswp_mixitupfilter.checkSavedSelection();
       },
       onMixEnd: function(state){
 
