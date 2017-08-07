@@ -95,20 +95,139 @@
       }
 
       #cardflex_tab1 {
-        border: 10px solid red; 
         overflow: hidden;
-
-        .filterbaardinges {
-        }
-        [data-bound] {
-          border: 3px solid red;
-          display: none;
-        }
       }
       
       #filterselector {
         overflow: hidden;
         margin-bottom: 1em;
+      }
+      #mixitupfilterlist {
+        
+        &.unfiltered {
+
+          display: flex;
+          flex-flow: row wrap;
+          justify-content: flex-start;
+
+          li {
+      	    flex-grow: 1;
+            float: left;
+            flex-basis: @flexbasis_fourcols;
+            max-width: @flexbasis_fourcols;
+            overflow: hidden;
+            
+            span {
+              .visuallyhidden();
+            }
+            
+            a, & {
+              line-height: 1.2;
+            }
+            
+            a {
+              text-decoration: none;
+              display: inline-block;
+              overflow: hidden;
+              margin-top: .2em;
+              margin-right: .2em;
+              
+              &:focus,
+              &:active,
+              &:hover {
+                text-decoration: underline;
+              }
+            }
+  
+            &.i-have-kids {
+              width: 100%;
+              max-width: 100%;
+              clear: both;
+              flex-basis: 100%;
+              padding-left: 0;
+              padding-right: 0;
+              margin-bottom: 1em;
+              border-bottom: 1px solid @grijs;
+              
+              &:before {
+                content: '';
+                width: 0;
+              }
+
+              a {
+                font-family: @fontstrong;            
+              }
+
+              ul.children {
+              
+                display: flex;
+                flex-flow: row wrap;
+                justify-content: flex-start;
+
+                a {
+                  font-family: @bodyfont;
+                }
+                
+                li {
+                  flex-grow: 1;
+                  float: left;
+                  flex-basis: @flexbasis_fourcols;
+                  max-width: @flexbasis_fourcols;
+                  overflow: hidden;
+                }              
+              }
+    
+              .i-have-kids {
+                width: 100%;
+                max-width: 100%;
+                clear: both;
+                flex-basis: 100%;
+                border-bottom-style: none;
+                padding-top: 0;
+                margin-top: 0;
+              }          
+            }          
+          }
+        }
+        &.filtered {
+
+            .poep {
+              border: 10px solid red !important;
+              overflow: hidden;
+            }
+            .lala {
+              border: 10px solid green !important;
+              overflow: hidden;
+            }
+          
+          li {
+
+            
+            &[data-bound] {
+              display: none;
+            }
+            &[style="display: inline-block;"], 
+            &.i-have-kids[data-bound] {
+              display: inline-block;
+              li {
+                display: inline-block;
+  
+                &[data-bound] {
+                  display: none;
+                }
+              }
+            }
+            span {
+              .visuallyvisual();
+              display: block;
+              clear: both;
+              padding: 0 !important;
+            }
+          }
+        }
+        
+
+
       }
 
       .topicSearchWrapper {
