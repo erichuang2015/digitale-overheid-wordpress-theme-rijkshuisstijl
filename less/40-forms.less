@@ -222,12 +222,21 @@
       color: @wit;
     }
     
+@search_submit_width: 42px;
+
+    input[itemprop="query-input"] {
+      width: ~"calc(100% - @{search_submit_width})";
+      float: left;
+    }
+    
+    
     #searchbutton {
       background-size: 15px 16px;
       background-position: center center;
       background-repeat: no-repeat;
       text-indent: -9999em;
-      width: 41px;
+      width: @search_submit_width;
+      float: right;
     }
     #filter {
       background-image: none;
