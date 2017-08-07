@@ -199,6 +199,7 @@
       padding-left: 5px;
     }
 
+    button,
     input[type="submit"] {
       background-color: @communicatiekleur_vol;
       .iconaddfill('../images/svg/looking-glass.svg', @wit);
@@ -212,9 +213,26 @@
       .iconaddfill('../images/svg/looking-glass.svg', @txt);
       }
     }
-    
   }
 
+  #rhswp-searchform-onderwerpen {
+    background: @communicatiekleur_vol;
+    
+    label {
+      color: @wit;
+    }
+    
+    #searchbutton {
+      background-size: 15px 16px;
+      background-position: center center;
+      background-repeat: no-repeat;
+      text-indent: -9999em;
+      width: 41px;
+    }
+    #filter {
+      background-image: none;
+    }
+  }
 
   .screen-reader-response {
   	position: absolute;

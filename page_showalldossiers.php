@@ -37,18 +37,27 @@ if ( rhswp_extra_contentblokken_checker() ) {
 
 genesis();
 
+//========================================================================================================
+
 function rhswp_show_all_dossiers() {
-  global $post;
+  
 
+$timestamp = time();  
 
-  $title          = '';
-  $dossierfilter  = '';
-  $grootte        = '';
+  wp_enqueue_script( 'mixitup', RHSWP_THEMEFOLDER . '/js/jquery.mixitup.js', array( 'jquery' ), '', true );
+  wp_enqueue_script( 'mixitupactions', RHSWP_THEMEFOLDER . '/js/jquery.mixitup.actions.js', array( 'jquery' ), $timestamp, true );
+
+  
+  global $post; 
+
+  $title            = '';
+  $dossierfilter    = '';
+  $featonderwerpen  = '';
 
   if ( function_exists( 'get_field' ) ) {
-	  $title          = get_field('dossier_overzicht_filter_title', $post->ID );
-	  $dossierfilter  = get_field('dossier_overzicht_filter', $post->ID );
-	  $grootte        = get_field('uitgelichte_dossiers', $post->ID );
+	  $title            = get_field('dossier_overzicht_filter_title', $post->ID );
+	  $dossierfilter    = get_field('dossier_overzicht_filter', $post->ID );
+	  $featonderwerpen  = get_field('uitgelichte_dossiers', $post->ID );
   }
 
 // 1 toon alles
@@ -65,17 +74,35 @@ function rhswp_show_all_dossiers() {
     'title_li'              => ''
   );
   
-//	echo '<div class="topicSearchWrapper"><form tabindex="-1" id="rhswp-searchform" class="search-form" itemprop="potentialAction" itemscope="" itemtype="http://schema.org/SearchAction" method="get" action="/" role="search"><meta itemprop="target" content="/?s={s}"><label class="search-form-label screen-reader-text" for="searchform-58da65bb69ca2">Zoek een onderwerp</label><input itemprop="query-input" type="search" name="s" id="searchform-58da65bb69ca2" placeholder="Zoek een onderwerp"><input type="submit" value="Zoek"></form></div>';  
+
+  
+	echo '<div id="cardflex_tab1">';
+	echo '<div id="filterselector">';
+//	echo '<div class="topicSearchWrapper"><form tabindex="-1" id="rhswp-searchform-onderwerpen" class="search-form" itemprop="potentialAction" itemscope="" itemtype="http://schema.org/SearchAction" method="get" action="/" role="search"><meta itemprop="target" content="/?s={s}"><label class="" for="searchform-58da65bb69ca2">Zoek een onderwerp over</label><input itemprop="query-input" type="search" name="s" placeholder="onderwerp"><button type="submit">Joehoe</button></form></div>';  
+
+	echo '<div class="topicSearchWrapper"><form method="get" action="' . $_SERVER['REQUEST_URI'] . '" id="rhswp-searchform-onderwerpen" class="search-form filter-options">
+    <fieldset class="filter-group searchkeyword">
+      <label class="search-form-label screen-reader-text" for="filtertrefwoord">Filter op trefwoord</label>
+      <div id="filter_group_search_form_bg">
+        <input type="search" id="filtertrefwoord" name="filtertrefwoord" placeholder="Filter op trefwoord" value="">
+      </div>
+      <button type="submit" id="searchbutton">Filter</button>
+    </fieldset>
+  <button id="filter" name="selectie" value="wis" type="submit" class="reset">Herstel filter</button>
+</form></div>';  
+	
+
+
 	  
 	
-  if ( ( $grootte ) &&  ( ( 'dossier_overzicht_filter_as_list_plus' == $dossierfilter ) || ( 'dossier_overzicht_filter_uitgebreid_plus' == $dossierfilter ) ) ) {
+  if ( ( $featonderwerpen ) &&  ( ( 'dossier_overzicht_filter_as_list_plus' == $dossierfilter ) || ( 'dossier_overzicht_filter_uitgebreid_plus' == $dossierfilter ) ) ) {
 
 	  if ( 'dossier_overzicht_filter_as_list_plus' == $dossierfilter ) {
 
 	    $args_filter = array(
 	      'taxonomy'              => RHSWP_CT_DOSSIER,
 	      'hide_empty'            => false,
-	      'include'               => $grootte,
+	      'include'               => $featonderwerpen,
 	      'orderby'               => 'name',
 	      'order'                 => 'ASC',
 	      'ignore_custom_sort'    => TRUE,
@@ -95,7 +122,7 @@ function rhswp_show_all_dossiers() {
 	      foreach ( $terms as $term ) {
 	  
 	        $excerpt    = '';
-	        $classattr  = 'class="dossieroverzicht"';
+	        $classattr  = 'class="filterbaardinges"';
 	        $title  		= $term->name;
 	        $href       = get_term_link( $term->term_id, RHSWP_CT_DOSSIER );
 
@@ -118,7 +145,7 @@ function rhswp_show_all_dossiers() {
 	    $args = array(
 	      'taxonomy'              => RHSWP_CT_DOSSIER,
 	      'hide_empty'            => false,
-	      'include'               => $grootte,
+	      'include'               => $featonderwerpen,
 	      'orderby'               => 'name',
 	      'order'                 => 'ASC',
 	      'ignore_custom_sort'    => TRUE,
@@ -128,16 +155,22 @@ function rhswp_show_all_dossiers() {
 	  }
   }
 
-	if ( 'dossier_overzicht_filter_as_list' == $dossierfilter ) {
-	  rhswp_show_customtax_terms( RHSWP_CT_DOSSIER, '', true );
-	}
-	else {
+  echo '<h2>filtercounter</h2>';
+  echo '<p>filtercounter: <span class="filtercounter">filtercounter</span></p>';
+  echo '<p>filtertotal: <span class="filtertotal">filtertotal</span></p>';
+	echo '</div>'; // id="filterselector";
+
+//	if ( ( 'dossier_overzicht_filter_as_list' == $dossierfilter ) || ( 'dossier_overzicht_filter_as_list_plus' == $dossierfilter ) ) {
+//	  rhswp_show_customtax_terms( RHSWP_CT_DOSSIER, '', false, 'borderred', 'mixitupfilterlist' );
+//	}
+//	else {
 
 	  $terms = get_terms( RHSWP_CT_DOSSIER, $args );
 	
 		if ($terms && ! is_wp_error( $terms ) ) { 
 
-	    echo '<div class="block no-top ' . $dossierfilter . '">';
+//	    echo '<div class="block no-top ' . $dossierfilter . '" id="mixitupfilterlist">';
+	    echo '<div class="' . $dossierfilter . '" id="mixitupfilterlist">';
 	
 		  if ( 'dossier_overzicht_filter_as_list' == $dossierfilter ) {
 				echo '<ul class="links">';
@@ -170,13 +203,15 @@ function rhswp_show_all_dossiers() {
 				}
 				else {
 				
-					$classattr  	= 'class="dossieroverzicht"';
+					$classattr  	= 'class="filterbaardinges"';
+//					$classattr  	.= ' data-mixible data-titel="' . strtolower( $title ) . strtolower( $excerpt ) .  '"';
+					$classattr  	.= ' data-mixible data-titel="' . strtolower( $title ) . '"';
 					$kortebeschr	= get_field( 'dossier_korte_beschrijving_voor_dossieroverzicht', RHSWP_CT_DOSSIER . '_' . $term->term_id );
 					
 					
-					printf( '<article %s>', $classattr );
-					printf( '<a href="%s"><h2>%s</h2><p>%s</p></a>', $href, $title, $excerpt );
-					echo '</article>';
+					printf( '<div %s>', $classattr );
+					printf( '<a href="%s"><h2>%s</h2></a>', $href, $title );
+					echo '</div>';
 				
 				}			
 
@@ -192,8 +227,12 @@ function rhswp_show_all_dossiers() {
 			
 	
 		}
-	}
+//	}
 
+	echo '</div>'; // id="cardflex_tab1";
+	
 }
+
+//========================================================================================================
 
 

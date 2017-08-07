@@ -94,6 +94,23 @@
         }
       }
 
+      #cardflex_tab1 {
+        border: 10px solid red; 
+        overflow: hidden;
+
+        .filterbaardinges {
+        }
+        [data-bound] {
+          border: 3px solid red;
+          display: none;
+        }
+      }
+      
+      #filterselector {
+        overflow: hidden;
+        margin-bottom: 1em;
+      }
+
       .topicSearchWrapper {
         width: 50%;
         float: left;
@@ -102,7 +119,7 @@
           .visuallyhidden();
         }
       }
-      .topicSearchWrapper + .dossier_overzicht_filter_plus {
+      .topicSearchWrapper + .dossier_overzicht_filter_as_list_plus {
         width: 50%;
         float: left;
         clear: right;
@@ -172,7 +189,7 @@
   }
 
   .error404,
-  .page-template-page_showalldossiers,
+//  .page-template-page_showalldossiers,
   .page-template-page_sitemap {
     .site-inner {
       ul, ol {
@@ -188,37 +205,35 @@
   }
 
   @media only screen and (min-width: ( @break_tablet ) ) {
-    .error404,
-    .page-template-page_showalldossiers,
-    .page-template-page_sitemap {
-      .site-inner {
-        ul, ol {
+    .error404 .site-inner,
+//    .page-template-page_showalldossiers,
+    .page-template-page_sitemap .site-inner {
+      ul, ol {
 
-          li {
-            margin-bottom: 0;
-            
-            a {
-              text-decoration: none;
-              &:hover,
-              &:focus,
-              &:active {
-                text-decoration: underline;
-              }
+        li {
+          margin-bottom: 0;
+          
+          a {
+            text-decoration: none;
+            &:hover,
+            &:focus,
+            &:active {
+              text-decoration: underline;
             }
           }
-          ul, ol {
-            margin-top: 0;
-          }
         }
-        .category,
-        .dossiers {
-          display: flex;
-          flex-wrap: wrap;
-          li {
-            flex-basis: 50%;
-            padding-right: 1em;
-            padding-bottom: .5em;
-          }
+        ul, ol {
+          margin-top: 0;
+        }
+      }
+      .category,
+      .dossiers {
+        display: flex;
+        flex-wrap: wrap;
+        li {
+          flex-basis: 50%;
+          padding-right: 1em;
+          padding-bottom: .5em;
         }
       }
     }
@@ -227,7 +242,7 @@
   
   @media only screen and (min-width: ( @break_fullwidth ) ) {
     .error404,
-    .page-template-page_showalldossiers,
+//    .page-template-page_showalldossiers,
     .page-template-page_sitemap {
       .category,
       .dossiers {

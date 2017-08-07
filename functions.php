@@ -34,7 +34,7 @@ else {
   define( 'DO_MINIFY_JS',                   true );
 }
 
-define( 'ID_ZOEKEN',                        'rhswp-searchform' );
+define( 'ID_ZOEKEN',                        'rhswp-searchform-nav-primary' );
 define( 'GC_TWITTERACCOUNT',                'digioverheid' );
 define( 'SOC_MED_NO',                       'socmed_nee' );
 define( 'SOC_MED_YES',                      'socmed_ja' );
@@ -236,6 +236,24 @@ add_action( 'genesis_loop', 'rhswp_add_title_to_blog_page', 1 );
 // ** Prevent Genesis Accessible from hooking
 
 remove_action ( 'genesis_before_header', 'genwpacc_skip_links' );
+
+//========================================================================================================
+
+// add tag support to pages
+add_action('init', 'rhswp_page_tag_support');
+
+function rhswp_page_tag_support() {
+  register_taxonomy_for_object_type('post_tag', 'page');
+}
+
+//========================================================================================================
+
+// ensure all tags are included in queries
+add_action('pre_get_posts', 'rhswp_page_tag_support_query');
+
+function rhswp_page_tag_support_query($wp_query) {
+  if ($wp_query->get('tag')) $wp_query->set('post_type', 'any');
+}
 
 //========================================================================================================
 
@@ -1035,22 +1053,30 @@ function rhswp_get_sitemap_content() {
 //========================================================================================================
 
 class rhswp_custom_walker_for_taxonomies extends Walker_Category {
+  
   function start_el( &$output, $category, $depth = 0, $args = array(), $id = 0 ) {
 
     extract($args);
     
     $cat_name     = esc_attr( $category->name );
-		$value        =  wp_strip_all_tags( get_term_meta( $category->term_id, 'headline', true ) );
+//		$value        =  wp_strip_all_tags( get_term_meta( $category->term_id, 'headline', true ) );
 
-		if ( $value ) {
-			$cat_name .= ' (' . strip_tags( strval( $value ) ) . ')';
+		$headline   =  get_term_meta( $category->term_id, 'headline', true );
+
+    if ( isset( $headline[0] ) && ( strlen( $headline[0] ) > 0 ) ) {
+      if ( is_array( $headline ) ) {
+      	$headline = strval( $headline[0] );
+      }
+      else {
+      	$headline = strval( $headline );
+      }
+			$cat_name .= ' - ' . wp_strip_all_tags( $headline );
 		}
 
-//    $cat_name = apply_filters( 'list_cats', $cat_name, $category );
 
     $link = '<a href="' . esc_url( get_term_link($category) ) . '" ';
-      $link .= '>';
-      $link .= $cat_name . '</a>';
+    $link .= '>';
+    $link .= $cat_name . '</a>';
     
     if ( !empty($show_count) )
       $link .= ' (' . intval($category->count) . ')';
@@ -1073,6 +1099,7 @@ class rhswp_custom_walker_for_taxonomies extends Walker_Category {
         }
         
         $output .=  ' class="' . $class . '"';
+        $output .= ' data-mixible data-titel="' . strtolower( $cat_name ) . '"';
         $output .= ">$link\n";
       }
       else {
@@ -1701,9 +1728,23 @@ function rhswp_append_site_logo() {
 
 //========================================================================================================
 
-function rhswp_show_customtax_terms( $taxonomy = 'category', $title = '', $dosection = true ) {
+function rhswp_show_customtax_terms( $taxonomy = 'category', $title = '', $dosection = true, $cssclasses = '', $containerid = '' ) {
   $sectionstart = '<section>';
   $sectionend   = '</section>';
+  
+  if ( $cssclasses ) {
+    $cssclasses = ' class="' . strtolower($taxonomy) . ' ' . $cssclasses . '"';
+  }
+  else {
+    $cssclasses = ' class="' . strtolower($taxonomy) . '"';
+  }
+  
+  if ( $containerid ) {
+    $containerid = ' id="' . $containerid . '"';
+  }
+  else {
+    $containerid = '';
+  }
   
   if ( !$dosection ) {
     $sectionstart = '';
@@ -1723,7 +1764,8 @@ function rhswp_show_customtax_terms( $taxonomy = 'category', $title = '', $dosec
       'hide_empty'            => true,      
       'ignore_custom_sort'    => TRUE,
       'echo'                  => 0,
-      'hierarchical'          => TRUE,
+//      'hierarchical'          => TRUE,
+      'hierarchical'          => FALSE,
       'title_li'              => '',
       'walker'                => new rhswp_custom_walker_for_taxonomies()
     );
@@ -1737,7 +1779,7 @@ function rhswp_show_customtax_terms( $taxonomy = 'category', $title = '', $dosec
           echo '<h2>' . $title . '</h2>';
         }
     
-        echo '<ul class="' . strtolower($taxonomy) . '">';
+        echo '<ul' . $cssclasses . '' . $containerid . '>';
         echo $terms;
         echo '</ul>';
     

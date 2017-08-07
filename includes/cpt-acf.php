@@ -799,7 +799,7 @@ if( function_exists('acf_add_local_field_group') ):
     			),
     			'choices' => array (
     				'dossier_overzicht_filter_as_list' => '(dossier_overzicht_filter_as_list) Kort: toon alle dossiers maar alleen de titel',
-    				'dossier_overzicht_filter_as_list_plus' => '(dossier_overzicht_filter_as_list_plus) Kort: de dossiers die hieronder geselecteerd zijn apart en som daarna alle andere dossiers kort op',
+    				'dossier_overzicht_filter_as_list_plus' => '(dossier_overzicht_filter_as_list_plus) Kort: de dossiers die hieronder geselecteerd zijn apart en van alle dossiers maar alleen de titel',
     				'dossier_overzicht_filter_uitgebreid' => '(dossier_overzicht_filter_uitgebreid) Met beschrijving: toon alle dossiers en bijbehorende beschrijving',
     				'dossier_overzicht_filter_uitgebreid_plus' => '(dossier_overzicht_filter_uitgebreid_plus) Met beschrijving &amp; filter: Toon alleen de dossiers die hieronder geselecteerd zijn',
     			),
