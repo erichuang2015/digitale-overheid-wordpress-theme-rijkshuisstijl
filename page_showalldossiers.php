@@ -84,15 +84,13 @@ $timestamp = time();
     <fieldset class="filter-group searchkeyword">
       <label class="search-form-label screen-reader-text" for="filtertrefwoord">Filter op trefwoord</label>
       <div id="filter_group_search_form_bg">
-        <input type="search" id="filtertrefwoord" name="filtertrefwoord" placeholder="Filter op trefwoord" value="">
+        <input type="search" id="filtertrefwoord" name="filtertrefwoord" itemprop="query-input" placeholder="Filter op trefwoord" value="">
+        <button type="submit" id="searchbutton">Filter</button>
       </div>
-      <button type="submit" id="searchbutton">Filter</button>
     </fieldset>
   <button id="filter" name="selectie" value="wis" type="submit" class="reset">Herstel filter</button>
 </form></div>';  
 	
-
-
 	  
 	
   if ( ( $featonderwerpen ) &&  ( ( 'dossier_overzicht_filter_as_list_plus' == $dossierfilter ) || ( 'dossier_overzicht_filter_uitgebreid_plus' == $dossierfilter ) ) ) {
@@ -155,22 +153,20 @@ $timestamp = time();
 	  }
   }
 
-  echo '<h2>filtercounter</h2>';
-  echo '<p>filtercounter: <span class="filtercounter">filtercounter</span></p>';
-  echo '<p>filtertotal: <span class="filtertotal">filtertotal</span></p>';
+  echo '<h2 id="h-result">filtercounter</h2>';
 	echo '</div>'; // id="filterselector";
 
-//	if ( ( 'dossier_overzicht_filter_as_list' == $dossierfilter ) || ( 'dossier_overzicht_filter_as_list_plus' == $dossierfilter ) ) {
-//	  rhswp_show_customtax_terms( RHSWP_CT_DOSSIER, '', false, 'borderred', 'mixitupfilterlist' );
-//	}
-//	else {
+	if ( ( 'dossier_overzicht_filter_as_list' == $dossierfilter ) || ( 'dossier_overzicht_filter_as_list_plus' == $dossierfilter ) ) {
+	  rhswp_show_customtax_terms( RHSWP_CT_DOSSIER, '', false, 'unfiltered', 'mixitupfilterlist' );
+	}
+	else {
 
 	  $terms = get_terms( RHSWP_CT_DOSSIER, $args );
 	
 		if ($terms && ! is_wp_error( $terms ) ) { 
 
 //	    echo '<div class="block no-top ' . $dossierfilter . '" id="mixitupfilterlist">';
-	    echo '<div class="' . $dossierfilter . '" id="mixitupfilterlist">';
+	    echo '<div class="' . $dossierfilter . ' unfiltered" id="mixitupfilterlist">';
 	
 		  if ( 'dossier_overzicht_filter_as_list' == $dossierfilter ) {
 				echo '<ul class="links">';
@@ -204,8 +200,8 @@ $timestamp = time();
 				else {
 				
 					$classattr  	= 'class="filterbaardinges"';
-//					$classattr  	.= ' data-mixible data-titel="' . strtolower( $title ) . strtolower( $excerpt ) .  '"';
-					$classattr  	.= ' data-mixible data-titel="' . strtolower( $title ) . '"';
+					$classattr  	.= ' data-mixible data-titel="' . strtolower( $title ) . strtolower( $excerpt ) .  '"';
+//					$classattr  	.= ' data-mixible data-titel="' . strtolower( $title ) . '"';
 					$kortebeschr	= get_field( 'dossier_korte_beschrijving_voor_dossieroverzicht', RHSWP_CT_DOSSIER . '_' . $term->term_id );
 					
 					
@@ -227,7 +223,7 @@ $timestamp = time();
 			
 	
 		}
-//	}
+	}
 
 	echo '</div>'; // id="cardflex_tab1";
 	
