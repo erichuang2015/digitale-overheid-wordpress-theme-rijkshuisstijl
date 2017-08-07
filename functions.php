@@ -1059,6 +1059,7 @@ class rhswp_custom_walker_for_taxonomies extends Walker_Category {
     extract($args);
     
     $cat_name     = esc_attr( $category->name );
+    $excerpt      = esc_attr( wp_strip_all_tags( $category->description ) );
 //		$value        =  wp_strip_all_tags( get_term_meta( $category->term_id, 'headline', true ) );
 
 		$headline   =  get_term_meta( $category->term_id, 'headline', true );
@@ -1072,6 +1073,18 @@ class rhswp_custom_walker_for_taxonomies extends Walker_Category {
       }
 			$cat_name .= ' - ' . wp_strip_all_tags( $headline );
 		}
+
+    if ( $excerpt ) {
+
+      if ( is_array( $excerpt ) ) {
+      	$excerpt = strval( $excerpt[0] );
+      }
+      else {
+      	$excerpt = strval( $excerpt );
+      }
+      
+    	$excerpt  =  wp_strip_all_tags( $excerpt );
+    }
 
 
     $link = '<a href="' . esc_url( get_term_link($category) ) . '" ';
@@ -1099,8 +1112,11 @@ class rhswp_custom_walker_for_taxonomies extends Walker_Category {
         }
         
         $output .=  ' class="' . $class . '"';
-        $output .= ' data-mixible data-titel="' . strtolower( $cat_name ) . '"';
+//        $output .= ' data-mixible data-titel="' . strtolower( $cat_name ) . '"';
+        $output .= ' data-mixible data-titel="' . strtolower( $cat_name ) . ' ' . strtolower( $excerpt ) . '"';
         $output .= ">$link\n";
+        $output .= '<span class="excerpt">' . $excerpt . "</span>\n";
+        
       }
       else {
         $output .= "\t$link<br />\n";
@@ -1764,8 +1780,7 @@ function rhswp_show_customtax_terms( $taxonomy = 'category', $title = '', $dosec
       'hide_empty'            => true,      
       'ignore_custom_sort'    => TRUE,
       'echo'                  => 0,
-//      'hierarchical'          => TRUE,
-      'hierarchical'          => FALSE,
+      'hierarchical'          => TRUE,
       'title_li'              => '',
       'walker'                => new rhswp_custom_walker_for_taxonomies()
     );
