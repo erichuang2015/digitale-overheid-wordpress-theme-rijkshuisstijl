@@ -9,8 +9,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.9.6
- * @desc.   Filter op onderwerppagina.
+ * @version 0.9.7
+ * @desc.   Filter op onderwerppagina - bugfixes.
  * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
@@ -133,10 +133,11 @@ $timestamp = time();
       }
     }
 
-    echo '<h2 id="h-result">Onderwerpen</h2>';
   	echo '</div>'; // id="filterselector";
 
   }
+  
+  echo '<h2>' . _x( 'Alle onderwerpen', 'Tussenkop op onderwerppagina', 'wp-rijkshuisstijl' ) . '</h2>';
   
   $args = array(
     'taxonomy'              => RHSWP_CT_DOSSIER,

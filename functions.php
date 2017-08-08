@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.9.6
- * @desc.   Filter op onderwerppagina.
+ * @version 0.9.7
+ * @desc.   Filter op onderwerppagina - bugfixes.
  * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "https://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.9.6" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Filter op onderwerppagina." );
+define( 'CHILD_THEME_VERSION',              "0.9.7" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Filter op onderwerppagina - bugfixes." );
 define( 'SHOW_CSS_DEBUG',                   false );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
