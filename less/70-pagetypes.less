@@ -7,8 +7,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.9.5
-// * @desc.   Bugfixes. Dossier-overzichtspagina.
+// * @version 0.9.6
+// * @desc.   Filter op onderwerppagina.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 // **
 
@@ -104,13 +104,18 @@
       }
       #mixitupfilterlist {
         
+        li:before {
+          color: @a_color_default;
+          top: 12px;
+        }
+        
         &.unfiltered {
 
           display: flex;
           flex-flow: row wrap;
           justify-content: flex-start;
 
-          li {
+          li, div {
       	    flex-grow: 1;
             float: left;
             flex-basis: @flexbasis_fourcols;
@@ -122,7 +127,7 @@
             }
             
             a, & {
-              line-height: 1.2;
+              line-height: 1.4;
             }
             
             a {
@@ -131,6 +136,7 @@
               overflow: hidden;
               margin-top: .2em;
               margin-right: .2em;
+              padding-right: .75em;
               
               &:focus,
               &:active,
@@ -154,20 +160,12 @@
                 width: 0;
               }
 
-              a {
-                font-family: @fontstrong;            
-              }
-
               ul.children {
               
                 display: flex;
                 flex-flow: row wrap;
                 justify-content: flex-start;
 
-                a {
-                  font-family: @bodyfont;
-                }
-                
                 li {
                   flex-grow: 1;
                   float: left;
@@ -190,38 +188,25 @@
           }
         }
         &.filtered {
-
-            .poep {
-              border: 10px solid red !important;
-              overflow: hidden;
-            }
-            .lala {
-              border: 10px solid green !important;
-              overflow: hidden;
-            }
           
-          li {
+          li:before {
+            content: '';
+          }
 
-            
-            &[data-bound] {
-              display: none;
+
+          li,div {
+
+            &:not([style*="display: block"]) {
+              .visuallyhidden();
             }
-            &[style="display: inline-block;"], 
-            &.i-have-kids[data-bound] {
-              display: inline-block;
-              li {
-                display: inline-block;
-  
-                &[data-bound] {
-                  display: none;
-                }
-              }
-            }
-            span {
+            &[style*="display: block"] {
               .visuallyvisual();
-              display: block;
-              clear: both;
-              padding: 0 !important;
+              span {
+                .visuallyvisual();
+                display: block;
+                clear: both;
+                padding: 0 !important;
+              }
             }
           }
         }
@@ -265,11 +250,9 @@
           li {
             width: 100%;
             float: none;
-//            border: 1px solid red;
             overflow: hidden;
             a {
               display: block;
-//              border: 1px solid green;
             }
           }
           
@@ -286,7 +269,7 @@
 
           ul.links {
             overflow: hidden;
-            margin: 1em 0;
+            margin: 0 0;
           }
           
         }        

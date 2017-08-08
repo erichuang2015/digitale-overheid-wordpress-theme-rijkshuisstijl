@@ -9,8 +9,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.9.5
- * @desc.   Bugfixes. Dossier-overzichtspagina.
+ * @version 0.9.6
+ * @desc.   Filter op onderwerppagina.
  * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
@@ -44,10 +44,8 @@ function rhswp_show_all_dossiers() {
 
 $timestamp = time();  
 
-  wp_enqueue_script( 'mixitup', RHSWP_THEMEFOLDER . '/js/jquery.mixitup.js', array( 'jquery' ), '', true );
-  wp_enqueue_script( 'mixitupactions', RHSWP_THEMEFOLDER . '/js/jquery.mixitup.actions.js', array( 'jquery' ), $timestamp, true );
+  wp_enqueue_script( 'mixitupactions', RHSWP_THEMEFOLDER . '/js/min/filterpage-min.js', array( 'jquery' ), $timestamp, true );
 
-  
   global $post; 
 
   $title            = '';
@@ -74,158 +72,160 @@ $timestamp = time();
     'title_li'              => ''
   );
   
+  if ( 'dossier_overzicht_filter_as_list_plus' == $dossierfilter ) {
 
+  	echo '<div id="cardflex_tab1">';
+  	echo '<div id="filterselector">';
+  	echo '<div class="topicSearchWrapper"><form method="get" action="' . $_SERVER['REQUEST_URI'] . '" id="rhswp-searchform-onderwerpen" class="search-form filter-options">
+      <fieldset class="filter-group searchkeyword">
+        <label class="search-form-label screen-reader-text" for="filtertrefwoord">Filter op trefwoord</label>
+        <div id="filter_group_search_form_bg">
+          <input type="search" id="filtertrefwoord" name="filtertrefwoord" itemprop="query-input" placeholder="Filter op trefwoord" value="">
+          <button type="submit" id="searchbutton">Filter</button>
+        </div>
+      </fieldset>
+    <button id="filter" name="selectie" value="wis" type="submit" class="reset">' . _x( 'Toon alle onderwerpen', 'filterknop op onderwerppagina', 'wp-rijkshuisstijl' ) . '</button>
+  </form></div>';  
+	
+	  
+	
+    if ( $featonderwerpen ) {
   
-	echo '<div id="cardflex_tab1">';
-	echo '<div id="filterselector">';
-//	echo '<div class="topicSearchWrapper"><form tabindex="-1" id="rhswp-searchform-onderwerpen" class="search-form" itemprop="potentialAction" itemscope="" itemtype="http://schema.org/SearchAction" method="get" action="/" role="search"><meta itemprop="target" content="/?s={s}"><label class="" for="searchform-58da65bb69ca2">Zoek een onderwerp over</label><input itemprop="query-input" type="search" name="s" placeholder="onderwerp"><button type="submit">Joehoe</button></form></div>';  
+      $args_filter = array(
+        'taxonomy'              => RHSWP_CT_DOSSIER,
+        'hide_empty'            => false,
+        'include'               => $featonderwerpen,
+        'orderby'               => 'name',
+        'order'                 => 'ASC',
+        'ignore_custom_sort'    => TRUE,
+        'echo'                  => 0,
+        'title_li'              => ''
+      );
+  
+      $terms = get_terms( RHSWP_CT_DOSSIER, $args_filter );
+    
+      if ($terms && ! is_wp_error( $terms ) ) { 
+    
+        echo '<div class="block no-top dossier_overzicht_popular ' . $dossierfilter . '">';
+        
+        echo '<h2>' . $title . '</h2>';
+        echo '<ul class="links">';
+    
+        foreach ( $terms as $term ) {
+    
+          $excerpt    = '';
+          $classattr  = 'class="filterbaardinges"';
+          $title  		= $term->name;
+          $href       = get_term_link( $term->term_id, RHSWP_CT_DOSSIER );
+    
+    			if ( isset( $term->meta['headline'] ) && $term->meta['headline'] ) {
+    				$title .= ' (' . wp_strip_all_tags( strval( $term->meta['headline'] ) ) . ')';
+    			}
+    
+          
+          printf( '<li><a href="%s">%s</a>', $href, $title );
+    
+        }
+    
+        echo '</ul>';
+        echo '</div>';
+        
+      }
+    }
 
-	echo '<div class="topicSearchWrapper"><form method="get" action="' . $_SERVER['REQUEST_URI'] . '" id="rhswp-searchform-onderwerpen" class="search-form filter-options">
-    <fieldset class="filter-group searchkeyword">
-      <label class="search-form-label screen-reader-text" for="filtertrefwoord">Filter op trefwoord</label>
-      <div id="filter_group_search_form_bg">
-        <input type="search" id="filtertrefwoord" name="filtertrefwoord" itemprop="query-input" placeholder="Filter op trefwoord" value="">
-        <button type="submit" id="searchbutton">Filter</button>
-      </div>
-    </fieldset>
-  <button id="filter" name="selectie" value="wis" type="submit" class="reset">Herstel filter</button>
-</form></div>';  
-	
-	  
-	
-  if ( ( $featonderwerpen ) &&  ( ( 'dossier_overzicht_filter_as_list_plus' == $dossierfilter ) || ( 'dossier_overzicht_filter_uitgebreid_plus' == $dossierfilter ) ) ) {
+    echo '<h2 id="h-result">Onderwerpen</h2>';
+  	echo '</div>'; // id="filterselector";
 
-	  if ( 'dossier_overzicht_filter_as_list_plus' == $dossierfilter ) {
-
-	    $args_filter = array(
-	      'taxonomy'              => RHSWP_CT_DOSSIER,
-	      'hide_empty'            => false,
-	      'include'               => $featonderwerpen,
-	      'orderby'               => 'name',
-	      'order'                 => 'ASC',
-	      'ignore_custom_sort'    => TRUE,
-	      'echo'                  => 0,
-	      'title_li'              => ''
-	    );
-
-		  $terms = get_terms( RHSWP_CT_DOSSIER, $args_filter );
-		
-		  if ($terms && ! is_wp_error( $terms ) ) { 
-		
-	      echo '<div class="block no-top dossier_overzicht_popular ' . $dossierfilter . '">';
-	      
-	      echo '<h2>' . $title . '</h2>';
-	      echo '<ul class="links">';
-	  
-	      foreach ( $terms as $term ) {
-	  
-	        $excerpt    = '';
-	        $classattr  = 'class="filterbaardinges"';
-	        $title  		= $term->name;
-	        $href       = get_term_link( $term->term_id, RHSWP_CT_DOSSIER );
-
-					if ( isset( $term->meta['headline'] ) && $term->meta['headline'] ) {
-						$title .= ' (' . wp_strip_all_tags( strval( $term->meta['headline'] ) ) . ')';
-					}
-
-	        
-	        printf( '<li><a href="%s">%s</a>', $href, $title );
-	
-	      }
-	
-	      echo '</ul>';
-	      echo '</div>';
-		    
-		  }
-		  
-	  }
-	  elseif ( 'dossier_overzicht_filter_uitgebreid_plus' == $dossierfilter ) {
-	    $args = array(
-	      'taxonomy'              => RHSWP_CT_DOSSIER,
-	      'hide_empty'            => false,
-	      'include'               => $featonderwerpen,
-	      'orderby'               => 'name',
-	      'order'                 => 'ASC',
-	      'ignore_custom_sort'    => TRUE,
-	      'echo'                  => 0,
-	      'title_li'              => ''
-	    );
-	  }
   }
+  
+  $args = array(
+    'taxonomy'              => RHSWP_CT_DOSSIER,
+    'parent'                => 0,
+    'hide_empty'            => true,      
+    'echo'                  => 0,
+    'hierarchical'          => TRUE,
+    'title_li'              => '',
+  );
+  
+  $terms = get_terms( RHSWP_CT_DOSSIER, $args );
+	
+	if ($terms && ! is_wp_error( $terms ) ) { 
 
-  echo '<h2 id="h-result">filtercounter</h2>';
-	echo '</div>'; // id="filterselector";
+    echo '<div class="' . $dossierfilter . ' unfiltered" id="mixitupfilterlist">';
+		
+    foreach ( $terms as $term ) {
+      
+      $href       = get_term_link( $term->term_id, RHSWP_CT_DOSSIER );
+      $title  		= $term->name;
+      
+      $headline   =  get_term_meta( $term->term_id, 'headline', true );
+      $excerpt    = '';
+      
+      if ( $term->description ) {
+        $excerpt  =  wp_strip_all_tags( $term->description );
+      }
+      
+      if ( isset( $headline[0] ) && ( strlen( $headline[0] ) > 0 ) ) {
+        if ( is_array( $headline ) ) {
+          $headline = strval( $headline[0] );
+        }
+        else {
+          $headline = strval( $headline );
+        }
+        $title .= ' - ' . wp_strip_all_tags( $headline );
+      }
+      
+      $childargs = array(
+        'taxonomy'              => RHSWP_CT_DOSSIER,
+        'orderby'               => 'name',
+        'order'                 => 'ASC',
+        'hide_empty'            => true,      
+        'ignore_custom_sort'    => TRUE,
+        'echo'                  => 0,
+        'hierarchical'          => TRUE,
+        'title_li'              => '',
+        'parent'                => $term->term_id,
+        'show_option_none'      => '',
+        'walker'                => new rhswp_custom_walker_for_taxonomies()
+      );
+      
+      
+      $termchildren = wp_list_categories( $childargs );
+      
+      if ( ! empty( $termchildren ) && ! is_wp_error( $termchildren ) ) {
+        $classattr  	= 'class="i-have-kids cat-item cat-item-' . $term->term_id . '"';
+      }
+      else {
+        $classattr  	= 'class="cat-item cat-item-' . $term->term_id . '"';
+      }
+      
+      $classattr  	.= ' data-mixible data-titel="' . strtolower( $title ) . ' ' . strtolower( $excerpt ) .  '"';
+      
+      $kortebeschr	= get_field( 'dossier_korte_beschrijving_voor_dossieroverzicht', RHSWP_CT_DOSSIER . '_' . $term->term_id );
+      
+      printf( '<div %s>', $classattr );
+      printf( '<a href="%s"><h3>%s</h3></a>', $href, $title );
+      printf( '<span class="excerpt">%s</span>', $excerpt );
+      
+      if ( ! empty( $termchildren ) && ! is_wp_error( $termchildren ) ) {
+        echo '<ul class="children">';
+        echo $termchildren;
+        echo '</ul>';
+      }
+      
+      echo '</div>';
+      
+    }
+    
+    echo '</div>';
+    
+    wp_reset_postdata();
 
-	if ( ( 'dossier_overzicht_filter_as_list' == $dossierfilter ) || ( 'dossier_overzicht_filter_as_list_plus' == $dossierfilter ) ) {
-	  rhswp_show_customtax_terms( RHSWP_CT_DOSSIER, '', false, 'unfiltered', 'mixitupfilterlist' );
 	}
-	else {
 
-	  $terms = get_terms( RHSWP_CT_DOSSIER, $args );
-	
-		if ($terms && ! is_wp_error( $terms ) ) { 
-
-//	    echo '<div class="block no-top ' . $dossierfilter . '" id="mixitupfilterlist">';
-	    echo '<div class="' . $dossierfilter . ' unfiltered" id="mixitupfilterlist">';
-	
-		  if ( 'dossier_overzicht_filter_as_list' == $dossierfilter ) {
-				echo '<ul class="links">';
-		  }
-			
-			foreach ( $terms as $term ) {
-
-				$href       = get_term_link( $term->term_id, RHSWP_CT_DOSSIER );
-	      $title  		= $term->name;
-	      
-	  		$headline   =  get_term_meta( $term->term_id, 'headline', true );
-				$excerpt    = '';
-
-				if ( $term->description ) {
-					$excerpt  =  wp_strip_all_tags( $term->description );
-				}
-
-        if ( isset( $headline[0] ) && ( strlen( $headline[0] ) > 0 ) ) {
-          if ( is_array( $headline ) ) {
-          	$headline = strval( $headline[0] );
-          }
-          else {
-          	$headline = strval( $headline );
-          }
-					$title .= ' - ' . wp_strip_all_tags( $headline );
-				}
-	
-				if ( 'dossier_overzicht_filter_as_list' == $dossierfilter ) {
-					printf( '<li><a href="%s" data-linkdescription="' . $excerpt . '">%s</a></li>', $href, $title );
-				}
-				else {
-				
-					$classattr  	= 'class="filterbaardinges"';
-					$classattr  	.= ' data-mixible data-titel="' . strtolower( $title ) . strtolower( $excerpt ) .  '"';
-//					$classattr  	.= ' data-mixible data-titel="' . strtolower( $title ) . '"';
-					$kortebeschr	= get_field( 'dossier_korte_beschrijving_voor_dossieroverzicht', RHSWP_CT_DOSSIER . '_' . $term->term_id );
-					
-					
-					printf( '<div %s>', $classattr );
-					printf( '<a href="%s"><h2>%s</h2></a>', $href, $title );
-					echo '</div>';
-				
-				}			
-
-			}
-			
-		  if ( 'dossier_overzicht_filter_as_list' == $dossierfilter ) {
-				echo '</ul>';
-		  }
-	
-			echo '</div>';
-			
-			wp_reset_postdata();
-			
-	
-		}
-	}
-
-	echo '</div>'; // id="cardflex_tab1";
+  if ( 'dossier_overzicht_filter_as_list_plus' == $dossierfilter ) {
+    echo '</div>'; // id="cardflex_tab1";
+  }
 	
 }
 

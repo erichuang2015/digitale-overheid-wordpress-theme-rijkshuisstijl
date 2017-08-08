@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.7.25
-// * @desc.   Versienummer beter. section weer zichbaar.
+// * @version 0.9.6
+// * @desc.   Filter op onderwerppagina.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 //
 
@@ -225,7 +225,7 @@
 @search_submit_width: 42px;
 
     input[itemprop="query-input"] {
-      width: ~"calc(100% - @{search_submit_width})";
+      width: ~"calc(98% - @{search_submit_width})";
       float: left;
     }
     
@@ -239,7 +239,13 @@
       float: right;
     }
     #filter {
-      background-image: none;
+      background: none;
+      padding-left: 0;
+      &:hover,
+      &:active,
+      &:focus {
+        color: @wit;
+      }
     }
   }
 
@@ -291,7 +297,6 @@
         float: right;
       }
       input[type="radio"] {
-        border: 1px solid blue; 
         float: right;
       }
       

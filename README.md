@@ -11,6 +11,7 @@ Dit theme wordt gebruikt op [digitaleoverheid.nl](https://www.digitaleoverheid.n
 
 ## Version history
 
+* 0.9.6 - Filter op onderwerppagina.
 * 0.9.5 - Bugfixes. Dossier-overzichtspagina.
 * 0.9.4 - Sitemap-styling op smalle schermen aangepast.
 * 0.9.3 - Alt. paginatitel op archives.

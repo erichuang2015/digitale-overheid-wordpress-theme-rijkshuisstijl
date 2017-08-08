@@ -6,8 +6,8 @@
 // @package optimaal-digitaal
 // @author  Paul van Buuren
 // @license GPL-2.0+
-// @version 2.6.11
-// @desc.   Small bug in JS for filterpage
+// @version 0.9.6
+// @desc.   Filter op onderwerppagina.
 // @link    https://github.com/ICTU/optimaal-digitaal-wordpress-theme
 
 // ============================================================================================================================================
@@ -334,6 +334,8 @@ var rhswp_mixitupfilter = {
 	self.outputString = self.outputArray.join();
     
     // If the output string is empty, show all rather than none:
+
+    jQuery('#mixitupfilterlist').removeAttr('style');
     
     if ( !self.outputString.length && (self.outputString = 'all') ) {
   		self.$resetbutton.hide();
@@ -344,6 +346,19 @@ var rhswp_mixitupfilter = {
   		self.$resetbutton.show();
       jQuery('#mixitupfilterlist').removeClass('unfiltered');
       jQuery('#mixitupfilterlist').addClass('filtered');
+
+/*
+
+      var $active = jQuery('#mixitupfilterlist [style*="display: block"]');
+      var theRun = 0;
+
+      $active.each(function() {
+        theRun++;
+        console.log("yo (" + theRun + ")");
+      });
+
+*/
+      
     }
 
     // If the output string is empty, show all rather than none:
@@ -376,11 +391,13 @@ jQuery(function(){
     },
     selectors: {
       target: '.cat-item'
-//      target: '.filterbaardinges'
+    },
+		layout: {
+			display: 'block',
     },
     animation: {
       duration: 1,
-      effects: 'translateZ(-360px) stagger(1ms) fade',
+      effects: 'none',
       easing: 'ease'
     },
     callbacks: {
@@ -411,6 +428,19 @@ jQuery(function(){
           else {
             jQuery('#h-result').text( state.totalShow + ' onderwerpen gevonden' + cookieFilterKeyword);
           }
+
+          // zorg dat de parents van actieve elementen ook zichtbaar zijn
+          state.$show.each(function() {
+            var currentElement = jQuery(this);
+            var parentContainer = currentElement.parent().parent();
+
+            if ( parentContainer.length ) {
+              parentContainer.css('display','block');
+              parentContainer.children('span:first-of-type').hide();
+            }
+
+          });
+
           jQuery('.reset').show();
         }
         else {
