@@ -11,6 +11,7 @@ Dit theme wordt gebruikt op [digitaleoverheid.nl](https://www.digitaleoverheid.n
 
 ## Version history
 
+* 0.9.8 - CSS voor onderwerppagina.
 * 0.9.7 - Filter op onderwerppagina - bugfixes.
 * 0.9.6 - Filter op onderwerppagina.
 * 0.9.5 - Bugfixes. Dossier-overzichtspagina.

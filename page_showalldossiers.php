@@ -9,7 +9,7 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.9.7
+ * @version 0.9.8a
  * @desc.   Filter op onderwerppagina - bugfixes.
  * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */

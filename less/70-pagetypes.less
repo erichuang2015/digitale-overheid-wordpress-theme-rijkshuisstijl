@@ -7,8 +7,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.9.7
-// * @desc.   Filter op onderwerppagina - bugfixes.
+// * @version 0.9.8
+// * @desc.   CSS voor onderwerppagina.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 // **
 
@@ -81,13 +81,14 @@
   }
 
 
-      #cardflex_tab1 {
-        overflow: hidden;
-      }
-      #filterselector {
-        overflow: hidden;
-        margin-bottom: 1em;
-      }
+  #cardflex_tab1 {
+    overflow: hidden;
+  }
+  #filterselector {
+    overflow: hidden;
+    margin-bottom: 1em;
+  }
+      
   #mixitupfilterlist {
     
     li:before {
@@ -173,7 +174,9 @@
         }          
       }
     }
+    
     &.filtered {
+      
       
       li:before {
         content: '';
@@ -184,17 +187,27 @@
         }
         &[style*="display: block"] {
           .visuallyvisual();
+
           span {
             .visuallyvisual();
             display: block;
             clear: both;
-            padding: 0 !important;
+            padding: 0 0 1em 0 !important;
+
+            margin-bottom: 1em;
+            border-bottom: 1px solid @lichtgrijs;
+
+            @media only screen and (min-width: ( @break_fullwidth ) ) {
+              width: 66%;
+              margin-left: 0;
+            }
           }
         }
       }
     }
   }
 
+//========================================================================================================
 
   @media only screen and (min-width: ( @break_fullwidth ) ) {
     .flexbox {
@@ -271,7 +284,9 @@
       }
     }
   }  
-  
+
+//========================================================================================================
+
   .page-template-page_show-child-pages {
     .content {
       section {
@@ -300,6 +315,8 @@
       }
     }
   }
+
+//========================================================================================================
 
   @media only screen and (min-width: ( @break_tablet ) ) {
     .error404 .site-inner,
@@ -336,7 +353,8 @@
     }
   }
 
-  
+//========================================================================================================
+
   @media only screen and (min-width: ( @break_fullwidth ) ) {
     .error404,
 //    .page-template-page_showalldossiers,
@@ -350,6 +368,8 @@
       }
     }
   }
+
+//========================================================================================================
 
   .page-template-page_search,
   .search {
