@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.10.3
- * @desc.   Icon voor PDF document op zoekresultaten toegevoegd.
+ * @version 0.10.4
+ * @desc.   Bug verwijderd uit functions.php.
  * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "https://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.10.3" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Icon voor PDF document op zoekresultaten toegevoegd." );
+define( 'CHILD_THEME_VERSION',              "0.10.4" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Bug verwijderd uit functions.php." );
 define( 'SHOW_CSS_DEBUG',                   false );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
@@ -602,7 +602,7 @@ function rhswp_add_taxonomy_description() {
     $headline   = '';
     $intro_text = '';
 
-    $tax = $wp_query->query_vars['taxonomy'];
+    $tax = isset( $wp_query->query_vars['taxonomy'] ) ? $wp_query->query_vars['taxonomy'] : '';
     
     if ( $tax == RHSWP_CT_DOSSIER ) {
     

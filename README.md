@@ -9,8 +9,13 @@ Dit theme wordt gebruikt op [digitaleoverheid.nl](https://www.digitaleoverheid.n
 * Pim Nieuwenburg
 * Paul van Buuren: paul@wbvb.nl
 
+## Current version:
+
+0.10.4 (Bug verwijderd uit functions.php.)
+
 ## Version history
 
+* 0.10.4 - Bug verwijderd uit functions.php.
 * 0.10.3 - Icon voor PDF document op zoekresultaten toegevoegd.
 * 0.10.2 - Icon external link. Filterform aangepast.
 * 0.10.1 - Div CSS styling issues: h2, external link.
