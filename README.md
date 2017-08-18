@@ -11,6 +11,7 @@ Dit theme wordt gebruikt op [digitaleoverheid.nl](https://www.digitaleoverheid.n
 
 ## Version history
 
+* 0.10.2 - Icon external link. Filterform aangepast.
 * 0.10.1 - Div CSS styling issues: h2, external link.
 * 0.9.8 - CSS voor onderwerppagina.
 * 0.9.7 - Filter op onderwerppagina - bugfixes.

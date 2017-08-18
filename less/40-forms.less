@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.9.6
-// * @desc.   Filter op onderwerppagina.
+// * @version 0.10.2
+// * @desc.   Icon external link. Filterform aangepast.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 //
 
@@ -215,17 +215,22 @@
     }
   }
 
+
   #rhswp-searchform-onderwerpen {
     background: @communicatiekleur_vol;
+//    padding-top: .75em;
     
     label {
       color: @wit;
+      line-height: 1;
+      font-size: 1.3em;
+      display: block;
+      padding-bottom: .5em;
     }
     
-@search_submit_width: 42px;
 
     input[itemprop="query-input"] {
-      width: ~"calc(98% - @{search_submit_width})";
+      width: ~"calc(98% - @{filter_submit_width})";
       float: left;
     }
     
@@ -235,7 +240,7 @@
       background-position: center center;
       background-repeat: no-repeat;
       text-indent: -9999em;
-      width: @search_submit_width;
+      width: @filter_submit_width;
       float: right;
     }
     #filter {
