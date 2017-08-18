@@ -7,8 +7,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.9.8
-// * @desc.   CSS voor onderwerppagina.
+// * @version 0.10.3
+// * @desc.   Icon voor PDF document op zoekresultaten toegevoegd.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 // **
 
@@ -425,9 +425,17 @@
     }   
   
     .attachment.pdf {
-      border-color: @warning;      
-      &.pdf {
-        border-color: @communicatiekleur_lichtst;      
+
+      a p {
+        padding-left: 1.5em;
+        background-image: url('images/icon-document.svg');
+        background-position: left center;
+        background-repeat: no-repeat;
+        
+        &.meta {
+          padding-left: 0;
+          background: none;
+        }
       }
     }
   }
