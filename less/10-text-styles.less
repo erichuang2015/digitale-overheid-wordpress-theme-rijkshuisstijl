@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.9.6
-// * @desc.   Filter op onderwerppagina.
+// * @version 0.10.1
+// * @desc.   Div CSS styling issues: h2, external link.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 // **
 
@@ -313,7 +313,12 @@
   }
 
   
-  .entry-content {      
+  .entry-content {
+    
+    h2:first-of-type {
+      margin-top: 1em;
+    }
+          
     ul, ol {
     	margin-top: 0;
     	margin-bottom: 1em;
@@ -355,62 +360,6 @@
             width: 1.6em;
           }
         }
-/*
-        & + li.i-have-kids {
-          margin-top: 1em;
-          padding-top: 1em;
-          border-top: 1px solid @grijs;
-        }
-
-        &.i-have-kids {
-          width: 100%;
-          max-width: 100%;
-          clear: both;
-          flex-basis: 100%;
-          padding-left: 0;
-          padding-right: 0;
-          margin-bottom: 1em;
-          border-bottom: 1px solid @grijs;
-
-          .i-have-kids {
-            width: 100%;
-            max-width: 100%;
-            clear: both;
-            flex-basis: 100%;
-            border-bottom-style: none;
-            padding-top: 0;
-            margin-top: 0;
-          }          
-          
-          a {
-            text-decoration: none;
-            font-family: @fontstrong;            
-          }
-          
-          &:before {
-            content: '';
-            width: 0;
-          }
-
-          ul {
-            display: flex;
-            flex-flow: row wrap;
-            justify-content: flex-start;
-
-            a {
-              text-decoration: underline;
-              font-family: @bodyfont;
-            }
-            
-          }
-          li {
-      	    flex-grow: 1;
-            float: left;
-            flex-basis: @flexbasis_fourcols;
-            max-width: @flexbasis_fourcols;
-          }          
-        }
-        */
       }
     }
 
