@@ -54,7 +54,7 @@ function admin_manage_theme_columns_dossiers($out, $column_name, $theme_id) {
 //========================================================================================================
 
 function dodebug( $string, $tag = 'p' ) {
-  if ( WP_DEBUG ) {
+  if ( WP_DEBUG && WP_LOCAL_DEV ) {
     echo '<' . $tag . ' class="debugstring"> ' . $string . '</' . $tag . '>';
   }
 }
@@ -62,7 +62,7 @@ function dodebug( $string, $tag = 'p' ) {
 //========================================================================================================
 
 function dodebug2($file = '', $extra = '') {
-  if ( ( WP_DEBUG ) && ( 22 == 22 ) ){
+  if ( WP_DEBUG && WP_LOCAL_DEV ) {
     $break = Explode('/', $file);
     $pfile = $break[count($break) - 1]; 
   

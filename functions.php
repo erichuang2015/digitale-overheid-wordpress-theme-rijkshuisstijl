@@ -749,7 +749,7 @@ function rhswp_sidebar_context_taxonomies() {
 
 function rhswp_sidebar_context_widgets() {
 
-  if ( WP_DEBUG ) {
+  if ( WP_DEBUG && WP_LOCAL_DEV ) {
 
     global $post;
 
