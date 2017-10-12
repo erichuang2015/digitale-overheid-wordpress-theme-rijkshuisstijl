@@ -150,7 +150,7 @@ function filter_for_rhswp_banner_widget( $params ) {
     }
 
 
-    $params[0]['before_widget'] .= sprintf('<img src="%s" alt="" class="align' . $rhswp_widget_bannerimage_alignment . '" width="%s" height="%s" />',
+    $params[0]['before_widget'] .= sprintf('<img src="%s" alt="' . $rhswp_widget_bannerimage['alt'] . '" class="align' . $rhswp_widget_bannerimage_alignment . '" width="%s" height="%s" />',
       $rhswp_widget_bannerimage['sizes'][$imagesize], 
       $rhswp_widget_bannerimage['sizes'][$imagesize.'-width'], 
       $rhswp_widget_bannerimage['sizes'][$imagesize.'-height'] );
