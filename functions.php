@@ -607,7 +607,7 @@ function rhswp_add_taxonomy_description() {
     
     if ( is_post_type_archive( RHSWP_CPT_DOCUMENT ) ) {
       $headline = sprintf( '<h1 class="archive-title">%s</h1>', rhswp_translateposttypes( RHSWP_CPT_DOCUMENT, true ) );
-      $intro_text = sprintf( '<p>' . _x( "Alle documenten op %s.", "beschrijving op documentpagina", 'wp-rijkshuisstijl' ) . '</p>', get_bloginfo('name') );
+      $intro_text = sprintf( '<p>' . _x( "Alle bijlages en documenten op %s.", "beschrijving op documentpagina", 'wp-rijkshuisstijl' ) . '</p>', get_bloginfo('name') );
     }
     elseif ( $tax == RHSWP_CT_DOSSIER ) {
     
