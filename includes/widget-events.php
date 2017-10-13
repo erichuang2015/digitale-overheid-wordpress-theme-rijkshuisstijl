@@ -21,16 +21,16 @@ class GC_event_widget extends WP_Widget {
     /** constructor */
   public function __construct() {
       $this->defaults = array(
-        'title'         => __('(DO) Eventwidget','wp-rijkshuisstijl'),
-        'scope'         => 'future',
-        'order'         => 'ASC',
-        'limit'         => 5,
-        'category'      => 0,
-        'nolistwrap'    => false,
-        'orderby'       => 'event_start_date,event_start_time,event_name',
-      'all_events'      => 0,
-      'all_events_text' => __('bekijk agenda', 'wp-rijkshuisstijl'),
-      'no_events_text'  => '<li>'.__('De agenda is leeg', 'wp-rijkshuisstijl').'</li>'
+        'title'           => __('(DO) Eventwidget','wp-rijkshuisstijl'),
+        'scope'           => 'future',
+        'order'           => 'ASC',
+        'limit'           => 5,
+        'category'        => 0,
+        'nolistwrap'      => false,
+        'orderby'         => 'event_start_date,event_start_time,event_name',
+        'all_events'      => 0,
+      'all_events_text'   => __('bekijk agenda', 'wp-rijkshuisstijl'),
+      'no_events_text'    => '<li>'.__('De agenda is leeg', 'wp-rijkshuisstijl').'</li>'
       );
     $this->em_orderby_options = apply_filters('em_settings_events_default_orderby_ddm', array(
       'event_start_date,event_start_time,event_name' => __('start date, start time, event name','wp-rijkshuisstijl'),
@@ -53,7 +53,7 @@ class GC_event_widget extends WP_Widget {
     function widget($args, $instance) {
       $instance = array_merge($this->defaults, $instance);
       $instance = $this->fix_scope($instance); // depcreciate  
-      
+
       echo $args['before_widget'];
       
       if( !empty($instance['title']) ){
@@ -64,7 +64,15 @@ class GC_event_widget extends WP_Widget {
       
       //remove owner searches
       $instance['owner'] = false;
-      
+
+      if ( !empty($instance['do_show_2excerpt']) ){
+        $show_excerpt = true;
+      }
+      else {
+        $show_excerpt = false;
+      }
+
+      if (!preg_match('/^<li/i', trim($instance['no_events_text'])) ) $instance['no_events_text'] = '<li>'.$instance['no_events_text'].'</li>';
       
       //add li tags to old widgets that have no forced li wrappers
       if (!preg_match('/^<li/i', trim($instance['no_events_text'])) ) $instance['no_events_text'] = '<li>'.$instance['no_events_text'].'</li>';
@@ -97,17 +105,19 @@ class GC_event_widget extends WP_Widget {
           
           $icounter++;
           
-          if ( $icounter == 1 ) {
-            echo '<section class="entry first" itemscope itemtype="http://schema.org/Event">';
-          }
-          else {
-            echo '<section class="entry" itemscope itemtype="http://schema.org/Event">';
+          if ( $show_excerpt ) {
+            if ( $icounter == 1 ) {
+              echo '<section class="entry first" itemscope itemtype="http://schema.org/Event">';
+            }
+            else {
+              echo '<section class="entry" itemscope itemtype="http://schema.org/Event">';
+            }
           }
           
           echo '<a itemprop="url" href="';
           echo get_permalink( $event->post_id );
           echo '">';
-          
+
           $eventstart   = strtotime( $event->event_start_date );
           $eventend     = strtotime( $event->event_end_date );
           
@@ -119,7 +129,9 @@ class GC_event_widget extends WP_Widget {
           }
             
 
-          echo '<header>';
+          if ( $show_excerpt ) {
+            echo '<header>';
+          }
 
           echo '<h4 class="entry-title" itemprop="name">';
           echo $event->event_name;
@@ -137,14 +149,18 @@ class GC_event_widget extends WP_Widget {
           echo '</p>';
 
 
-          echo '</header>';
-          
-          echo '<div class="excerpt" itemprop="description">';
-          echo $event->output( '#_EVENTEXCERPT{20}' );
-          echo '</div>';
-          
+
+          if ( $show_excerpt ) {
+            echo '</header>';
+            echo '<div class="excerpt" itemprop="description">';
+            echo $event->output( '#_EVENTEXCERPT{20}' );
+            echo '</div>';
+          }
           echo '</a>';
-          echo '</section>';
+
+          if ( $show_excerpt ) {
+            echo '</section>';
+          }
 
         }
         
@@ -183,84 +199,90 @@ class GC_event_widget extends WP_Widget {
     }
 
     /** @see WP_Widget::form */
-    function form($instance) {
-      $instance = array_merge($this->defaults, $instance);
-      $instance = $this->fix_scope($instance); // depcreciate
-        ?>
-    <p>
-      <label for="<?php echo $this->get_field_id('title'); ?>"><?php esc_html_e('Widgettitel', 'wp-rijkshuisstijl'); ?>: </label>
-      <input type="text" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" value="<?php echo esc_attr($instance['title']); ?>" class="widefat" />
-    </p>
-    <p>
-      <label for="<?php echo $this->get_field_id('limit'); ?>"><?php esc_html_e('Maximum aantal events','wp-rijkshuisstijl'); ?>: </label>
-      <input type="text" id="<?php echo $this->get_field_id('limit'); ?>" name="<?php echo $this->get_field_name('limit'); ?>" size="3" value="<?php echo esc_attr($instance['limit']); ?>" />
-    </p>
-    <p>
-      
-      <label for="<?php echo $this->get_field_id('scope'); ?>"><?php esc_html_e('Scope','wp-rijkshuisstijl'); ?>: </label><br/>
-      <select id="<?php echo $this->get_field_id('scope'); ?>" name="<?php echo $this->get_field_name('scope'); ?>" class="widefat" >
-        <?php foreach( em_get_scopes() as $key => $value) : ?>   
-        <option value='<?php echo esc_attr($key); ?>' <?php echo ($key == $instance['scope']) ? "selected='selected'" : ''; ?>>
-          <?php echo esc_html($value); ?>
-        </option>
-        <?php endforeach; ?>
-      </select>
-    </p>
-    <p>
-      <label for="<?php echo $this->get_field_id('order'); ?>"><?php esc_html_e('Sortering','wp-rijkshuisstijl'); ?>: </label>
-      <select  id="<?php echo $this->get_field_id('orderby'); ?>" name="<?php echo $this->get_field_name('orderby'); ?>" class="widefat">
-        <?php foreach($this->em_orderby_options as $key => $value) : ?>   
-         <option value='<?php echo esc_attr($key); ?>' <?php echo ( !empty($instance['orderby']) && $key == $instance['orderby']) ? "selected='selected'" : ''; ?>>
-           <?php echo esc_html($value); ?>
-         </option>
-        <?php endforeach; ?>
-      </select> 
-    </p>
-    <p>
-      <label for="<?php echo $this->get_field_id('order'); ?>"><?php esc_html_e('Sorteervolgorde','wp-rijkshuisstijl'); ?>: </label>
-      <select id="<?php echo $this->get_field_id('order'); ?>" name="<?php echo $this->get_field_name('order'); ?>" class="widefat">
-        <?php 
-        $order_options = apply_filters('GC_event_widget_order_ddm', array(
-          'ASC' => __('Aflopend','wp-rijkshuisstijl'),
-          'DESC' => __('Oplopend','wp-rijkshuisstijl')
-        )); 
-        ?>
-        <?php foreach( $order_options as $key => $value) : ?>   
-         <option value='<?php echo esc_attr($key); ?>' <?php echo ($key == $instance['order']) ? "selected='selected'" : ''; ?>>
-           <?php echo esc_html($value); ?>
-         </option>
-        <?php endforeach; ?>
-      </select>
-    </p>
-    <p>
-            <label for="<?php echo $this->get_field_id('category'); ?>"><?php esc_html_e('Categorie-filter','wp-rijkshuisstijl'); ?>: </label>
-            <input type="text" id="<?php echo $this->get_field_id('category'); ?>" class="widefat" name="<?php echo $this->get_field_name('category'); ?>" size="3" value="<?php echo esc_attr($instance['category']); ?>" /><br />
-            <em><?php esc_html_e('1,2,3 or 2 (0 = all)','wp-rijkshuisstijl'); ?> </em>
-        </p>
-        <p>
-      <label for="<?php echo $this->get_field_id('all_events'); ?>"><?php esc_html_e('Link naar agenda-overzicht toevoegen?','wp-rijkshuisstijl'); ?>: </label>
-      <input type="checkbox" id="<?php echo $this->get_field_id('all_events'); ?>" name="<?php echo $this->get_field_name('all_events'); ?>" <?php echo (!empty($instance['all_events']) && $instance['all_events']) ? 'checked':''; ?>  class="widefat">
-    </p>
-    <p id="<?php echo $this->get_field_id('all_events'); ?>-section">
-      <label for="<?php echo $this->get_field_id('all_events'); ?>"><?php esc_html_e('Linktekst voor agenda-overzicht','wp-rijkshuisstijl'); ?>: </label>
-      <input type="text" id="<?php echo $this->get_field_id('all_events_text'); ?>" name="<?php echo $this->get_field_name('all_events_text'); ?>" value="<?php echo esc_attr( $instance['all_events_text'] ); ?>" >
-    </p>
-    <script type="text/javascript">
-    jQuery('#<?php echo $this->get_field_id('all_events'); ?>').change( function(){
-      if( this.checked ){
-          jQuery(this).parent().next().show();
-      }else{
-        jQuery(this).parent().next().hide();
-      } 
-    }).trigger('change');
-    </script>
+function form($instance) {
+  $instance = array_merge($this->defaults, $instance);
+  $instance = $this->fix_scope($instance); // depcreciate
+    ?>
+  <p>
+    <label for="<?php echo $this->get_field_id('title'); ?>"><?php esc_html_e('Widgettitel', 'wp-rijkshuisstijl'); ?>: </label>
+    <input type="text" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" value="<?php echo esc_attr($instance['title']); ?>" class="widefat" />
+  </p>
+  <p>
+    <label for="<?php echo $this->get_field_id('limit'); ?>"><?php esc_html_e('Maximum aantal events','wp-rijkshuisstijl'); ?>: </label>
+    <input type="text" id="<?php echo $this->get_field_id('limit'); ?>" name="<?php echo $this->get_field_name('limit'); ?>" size="3" value="<?php echo esc_attr($instance['limit']); ?>" />
+  </p>
+  <p>
     
-    <p>
-      <label for="<?php echo $this->get_field_id('no_events_text'); ?>"><?php _e('Tekst als er niets in de agenda staat','wp-rijkshuisstijl'); ?>: </label>
-      <input type="text" id="<?php echo $this->get_field_id('no_events_text'); ?>" name="<?php echo $this->get_field_name('no_events_text'); ?>" value="<?php echo esc_attr( $instance['no_events_text'] ); ?>" >
-    </p>
-        <?php 
-    }
+    <label for="<?php echo $this->get_field_id('scope'); ?>"><?php esc_html_e('Scope','wp-rijkshuisstijl'); ?>: </label><br/>
+    <select id="<?php echo $this->get_field_id('scope'); ?>" name="<?php echo $this->get_field_name('scope'); ?>" class="widefat" >
+      <?php foreach( em_get_scopes() as $key => $value) : ?>   
+      <option value='<?php echo esc_attr($key); ?>' <?php echo ($key == $instance['scope']) ? "selected='selected'" : ''; ?>>
+        <?php echo esc_html($value); ?>
+      </option>
+      <?php endforeach; ?>
+    </select>
+  </p>
+  <p>
+    <label for="<?php echo $this->get_field_id('order'); ?>"><?php esc_html_e('Sortering','wp-rijkshuisstijl'); ?>: </label>
+    <select  id="<?php echo $this->get_field_id('orderby'); ?>" name="<?php echo $this->get_field_name('orderby'); ?>" class="widefat">
+      <?php foreach($this->em_orderby_options as $key => $value) : ?>   
+       <option value='<?php echo esc_attr($key); ?>' <?php echo ( !empty($instance['orderby']) && $key == $instance['orderby']) ? "selected='selected'" : ''; ?>>
+         <?php echo esc_html($value); ?>
+       </option>
+      <?php endforeach; ?>
+    </select> 
+  </p>
+  <p>
+    <label for="<?php echo $this->get_field_id('order'); ?>"><?php esc_html_e('Sorteervolgorde','wp-rijkshuisstijl'); ?>: </label>
+    <select id="<?php echo $this->get_field_id('order'); ?>" name="<?php echo $this->get_field_name('order'); ?>" class="widefat">
+      <?php 
+      $order_options = apply_filters('GC_event_widget_order_ddm', array(
+        'ASC' => __('Aflopend','wp-rijkshuisstijl'),
+        'DESC' => __('Oplopend','wp-rijkshuisstijl')
+      )); 
+      ?>
+      <?php foreach( $order_options as $key => $value) : ?>   
+       <option value='<?php echo esc_attr($key); ?>' <?php echo ($key == $instance['order']) ? "selected='selected'" : ''; ?>>
+         <?php echo esc_html($value); ?>
+       </option>
+      <?php endforeach; ?>
+    </select>
+  </p>
+  <p>
+    <label for="<?php echo $this->get_field_id('category'); ?>"><?php esc_html_e('Categorie-filter','wp-rijkshuisstijl'); ?>: </label>
+    <input type="text" id="<?php echo $this->get_field_id('category'); ?>" class="widefat" name="<?php echo $this->get_field_name('category'); ?>" size="3" value="<?php echo esc_attr($instance['category']); ?>" /><br />
+      <em><?php esc_html_e('1,2,3 or 2 (0 = all)','wp-rijkshuisstijl'); ?> </em>
+  </p>
+  <p>
+    <label for="<?php echo $this->get_field_id('all_events'); ?>"><?php esc_html_e('Link naar agenda-overzicht toevoegen?','wp-rijkshuisstijl'); ?>: </label>
+    <input type="checkbox" id="<?php echo $this->get_field_id('all_events'); ?>" name="<?php echo $this->get_field_name('all_events'); ?>" <?php echo (!empty($instance['all_events']) && $instance['all_events']) ? 'checked':''; ?>  class="widefat">
+  </p>
+  <p id="<?php echo $this->get_field_id('all_events'); ?>-section">
+    <label for="<?php echo $this->get_field_id('all_events'); ?>"><?php esc_html_e('Linktekst voor agenda-overzicht','wp-rijkshuisstijl'); ?>: </label>
+    <input type="text" id="<?php echo $this->get_field_id('all_events_text'); ?>" name="<?php echo $this->get_field_name('all_events_text'); ?>" value="<?php echo esc_attr( $instance['all_events_text'] ); ?>" >
+  </p>
+<!--
+  <p>
+    <label for="<?php echo $this->get_field_id('do_show_2excerpt'); ?>"><?php esc_html_e('Samenvatting tonen?','wp-rijkshuisstijl'); ?>: </label>
+    <input type="checkbox" id="<?php echo $this->get_field_id('do_show_2excerpt'); ?>" name="<?php echo $this->get_field_name('do_show_2excerpt'); ?>" <?php echo (!empty($instance['do_show_2excerpt']) && $instance['do_show_2excerpt']) ? 'checked':''; ?> value="1" class="widefat">
+  </p>
+-->
+  <script type="text/javascript">
+  jQuery('#<?php echo $this->get_field_id('all_events'); ?>').change( function(){
+    if( this.checked ){
+        jQuery(this).parent().next().show();
+    }else{
+      jQuery(this).parent().next().hide();
+    } 
+  }).trigger('change');
+  </script>
+  
+  <p>
+    <label for="<?php echo $this->get_field_id('no_events_text'); ?>"><?php _e('Tekst als er niets in de agenda staat','wp-rijkshuisstijl'); ?>: </label>
+    <input type="text" id="<?php echo $this->get_field_id('no_events_text'); ?>" name="<?php echo $this->get_field_name('no_events_text'); ?>" value="<?php echo esc_attr( $instance['no_events_text'] ); ?>" >
+  </p>
+  <?php 
+}
     
     /**
      * Backwards compatability for an old setting which is now just another scope.
