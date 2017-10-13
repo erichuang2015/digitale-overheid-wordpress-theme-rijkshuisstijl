@@ -586,8 +586,9 @@ function rhswp_add_taxonomy_description() {
     global $wp_query;
     
 
-    if ( ! is_category() && ! is_tag() && ! is_tax() )
+    if ( ! is_category() && ! is_tag() && ! is_tax() && ! is_post_type_archive( RHSWP_CPT_DOCUMENT ) )
         return;
+
 
     $prefix = '';
 
@@ -596,7 +597,7 @@ function rhswp_add_taxonomy_description() {
     }
 
     $term = is_tax() ? get_term_by( 'slug', get_query_var( 'term' ), get_query_var( 'taxonomy' ) ) : $wp_query->get_queried_object();
-    if ( ! $term || ! isset( $term->meta ) )
+    if ( ( ( ! $term || ! isset( $term->meta ) ) ) && ( ! is_post_type_archive( RHSWP_CPT_DOCUMENT ) ) )
         return;
         
     $headline   = '';
@@ -604,7 +605,11 @@ function rhswp_add_taxonomy_description() {
 
     $tax = isset( $wp_query->query_vars['taxonomy'] ) ? $wp_query->query_vars['taxonomy'] : '';
     
-    if ( $tax == RHSWP_CT_DOSSIER ) {
+    if ( is_post_type_archive( RHSWP_CPT_DOCUMENT ) ) {
+      $headline = sprintf( '<h1 class="archive-title">%s</h1>', rhswp_translateposttypes( RHSWP_CPT_DOCUMENT, true ) );
+      $intro_text = sprintf( '<p>' . _x( "Alle documenten op %s.", "beschrijving op documentpagina", 'wp-rijkshuisstijl' ) . '</p>', get_bloginfo('name') );
+    }
+    elseif ( $tax == RHSWP_CT_DOSSIER ) {
     
     }
     else {
@@ -2854,27 +2859,45 @@ function rhswp_archive_custom_loop() {
 
 //========================================================================================================
 
-function rhswp_translateposttypes( $posttype = '' ) {
+function rhswp_translateposttypes( $posttype = '', $plural = false ) {
   $returnstring = '';
   
   switch ($posttype) {
     case 'post':
       $returnstring = __( "Bericht", 'wp-rijkshuisstijl' );
+      if ( $plural ) {
+        $returnstring = __( "Berichten", 'wp-rijkshuisstijl' );
+      }
       break;
     case 'page':
       $returnstring = __( "Pagina", 'wp-rijkshuisstijl' );
+      if ( $plural ) {
+        $returnstring = __( "Pagina's", 'wp-rijkshuisstijl' );
+      }
       break;
     case RHSWP_CT_DOSSIER:
       $returnstring = __( "Dossier", 'wp-rijkshuisstijl' );
+      if ( $plural ) {
+        $returnstring = __( "Dossiers", 'wp-rijkshuisstijl' );
+      }
       break;
     case 'attachment':
       $returnstring = __( "Document", 'wp-rijkshuisstijl' );
+      if ( $plural ) {
+        $returnstring = __( "Documenten", 'wp-rijkshuisstijl' );
+      }
       break;
     case RHSWP_CPT_DOCUMENT:
       $returnstring = __( "Document", 'wp-rijkshuisstijl' );
+      if ( $plural ) {
+        $returnstring = __( "Documenten", 'wp-rijkshuisstijl' );
+      }
       break;
     case RHSWP_CPT_EVENT:
       $returnstring = __( "Agenda", 'wp-rijkshuisstijl' );
+      if ( $plural ) {
+        $returnstring = __( "Evenementen", 'wp-rijkshuisstijl' );
+      }
       break;
     case RHSWP_CPT_SLIDER:
       $returnstring = __( "Deze hoort hier niet tussen", 'wp-rijkshuisstijl' );
