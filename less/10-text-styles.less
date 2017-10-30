@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.10.2
-// * @desc.   Icon external link. Filterform aangepast.
+// * @version 0.10.5
+// * @desc.   Styling voor h3 / h4 aangepast (h4: styling verwijderd).
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 // **
 
@@ -215,18 +215,7 @@
     font-size: 1.125em;
     line-height: 1.4;
   }
-  
-  h4 {
-    font-size: 1.07em;
-  }
-  
-  h5 {
-    font-size: 1em;
-  }
-  
-  h6 {
-    font-size: .9em;
-  }
+
 
   p {
     & + h2,
@@ -315,8 +304,9 @@
   
   .entry-content {
     
-    h2:first-of-type {
+    & > h2 {
       margin-top: 1em;
+      border: 10px solid red;
     }
           
     ul, ol {

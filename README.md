@@ -11,10 +11,11 @@ Dit theme wordt gebruikt op [digitaleoverheid.nl](https://www.digitaleoverheid.n
 
 ## Current version:
 
-0.10.4 (Bug verwijderd uit functions.php.)
+0.10.5 (Styling voor h3 / h4 aangepast (h4: styling verwijderd).)
 
 ## Version history
 
+* 0.10.5 - Styling voor h3 / h4 aangepast (h4: styling verwijderd).
 * 0.10.4 - Bug verwijderd uit functions.php.
 * 0.10.3 - Icon voor PDF document op zoekresultaten toegevoegd.
 * 0.10.2 - Icon external link. Filterform aangepast.
