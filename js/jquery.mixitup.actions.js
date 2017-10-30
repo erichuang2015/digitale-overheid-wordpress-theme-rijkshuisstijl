@@ -1,14 +1,14 @@
 
-// Optimaal Digitaal sortfunctions.js
+// Digitale Overheid jquery.mixitup.actions.js
 // ----------------------------------------------------------------------------------
 // dit script zorgt voor de filtering aan de voorkant
 // ----------------------------------------------------------------------------------
-// @package optimaal-digitaal
+// @package wp-rijkshuisstijl
 // @author  Paul van Buuren
 // @license GPL-2.0+
-// @version 0.9.6
-// @desc.   Filter op onderwerppagina.
-// @link    https://github.com/ICTU/optimaal-digitaal-wordpress-theme
+// @version 0.10.6a
+// @desc.   Styling voor h3 / h4 aangepast (h4: styling verwijderd).
+// @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 
 // ============================================================================================================================================
 // http://codepen.io/patrickkunka/pen/KpVPWo
@@ -43,6 +43,8 @@ function eraseCookie(name) {
 var rhswp_mixitupfilter = {
   
   // Declare any variables we will need as properties of the object
+  
+  console.log('gaatiedan');
   
   $filterGroups: null,
   $filterUi: null,

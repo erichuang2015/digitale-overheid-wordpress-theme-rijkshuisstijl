@@ -7,8 +7,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.10.3
-// * @desc.   Icon voor PDF document op zoekresultaten toegevoegd.
+// @version 0.10.6a
+// @desc.   Styling voor h3 / h4 aangepast (h4: styling verwijderd).
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 // **
 
@@ -83,13 +83,16 @@
 
   #cardflex_tab1 {
     overflow: hidden;
+    border: 10px solid green;
   }
   #filterselector {
     overflow: hidden;
     margin-bottom: 1em;
+    border: 10px solid red;
   }
       
   #mixitupfilterlist {
+
     
     li:before {
       color: @a_color_default;
@@ -97,6 +100,8 @@
     }
     
     &.unfiltered {
+
+      border: 10px solid blue;
 
       display: flex;
       flex-flow: row wrap;
@@ -177,6 +182,7 @@
     
     &.filtered {
       
+      border: 10px solid purple;
       
       li:before {
         content: '';

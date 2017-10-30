@@ -1,17 +1,17 @@
 <?php
 
 /**
- * Rijkshuisstijl (Digitale Overheid) - page_showalldossiers.php
- * ----------------------------------------------------------------------------------
- * Toont alle dossiers
- * ----------------------------------------------------------------------------------
- *
- * @author  Paul van Buuren
- * @license GPL-2.0+
- * @package wp-rijkshuisstijl
- * @version 0.10.2
- * @desc.   Icon external link. Filterform aangepast.
- * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
+// Rijkshuisstijl (Digitale Overheid) - page_showalldossiers.php
+// ----------------------------------------------------------------------------------
+// Toont alle dossiers
+// ----------------------------------------------------------------------------------
+//
+// @author  Paul van Buuren
+// @license GPL-2.0+
+// @package wp-rijkshuisstijl
+// @version 0.10.6a
+// @desc.   Styling voor h3 / h4 aangepast (h4: styling verwijderd).
+// @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
 
@@ -40,9 +40,8 @@ genesis();
 //========================================================================================================
 
 function rhswp_show_all_dossiers() {
-  
 
-$timestamp = time();  
+  $timestamp = time();  
 
   wp_enqueue_script( 'mixitupactions', RHSWP_THEMEFOLDER . '/js/min/filterpage-min.js', array( 'jquery' ), $timestamp, true );
 
@@ -74,21 +73,11 @@ $timestamp = time();
   
   if ( 'dossier_overzicht_filter_as_list_plus' == $dossierfilter ) {
 
+
+
   	echo '<div id="cardflex_tab1">';
-  	echo '<div id="filterselector">';
-  	echo '<div class="topicSearchWrapper"><form method="get" action="' . $_SERVER['REQUEST_URI'] . '" id="rhswp-searchform-onderwerpen" class="search-form filter-options">
-      <fieldset class="filter-group searchkeyword">
-        <label class="filter-form-label" for="filtertrefwoord">' . _x( 'Vind een onderwerp over', 'onderwerpfilterpagina', 'wp-rijkshuisstijl' ) . ':</label>
-        <div id="filter_group_search_form_bg">
-          <input type="search" id="filtertrefwoord" name="filtertrefwoord" itemprop="query-input" placeholder="' . _x( 'filter op onderwerp', 'onderwerpfilterpagina', 'wp-rijkshuisstijl' ) . '" value="">
-          <button type="submit" id="searchbutton">Filter</button>
-        </div>
-      </fieldset>
-    <button id="filter" name="selectie" value="wis" type="submit" class="reset">' . _x( 'Toon alle onderwerpen', 'filterknop op onderwerppagina', 'wp-rijkshuisstijl' ) . '</button>
-  </form></div>';  
-	
-	  
-	
+
+
     if ( $featonderwerpen ) {
   
       $args_filter = array(
@@ -132,6 +121,25 @@ $timestamp = time();
         
       }
     }
+
+
+  	echo '<div id="filterselector">';
+  	echo '<div class="topicSearchWrapper">
+    	<form method="get" action="' . $_SERVER['REQUEST_URI'] . '" id="rhswp-searchform-onderwerpen" class="search-form filter-options">
+        <fieldset class="filter-group searchkeyword">
+          <label class="filter-form-label" for="filtertrefwoord">' . _x( 'Vind een onderwerp over', 'onderwerpfilterpagina', 'wp-rijkshuisstijl' ) . ':</label>
+          <div id="filter_group_search_form_bg">
+            <input type="search" id="filtertrefwoord" name="filtertrefwoord" itemprop="query-input" placeholder="' . _x( 'filter op onderwerp', 'onderwerpfilterpagina', 'wp-rijkshuisstijl' ) . '" value="">
+            <button type="submit" id="searchbutton">Filter</button>
+          </div>
+        </fieldset>
+      <button id="filter" name="selectie" value="wis" type="submit" class="reset">' . _x( 'Toon alle onderwerpen', 'filterknop op onderwerppagina', 'wp-rijkshuisstijl' ) . '</button>
+    </form>
+  </div>';  
+	
+	  
+	
+
 
   	echo '</div>'; // id="filterselector";
 

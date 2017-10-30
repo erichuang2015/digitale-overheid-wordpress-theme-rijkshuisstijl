@@ -8,7 +8,7 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.10.5
+ * @version 0.10.6a
  * @desc.   Styling voor h3 / h4 aangepast (h4: styling verwijderd).
  * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
@@ -23,7 +23,7 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "https://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.10.5" );
+define( 'CHILD_THEME_VERSION',              "0.10.6a" );
 define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Styling voor h3 / h4 aangepast (h4: styling verwijderd)." );
 define( 'SHOW_CSS_DEBUG',                   false );
 
