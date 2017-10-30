@@ -798,7 +798,7 @@ if( function_exists('acf_add_local_field_group') ):
     				'id' => '',
     			),
     			'choices' => array (
-    				'dossier_overzicht_filter_as_list' => 'Alle dossiers in een lijst',
+    				'dossier_overzicht_filter_as_list' => 'Alleen de dossiers in een lijst',
     				'dossier_overzicht_filter_as_list_plus' => 'Filter en uitgelichte onderwerpen + alle dossiers in een lijst',
     			),
     			'allow_null' => 0,
