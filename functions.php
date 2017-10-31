@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.10.5
- * @desc.   Styling voor h3 / h4 aangepast (h4: styling verwijderd).
+ * @version 0.10.7
+ * @desc.   SiteImprove tracker toegevoegd.
  * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "https://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.10.5" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Styling voor h3 / h4 aangepast (h4: styling verwijderd)." );
+define( 'CHILD_THEME_VERSION',              "0.10.7" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "SiteImprove tracker toegevoegd." );
 define( 'SHOW_CSS_DEBUG',                   false );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
@@ -1357,8 +1357,10 @@ add_filter( 'genesis_after', 'rhswp_trackercode', 999 );
 
 function rhswp_trackercode() {
   if ( 'www.digitaleoverheid.nl' == $_SERVER["HTTP_HOST"] || 'digitaleoverheid.nl' == $_SERVER["HTTP_HOST"] ) { 
-        echo '<!-- Piwik -->
+        echo '
 <script type="text/javascript">
+
+<!-- Piwik -->
   var _paq = _paq || [];
   _paq.push(["enableLinkTracking"]);
   _paq.push(["setLinkTrackingTimer", 750]);
@@ -1372,8 +1374,20 @@ function rhswp_trackercode() {
     var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0];
     g.type="text/javascript"; g.async=true; g.defer=true; g.src=u+"js/tracker.php"; s.parentNode.insertBefore(g,s);
   })();
-</script>
-<!-- End Piwik Code -->';
+<!-- End Piwik Code -->
+
+<!-- Start SiteImprove Code -->
+(function() {
+var sz = document.createElement("script"); sz.type = "text/javascript"; sz.async = true;
+sz.src = "//siteimproveanalytics.com/js/siteanalyze_6017476.js";
+var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(sz, s);
+})();
+<!-- End SiteImprove Code -->
+
+
+</script>';
+
+
     }
     else {
         if ( WP_DEBUG ) {
