@@ -7,8 +7,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.10.3
-// * @desc.   Icon voor PDF document op zoekresultaten toegevoegd.
+// * @version 0.10.6
+// * @desc.   Functionaliteit en layout voor onderwerppagina aangepast.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 // **
 
@@ -30,7 +30,7 @@
       a {
         display: block;
       }
-      
+
       .voorbereid {
         
         ul {
@@ -88,6 +88,42 @@
     overflow: hidden;
     margin-bottom: 1em;
   }
+
+  div.dossier_overzicht_popular {
+    background: @grijs_2;
+    padding: 0 1em 1em 1em;
+
+    ul.links {
+      overflow: hidden;
+      margin: 0 0;
+    }
+  }        
+
+  @media only screen and (max-width: ( @break_fullwidth ) ) {
+    
+    #filterselector {
+      display: flex;
+      width: 100%;
+      flex-wrap: wrap;
+    }
+
+    div.topicSearchWrapper {
+      order: 2;      
+    }
+    div.dossier_overzicht_popular {
+      order: 1;      
+    }
+    
+    div.topicSearchWrapper,
+    div.dossier_overzicht_popular {
+      width: 100%;
+      min-width: 100%;
+      margin-bottom: 1em;
+    }  
+  }        
+
+  
+
       
   #mixitupfilterlist {
     
@@ -98,16 +134,10 @@
     
     &.unfiltered {
 
-      display: flex;
-      flex-flow: row wrap;
-      justify-content: flex-start;
-
       li, div {
-  	    flex-grow: 1;
         float: left;
-        flex-basis: @flexbasis_fourcols;
-        max-width: @flexbasis_fourcols;
         overflow: hidden;
+        display: block;
         
         span {
           .visuallyhidden();
@@ -145,21 +175,6 @@
           &:before {
             content: '';
             width: 0;
-          }
-
-          ul.children {
-          
-            display: flex;
-            flex-flow: row wrap;
-            justify-content: flex-start;
-
-            li {
-              flex-grow: 1;
-              float: left;
-              flex-basis: @flexbasis_fourcols;
-              max-width: @flexbasis_fourcols;
-              overflow: hidden;
-            }              
           }
 
           .i-have-kids {
@@ -202,6 +217,61 @@
               margin-left: 0;
             }
           }
+        }
+      }
+    }
+  }
+
+
+//========================================================================================================
+  @media only screen and (min-width: ( @break_tablet ) ) {
+
+    #mixitupfilterlist {
+      
+      &.unfiltered {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: flex-start;
+  
+        li, div {
+    	    flex-grow: 1;
+          float: left;
+          flex-basis: @flexbasis_twocols;
+          max-width: @flexbasis_twocols;
+          overflow: hidden;
+        }
+
+        &.i-have-kids {
+
+          ul.children {
+          
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: flex-start;
+
+            li {
+              flex-grow: 1;
+              float: left;
+              flex-basis: @flexbasis_fourcols;
+              max-width: @flexbasis_fourcols;
+              overflow: hidden;
+            }              
+          }
+        }
+        
+      }
+    }
+  }
+
+//========================================================================================================
+  @media only screen and (min-width: ( @break_fullwidth ) ) {
+
+    #mixitupfilterlist {
+      
+      &.unfiltered {
+        li, div {
+          flex-basis: @flexbasis_fourcols;
+          max-width: @flexbasis_fourcols;
         }
       }
     }
@@ -271,16 +341,6 @@
             }            
           }
         }
-        div.dossier_overzicht_popular {
-          background: @grijs_2;
-          padding: 0 1em 1em 1em;
-
-          ul.links {
-            overflow: hidden;
-            margin: 0 0;
-          }
-          
-        }        
       }
     }
   }  

@@ -1,17 +1,17 @@
 <?php
 
 /**
- * Rijkshuisstijl (Digitale Overheid) - page_showalldossiers.php
- * ----------------------------------------------------------------------------------
- * Toont alle dossiers
- * ----------------------------------------------------------------------------------
- *
- * @author  Paul van Buuren
- * @license GPL-2.0+
- * @package wp-rijkshuisstijl
- * @version 0.10.2
- * @desc.   Icon external link. Filterform aangepast.
- * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
+// Rijkshuisstijl (Digitale Overheid) - page_showalldossiers.php
+// ----------------------------------------------------------------------------------
+// Toont alle dossiers
+// ----------------------------------------------------------------------------------
+//
+// @author  Paul van Buuren
+// @license GPL-2.0+
+// @package wp-rijkshuisstijl
+// * @version 0.10.6
+// * @desc.   Functionaliteit en layout voor onderwerppagina aangepast.
+// @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
 
@@ -84,7 +84,7 @@ $timestamp = time();
           <button type="submit" id="searchbutton">Filter</button>
         </div>
       </fieldset>
-    <button id="filter" name="selectie" value="wis" type="submit" class="reset">' . _x( 'Toon alle onderwerpen', 'filterknop op onderwerppagina', 'wp-rijkshuisstijl' ) . '</button>
+    <button id="resetbutton" name="selectie" value="wis" type="submit" class="reset">' . _x( 'Verwijder filter', 'filterknop op onderwerppagina', 'wp-rijkshuisstijl' ) . '</button>
   </form></div>';  
 	
 	  
@@ -137,7 +137,7 @@ $timestamp = time();
 
   }
   
-  echo '<h2>' . _x( 'Alle onderwerpen', 'Tussenkop op onderwerppagina', 'wp-rijkshuisstijl' ) . '</h2>';
+  echo '<h2 id="h-result">' . _x( 'Alle onderwerpen', 'Tussenkop op onderwerppagina', 'wp-rijkshuisstijl' ) . '</h2>';
   
   $args = array(
     'taxonomy'              => RHSWP_CT_DOSSIER,
@@ -203,6 +203,13 @@ $timestamp = time();
       $classattr  	.= ' data-mixible data-titel="' . strtolower( $title ) . ' ' . strtolower( $excerpt ) .  '"';
       
       $kortebeschr	= get_field( 'dossier_korte_beschrijving_voor_dossieroverzicht', RHSWP_CT_DOSSIER . '_' . $term->term_id );
+
+$alleregels = explode('. ', $excerpt);
+
+if ( $alleregels[0] ) {
+  $excerpt = $alleregels[0] . '.';
+}
+
       
       printf( '<div %s>', $classattr );
       printf( '<a href="%s"><h3>%s</h3></a>', $href, $title );
