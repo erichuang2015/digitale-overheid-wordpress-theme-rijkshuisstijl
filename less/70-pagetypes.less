@@ -7,8 +7,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.10.6
-// * @desc.   Functionaliteit en layout voor onderwerppagina aangepast.
+// * @version 0.10.9
+// * @desc.   Kleine CSS bugs verholpen (onderwerppaginakolombreedte).
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 // **
 
@@ -237,7 +237,8 @@
     	    flex-grow: 1;
           float: left;
           flex-basis: @flexbasis_twocols;
-          max-width: @flexbasis_twocols;
+//          max-width: @flexbasis_twocols;
+          width: @flexbasis_twocols;
           overflow: hidden;
         }
 
@@ -253,7 +254,8 @@
               flex-grow: 1;
               float: left;
               flex-basis: @flexbasis_fourcols;
-              max-width: @flexbasis_fourcols;
+//              max-width: @flexbasis_fourcols;
+              width: @flexbasis_fourcols;
               overflow: hidden;
             }              
           }
@@ -271,7 +273,7 @@
       &.unfiltered {
         li, div {
           flex-basis: @flexbasis_fourcols;
-          max-width: @flexbasis_fourcols;
+          width: @flexbasis_fourcols;
         }
       }
     }
@@ -423,7 +425,7 @@
       .dossiers {
         li {
           flex-basis: @flexbasis_fourcols;
-          max-width: @flexbasis_fourcols;
+          width: @flexbasis_fourcols;
         }
       }
     }
