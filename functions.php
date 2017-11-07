@@ -1,16 +1,16 @@
 <?php
 
 /**
- * Rijkshuisstijl (Digitale Overheid) - functions.php
- * ----------------------------------------------------------------------------------
- * Zonder functions geen functionaliteit, he?
- * ----------------------------------------------------------------------------------
- * @author  Paul van Buuren
- * @license GPL-2.0+
- * @package wp-rijkshuisstijl
- * @version 0.10.7
- * @desc.   SiteImprove tracker toegevoegd.
- * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
+// * Rijkshuisstijl (Digitale Overheid) - functions.php
+// * ----------------------------------------------------------------------------------
+// * Zonder functions geen functionaliteit, he?
+// * ----------------------------------------------------------------------------------
+// * @author  Paul van Buuren
+// * @license GPL-2.0+
+// * @package wp-rijkshuisstijl
+// * @version 0.10.8
+// * @desc.   Afdwingen beeldformaat voor caroussel (1200x400px).
+// * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
 //========================================================================================================
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "https://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.10.7" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "SiteImprove tracker toegevoegd." );
+define( 'CHILD_THEME_VERSION',              "0.10.8" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Afdwingen beeldformaat voor caroussel (1200x400px)." );
 define( 'SHOW_CSS_DEBUG',                   false );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {

@@ -11,10 +11,11 @@ Dit theme wordt gebruikt op [digitaleoverheid.nl](https://www.digitaleoverheid.n
 
 ## Current version:
 
-0.10.7 (SiteImprove tracker toegevoegd.)
+0.10.8 (Afdwingen beeldformaat voor caroussel (1200x400px).)
 
 ## Version history
 
+* 0.10.8 - Afdwingen beeldformaat voor caroussel (1200x400px).
 * 0.10.7 - SiteImprove tracker toegevoegd.
 * 0.10.6 - Functionaliteit en layout voor onderwerppagina aangepast.
 * 0.10.5 - Styling voor h3 / h4 aangepast (h4: styling verwijderd).

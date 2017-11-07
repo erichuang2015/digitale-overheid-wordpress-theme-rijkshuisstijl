@@ -11,8 +11,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.9.6
- * @desc.   Filter op onderwerppagina.
+ * @version 0.10.8
+ * @desc.   Afdwingen beeldformaat voor caroussel (1200x400px).
  * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
@@ -1744,7 +1744,7 @@ if( function_exists('acf_add_local_field_group') ):
       			'label'   => __( 'Afbeelding bij dit item', 'wp-rijkshuisstijl' ),
   					'name' => 'carrousel_item_photo',
   					'type' => 'image',
-  					'instructions'   => '',
+  					'instructions'   => 'Deze afbeelding moet 1200px bij 400px groot zijn',
   					'required' => 1,
   					'conditional_logic' => 0,
   					'wrapper' => array (
@@ -1755,11 +1755,11 @@ if( function_exists('acf_add_local_field_group') ):
   					'return_format' => 'array',
   					'preview_size' => 'medium_large',
   					'library' => 'all',
-  					'min_width' => '',
-  					'min_height' => '',
+  					'min_width' => '1200',
+  					'min_height' => '400',
   					'min_size' => '',
-  					'max_width' => '',
-  					'max_height' => '',
+  					'max_width' => '1200',
+  					'max_height' => '400',
   					'max_size' => '',
   					'mime_types' => '',
   				),
