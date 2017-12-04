@@ -34,6 +34,15 @@ else {
   define( 'DO_MINIFY_JS',                   true );
 }
 
+if ( WP_DEBUG ) {
+//  define( 'WP_LOCAL_DEV',                   false );
+  define( 'WP_LOCAL_DEV',                   true );
+}
+else {
+  define( 'WP_LOCAL_DEV',                   false );
+}
+
+
 define( 'ID_ZOEKEN',                        'rhswp-searchform-nav-primary' );
 define( 'GC_TWITTERACCOUNT',                'digioverheid' );
 define( 'SOC_MED_NO',                       'socmed_nee' );
@@ -1285,7 +1294,7 @@ genesis_register_sidebar(
         'id'                => RHSWP_HOME_WIDGET_AREA,
         'description'       => __( "Ruimte voor widget op de homepage", 'wp-rijkshuisstijl' ),
         'before_widget' => genesis_markup( array(
-            'html5' => '<section id="%1$s" class="widget %2$s '.RHSWP_HOME_WIDGET_AREA . '"><div class="widget-wrap">',
+            'html5' => '<section role="complementary" id="%1$s" class="widget %2$s '.RHSWP_HOME_WIDGET_AREA . '"><div class="widget-wrap">',
             'xhtml' => '<div id="%1$s" class="widget %2$s"><div class="widget-wrap">',
             'echo'  => false,
         ) ),
