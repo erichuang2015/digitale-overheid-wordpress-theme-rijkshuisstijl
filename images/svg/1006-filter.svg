@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="40px" height="56px" viewBox="0 0 40 56" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.1 (47250) - http://www.bohemiancoding.com/sketch -->
+    <title>1006-filter</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="rhs-icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-289.000000, -288.000000)">
+        <g id="1006-filter" transform="translate(277.000000, 284.000000)">
+            <g id="Box">
+                <rect id="Rectangle-path" x="0" y="0" width="64" height="64"></rect>
+            </g>
+            <g id="Icon" transform="translate(12.000000, 4.000000)" fill="#000000" fill-rule="nonzero">
+                <path d="M39.754,7.6931 C39.754,3.2971 29.757,0 19.877,0 C9.997,0 0,3.2971 0,7.6931 C0,9.2289 0.0038,11.9637 0.759,14.0625 C3.3621,21.2963 9.821,30.0664 13.0194,33.9358 C14.98,35.8356 20.7575,34.9572 20.9186,34.9554 C20.9223,35.0396 20.9275,35.1736 20.7328,35.3103 C20.5128,35.4648 18.0824,36.552 14.0146,36.9355 L14.9077,54.1018 C14.9077,55.1501 17.1326,56 19.877,56 C22.6214,56 24.8463,55.1501 24.8463,54.1017 L25.8401,35 C28.4784,31.942 36.1193,22.054 38.995,14.0625 C39.7503,11.9636 39.754,9.2288 39.754,7.6931 Z M19.967,14.12 C11.5073,14.12 4.467,11.9607 4.467,9.074 C4.467,6.1871 11.5073,3.8469 19.967,3.8469 C28.4267,3.8469 35.467,6.1871 35.467,9.074 C35.467,11.9607 28.4267,14.12 19.967,14.12 Z" id="Shape"></path>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.10.10
-// * @desc.   Styling voor TOC (table of contents).
+// * @version 0.10.11
+// * @desc.   Styling voor filterknop onderwerppagina.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "https://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.10.10" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Styling voor TOC (table of contents)." );
+define( 'CHILD_THEME_VERSION',              "0.10.11" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Styling voor filterknop onderwerppagina." );
 define( 'SHOW_CSS_DEBUG',                   false );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {

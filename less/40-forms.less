@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.10.2
-// * @desc.   Icon external link. Filterform aangepast.
+// * @version 0.10.11
+// * @desc.   Styling voor filterknop onderwerppagina.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 //
 
@@ -235,13 +235,24 @@
     }
     
     
-    #searchbutton {
-      background-size: 15px 16px;
+    #filterbutton {
+      background-size: 21px 30px;
       background-position: center center;
       background-repeat: no-repeat;
       text-indent: -9999em;
       width: @filter_submit_width;
+      height: @seachform_element_height_normal;
       float: right;
+      .iconaddfill('../images/svg/1006-filter.svg', @wit);
+
+      &:hover,
+      &:active,
+      &:focus {
+        color: @txt;
+        background-color: @wit;
+      .iconaddfill('../images/svg/1006-filter.svg', @txt);
+      }
+      
     }
     #resetbutton {
       background: none;
