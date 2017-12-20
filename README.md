@@ -11,10 +11,11 @@ Dit theme wordt gebruikt op [digitaleoverheid.nl](https://www.digitaleoverheid.n
 
 ## Current version:
 
-0.10.11 (Styling voor filterknop onderwerppagina.)
+0.10.12 (Bugfixes styling voor TOC (table of contents).)
 
 ## Version history
 
+* 0.10.12 - Bugfixes styling voor TOC (table of contents).
 * 0.10.11 - Styling voor filterknop onderwerppagina.
 * 0.10.10 - Styling voor TOC (table of contents).
 * 0.10.9 - Kleine CSS bugs verholpen (onderwerppaginakolombreedte).

@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.10.11
-// * @desc.   Styling voor filterknop onderwerppagina.
+// * @version 0.10.12
+// * @desc.   Bugfixes styling voor TOC (table of contents).
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "https://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.10.11" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Styling voor filterknop onderwerppagina." );
+define( 'CHILD_THEME_VERSION',              "0.10.12" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Bugfixes styling voor TOC (table of contents)." );
 define( 'SHOW_CSS_DEBUG',                   false );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
@@ -3116,6 +3116,12 @@ function rhswp_add_blog_archive_css() {
     background-repeat: no-repeat;
     background-position: right center;
     background-size: .75em .75em;
+  }
+  .entry-content a[href^=\"#\"],
+  .entry-content a[href*=\"tel:\"],
+  .entry-content a[href*=\"mailto:\"] {    
+    padding-right: 0 !important;
+    background: none !important;
   }";
   
   $countertje   = 0;

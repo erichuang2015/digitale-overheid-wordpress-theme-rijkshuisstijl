@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.10.10
-// * @desc.   Styling voor TOC (table of contents).
+// * @version 0.10.12
+// * @desc.   Bugfixes styling voor TOC (table of contents).
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 // **
 
@@ -374,12 +374,27 @@
       }
       
       .toc_list {
-        li {
+        li, ul {
+          margin-top: 0;
           margin-bottom: 0;
+        }
           
+        li {
           a {
             background: none !important;
             padding-right: 0;
+          }
+          ul {
+            &, li {
+              list-style: lower-alpha;
+            }
+
+            li {
+              padding-left: 0;
+              &:before {
+                content: '';
+              }
+            }
           }
         }
       }
