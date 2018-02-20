@@ -3117,6 +3117,7 @@ function rhswp_add_blog_archive_css() {
     background-position: right center;
     background-size: .75em .75em;
   }
+  .entry-content a[href^=\"/\"],
   .entry-content a[href^=\"#\"],
   .entry-content a[href*=\"tel:\"],
   .entry-content a[href*=\"mailto:\"] {    
