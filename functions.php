@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.10.12
-// * @desc.   Bugfixes styling voor TOC (table of contents).
+// * @version 0.10.13c
+// * @desc.   Bugfix voor carroussel. CSS external link.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "https://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.10.12" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Bugfixes styling voor TOC (table of contents)." );
+define( 'CHILD_THEME_VERSION',              "0.10.13c" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Bugfix voor carroussel. CSS external link." );
 define( 'SHOW_CSS_DEBUG',                   false );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
@@ -97,6 +97,11 @@ define( 'RHSWP_ARCHIVE_CSS',                'featured-images' );
 
 
 
+define( 'RHSWP_FOOTERWIDGET1',              'footer-1' );
+define( 'RHSWP_FOOTERWIDGET2',              'footer-2' );
+define( 'RHSWP_FOOTERWIDGET3',              'footer-3' );
+
+
 
 //========================================================================================================
 
@@ -157,7 +162,7 @@ include_once( RHSWP_FOLDER . '/includes/class.taxonomy-single-term.php' );
 $custom_tax_mb = new Taxonomy_Single_Term( RHSWP_CT_DOSSIER, array( 'page' ) );
 
 // Custom title for this metabox
-$custom_tax_mb->set( 'metabox_title', __( 'Dossiers', 'wp-rijkshuisstijl' ) );
+$custom_tax_mb->set( 'metabox_title', __( 'Onderwerpen', 'wp-rijkshuisstijl' ) );
 
 // Will keep radio elements from indenting for child-terms.
 $custom_tax_mb->set( 'indented', false );
@@ -234,8 +239,8 @@ remove_action( 'genesis_footer', 'genesis_do_footer' );
 
 // zet de footerwidgets IN de footer
 add_action( 'genesis_before_footer', 'rhswp_add_payoff' );
-add_action( 'genesis_footer', 'rhswp_footer_widget_area' );
-add_action( 'genesis_footer', 'genesis_footer_widget_areas' );
+//add_action( 'genesis_footer', 'rhswp_footer_widget_area' );
+//add_action( 'genesis_footer', 'genesis_footer_widget_areas' );
 
 // voor de actueel-pagina, voeg een titel toe
 add_action( 'genesis_loop', 'rhswp_add_title_to_blog_page', 1 );
@@ -876,8 +881,8 @@ function rhswp_404() {
 
 function rhswp_get_sitemap_for_pagenotfound() {
   ?>        
-  <section>
-    <h2><?php _e( "Pagina's:", 'wp-rijkshuisstijl' ); ?></h2>
+  <section aria-labelledby="title_sitemap_pages">
+    <h2 id="title_sitemap_pages"><?php _e( "Pagina's:", 'wp-rijkshuisstijl' ); ?></h2>
 
     <ul>
         <?php
@@ -897,7 +902,7 @@ function rhswp_get_sitemap_for_pagenotfound() {
     
   </section>
   <?php
-  rhswp_show_customtax_terms( RHSWP_CT_DOSSIER, __( 'Dossiers', 'wp-rijkshuisstijl' ) . ":" );
+  rhswp_show_customtax_terms( RHSWP_CT_DOSSIER, __( 'Onderwerpen', 'wp-rijkshuisstijl' ) . ":" );
   rhswp_show_customtax_terms( 'category', __( 'Categorieën', 'wp-rijkshuisstijl' ) . ":" );
   
   
@@ -920,8 +925,8 @@ function rhswp_get_sitemap_content() {
   }
   
   ?>        
-  <section>
-    <h2><?php _e( "Pagina's:", 'wp-rijkshuisstijl' ); ?></h2>
+  <section aria-labelledby="title_sitemap_pages2">
+    <h2 id="title_sitemap_pages2"><?php _e( "Pagina's:", 'wp-rijkshuisstijl' ); ?></h2>
     <<?php echo $listitem; ?>>
         <?php
 
@@ -952,15 +957,15 @@ function rhswp_get_sitemap_content() {
   </section>
   <?php
     
-    rhswp_show_customtax_terms( RHSWP_CT_DOSSIER, __( 'Dossiers', 'wp-rijkshuisstijl' ) . ":" );
+    rhswp_show_customtax_terms( RHSWP_CT_DOSSIER, __( 'Onderwerpen', 'wp-rijkshuisstijl' ) . ":" );
     rhswp_show_customtax_terms( 'category', __( 'Categorieën', 'wp-rijkshuisstijl' ) . ":" );
 
     if ( $filtersitemap ) {
     }
     else { 
       ?>
-      <section>
-        <h2><?php echo 'Documenten:' ?></h2>
+      <section aria-labelledby="title_sitemap_documenten">
+        <h2 id="title_sitemap_documenten"><?php _e( "Documenten", 'wp-rijkshuisstijl' ); ?></h2>
         <<?php echo $listitem; ?>>
             <?php 
     
@@ -975,8 +980,8 @@ function rhswp_get_sitemap_content() {
               wp_get_archives( $args ); ?>
         </<?php echo $listitem; ?>>
       </section>
-      <section>
-        <h2><?php echo 'Events:' ?></h2>
+      <section aria-labelledby="title_sitemap_agenda">
+        <h2 id="title_sitemap_agenda"><?php _e( "Agenda", 'wp-rijkshuisstijl' ); ?></h2>
         <<?php echo $listitem; ?>>
             <?php 
     
@@ -996,8 +1001,8 @@ function rhswp_get_sitemap_content() {
       if ( defined( 'RHSWP_CPT_RIJKSVIDEO' ) ) {
       ?>
       
-      <section>
-        <h2><?php echo 'Videos:' ?></h2>
+      <section aria-labelledby="title_sitemap_videos">
+        <h2 id="title_sitemap_videos"><?php _e( "Video's", 'wp-rijkshuisstijl' ); ?></h2>
         <<?php echo $listitem; ?>>
             <?php 
     
@@ -1029,8 +1034,8 @@ function rhswp_get_sitemap_content() {
   }
   
   ?>        
-  <section>
-    <h2><?php echo $maxnr_posts .  __( ' laatste berichten', 'wp-rijkshuisstijl' ) . ':'; ?></h2>
+  <section aria-labelledby="title_sitemap_posts">
+    <h2 id="title_sitemap_posts"><?php echo $maxnr_posts .  __( ' laatste berichten', 'wp-rijkshuisstijl' ) . ':'; ?></h2>
     <<?php echo $listitem; ?>>
         <?php 
 
@@ -1294,7 +1299,7 @@ genesis_register_sidebar(
         'id'                => RHSWP_HOME_WIDGET_AREA,
         'description'       => __( "Ruimte voor widget op de homepage", 'wp-rijkshuisstijl' ),
         'before_widget' => genesis_markup( array(
-            'html5' => '<section role="complementary" id="%1$s" class="widget %2$s '.RHSWP_HOME_WIDGET_AREA . '"><div class="widget-wrap">',
+            'html5' => '<section role="complementary" id="%1$s" class="widget %2$s '.RHSWP_HOME_WIDGET_AREA . '" aria-labelledby="title_' . RHSWP_HOME_WIDGET_AREA . '"><div class="widget-wrap">',
             'xhtml' => '<div id="%1$s" class="widget %2$s"><div class="widget-wrap">',
             'echo'  => false,
         ) ),
@@ -1303,7 +1308,15 @@ genesis_register_sidebar(
             'xhtml' => '</div></div>' . "\n",
             'echo'  => false
         ) ),
-        'before_title'  => '<h2 class="widgettitle">',
+        'before_title'  => genesis_markup( array(
+            'html5' => '<h2 id="title_' . RHSWP_HOME_WIDGET_AREA . '">',
+            'xhtml' => '<h2 id="title_' . RHSWP_HOME_WIDGET_AREA . '">',
+            'echo'  => false,
+        ) ),
+        
+        
+        
+//        '<h2 class="widgettitle" id="title_%1$s">',
         'after_title'   => "</h2>\n",
     )
 );
@@ -1772,8 +1785,10 @@ function rhswp_append_site_logo() {
 //========================================================================================================
 
 function rhswp_show_customtax_terms( $taxonomy = 'category', $title = '', $dosection = true, $cssclasses = '', $containerid = '' ) {
-  $sectionstart = '<section>';
-  $sectionend   = '</section>';
+
+//  <section aria-labelledby="title_sitemap_pages2">
+//    <h2 id="title_sitemap_pages2"><?php _e( "Pagina's:", 'wp-rijkshuisstijl' ); 
+  
   
   if ( $cssclasses ) {
     $cssclasses = ' class="' . strtolower($taxonomy) . ' ' . $cssclasses . '"';
@@ -1781,13 +1796,20 @@ function rhswp_show_customtax_terms( $taxonomy = 'category', $title = '', $dosec
   else {
     $cssclasses = ' class="' . strtolower($taxonomy) . '"';
   }
+
+  $title_id = $taxonomy . '-' . $title;
   
   if ( $containerid ) {
     $containerid = ' id="' . $containerid . '"';
+    $title_id = $taxonomy . '-' . $containerid;
   }
   else {
     $containerid = '';
   }
+
+  $sectionstart = '<section aria-labelledby="' . sanitize_title( $title_id ) . '">';
+  $sectionend   = '</section>';
+
   
   if ( !$dosection ) {
     $sectionstart = '';
@@ -1809,7 +1831,7 @@ function rhswp_show_customtax_terms( $taxonomy = 'category', $title = '', $dosec
       'echo'                  => 0,
       'hierarchical'          => TRUE,
       'title_li'              => '',
-      'walker'                => new rhswp_custom_walker_for_taxonomies()
+//      'walker'                => new rhswp_custom_walker_for_taxonomies()
     );
 
     $terms = wp_list_categories( $args );
@@ -1818,7 +1840,7 @@ function rhswp_show_customtax_terms( $taxonomy = 'category', $title = '', $dosec
 
         echo $sectionstart;
         if ( $title ) {
-          echo '<h2>' . $title . '</h2>';
+          echo '<h2 id="' . sanitize_title( $title_id ) . '">' . $title . '</h2>';
         }
     
         echo '<ul' . $cssclasses . '' . $containerid . '>';
@@ -2414,7 +2436,7 @@ function rhswp_write_extra_contentblokken() {
                   if ( WP_DEBUG && SHOW_CSS_DEBUG ) {
                     dodebug('Check category & dossier:');
                     the_category( ', ' ); 
-                    dodebug(get_the_term_list( $post->ID, RHSWP_CT_DOSSIER, 'Dossiers: ', ', ' ) );  
+                    dodebug(get_the_term_list( $post->ID, RHSWP_CT_DOSSIER, 'Onderwerpen', ', ' ) );  
                   }
   
                   
@@ -2899,9 +2921,9 @@ function rhswp_translateposttypes( $posttype = '', $plural = false ) {
       }
       break;
     case RHSWP_CT_DOSSIER:
-      $returnstring = __( "Dossier", 'wp-rijkshuisstijl' );
+      $returnstring = __( "Onderwerp", 'wp-rijkshuisstijl' );
       if ( $plural ) {
-        $returnstring = __( "Dossiers", 'wp-rijkshuisstijl' );
+        $returnstring = __( "Onderwerpen", 'wp-rijkshuisstijl' );
       }
       break;
     case 'attachment':
@@ -3163,6 +3185,129 @@ function rhswp_add_blog_archive_css() {
 
 
 
+}
+
+//========================================================================================================
+
+/**
+ * Add 3 footers with my own markup.
+ * aria-labelledby, ja?
+ *
+ */
+
+add_action( 'widgets_init',   'rhswp_widget_definition_footer1' );
+add_action( 'widgets_init',   'rhswp_widget_definition_footer2' );
+add_action( 'widgets_init',   'rhswp_widget_definition_footer3' );
+add_action( 'genesis_footer', 'rhswp_widget_output_footer1');	
+add_action( 'genesis_footer', 'rhswp_widget_output_footer2');	
+add_action( 'genesis_footer', 'rhswp_widget_output_footer3');	
+
+// Add in new Widget area
+function rhswp_widget_definition_footer1() {	
+	genesis_register_sidebar( array(
+		'id'            => RHSWP_FOOTERWIDGET1,
+		'name'          => __( RHSWP_FOOTERWIDGET1, 'yourtheme' ),
+		'description'   => __( 'This is the general footer area', 'yourtheme' ),
+    'before_widget' => genesis_markup( array(
+        'html5' => '<section role="complementary" id="%1$s" class="widget-area widget footer-widgets-1 footer-widget-area %2$s '.RHSWP_FOOTERWIDGET1 . '" aria-labelledby="title_' . RHSWP_FOOTERWIDGET1 . '"><div class="widget-wrap">',
+        'xhtml' => '<div id="%1$s" class="widget %2$s"><div class="widget-wrap">',
+        'echo'  => false,
+    ) ),
+    'after_widget'  => genesis_markup( array(
+        'html5' => '</div></section>' . "\n",
+        'xhtml' => '</div></div>' . "\n",
+        'echo'  => false
+    ) ),
+    'before_title'  => genesis_markup( array(
+        'html5' => '<h2 id="title_' . RHSWP_FOOTERWIDGET1 . '">',
+        'xhtml' => '<h2 id="title_' . RHSWP_FOOTERWIDGET1 . '">',
+        'echo'  => false,
+    ) ),
+    'after_title'   => "</h2>\n",
+
+	));
+}
+
+
+// Add in new Widget area
+function rhswp_widget_definition_footer2() {	
+	genesis_register_sidebar( array(
+		'id'            => RHSWP_FOOTERWIDGET2,
+		'name'          => __( RHSWP_FOOTERWIDGET2, 'yourtheme' ),
+		'description'   => __( 'This is the general footer area', 'yourtheme' ),
+    'before_widget' => genesis_markup( array(
+        'html5' => '<section role="complementary" id="%1$s" class="widget-area widget footer-widgets-1 footer-widget-area %2$s '.RHSWP_FOOTERWIDGET2 . '" aria-labelledby="title_' . RHSWP_FOOTERWIDGET2 . '"><div class="widget-wrap">',
+        'xhtml' => '<div id="%1$s" class="widget %2$s"><div class="widget-wrap">',
+        'echo'  => false,
+    ) ),
+    'after_widget'  => genesis_markup( array(
+        'html5' => '</div></section>' . "\n",
+        'xhtml' => '</div></div>' . "\n",
+        'echo'  => false
+    ) ),
+    'before_title'  => genesis_markup( array(
+        'html5' => '<h2 id="title_' . RHSWP_FOOTERWIDGET2 . '">',
+        'xhtml' => '<h2 id="title_' . RHSWP_FOOTERWIDGET2 . '">',
+        'echo'  => false,
+    ) ),
+    'after_title'   => "</h2>\n",
+
+	));
+}
+
+
+// Add in new Widget area
+function rhswp_widget_definition_footer3() {	
+	genesis_register_sidebar( array(
+		'id'            => RHSWP_FOOTERWIDGET3,
+		'name'          => __( RHSWP_FOOTERWIDGET3, 'yourtheme' ),
+		'description'   => __( 'This is the general footer area', 'yourtheme' ),
+    'before_widget' => genesis_markup( array(
+        'html5' => '<section role="complementary" id="%1$s" class="widget-area widget footer-widgets-1 footer-widget-area %2$s '.RHSWP_FOOTERWIDGET3 . '" aria-labelledby="title_' . RHSWP_FOOTERWIDGET3 . '"><div class="widget-wrap">',
+        'xhtml' => '<div id="%1$s" class="widget %2$s"><div class="widget-wrap">',
+        'echo'  => false,
+    ) ),
+    'after_widget'  => genesis_markup( array(
+        'html5' => '</div></section>' . "\n",
+        'xhtml' => '</div></div>' . "\n",
+        'echo'  => false
+    ) ),
+    'before_title'  => genesis_markup( array(
+        'html5' => '<h2 id="title_' . RHSWP_FOOTERWIDGET3 . '">',
+        'xhtml' => '<h2 id="title_' . RHSWP_FOOTERWIDGET3 . '">',
+        'echo'  => false,
+    ) ),
+    'after_title'   => "</h2>\n",
+
+	));
+}
+
+//========================================================================================================
+
+// Position the Footer Area
+function rhswp_widget_output_footer1() {
+	genesis_widget_area ( RHSWP_FOOTERWIDGET1, array(
+		'before' => '<div class="footer-widgets" id="genesis-footer-widgets"><div class="wrap">',
+		'after'  => '',
+	));
+}
+
+	
+// Position the Footer Area
+function rhswp_widget_output_footer2() {
+	genesis_widget_area ( RHSWP_FOOTERWIDGET2, array(
+		'before'  => '',
+		'after'  => '',
+	));
+}
+
+	
+// Position the Footer Area
+function rhswp_widget_output_footer3() {
+	genesis_widget_area ( RHSWP_FOOTERWIDGET3, array(
+		'before'  => '',
+		'after'  => '</div></div>',
+	));
 }
 
 //========================================================================================================
