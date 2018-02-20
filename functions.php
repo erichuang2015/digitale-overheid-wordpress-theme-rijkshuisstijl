@@ -8,7 +8,7 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.10.13c
+// * @version 0.11.1
 // * @desc.   Bugfix voor carroussel. CSS external link.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
@@ -23,7 +23,7 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "https://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.10.13c" );
+define( 'CHILD_THEME_VERSION',              "0.11.1" );
 define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Bugfix voor carroussel. CSS external link." );
 define( 'SHOW_CSS_DEBUG',                   false );
 
@@ -1821,6 +1821,8 @@ function rhswp_show_customtax_terms( $taxonomy = 'category', $title = '', $dosec
     $show_count   = false;
     $pad_counts   = false;
     $hierarchical = true;
+
+// to-do: walker weer aan zetten
      
     $args = array(
       'taxonomy'              => $taxonomy,
@@ -3139,6 +3141,7 @@ function rhswp_add_blog_archive_css() {
     background-position: right center;
     background-size: .75em .75em;
   }
+  .entry-content a:not([href]),
   .entry-content a[href^=\"/\"],
   .entry-content a[href^=\"#\"],
   .entry-content a[href*=\"tel:\"],
@@ -3192,7 +3195,7 @@ function rhswp_add_blog_archive_css() {
 /**
  * Add 3 footers with my own markup.
  * aria-labelledby, ja?
- *
+ * to-do: check op unieke titel voor widget. Validators gaan er stuk aan als de ID niet uniek is.
  */
 
 add_action( 'widgets_init',   'rhswp_widget_definition_footer1' );

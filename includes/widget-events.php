@@ -8,8 +8,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.7.10
- * @desc.   CSS: list item arrow, flex on .home, search form in header
+ * @version 0.11.1
+ * @desc.   Bugfix voor carroussel. CSS external link.
  * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
@@ -301,9 +301,16 @@ function form($instance) {
     }
 }
 
-if ( function_exists( 'em_get_scopes' ) ) {
-  add_action('widgets_init', create_function('', 'return register_widget("GC_event_widget");'));
+
+function GC_event_widget_register() {
+  return register_widget("GC_event_widget");  
 }
+
+if ( function_exists( 'em_get_scopes' ) ) {
+  add_action( 'widgets_init', 'GC_event_widget_register' );
+}
+
+
 
 //add_filter( 'em_get_link', 'viezelinks', 999 );
 

@@ -7,7 +7,7 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.10.11
+// * @version 0.11.1
 // * @desc.   Styling voor filterknop onderwerppagina.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 // **
@@ -350,28 +350,30 @@
 
 //=========================================================================================================
 
-.listitem_arrow( @itemcolor: @a_color_default, @fontsize: 1em, @topdistance: 8px, @leftdistance: 0 ) {
+.listitem_arrow( @itemcolor: @a_color_default, @fontsize: 1em, @topdistance: 4px, @leftdistance: 0 ) {
 
   position: relative;
   
   &:before {
-    font-weight: normal;
-    font-family: "RO Icons";
-    display: inline-block;
-    vertical-align: middle;
-    content: "";    
     speak: none;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
     color: @itemcolor;
-    font-size: @fontsize;
-    line-height: @fontsize;
+    display: inline-block;
+    width: 1.5em;
+    height: @fontsize;
+    height: 1.5em;
+    content: ' ';
     position: absolute;
     left: @leftdistance;
     top: @topdistance;
-    width: 1.5em;
+    font-size: @fontsize;
+    line-height: @fontsize;
+    .icon_socmed_icon('../images/svg/list-arrow.svg', @itemcolor);
+    background-repeat: no-repeat;
   }  
 }
+
+//=========================================================================================================
+
 .listitem_arrow_extern() {
 
   &:before {

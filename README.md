@@ -5,16 +5,17 @@ WP-rijkshuisstijl is ontwikkeld als WordPress-theme voor [digitaleoverheid.nl](h
 Dit theme wordt gebruikt op [digitaleoverheid.nl](https://www.digitaleoverheid.nl)
 
 ## Contact
-* Victor Zuydweg
 * Pim Nieuwenburg
 * Paul van Buuren: paul@wbvb.nl
+* Victor Zuydweg
 
 ## Current version:
 
-0.10.12 (Bugfixes styling voor TOC (table of contents).)
+0.11.1 - Bugfix voor carroussel. CSS external link.), create_function verwijderd. Voor onderwerppagina: nieuw paginatype toegevoegd voor de toekomstige styling. Section in footers vervangen; title gebruikt voor aria-labelledby.
 
 ## Version history
 
+* 0.11.1 - Bugfix voor carroussel. CSS external link.), create_function verwijderd. Voor onderwerppagina: nieuw paginatype toegevoegd voor de toekomstige styling. Section in footers vervangen; title gebruikt voor aria-labelledby.
 * 0.10.12 - Bugfixes styling voor TOC (table of contents).
 * 0.10.11 - Styling voor filterknop onderwerppagina.
 * 0.10.10 - Styling voor TOC (table of contents).

@@ -6,8 +6,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.8.39
-// * @desc.   Toegankelijkheidscheck - slideshow
+// * @version 0.11.1
+// * @desc.   Bugfix voor carroussel. CSS external link.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 
 /*

@@ -9,8 +9,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.8.7
- * @desc.   Banner-widget: bug-fixes
+ * @version 0.11.1
+ * @desc.   Bugfix voor carroussel. CSS external link.
  * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
@@ -189,6 +189,11 @@ function filter_for_rhswp_banner_widget( $params ) {
 
 //========================================================================================================
 
-add_action( 'widgets_init', create_function('', 'return register_widget("rhswp_banner_widget");') );
-	
+
+function rhswp_banner_widget_register() {
+  return register_widget("rhswp_banner_widget");  
+}
+
+add_action( 'widgets_init', 'rhswp_banner_widget_register' );
+
 	

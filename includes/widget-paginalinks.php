@@ -9,8 +9,8 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.8.4
- * @desc.   Bugfix tbv pagelinks-widget
+ * @version 0.11.1
+ * @desc.   Bugfix voor carroussel. CSS external link.
  * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
@@ -366,9 +366,12 @@ class rhswp_pagelinks_widget extends WP_Widget {
     }
   }
 }
-  
-  
-add_action( 'widgets_init', create_function('', 'return register_widget("rhswp_pagelinks_widget");') );
+
+function rhswp_pagelinks_widget_register() {
+  return register_widget("rhswp_pagelinks_widget");  
+}
+
+add_action( 'widgets_init', 'rhswp_pagelinks_widget_register' );
   
   
 //========================================================================================================

@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.9.5
-// * @desc.   Bugfixes. Dossier-overzichtspagina.
+// * @version 0.11.1
+// * @desc.   Bugfix voor carroussel. CSS external link.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 // **
 
@@ -25,7 +25,7 @@
   @minheight_widescreen:    400px;
   @headerheight:            32px;
   
-  
+/*  
   @keyframes fadeOutAgain {
     
     0% {
@@ -36,10 +36,9 @@
       z-index: 1000;
       opacity: .1;
     }  	
-  
   }
   
-  
+*/  
 
   .block {
     clear: both;
@@ -77,7 +76,7 @@
     }
   	a {
   		padding-left: 1.2em;
-  		.listitem_arrow( @a_color_default, .7em, 10px );
+  		.listitem_arrow( @a_color_default, .7em, 4px );
   		display: block;
 
   		

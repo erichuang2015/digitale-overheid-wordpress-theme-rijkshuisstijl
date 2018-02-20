@@ -9,14 +9,18 @@
  * @author  Paul van Buuren
  * @license GPL-2.0+
  * @package wp-rijkshuisstijl
- * @version 0.7.21
- * @desc.   Modernizr via CDN, paginalayouts gewijzigd, CSS bugs
+ * @version 0.11.1
+ * @desc.   Bugfix voor carroussel. CSS external link.
  * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
 
 
-add_action( 'widgets_init', create_function('', 'return register_widget("rhswp_news_widget");') );
+function rhswp_news_widget_register() {
+  return register_widget("rhswp_news_widget");  
+}
+
+add_action( 'widgets_init', 'rhswp_news_widget_register' );
 
 
 //========================================================================================================

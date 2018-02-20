@@ -1,20 +1,18 @@
 <?php
 
-/**
- * Rijkshuisstijl (Digitale Overheid) - cpt-acf.php
- * -------------------------------------------------------------------------------------------------------
- * Definities van:
- *  - custom taxonomies: CTAX_thema / CTAX_contentsoort 
- *  - Advanced Custom Fields voor diverse plekken
- * -------------------------------------------------------------------------------------------------------
- *
- * @author  Paul van Buuren
- * @license GPL-2.0+
- * @package wp-rijkshuisstijl
- * @version 0.10.8
- * @desc.   Afdwingen beeldformaat voor caroussel (1200x400px).
- * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
- */
+// * Rijkshuisstijl (Digitale Overheid) - cpt-acf.php
+// * -------------------------------------------------------------------------------------------------------
+// * Definities van:
+// *  - custom taxonomies: CTAX_thema / CTAX_contentsoort 
+// *  - Advanced Custom Fields voor diverse plekken
+// * -------------------------------------------------------------------------------------------------------
+// *
+// * @author  Paul van Buuren
+// * @license GPL-2.0+
+// * @package wp-rijkshuisstijl
+// * @version 0.11.1
+// * @desc.   Styling voor filterknop onderwerppagina.
+// * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 
 
 
@@ -782,11 +780,11 @@ if( function_exists('acf_add_local_field_group') ):
     // uitgelichte dossiers op de dossieroverzichtspagina
     acf_add_local_field_group(array (
     	'key' => 'group_57f50ce2004e6',
-    	'title' => 'Dossieroverzicht: selecteer uitgelichte dossiers',
+    	'title' => 'Onderwerppagina: selecteer uitgelichte onderwerpen',
     	'fields' => array (
     		array (
     			'key' => 'field_58382ce90bcd4',
-    			'label' => 'Hoe wil je de dossiers tonen?',
+    			'label' => 'Hoe wil je de onderwerpen tonen?',
     			'name' => 'dossier_overzicht_filter',
     			'type' => 'radio',
     			'instructions' => '',
@@ -798,8 +796,8 @@ if( function_exists('acf_add_local_field_group') ):
     				'id' => '',
     			),
     			'choices' => array (
-    				'dossier_overzicht_filter_as_list' => 'Alleen de dossiers in een lijst',
-    				'dossier_overzicht_filter_as_list_plus' => 'Filter en uitgelichte onderwerpen + alle dossiers in een lijst',
+    				'dossier_overzicht_filter_as_list' => 'Alleen de onderwerpen in een lijst',
+    				'dossier_overzicht_filter_as_list_plus' => 'Filter en uitgelichte onderwerpen + alle onderwerpen in een lijst',
     			),
     			'allow_null' => 0,
     			'other_choice' => 0,
@@ -811,7 +809,7 @@ if( function_exists('acf_add_local_field_group') ):
 
         array (
         		'key' => 'field_583838dde16cd',
-        		'label' => 'Titel boven blok met uitgelichte dossiers',
+        		'label' => 'Titel boven blok met uitgelichte onderwerpen',
         		'name' => 'dossier_overzicht_filter_title',
         		'type' => 'text',
         		'instructions' => '',
@@ -828,10 +826,10 @@ if( function_exists('acf_add_local_field_group') ):
     		),
     		array (
     			'key' => 'field_57f50cf4234e6',
-    			'label'   => __( 'Uitgelichte dossiers', 'wp-rijkshuisstijl' ),
+    			'label'   => __( 'Uitgelichte onderwerpen', 'wp-rijkshuisstijl' ),
     			'name' => 'uitgelichte_dossiers',
     			'type' => 'taxonomy',
-          'instructions'   => __( 'De dossiers die je hier kiest worden bovenaan de pagina getoond met speciale layout.', 'wp-rijkshuisstijl' ),  			
+          'instructions'   => __( 'De onderwerpen die je hier kiest worden bovenaan de pagina getoond met speciale layout.', 'wp-rijkshuisstijl' ),  			
     			'required' => 0,
     			'conditional_logic' => array (
         			array (
@@ -863,7 +861,7 @@ if( function_exists('acf_add_local_field_group') ):
     			array (
     				'param' => 'page_template',
     				'operator' => '==',
-    				'value' => 'page_showalldossiers.php',
+    				'value' => 'page_showalldossiers-nieuwestyling.php',
     			),
     		),
     	),
