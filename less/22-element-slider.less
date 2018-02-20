@@ -202,9 +202,20 @@
               .visuallyhidden();
             }
           }
-          
         }
+      }
 
+      @media only screen and ( min-width: ( @break_tablet ) ) and ( max-width: ( @break_fullwidth ) ) {
+      
+        ul.active {
+          padding-top: @minheighttablet;
+
+          .caption {
+            .caption-title {
+              background: white;
+            }
+          }
+        }
       }
       
       @media only screen and (min-width: ( @break_fullwidth ) ) {

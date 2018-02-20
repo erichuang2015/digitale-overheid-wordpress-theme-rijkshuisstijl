@@ -81,10 +81,10 @@ var myCarousel = (function() {
     }
   }
   
-  // Helper function for prepending instead of appending
-  function prependElement(parent, child) {
-    parent.insertBefore(child, parent.firstChild);
-  };
+//  // Helper function for prepending instead of appending
+//  function prependElement(parent, child) {
+//    parent.insertBefore(child, parent.firstChild);
+//  };
 
   // Initialization for the carousel
   // Argument: set = an object of settings
@@ -112,9 +112,10 @@ var myCarousel = (function() {
 
 
     if ( ! settings.duration ) {
-      settings.duration = 10000;
+      settings.duration = 6000;
     }
 
+console.log('duration: ' + settings.duration );
 
     // Add list of slides and/or play/pause button
     if ( ( settings.slidenav || settings.animate) && ( slides.length > 1) ) {
@@ -376,7 +377,7 @@ if ( document.getElementById("carousel") ) {
     slidenavid: 'slidenavid',
     animate: true,
     startAnimated: true,
-    duration: 100000
+    duration: 6000
   });
 
 }
