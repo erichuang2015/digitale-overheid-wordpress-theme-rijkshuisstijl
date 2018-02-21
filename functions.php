@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.11.1
-// * @desc.   Bugfix voor carroussel. CSS external link.
+// * @version 0.11.2
+// * @desc.   separator in breadcrumb vervangen door beter karakter.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "https://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.11.1" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Bugfix voor carroussel. CSS external link." );
+define( 'CHILD_THEME_VERSION',              "0.11.2" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "separator in breadcrumb vervangen door beter karakter." );
 define( 'SHOW_CSS_DEBUG',                   false );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
@@ -515,7 +515,7 @@ add_filter( 'genesis_breadcrumb_args', 'rhswp_breadcrumb_args' );
 
 function rhswp_breadcrumb_args( $args ) {
     global $wp_query;
-    $separator = __( '<span class="separator">&gt;</span>', 'wp-rijkshuisstijl' );
+    $separator = __( '<span class="separator">&#8250;</span>', 'wp-rijkshuisstijl' );
     
     $args['home']                       = __( "Home", 'wp-rijkshuisstijl' );
     $args['sep']                        = $separator ;

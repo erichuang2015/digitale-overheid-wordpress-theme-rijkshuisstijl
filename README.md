@@ -11,10 +11,11 @@ Dit theme wordt gebruikt op [digitaleoverheid.nl](https://www.digitaleoverheid.n
 
 ## Current version:
 
-0.11.1 - Bugfix voor carroussel. CSS external link.), create_function verwijderd. Voor onderwerppagina: nieuw paginatype toegevoegd voor de toekomstige styling. Section in footers vervangen; title gebruikt voor aria-labelledby.
+0.11.2 - separator in breadcrumb vervangen door beter karakter.
 
 ## Version history
 
+* 0.11.2 - separator in breadcrumb vervangen door beter karakter.
 * 0.11.1 - Bugfix voor carroussel. CSS external link.), create_function verwijderd. Voor onderwerppagina: nieuw paginatype toegevoegd voor de toekomstige styling. Section in footers vervangen; title gebruikt voor aria-labelledby.
 * 0.10.12 - Bugfixes styling voor TOC (table of contents).
 * 0.10.11 - Styling voor filterknop onderwerppagina.

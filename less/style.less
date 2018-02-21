@@ -4,8 +4,8 @@
   Description: Theme voor digitaleoverheid.nl
   Author: Paul van Buuren
   Author URI: https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl/
-  Version: 0.11.1
-  Version description: 0.11.1 - Bugfix voor carroussel. CSS external link.
+  Version: 0.11.2
+  Version description: 0.11.2 - separator in breadcrumb vervangen door beter karakter.
   Text Domain: wp-rijkshuisstijl
   
   Template: genesis
@@ -190,34 +190,32 @@ Common Classes
 }
 
 .breadcrumb {
-	padding: 0;
-	font-size: 80%;
-	.wrap {
-//		height: @strokeheight;
-	}
-	nav {
-
+  padding: 0;
+  font-size: 80%;
+  
+  nav {
     span {
-  		padding: ( @padding / 1.5 ) 0;
+      padding: ( @padding / 1.5 ) 0;
     }
-		
-		a {
-  	  color: @txt;
-  		text-decoration: none;
-  		
-  		&:hover,
-  		&:active,
-  		&:focus {
-    		text-decoration: underline;
-  		}
-		}
-	}
-
-	.separator {
-		display: inline-block;
-		margin-left: ( @padding / 3 );
-		margin-right: ( @padding / 3 );
-	}	
+    
+    a {
+      color: @txt;
+      text-decoration: none;
+      
+      &:hover,
+      &:active,
+      &:focus {
+        text-decoration: underline;
+      }
+    }
+  }
+  
+  .separator {
+    speak: none;
+    display: inline-block;
+    margin-left: ( @padding / 3 );
+    margin-right: ( @padding / 3 );
+  }	
 }
 
 
