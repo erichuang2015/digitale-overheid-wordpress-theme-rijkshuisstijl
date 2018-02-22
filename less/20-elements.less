@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.11.1
-// * @desc.   Bugfix voor carroussel. CSS external link.
+// * @version 0.11.3
+// * @desc.   CSS styling voor rijksvideo.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 // **
 
@@ -484,6 +484,60 @@
     }
   }
 
+  
+  // RIJKSVIDEO 
+  .block-audio-video {
+    
+
+    .mejs-container .mejs-controls,
+    .downloads {
+      background: @grijs;
+      border-bottom: 2px solid @wit;
+    }
+    
+    .downloads {
+      .toggle {
+        margin-bottom: 0;
+        border-bottom: 2px solid @wit;
+        
+        li.download {
+          padding-left: 0;
+
+          &:before {
+            content: '';
+            display: none;
+          }
+          a {
+            background-image: none !important;
+            text-decoration: none;
+            border-top: 2px solid @wit;
+            &:hover,
+            &:focus,
+            &:active {
+              text-decoration: underline;
+            }
+          }
+        }
+        
+        h2 {
+          font-size: 1.1rem;
+          
+          a {
+            text-decoration: none;
+            &, &:visited {
+              color: @a_color_default;
+            }
+            &:hover,
+            &:focus,
+            &:active {
+              text-decoration: underline;
+            }
+            
+          }
+        }
+      }
+    }
+  }
 
   .element_slider();
 
