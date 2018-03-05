@@ -11,10 +11,11 @@ Dit theme wordt gebruikt op [digitaleoverheid.nl](https://www.digitaleoverheid.n
 
 ## Current version:
 
-0.11.3 - CSS styling voor rijksvideo.
+0.11.4 - CSS bug: icon for external link.
 
 ## Version history
 
+* 0.11.4 - CSS bug: icon for external link.
 * 0.11.3 - CSS styling voor rijksvideo.
 * 0.11.2 - separator in breadcrumb vervangen door beter karakter.
 * 0.11.1 - Bugfix voor carroussel. CSS external link.), create_function verwijderd. Voor onderwerppagina: nieuw paginatype toegevoegd voor de toekomstige styling. Section in footers vervangen; title gebruikt voor aria-labelledby.

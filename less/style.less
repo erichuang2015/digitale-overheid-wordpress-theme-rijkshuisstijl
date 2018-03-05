@@ -4,8 +4,8 @@
   Description: Theme voor digitaleoverheid.nl
   Author: Paul van Buuren
   Author URI: https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl/
-  Version: 0.11.3
-  Version description: 0.11.3 - CSS styling voor rijksvideo.
+  Version: 0.11.4
+  Version description: 0.11.4 - CSS bug: icon for external link.
   Text Domain: wp-rijkshuisstijl
   
   Template: genesis
@@ -164,12 +164,12 @@ Common Classes
 
 
 
-  .sticky {
-    background: grey;    
-  }
-  .bypostauthor {
-    background: grey;    
-  }
+.sticky {
+  background: grey;    
+}
+.bypostauthor {
+  background: grey;    
+}
 
 .widget_calendar table {
 	width: 100%;
@@ -200,12 +200,11 @@ Common Classes
     
     a {
       color: @txt;
-      text-decoration: none;
       
       &:hover,
       &:active,
       &:focus {
-        text-decoration: underline;
+//        text-decoration: underline;
       }
     }
   }

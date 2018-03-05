@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.11.1
-// * @desc.   Bugfix voor carroussel. CSS external link.
+// * @version 0.11.4
+// * @desc.   CSS bug: icon for external link.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 // **
 
@@ -54,9 +54,8 @@
   }
 
   	a.extern {
-      .listitem_arrow_extern();
+      .listitem_arrow_extern( @a_color_default, @a_color_hover, @a_color_active, @a_color_visited );
   	}     
-  
   
   p {
   	margin: 0 0 @padding 0;
@@ -335,7 +334,7 @@
       li {
         margin-left: 0;
     		padding-left: 1.2em;
-    		.listitem_arrow( @a_color_default, .7em, 4px );
+    		.listitem_arrow( @a_color_default, .7em, 8px );
         display: block;
         
         &.rss {

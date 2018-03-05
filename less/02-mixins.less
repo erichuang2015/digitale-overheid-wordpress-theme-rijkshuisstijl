@@ -7,8 +7,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.11.1
-// * @desc.   Styling voor filterknop onderwerppagina.
+// * @version 0.11.4
+// * @desc.   CSS bug: icon for external link.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 // **
 
@@ -374,11 +374,29 @@
 
 //=========================================================================================================
 
-.listitem_arrow_extern() {
+.listitem_arrow_extern( @itemcolor: @a_color_default,  @itemhover: @a_color_hover,  @itemactive: @a_color_active,  @itemvisited: @a_color_visited ) {
 
   &:before {
-    content: "";
+    .icon_socmed_icon('../images/svg/icon-list-external-link.svg', @itemcolor );
+    background-size: 100% 100%;
   }  
+  &:hover {
+	  &:before {
+	    .icon_socmed_icon('../images/svg/icon-list-external-link.svg', @itemhover );
+	  }
+  }
+  &:focus,
+  &:active {
+	  &:before {
+	    .icon_socmed_icon('../images/svg/icon-list-external-link.svg', @itemactive );
+	  }
+  }
+  &:visited {
+	  &:before {
+	    .icon_socmed_icon('../images/svg/icon-list-external-link.svg', @itemvisited );
+	  }  
+  }  
+
 }
 
 //=========================================================================================================
