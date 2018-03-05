@@ -11,10 +11,11 @@ Dit theme wordt gebruikt op [digitaleoverheid.nl](https://www.digitaleoverheid.n
 
 ## Current version:
 
-0.11.4 - CSS bug: icon for external link.
+0.11.5 - HTML validation; CSS active link color to AAA level. Removed WP emoji cruft.
 
 ## Version history
 
+* 0.11.5 - HTML validation; CSS active link color to AAA level. Removed WP emoji cruft.
 * 0.11.4 - CSS bug: icon for external link.
 * 0.11.3 - CSS styling voor rijksvideo.
 * 0.11.2 - separator in breadcrumb vervangen door beter karakter.

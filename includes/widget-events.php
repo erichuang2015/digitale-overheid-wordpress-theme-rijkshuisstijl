@@ -1,17 +1,15 @@
 <?php
 
-/**
- * Rijkshuisstijl (Digitale Overheid) - widget-events.php
- * ----------------------------------------------------------------------------------
- * Widget for events
- * ----------------------------------------------------------------------------------
- * @author  Paul van Buuren
- * @license GPL-2.0+
- * @package wp-rijkshuisstijl
- * @version 0.11.1
- * @desc.   Bugfix voor carroussel. CSS external link.
- * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
- */
+// * Rijkshuisstijl (Digitale Overheid) - widget-events.php
+// * ----------------------------------------------------------------------------------
+// * Widget for events
+// * ----------------------------------------------------------------------------------
+// * @author  Paul van Buuren
+// * @license GPL-2.0+
+// * @package wp-rijkshuisstijl
+// * @version 0.11.5
+// * @desc.   HTML validation; CSS active link color to AAA level. Removed WP emoji cruft.
+// * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 
 
 class GC_event_widget extends WP_Widget {
@@ -140,7 +138,7 @@ class GC_event_widget extends WP_Widget {
           
           echo '<p class="tijdenplaats">';
 
-          echo '<span class="date-badge" itemprop="startDate" content="' . date('c', $eventstart) . '">' . $event->output( '#_EVENTDATES' ) . '</span>';        
+          echo '<meta itemprop="startDate" content="' . esc_attr( date('c', $eventstart) ) . '"><span class="date-badge">' . $event->output( '#_EVENTDATES' ) . '</span>';        
           
           if ( $event->output( '#_LOCATIONNAME' ) ) {
             echo '<span class="event-location">' . $event->output( '#_LOCATIONNAME' ) . '</span>';

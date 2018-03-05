@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.11.4
-// * @desc.   CSS bug: icon for external link.
+// * @version 0.11.5
+// * @desc.   HTML validation; CSS active link color to AAA level. Removed WP emoji cruft.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "https://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.11.4" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "CSS bug: icon for external link." );
+define( 'CHILD_THEME_VERSION',              "0.11.5" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "HTML validation; CSS active link color to AAA level. Removed WP emoji cruft." );
 define( 'SHOW_CSS_DEBUG',                   false );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
@@ -214,9 +214,17 @@ genesis_unregister_layout( 'sidebar-sidebar-content' );
  
 //* Remove sidebar/content/sidebar layout
 genesis_unregister_layout( 'sidebar-content-sidebar' );
- 
-//* Remove full-width content layout
-//genesis_unregister_layout( 'full-width-content' );
+
+//========================================================================================================
+
+// REMOVE WP EMOJI
+remove_action('wp_head', 'print_emoji_detection_script', 7);
+remove_action('wp_print_styles', 'print_emoji_styles');
+
+remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
+remove_action( 'admin_print_styles', 'print_emoji_styles' );
+
+remove_action( 'wp_head', 'rest_output_link_wp_head' );
 
 //========================================================================================================
 
