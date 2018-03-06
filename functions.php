@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.11.5
-// * @desc.   HTML validation; CSS active link color to AAA level. Removed WP emoji cruft.
+// * @version 0.11.6
+// * @desc.   Aria name added to breadcrumb.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "https://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.11.5" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "HTML validation; CSS active link color to AAA level. Removed WP emoji cruft." );
+define( 'CHILD_THEME_VERSION',              "0.11.6" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Aria name added to breadcrumb." );
 define( 'SHOW_CSS_DEBUG',                   false );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
@@ -528,7 +528,7 @@ function rhswp_breadcrumb_args( $args ) {
     $args['home']                       = __( "Home", 'wp-rijkshuisstijl' );
     $args['sep']                        = $separator ;
     $args['list_sep']                   = ', ';
-    $args['prefix']                     = '<div class="breadcrumb"><div class="wrap"><nav class="breadlist">';
+    $args['prefix']                     = '<div class="breadcrumb"><div class="wrap"><nav class="breadlist" aria-label="' . esc_attr( __( 'Kruimelpad', 'wp-rijkshuisstijl' ) ) . '" >';
     $args['suffix']                     = '</nav></div></div>';
     $args['heirarchial_attachments']    = true;
     $args['heirarchial_categories']     = true;
