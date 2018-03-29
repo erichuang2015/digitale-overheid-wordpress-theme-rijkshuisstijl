@@ -1,30 +1,16 @@
 <?php
 
-/**
- * Rijkshuisstijl (Digitale Overheid) - contact-form7-validation.php
- * ----------------------------------------------------------------------------------
- * For validation of CF7 forms
- * ----------------------------------------------------------------------------------
- * @author  Paul van Buuren
- * @license GPL-2.0+
- * @package wp-rijkshuisstijl
- * @version 0.8.34
- * @desc.   Archive for newsletters, contactform7 validation
- * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
- */
+// * Rijkshuisstijl (Digitale Overheid) - contact-form7-validation.php
+// * ----------------------------------------------------------------------------------
+// * For validation of CF7 forms
+// * ----------------------------------------------------------------------------------
+// * @author  Paul van Buuren
+// * @license GPL-2.0+
+// * @package wp-rijkshuisstijl
+// * @version 0.11.7
+// * @desc.   Extra opties voor contactformulier voor reacties.
+// * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 
-//========================================================================================================
-
-/**
- * Remove Contact Form 7 scripts + styles unless we're on the contact page
- * 
- */
-add_action( 'wp_enqueue_scripts', 'rhswp_remove_external_styles' );
-
-function rhswp_remove_external_styles() {
-//		wp_deregister_style( 'contact-form-7' );
-//		wp_deregister_script( 'contact-form-7' );
-} 
 
 //========================================================================================================
 // == load extra scripts

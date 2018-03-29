@@ -10,8 +10,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.11.1
-// * @desc.   Styling voor filterknop onderwerppagina.
+// * @version 0.11.7
+// * @desc.   Extra opties voor contactformulier voor reacties.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 
 
@@ -627,7 +627,7 @@ if( function_exists('register_field_group') ):
     // 
     register_field_group(array (
       'key' => 'group_54e6101992f1e',
-      'title' => 'Deelknoppen: aan of uit?',
+      'title' => 'Deelknoppen en reactieformulier',
       'fields' => array (
         array (
           'key' => 'field_54e610433e1d0',
@@ -652,6 +652,31 @@ if( function_exists('register_field_group') ):
           'default_value' => SOC_MED_YES,
           'layout' => 'vertical',
         ),
+
+        array (
+          'key'						=> 'field_54e610433e1d1',
+    			'label'					=> __( 'Toon reactieformulier', 'wp-rijkshuisstijl' ),
+          'name' 					=> 'toon_paginabericht_reactieformulier',
+          'prefix' 				=> '',
+          'type' 					=> 'radio',
+          'instructions'	=> '',
+          'required' 			=> 0,
+          'conditional_logic'	=> 0,
+          'wrapper' 			=> array (
+            'width'	=> '',
+            'class'	=> '',
+            'id'	=> '',
+          ),
+          'choices' 			=> array (
+      			SOC_MED_YES	=> __( 'Ja, toon reactieformulier', 'wp-rijkshuisstijl' ),
+      			SOC_MED_NO	=> __( 'Nee, verberg reactieformulier', 'wp-rijkshuisstijl' ),
+          ),
+          'other_choice'			=> 0,
+          'save_other_choice'	=> 0,
+          'default_value'			=> SOC_MED_NO,
+          'layout' 						=> 'vertical',
+        ),
+
 
       ),
       'location' => array (
@@ -923,115 +948,6 @@ if( function_exists('acf_add_local_field_group') ):
     ));
     
 
-	acf_add_local_field_group(array (
-		'key' => 'group_56a73cbfdf435',
-		'title' => 'Instellingen voor contactformulier',
-		'fields' => array (
-			array (
-				'key' => 'field_56a73ce794fcf',
-				'label' => 'Lege naam',
-				'name' => 'lege_naam',
-				'type' => 'text',
-				'instructions' => 'Foutboodschap als naam leeg is',
-				'required' => 0,
-				'conditional_logic' => 0,
-				'wrapper' => array (
-					'width' => '',
-					'class' => '',
-					'id' => '',
-				),
-				'default_value' => 'We willen graag uw naam weten.',
-				'placeholder' => '',
-				'prepend' => '',
-				'append' => '',
-				'maxlength' => '',
-				'readonly' => 0,
-				'disabled' => 0,
-			),
-/*			
-			array (
-				'key' => 'field_56a73ce794fdf',
-				'label' => 'Lege organisatie',
-				'name' => 'lege_organisatie',
-				'type' => 'text',
-				'instructions' => 'Foutboodschap als het organisatieveld leeg is',
-				'required' => 0,
-				'conditional_logic' => 0,
-				'wrapper' => array (
-					'width' => '',
-					'class' => '',
-					'id' => '',
-				),
-				'default_value' => __( 'Voer alstublieft een organisatienaam in.', 'wp-rijkshuisstijl' ),
-				'placeholder' => '',
-				'prepend' => '',
-				'append' => '',
-				'maxlength' => '',
-				'readonly' => 0,
-				'disabled' => 0,
-			),
-*/			
-			array (
-				'key' => 'field_56a73d2e94fd0',
-				'label' => 'Lege suggestie',
-				'name' => 'lege_suggestie',
-				'type' => 'text',
-				'instructions' => 'Foutboodschap als er geen suggestie of vraag is ingevuld',
-				'required' => 0,
-				'conditional_logic' => 0,
-				'wrapper' => array (
-					'width' => '',
-					'class' => '',
-					'id' => '',
-				),
-				'default_value' => 'U hebt geen vraag of suggestie ingevuld.',
-				'placeholder' => '',
-				'prepend' => '',
-				'append' => '',
-				'maxlength' => '',
-				'readonly' => 0,
-				'disabled' => 0,
-			),
-			array (
-				'key' => 'field_56a73d6294fd1',
-				'label' => 'Leeg mailadres',
-				'name' => 'leeg_mailadres',
-				'type' => 'text',
-				'instructions' => 'Foutboodschap als er geen e-mailadres is ingevuld',
-				'required' => 0,
-				'conditional_logic' => 0,
-				'wrapper' => array (
-					'width' => '',
-					'class' => '',
-					'id' => '',
-				),
-				'default_value' => 'We hebben uw mailadres nodig om te antwoorden.',
-				'placeholder' => '',
-				'prepend' => '',
-				'append' => '',
-				'maxlength' => '',
-				'readonly' => 0,
-				'disabled' => 0,
-			),
-		),
-		'location' => array (
-			array (
-				array (
-					'param' => 'options_page',
-					'operator' => '==',
-					'value' => 'instellingen',
-				),
-			),
-		),
-		'menu_order' => 0,
-		'position' => 'normal',
-		'style' => 'default',
-		'label_placement' => 'top',
-		'instruction_placement' => 'label',
-		'hide_on_screen' => '',
-		'active' => 1,
-		'description' => '',
-	));
 
 
     
@@ -1185,8 +1101,6 @@ if( function_exists('acf_add_local_field_group') ):
   // contentblocks onderaan een pagina.
   // - of vrij ingevoerde links
   // - of berichten (algemeen of gefilterd op categorie)
-
-  
 
   acf_add_local_field_group(array (
   	'key' => 'group_5804cc93cxac6',
@@ -1611,6 +1525,118 @@ if( function_exists('acf_add_local_field_group') ):
   	'description' => '',
   ));
 
+  //====================================================================================================
+  // instellingen voor contactformulier onder nieuwsberichten
+  // 
+	acf_add_local_field_group(array (
+		'key' => 'group_56a73cbfdf435',
+		'title' => 'Instellingen voor contactformulier',
+		'fields' => array (
+			array (
+				'key' => 'field_56a73cbfe31be',
+				'label' => 'Contact- / reactieformulier',
+				'name' => 'contactformulier',
+				'type' => 'post_object',
+				'instructions' => 'Dit formulier wordt onderaan een bericht of pagina getoond als reactiemogelijkheid.',
+				'required' => 0,
+				'conditional_logic' => 0,
+				'wrapper' => array (
+					'width' => '',
+					'class' => '',
+					'id' => '',
+				),
+				'post_type' => array (
+					0 => 'wpcf7_contact_form',
+				),
+				'taxonomy' => array (
+				),
+				'allow_null' => 0,
+				'multiple' => 0,
+				'return_format' => 'id',
+				'ui' => 1,
+			),
+			array (
+				'key' => 'field_56a73ce794fcf',
+				'label' => 'Lege naam',
+				'name' => 'lege_naam',
+				'type' => 'text',
+				'instructions' => 'Foutboodschap als naam leeg is',
+				'required' => 0,
+				'conditional_logic' => 0,
+				'wrapper' => array (
+					'width' => '',
+					'class' => '',
+					'id' => '',
+				),
+				'default_value' => 'We willen graag uw naam weten.',
+				'placeholder' => '',
+				'prepend' => '',
+				'append' => '',
+				'maxlength' => '',
+				'readonly' => 0,
+				'disabled' => 0,
+			),
+			array (
+				'key' => 'field_56a73d2e94fd0',
+				'label' => 'Lege suggestie',
+				'name' => 'lege_suggestie',
+				'type' => 'text',
+				'instructions' => 'Foutboodschap als er geen suggestie of vraag is ingevuld',
+				'required' => 0,
+				'conditional_logic' => 0,
+				'wrapper' => array (
+					'width' => '',
+					'class' => '',
+					'id' => '',
+				),
+				'default_value' => 'U hebt geen vraag of suggestie ingevuld.',
+				'placeholder' => '',
+				'prepend' => '',
+				'append' => '',
+				'maxlength' => '',
+				'readonly' => 0,
+				'disabled' => 0,
+			),
+			array (
+				'key' => 'field_56a73d6294fd1',
+				'label' => 'Leeg mailadres',
+				'name' => 'leeg_mailadres',
+				'type' => 'text',
+				'instructions' => 'Foutboodschap als er geen e-mailadres is ingevuld',
+				'required' => 0,
+				'conditional_logic' => 0,
+				'wrapper' => array (
+					'width' => '',
+					'class' => '',
+					'id' => '',
+				),
+				'default_value' => 'We hebben uw mailadres nodig om te antwoorden.',
+				'placeholder' => '',
+				'prepend' => '',
+				'append' => '',
+				'maxlength' => '',
+				'readonly' => 0,
+				'disabled' => 0,
+			),
+		),
+		'location' => array (
+			array (
+				array (
+					'param' => 'options_page',
+					'operator' => '==',
+					'value' => 'instellingen',
+				),
+			),
+		),
+		'menu_order' => 0,
+		'position' => 'normal',
+		'style' => 'default',
+		'label_placement' => 'top',
+		'instruction_placement' => 'label',
+		'hide_on_screen' => '',
+		'active' => 1,
+		'description' => '',
+	));
 
 
 endif;

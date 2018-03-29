@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.11.4
-// * @desc.   CSS bug: icon for external link.
+// * @version 0.11.7
+// * @desc.   Extra opties voor contactformulier voor reacties.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 // **
 
@@ -325,6 +325,7 @@
     
     ul {
       padding-left: 0;
+      overflow: hidden;
       ul {
         margin-left: 0;
       }
@@ -362,10 +363,11 @@
     
     #toc_container {
       border-left: 1px solid @gboxshawow_grijs;
-      padding: 0 0 0 1em;
+      padding: 0 .5em;
       max-width: 50%;
       float: right;
       margin: 0 0 1em 1em;
+      font-size: 90%;
       
       .toc_title {
         font-weight: bold;
@@ -373,32 +375,40 @@
       }
       
       .toc_list {
-        li, ul {
-          margin-top: 0;
-          margin-bottom: 0;
+
+        &, li, ul {
+	        margin-top: 0;
+	        margin-bottom: 0;
         }
           
         li {
+					padding-left: 0 !important;
+
+          &:before {
+            content: none !important;
+          }
+          
+          & + li {
+	          padding-top: .35em;
+          }
+	        
           a {
             background: none !important;
             padding-right: 0;
           }
           ul {
+	          margin-left: .5em;
+	          
+	          li {
+		          padding-left: .75em;
+	          }
             &, li {
               list-style: lower-alpha;
-            }
-
-            li {
-              padding-left: 0;
-              &:before {
-                content: '';
-              }
             }
           }
         }
       }
     }
-    
   }
 
 
@@ -506,6 +516,15 @@
   .featured {
     margin: 0 0 .25em 1em;
     padding-top: .25em;
+    &.toc-active {
+	    max-width: 25%;
+	    margin: .25em 1em 1em 0;
+	    padding-top: 0;
+	    
+	    & + #toc_container {
+		    max-width: 33%;
+	    }
+    }
   }
   
 

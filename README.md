@@ -9,12 +9,17 @@ Dit theme wordt gebruikt op [digitaleoverheid.nl](https://www.digitaleoverheid.n
 * Paul van Buuren: paul@wbvb.nl
 * Victor Zuydweg
 
+## To do:
+
+* single_XXX.php hernoemen naar single.php
+
 ## Current version:
 
-0.11.6 - Aria name added to breadcrumb.
+0.11.7 - Extra opties voor contactformulier voor reacties.
 
 ## Version history
 
+* 0.11.7 - Extra opties voor contactformulier voor reacties.
 * 0.11.6 - Aria name added to breadcrumb.
 * 0.11.5 - HTML validation; CSS active link color to AAA level. Removed WP emoji cruft.
 * 0.11.4 - CSS bug: icon for external link.
