@@ -15,10 +15,10 @@ Dit theme wordt gebruikt op [digitaleoverheid.nl](https://www.digitaleoverheid.n
 
 ## Current version:
 
-0.11.8 - Onderwerppagina: keuzemogelijkheid voor onderwerpen.
+0.11.9 - Bugfixes voor contactformulier voor reacties.
 
 ## Version history
-
+* 0.11.9 - Bugfixes voor contactformulier voor reacties.
 * 0.11.8 - Onderwerppagina: keuzemogelijkheid voor onderwerpen.
 * 0.11.7 - Extra opties voor contactformulier voor reacties.
 * 0.11.6 - Aria name added to breadcrumb.

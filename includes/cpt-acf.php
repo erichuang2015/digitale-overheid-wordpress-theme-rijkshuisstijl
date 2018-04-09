@@ -10,8 +10,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.11.8
-// * @desc.   Onderwerppagina: keuzemogelijkheid voor onderwerpen.
+// * @version 0.11.9
+// * @desc.   Bugfixes voor contactformulier voor reacties.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 
 
@@ -673,7 +673,7 @@ if( function_exists('register_field_group') ):
           ),
           'other_choice'			=> 0,
           'save_other_choice'	=> 0,
-          'default_value'			=> SOC_MED_NO,
+          'default_value'			=> SOC_MED_YES,
           'layout' 						=> 'vertical',
         ),
 
@@ -1641,6 +1641,34 @@ if( function_exists('acf_add_local_field_group') ):
 				'return_format' => 'id',
 				'ui' => 1,
 			),
+
+			array(
+				'key' => 'field_5acb5e24804dc',
+				'label' => 'Contenttypes',
+				'name' => 'contactformulier_documenttypes',
+				'type' => 'checkbox',
+				'instructions' => 'Kies de contenttypes waarvoor het reactieformulier actief moet zijn:',
+				'required' => 0,
+				'conditional_logic' => 0,
+				'wrapper' => array(
+					'width' => '',
+					'class' => '',
+					'id' => '',
+				),
+				'choices' => array(
+					'post' => 'Berichten',
+					'page' => 'Pagina\'s',
+					RHSWP_CPT_DOCUMENT => 'Document',
+					RHSWP_CPT_EVENT => 'Evenementen',
+				),
+				'allow_custom' => 0,
+				'save_custom' => 0,
+				'default_value' => array(
+				),
+				'layout' => 'vertical',
+				'toggle' => 0,
+				'return_format' => 'value',
+			),			
 			array (
 				'key' => 'field_56a73ce794fcf',
 				'label' => 'Lege naam',
@@ -1723,6 +1751,7 @@ if( function_exists('acf_add_local_field_group') ):
 		'active' => 1,
 		'description' => '',
 	));
+
 
 
 endif;
