@@ -8,7 +8,7 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.11.9
+// * @version 0.11.10
 // * @desc.   Bugfixes voor contactformulier voor reacties.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
@@ -23,7 +23,7 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "https://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.11.9" );
+define( 'CHILD_THEME_VERSION',              "0.11.10" );
 define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Bugfixes voor contactformulier voor reacties." );
 define( 'SHOW_CSS_DEBUG',                   false );
 
@@ -3396,10 +3396,11 @@ function rhswp_contactreactie_write_form() {
 	if ( function_exists( 'get_field' ) ) {
 		$contactformulier				= get_field( 'contactformulier', 'option' );
     $documenttypes    			= get_field( 'contactformulier_documenttypes', 'option' );
-    $toon_reactieformulier	= get_field( 'toon_paginabericht_reactieformulier', $post->ID );
+    $toon_reactieformulier	= get_field( 'toon_reactieformulier_post', $post->ID );
     $posttype								= get_post_type();
 
     if ( $documenttypes && $posttype ) {
+	    // check of posttype klopt
 	    $doctype_check 				= in_array( $posttype, $documenttypes );
     }
     

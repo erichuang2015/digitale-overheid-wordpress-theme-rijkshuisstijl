@@ -10,7 +10,7 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.11.9
+// * @version 0.11.10
 // * @desc.   Bugfixes voor contactformulier voor reacties.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 
@@ -656,7 +656,7 @@ if( function_exists('register_field_group') ):
         array (
           'key'						=> 'field_54e610433e1d1',
     			'label'					=> __( 'Toon reactieformulier', 'wp-rijkshuisstijl' ),
-          'name' 					=> 'toon_paginabericht_reactieformulier',
+          'name' 					=> 'toon_reactieformulier_post',
           'prefix' 				=> '',
           'type' 					=> 'radio',
           'instructions'	=> '',
