@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.11.7
-// * @desc.   Extra opties voor contactformulier voor reacties.
+// * @version 0.11.9a
+// * @desc.   Bugfixes voor contactformulier voor reacties.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "https://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.11.7" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Extra opties voor contactformulier voor reacties." );
+define( 'CHILD_THEME_VERSION',              "0.11.9a" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Bugfixes voor contactformulier voor reacties." );
 define( 'SHOW_CSS_DEBUG',                   false );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
@@ -3342,12 +3342,24 @@ function rhswp_widget_output_footer3() {
 function rhswp_contactreactie_get_url( $atts ) {
 	global $post;
 
-	$reactieurl = get_permalink( $post->ID );
+  return esc_html( get_permalink( $post->ID ) );
 
-  return $reactieurl;
 }
 
 add_shortcode( 'getreactieurl', 'rhswp_contactreactie_get_url' );
+
+//========================================================================================================
+
+
+
+function rhswp_contactreactie_get_title( $atts ) {
+	global $post;
+
+  return esc_html( get_the_title( $post->ID ) );
+
+}
+
+add_shortcode( 'getreactietitle', 'rhswp_contactreactie_get_title' );
 
 //========================================================================================================
 
@@ -3368,26 +3380,46 @@ function rhswp_remove_external_styles() {
  * Adds contact form. This form is set in the site's options (admin > Appearance > options)
  *
  */
+//add_action( 'genesis_entry_content', 'rhswp_contactreactie_write_form', 11 );
 
+add_action( 'genesis_after_loop', 'rhswp_contactreactie_write_form', 11 );
 
 function rhswp_contactreactie_write_form() {
   global $post;
 
 	$contactformulier	 			= '';
+	$posttype								= '';
   $toon_reactieformulier	= 'default';
+  $documenttypes    			= array( 'post', 'page' );
+  $doctype_check 					= false;
 	
 	if ( function_exists( 'get_field' ) ) {
 		$contactformulier				= get_field( 'contactformulier', 'option' );
+    $documenttypes    			= get_field( 'contactformulier_documenttypes', 'option' );
     $toon_reactieformulier	= get_field( 'toon_paginabericht_reactieformulier', $post->ID );
-    $deelknoppen_onder    	= get_field( 'socialmedia_icoontjes', $post->ID );
+    $posttype								= get_post_type();
+
+    if ( $documenttypes && $posttype ) {
+	    $doctype_check 				= in_array( $posttype, $documenttypes );
+    }
+    
+    if ( ! $toon_reactieformulier ) {
+	    // lege waarde, dus we zetten 'm terug naar default
+		  $toon_reactieformulier	= 'default';
+    }
+
+	}
+	else {
+		return;
 	}
 
 	if ( 'default' === $toon_reactieformulier )  {
-		// er is niet bewust een waarde ingevuld bij deze post, dus 'neen'
-		$toon_reactieformulier = SOC_MED_NO;
+		// er is niet bewust een waarde ingevuld bij deze post, we maken er 'ja' van
+		$toon_reactieformulier = SOC_MED_YES;
 	}
+	
 
-	if ( SOC_MED_YES == $toon_reactieformulier && ( is_single() ||  is_page() ) )  {
+	if ( SOC_MED_YES == $toon_reactieformulier &&  $doctype_check )  {
 
 		echo '<section class="suggestie" id="reactieformulier" aria-labelledby="ID_reactieformulier_title">';
 		echo '<h2 id="ID_reactieformulier_title">' . esc_html( __( "Vraag, idee, reactie of suggestie?", 'wp-rijkshuisstijl' ) ) . '</h2>';
@@ -3400,7 +3432,7 @@ function rhswp_contactreactie_write_form() {
 			$user = wp_get_current_user();
 			$allowed_roles = array('editor', 'administrator', 'author');
 			if( array_intersect( $allowed_roles, $user->roles ) ) {  
-				echo '<p>' . esc_html( __( "Selecteer een contactformulier. <br /><strong>Via:</strong> Admin > Weergave > Options", 'wp-rijkshuisstijl' ) ) . '</p>';
+				echo '<p>' . esc_html( __( "Selecteer een contactformulier. \nVia: Admin > Weergave > Options", 'wp-rijkshuisstijl' ) ) . '</p>';
 			} 
 		}
 	
