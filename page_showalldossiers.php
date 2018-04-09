@@ -1,24 +1,20 @@
 <?php
 
-/**
- * Rijkshuisstijl (Digitale Overheid) - page_showalldossiers.php
- * ----------------------------------------------------------------------------------
- * Toont alle dossiers
- * ----------------------------------------------------------------------------------
- *
- * @author  Paul van Buuren
- * @license GPL-2.0+
- * @package wp-rijkshuisstijl
- * @version 0.8.18
- * @desc.   Opmaak voor dossier overzicht aangepast
- * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
- */
+
+// Rijkshuisstijl (Digitale Overheid) - page_showalldossiers.php
+// ----------------------------------------------------------------------------------
+// Toont alle dossiers
+// ----------------------------------------------------------------------------------
+// 
+// * @author  Paul van Buuren
+// * @license GPL-2.0+
+// * @package wp-rijkshuisstijl
+// * @version 0.11.8
+// * @desc.   Onderwerppagina: keuzemogelijkheid voor onderwerpen.
+// * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
 
 
 //* Template Name: 04 - (dossiers, oude styling) overzicht dossiers met beschrijving
-
-//* Force full-width-content layout
-add_filter( 'genesis_pre_get_option_site_layout', '__genesis_return_full_width_content' );
 
 $wrapper_title  = '';
 $checker        = '';
@@ -26,6 +22,10 @@ $checker        = '';
 $wrapper_start  = '<div class="block no-top">';
 $wrapper_end    = '</div>';
 
+//========================================================================================================
+
+//* Force full-width-content layout
+add_filter( 'genesis_pre_get_option_site_layout', '__genesis_return_full_width_content' );
 
 add_action( 'genesis_entry_content', 'rhswp_show_all_dossiers', 15 );
 
@@ -40,15 +40,28 @@ if ( rhswp_extra_contentblokken_checker() ) {
 
 genesis();
 
+//========================================================================================================
+
 function rhswp_show_all_dossiers() {
   global $post;
   global $wrapper_start;
   global $wrapper_end;
 
-  $title          = get_field('dossier_overzicht_filter_title', $post->ID );
-  $dossierfilter  = get_field('dossier_overzicht_filter', $post->ID );
 
-  $args = array(
+  $dossierfilter    = '';
+  $featonderwerpen  = '';
+
+  if ( function_exists( 'get_field' ) ) {
+
+	  $dossierfilter    = get_field('dossier_overzicht_filter', $post->ID );
+	  if ( 'dossier_overzicht_filter_selected' == $dossierfilter ) {
+		  $featonderwerpen  = get_field('uitgelichte_dossiers', $post->ID );
+	  }
+	  
+  }
+
+
+  $args_filter = array(
     'taxonomy'              => RHSWP_CT_DOSSIER,
     'hide_empty'            => false,
     'orderby'               => 'name',
@@ -58,7 +71,15 @@ function rhswp_show_all_dossiers() {
     'title_li'              => ''
   );
 
-  $terms = get_terms( RHSWP_CT_DOSSIER, $args );
+  
+  if ( ( $featonderwerpen ) && ( 'dossier_overzicht_filter_selected' == $dossierfilter ) ) {
+
+		// extra filter voor de onderwerpen
+    $args_filter['include'] = $featonderwerpen;
+	  
+  }
+
+  $terms = get_terms( RHSWP_CT_DOSSIER, $args_filter );
 
   if ($terms && ! is_wp_error( $terms ) ) { 
 
@@ -91,4 +112,5 @@ function rhswp_show_all_dossiers() {
   }
 }
 
+//========================================================================================================
 

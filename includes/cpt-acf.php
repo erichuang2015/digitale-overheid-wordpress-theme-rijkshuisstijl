@@ -10,8 +10,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.11.7
-// * @desc.   Extra opties voor contactformulier voor reacties.
+// * @version 0.11.8
+// * @desc.   Onderwerppagina: keuzemogelijkheid voor onderwerpen.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 
 
@@ -805,10 +805,93 @@ if( function_exists('acf_add_local_field_group') ):
     // uitgelichte dossiers op de dossieroverzichtspagina
     acf_add_local_field_group(array (
     	'key' => 'group_57f50ce2004e6',
+    	'title' => 'Onderwerppagina: selecteer onderwerpen',
+    	'fields' => array (
+    		array (
+    			'key' => 'field_58382ce90bcd6',
+    			'label' => 'Alle of alleen geselecteerde onderwerpen?',
+    			'name' => 'dossier_overzicht_filter',
+    			'type' => 'radio',
+    			'instructions' => '',
+    			'required' => 1,
+    			'conditional_logic' => 0,
+    			'wrapper' => array (
+    				'width' => '',
+    				'class' => '',
+    				'id' => '',
+    			),
+    			'choices' => array (
+    				'dossier_overzicht_filter_none' => 'Toon alle onderwerpen',
+    				'dossier_overzicht_filter_selected' => 'Alleen geselecteerde onderwerpen',
+    			),
+    			'allow_null' => 0,
+    			'other_choice' => 0,
+    			'save_other_choice' => 0,
+    			'default_value' => 'dossier_overzicht_filter_none',
+    			'layout' => 'vertical',
+    			'return_format' => 'value',
+    		),
+
+    		array (
+    			'key' => 'field_57f50cf4234e6',
+    			'label'   => __( 'Selecteer onderwerpen', 'wp-rijkshuisstijl' ),
+    			'name' => 'uitgelichte_dossiers',
+    			'type' => 'taxonomy',
+          'instructions'   => __( 'Toon deze onderwerpen op de pagina.', 'wp-rijkshuisstijl' ),  			
+    			'required' => 0,
+    			'conditional_logic' => array (
+        			array (
+        				array (
+        					'field' => 'field_58382ce90bcd6',
+        					'operator' => '==',
+      						'value' => 'dossier_overzicht_filter_selected',
+        				),
+        			),
+    			),
+
+    			'wrapper' => array (
+    				'width' => '',
+    				'class' => '',
+    				'id' => '',
+    			),
+    			'taxonomy' => RHSWP_CT_DOSSIER,
+    			'field_type' => 'checkbox',
+    			'allow_null' => 0,
+    			'add_term' => 1,
+    			'save_terms' => 0,
+    			'load_terms' => 0,
+    			'return_format' => 'id',
+    			'multiple' => 0,
+    		),
+    	),
+    	'location' => array (
+    		array (
+    			array (
+    				'param' => 'page_template',
+    				'operator' => '==',
+    				'value' => 'page_showalldossiers.php',
+    			),
+    		),
+    	),
+    	'menu_order' => 0,
+    	'position' => 'acf_after_title',
+    	'style' => 'default',
+    	'label_placement' => 'top',
+    	'instruction_placement' => 'label',
+    	'hide_on_screen' => '',
+    	'active' => 1,
+    	'description' => '',
+    ));
+    
+
+    //====================================================================================================
+    // uitgelichte dossiers op de dossieroverzichtspagina
+    acf_add_local_field_group(array (
+    	'key' => 'group_57f50ce2004e6a',
     	'title' => 'Onderwerppagina: selecteer uitgelichte onderwerpen',
     	'fields' => array (
     		array (
-    			'key' => 'field_58382ce90bcd4',
+    			'key' => 'field_58382ce90kjh4',
     			'label' => 'Hoe wil je de onderwerpen tonen?',
     			'name' => 'dossier_overzicht_filter',
     			'type' => 'radio',
@@ -842,7 +925,7 @@ if( function_exists('acf_add_local_field_group') ):
         		'conditional_logic' => array (
         			array (
         				array (
-        					'field' => 'field_58382ce90bcd4',
+        					'field' => 'field_58382ce90kjh4',
         					'operator' => '==',
       						'value' => 'dossier_overzicht_filter_as_list_plus',
         				),
@@ -859,7 +942,7 @@ if( function_exists('acf_add_local_field_group') ):
     			'conditional_logic' => array (
         			array (
         				array (
-        					'field' => 'field_58382ce90bcd4',
+        					'field' => 'field_58382ce90kjh4',
         					'operator' => '==',
       						'value' => 'dossier_overzicht_filter_as_list_plus',
         				),
@@ -900,6 +983,9 @@ if( function_exists('acf_add_local_field_group') ):
     	'description' => '',
     ));
     
+
+    //====================================================================================================
+    // theme instellingen
     acf_add_local_field_group(array (
     	'key' => 'group_57f5099923f1b',
     	'title' => 'Theme-instellingen',
