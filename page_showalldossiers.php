@@ -1,17 +1,17 @@
 <?php
 
 /**
- * Rijkshuisstijl (Digitale Overheid) - page_showalldossiers.php
- * ----------------------------------------------------------------------------------
- * Toont alle dossiers
- * ----------------------------------------------------------------------------------
- *
- * @author  Paul van Buuren
- * @license GPL-2.0+
- * @package wp-rijkshuisstijl
- * @version 0.8.18
- * @desc.   Opmaak voor dossier overzicht aangepast
- * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
+// * Rijkshuisstijl (Digitale Overheid) - page_showalldossiers.php
+// * ----------------------------------------------------------------------------------
+// * Toont alle dossiers
+// * ----------------------------------------------------------------------------------
+// *
+// * @author  Paul van Buuren
+// * @license GPL-2.0+
+// * @package wp-rijkshuisstijl
+// * @version 0.11.11
+// * @desc.   ACF voor korte beschrijving op onderwerppagina aangepast.
+// * @link    http://wbvb.nl/themes/wp-rijkshuisstijl/
  */
 
 
@@ -71,8 +71,18 @@ function rhswp_show_all_dossiers() {
   
         $excerpt    = '';
         $classattr  = 'class="dossieroverzicht"';
-        if ( $term->description ) {
-          $excerpt  =  wp_strip_all_tags( $term->description );
+
+				// beschrijving kan uit een apart ACF veld komen.
+	      $kortebeschr	= get_field( 'dossier_korte_beschrijving_voor_dossieroverzicht', RHSWP_CT_DOSSIER . '_' . $term->term_id );
+	      
+        if ( $kortebeschr ) {
+          $excerpt  =  wp_strip_all_tags( $kortebeschr );
+        }
+        else {
+	        if ( $term->description ) {
+		        // als het ACF veld voor de beschrijving niet gevuld is, check de tax-beschrijving
+	          $excerpt  =  wp_strip_all_tags( $term->description );
+	        }
         }
         
         $href       = get_term_link( $term->term_id, RHSWP_CT_DOSSIER );

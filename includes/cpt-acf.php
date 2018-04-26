@@ -10,8 +10,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.11.10
-// * @desc.   Bugfixes voor contactformulier voor reacties.
+// * @version 0.11.11
+// * @desc.   ACF voor korte beschrijving op onderwerppagina aangepast.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 
 
@@ -1687,7 +1687,7 @@ if( function_exists('acf_add_local_field_group') ):
   			'key' => 'field_58da406ee63df',
   			'label' => 'Korte beschrijving voor dossieroverzicht',
   			'name' => 'dossier_korte_beschrijving_voor_dossieroverzicht',
-  			'type' => 'text',
+  			'type' => 'textarea',
   			'instructions' => '',
   			'required' => 0,
   			'conditional_logic' => 0,
