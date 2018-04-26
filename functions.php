@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.11.11
-// * @desc.   ACF voor korte beschrijving op onderwerppagina aangepast.
+// * @version 0.11.12
+// * @desc.   Contactformulier: later in de loop gezet, net iets voor socmed-icoontjes.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "https://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.11.11" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "ACF voor korte beschrijving op onderwerppagina aangepast." );
+define( 'CHILD_THEME_VERSION',              "0.11.12" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Contactformulier: later in de loop gezet, net iets voor socmed-icoontjes." );
 define( 'SHOW_CSS_DEBUG',                   false );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
@@ -1613,7 +1613,7 @@ function rhswp_socialbuttons($post_info, $hidden = '') {
     }
 }
 
-add_action( 'genesis_after_loop', 'rhswp_add_sharebuttons_after_content', 15 );
+add_action( 'genesis_after_loop', 'rhswp_add_sharebuttons_after_content', 16 );
 
 //========================================================================================================
 
@@ -3380,11 +3380,11 @@ function rhswp_remove_external_styles() {
  * Adds contact form. This form is set in the site's options (admin > Appearance > options)
  *
  */
-//add_action( 'genesis_entry_content', 'rhswp_contactreactie_write_form', 11 );
 
-add_action( 'genesis_after_loop', 'rhswp_contactreactie_write_form', 11 );
+add_action( 'genesis_after_loop', 'rhswp_contactreactie_write_reactieform', 15 );
 
-function rhswp_contactreactie_write_form() {
+
+function rhswp_contactreactie_write_reactieform() {
   global $post;
 
 	$contactformulier	 			= '';
