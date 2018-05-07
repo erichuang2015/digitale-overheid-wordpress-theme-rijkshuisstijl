@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.11.13
-// * @desc.   Contactformulier: styling voor verstuurbevestiging.
+// * @version 0.11.14
+// * @desc.   Dossier-nieuwspagina: id voor contentblocks.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "https://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.11.13" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Contactformulier: styling voor verstuurbevestiging." );
+define( 'CHILD_THEME_VERSION',              "0.11.14" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Dossier-nieuwspagina: id voor contentblocks." );
 define( 'SHOW_CSS_DEBUG',                   false );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
@@ -2070,6 +2070,14 @@ function rhswp_extra_contentblokken_checker() {
 function rhswp_write_extra_contentblokken() {
   global $post;
   
+  $thecounter								= 0;
+  $blockidattribute					= '';
+  $blockidattribute_prefix	= ' id="';
+  $blockidattribute_suffix	= '"';
+  $blockidattribute_prev		= '';
+  $blockidattribute_name		= '';
+  $arr_blockidattribute			= array(); // empty array to check if the ID for the current block exists
+  
   if ( function_exists( 'get_field' ) ) {
 
     if ( is_page() || is_tax() ) {
@@ -2092,7 +2100,8 @@ function rhswp_write_extra_contentblokken() {
 
         foreach( $contentblokken as $row ) {
   
-          $algemeen_links         = $row['extra_contentblok_algemeen_links'];
+					$thecounter++;  
+					$algemeen_links         = $row['extra_contentblok_algemeen_links'];
           $select_dossiers_list   = $row['select_dossiers_list'];
           $selected_content       = $row['select_berichten_paginas'];
           $selected_content_full  = $row['select_berichten_paginas_toon_samenvatting'];
@@ -2102,16 +2111,33 @@ function rhswp_write_extra_contentblokken() {
           $categoriefilter        = $row['extra_contentblok_categoriefilter'];
           $maxnr_posts            = $row['extra_contentblok_maxnr_posts'];
           $with_featured_image    = $row['extra_contentblok_maxnr_posts_with_featured_image'];
+          
+          if ( $blockidattribute_prev == $titel ) {
+	          $blockidattribute_name =  $titel . '-' . $thecounter;  
+          }
+          else {
+	          $blockidattribute_name =  $titel;  
+          }
+          
+          if ( array_key_exists( $blockidattribute_name, $arr_blockidattribute ) ) {
+	          // we need to be sure the ID is unique
+	          $blockidattribute_name =  $blockidattribute_name . '-' . $thecounter;  
+          }
+
+          $arr_blockidattribute[ $blockidattribute_name ] = $blockidattribute_name;
+
+          
+          $blockidattribute_prev	= $titel;
+          $blockidattribute				= $blockidattribute_prefix . sanitize_title( $blockidattribute_name ) . $blockidattribute_suffix;
 
           $currentpage            = '';
           $currentsite            = '';
-
 
           if ( 'algemeen' == $type_block ) {
 
             if ( $algemeen_links ) {
 
-              echo '<div class="block">';
+              echo '<div class="block"' . $blockidattribute . '>';
               
               if ( $titel ) {
                 echo '<h2>' . $titel . '</h2>';
@@ -2141,7 +2167,7 @@ function rhswp_write_extra_contentblokken() {
           }
           elseif ( 'berichten_paginas' == $type_block ) {
 
-            echo '<div class="block">';
+            echo '<div class="block"' . $blockidattribute . '>';
 
             if ( $titel ) {
               echo '<h2>' . $titel . '</h2>';
@@ -2233,7 +2259,7 @@ function rhswp_write_extra_contentblokken() {
 
                 echo '<div style="border: 1px solid black; padding: .1em 1em; margin-bottom: 2em;">';
   
-                echo '<div class="block">';
+		            echo '<div class="block"' . $blockidattribute . '>';
   
                 if ( $titel ) {
                   echo '<h2>' . $titel . '</h2>';
@@ -2373,7 +2399,7 @@ function rhswp_write_extra_contentblokken() {
               
               if ( $sidebarposts->have_posts() ) {
   
-                echo '<div class="block">';
+		            echo '<div class="block"' . $blockidattribute . '>';
   
                 if ( $titel ) {
                   echo '<h2>' . $titel . '</h2>';
@@ -2479,7 +2505,7 @@ function rhswp_write_extra_contentblokken() {
   
                   echo '<div style="border: 1px solid black; padding: .1em 1em; margin-bottom: 2em;">';
   
-                  echo '<div class="block">';
+			            echo '<div class="block"' . $blockidattribute . '>';
     
                   if ( $titel ) {
                     echo '<h2>' . $titel . '</h2>';
@@ -2508,7 +2534,7 @@ function rhswp_write_extra_contentblokken() {
 
             if ( $select_dossiers_list ) {
               
-              echo '<div class="block">';
+	            echo '<div class="block"' . $blockidattribute . '>';
                           
               if ( $titel ) {
                 echo '<h2>' . $titel . '</h2>';
@@ -3165,6 +3191,7 @@ function rhswp_add_blog_archive_css() {
     background-size: .75em .75em;
   }
   .entry-content a:not([href]),
+  .entry-content .links li a,
   .entry-content a[href^=\"/\"],
   .entry-content a[href^=\"#\"],
   .entry-content a[href*=\"tel:\"],
@@ -3447,5 +3474,4 @@ function rhswp_contactreactie_write_reactieform() {
 }
 
 //========================================================================================================
-
 
