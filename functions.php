@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.11.14
-// * @desc.   Dossier-nieuwspagina: id voor contentblocks.
+// * @version 0.11.15
+// * @desc.   Verwijder archief-titel en -beschrijving voor taxonomieën.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "https://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.11.14" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Dossier-nieuwspagina: id voor contentblocks." );
+define( 'CHILD_THEME_VERSION',              "0.11.15" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Verwijder archief-titel en -beschrijving voor taxonomieën." );
 define( 'SHOW_CSS_DEBUG',                   false );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
@@ -3473,5 +3473,17 @@ function rhswp_contactreactie_write_reactieform() {
 
 }
 
+//========================================================================================================
+
+add_action( 'admin_init', 'wpse_add_taxonomy_archive_options', 11 );
+
+function wpse_add_taxonomy_archive_options() {
+	
+	foreach ( get_taxonomies( array( 'public' => true ) ) as $tax_name ) {
+		remove_action( $tax_name . '_edit_form', 'genesis_taxonomy_archive_options', 10, 2 );
+	}
+	
+}
+	
 //========================================================================================================
 
