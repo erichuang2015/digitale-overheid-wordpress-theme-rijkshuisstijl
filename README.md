@@ -15,10 +15,11 @@ Dit theme wordt gebruikt op [digitaleoverheid.nl](https://www.digitaleoverheid.n
 
 ## Current version:
 
-0.11.12 - Contactformulier: later in de loop gezet, net iets voor socmed-icoontjes.
+0.11.13 - Contactformulier: styling voor verstuurbevestiging.
 
 ## Version history
 
+* 0.11.13 - Contactformulier: styling voor verstuurbevestiging.
 * 0.11.12 - Contactformulier: later in de loop gezet, net iets voor socmed-icoontjes.
 * 0.11.11 - ACF voor korte beschrijving op onderwerppagina aangepast.
 * 0.11.9 & 0.11.10 - Bugfixes voor contactformulier voor reacties.

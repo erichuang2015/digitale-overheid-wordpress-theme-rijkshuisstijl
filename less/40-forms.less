@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.11.1
-// * @desc.   Styling voor filterknop onderwerppagina.
+// * @version 0.11.13
+// * @desc.   Contactformulier: styling voor verstuurbevestiging.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 //
 
@@ -340,7 +340,19 @@
         display: block;
         line-height: 1.2;
       }
-    }  
+    }
+    
+    .wpcf7-response-output {
+	    background: @success;
+	    color: @wit;
+	    padding: .25em .5em;
+	    
+	    &.wpcf7-validation-errors {
+		   background: @warning; 
+	    }
+	    
+    }
+      
   }
   
   main.content  {
