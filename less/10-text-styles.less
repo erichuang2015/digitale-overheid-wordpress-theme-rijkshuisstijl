@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.11.7
-// * @desc.   Extra opties voor contactformulier voor reacties.
+// * @version 0.11.17
+// * @desc.   Tabel-stijl voor Regie Op Gegevens-programmatabel.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 // **
 
@@ -258,27 +258,27 @@
   /* Tables
   --------------------------------------------- */  
   table {
-  	border-collapse: collapse;
-  	border-spacing: 0;
-  	margin-bottom: @padding;
-  	width: 100%;
-  	border: 0 none @grijs_1;
-  	outline: none;
-  	
-  	
-  	.time {
-      	width: 20%;
-      	min-width: 80px;
-  	}
-  	.topic, .presentor {
-      	width: 30%;
-  	}
-  	.topic {
-      	width: 45%;
-  	}
-  
+    border-collapse: collapse;
+    border-spacing: 0;
+    margin-bottom: @padding;
+    width: 100%;
+    border: 0 none @grijs_1;
+    outline: none;
+    
+    
+    .time {
+      width: 20%;
+      min-width: 80px;
+    }
+    .topic, .presentor {
+      width: 30%;
+    }
+    .topic {
+      width: 45%;
+    }
+    
     tbody {
-    	border-top: 1px solid @grijs;
+      border-top: 1px solid @grijs;
     }
     
     th,
@@ -298,6 +298,30 @@
         margin-top: 0;
       }
     }
+    
+    &.timetable {
+      // voor timetable programma Regie op Gegevens juni 2018 
+
+      & td {
+        background: @wit;
+      }
+      & th,
+      & td {
+        font-size: 80%;
+      } 
+      & th.time {
+        min-width: 80px;
+        width: 15%;
+        background: @wit;
+      }
+      & th[scope="col"] {
+        text-align: center;
+      }
+      & th[scope="row"] {
+        text-align: right;
+      }      
+    }
+    
   }
 
   

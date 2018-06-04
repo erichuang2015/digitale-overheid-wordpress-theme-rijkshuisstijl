@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.11.16
-// * @desc.   Extra stijl toegevoegd aan DO-bannerwidget: alleen plaatje, geen tekst.
+// * @version 0.11.17
+// * @desc.   Tabel-stijl voor Regie Op Gegevens-programmatabel.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "https://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.11.16" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Extra stijl toegevoegd aan DO-bannerwidget: alleen plaatje, geen tekst." );
+define( 'CHILD_THEME_VERSION',              "0.11.17" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Tabel-stijl voor Regie Op Gegevens-programmatabel." );
 define( 'SHOW_CSS_DEBUG',                   false );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
