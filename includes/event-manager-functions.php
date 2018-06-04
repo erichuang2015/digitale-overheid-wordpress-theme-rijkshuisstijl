@@ -54,14 +54,7 @@ function gc_wbvb_authorbox_compose_box( $userid, $gravatar = '', $sectiontype = 
     if ( function_exists( 'get_field' ) ) {
     
         $acf_userid             = "user_" . $userid;       
-
         $user_info              = get_userdata($userid);
-        
-//        dovardump($user_info);
-
-//        the_author_meta('twitter');
-//        the_author_meta('facebook');
-        
         $gebruikersnaam         = $user_info->display_name;
         $functiebeschrijving    = get_field('functiebeschrijving', $acf_userid);
         $biografie              =( $user_info->description ) ? $user_info->description : '';
