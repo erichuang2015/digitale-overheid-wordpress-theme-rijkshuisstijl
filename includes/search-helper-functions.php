@@ -2,17 +2,17 @@
 
 
 /**
- * Rijkshuisstijl (Digitale Overheid) - search-helper-functions.php
- * ----------------------------------------------------------------------------------
- * functies voor zoekfunctionaliteit
- * ----------------------------------------------------------------------------------
- *
- * @author  Paul van Buuren
- * @license GPL-2.0+
- * @package wp-rijkshuisstijl
- * @version 0.8.19
- * @desc.   Extra filter op content-lijst dossiers. Kleine CSS bugs verwijderd
- * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
+// * Rijkshuisstijl (Digitale Overheid) - search-helper-functions.php
+// * ----------------------------------------------------------------------------------
+// * functies voor zoekfunctionaliteit
+// * ----------------------------------------------------------------------------------
+// *
+// * @author  Paul van Buuren
+// * @license GPL-2.0+
+// * @package wp-rijkshuisstijl
+// * @version 0.11.19
+// * @desc.   Debug verbeterd en print style verbeterd.
+// * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
 
@@ -65,7 +65,8 @@ function my_searchwp_exclude( $ids, $engine, $terms ) {
 		)
 	);
 	
-	dovardump($entries_to_exclude);
+  dovardump( $entries_to_exclude, 'my_searchwp_exclude');
+
 	die();
 	
 	$ids = array_unique( array_merge( $ids, array_map( 'absint', $entries_to_exclude ) ) );

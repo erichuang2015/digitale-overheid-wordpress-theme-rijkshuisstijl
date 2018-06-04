@@ -15,11 +15,12 @@ Dit theme wordt gebruikt op [digitaleoverheid.nl](https://www.digitaleoverheid.n
 
 ## Current version:
 
-0.11.18 - Pagina met full-width toegevoegd.
+0.11.19 - Debug verbeterd en print style verbeterd.
 
 ## Version history
 
-* 0.11.18 - Pagina met full-width toegevoegd.
+* 0.11.19 - Debug verbeterd en print style verbeterd.
+* 0.11.18 - Pagina met full-width toegevoegd. 
 * 0.11.17 - Tabel-stijl voor Regie Op Gegevens-programmatabel.
 * 0.11.16 - Extra stijl toegevoegd aan DO-bannerwidget: alleen plaatje, geen tekst.
 * 0.11.15 - Verwijder archief-titel en -beschrijving voor taxonomieën.

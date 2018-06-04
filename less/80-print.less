@@ -7,39 +7,51 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.2.3
-// * @desc.   Dossier check refined, page styles added 
+// * @version 0.11.19
+// * @desc.   Debug verbeterd en print style verbeterd.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 // **
 
 .80_print() {
-    
+  
   
   @media only print {
   
-      body, body>div {
-          font-size: 12px;
-      }
-      
-      table {
-          h1, h2, h3, h4, h5, h6 {
-              font-size: 1.4em;
-          }
-      }
+    body, body>div {
+      font-size: 12px;
+    }
+    
+    table {
       h1, h2, h3, h4, h5, h6 {
-          font-size: 1.4em;
+        font-size: 1.4em;
       }
-  
-  
-      .site-inner,
-      .wrap,
-      .content, 
-      .sidebar {
-          margin: 0;
-          width: 100%;
-          max-width: 100%;
-      }
+    }
+    h1, h2, h3, h4, h5, h6 {
+      font-size: 1.4em;
+    }
+    
+    .site-inner,
+    .wrap,
+    .content, 
+    .sidebar {
+      margin: 0;
+      width: 100%;
+      max-width: 100%;
+    }
+    
+    .site-header {
+      max-height: 90px;
+    }
+    
+    div.slider,
+    div.dossier-overview,
+    #reactieformulier,
+    #debug_context_info,
+    .debug-context-info,
+    #genesis-footer-widgets,
+    #menu-container {
+      display:none !important;
+    }
   }
-
 }
 

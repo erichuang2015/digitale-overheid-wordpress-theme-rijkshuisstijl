@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.11.18
-// * @desc.   Pagina met full-width toegevoegd.
+// * @version 0.11.19
+// * @desc.   Debug verbeterd en print style verbeterd.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "https://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.11.18" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Pagina met full-width toegevoegd." );
+define( 'CHILD_THEME_VERSION',              "0.11.19" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Debug verbeterd en print style verbeterd." );
 define( 'SHOW_CSS_DEBUG',                   false );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
@@ -2516,7 +2516,9 @@ function rhswp_write_extra_contentblokken() {
   
                   echo '<p>' . __( 'Noot voor de redactie', 'wp-rijkshuisstijl' ) . '</p>';
                   echo '<p>' . __( 'Er is een content-block met berichten toegevoegd aan deze pagina, maar hiervoor zijn geen berichten gevonden.', 'wp-rijkshuisstijl' ) ;
-                  dovardump($args);
+                  if ( $args ) {
+                    dovardump($args);
+                  }
                   echo '<br><em>' . esc_html( __( "Deze tekst wordt alleen getoond aan redacteuren die pagina's mogen wijzigen.", 'wp-rijkshuisstijl' ) ) . '</em></div>';
               
                   echo '</div>';

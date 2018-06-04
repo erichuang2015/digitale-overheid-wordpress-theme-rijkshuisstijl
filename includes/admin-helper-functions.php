@@ -1,17 +1,17 @@
 <?php
 
 /**
- * Rijkshuisstijl (Digitale Overheid) - admin-helper-functions.php
- * ----------------------------------------------------------------------------------
- * functies bewerkingen aan de admin-kant
- * ----------------------------------------------------------------------------------
- *
- * @author  Paul van Buuren
- * @license GPL-2.0+
- * @package wp-rijkshuisstijl
- * @version 0.9.5
- * @desc.   Bugfixes. Dossier-overzichtspagina.
- * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
+// * Rijkshuisstijl (Digitale Overheid) - admin-helper-functions.php
+// * ----------------------------------------------------------------------------------
+// * functies bewerkingen aan de admin-kant
+// * ----------------------------------------------------------------------------------
+// *
+// * @author  Paul van Buuren
+// * @license GPL-2.0+
+// * @package wp-rijkshuisstijl
+// * @version 0.11.19
+// * @desc.   Debug verbeterd en print style verbeterd.
+// * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
 
@@ -76,15 +76,26 @@ function dodebug2($file = '', $extra = '') {
 
 //========================================================================================================
 
-function dovardump($data, $echo = true) {
+function dovardump($data, $context = '', $echo = true ) {
   if ( WP_DEBUG ) {
+    $contextstring  = '';
+    $startstring    = '<div class="debug-context-info">';
+    $endtring       = '</div>';
+    
+    if ( $context ) {
+      $contextstring = '<p>Vardump ' . $context . '</p>';        
+    }
+    
     if ( $echo ) {
-      echo '<hr><pre>';
+      
+      echo $startstring . '<hr>';
+      echo $contextstring;        
+      echo '<pre>';
       print_r($data);
-      echo '</pre><hr>';
+      echo '</pre><hr>' . $endtring;
     }
     else {
-      return '<hr><pre>' . print_r($data, true) . '</pre><hr>';
+      return '<hr>' . $contextstring . '<pre>' . print_r($data, true) . '</pre><hr>';
     }
   }        
 }        
@@ -94,7 +105,9 @@ function dovardump($data, $echo = true) {
 
 function rhswp_admin_display_wpquery_in_context() {
   global $wp_query;
-  dovardump($wp_query->query);
+  if ( $wp_query->query ) {
+    dovardump($wp_query->query, 'rhswp_admin_display_wpquery_in_context');
+  }
 }    
 
 //========================================================================================================
@@ -103,7 +116,9 @@ function rhswp_admin_display_wpquery_in_context() {
 
 function rhswp_admin_dump_wpquery() {
   global $wp_query;
-  dovardump($wp_query->query);
+  if ( $wp_query->query ) {
+    dovardump($wp_query->query, 'rhswp_admin_dump_wpquery');
+  }
 }    
 
 //========================================================================================================
