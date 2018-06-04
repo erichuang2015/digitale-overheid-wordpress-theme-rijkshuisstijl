@@ -10,8 +10,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.11.11
-// * @desc.   ACF voor korte beschrijving op onderwerppagina aangepast.
+// * @version 0.11.16
+// * @desc.   Extra stijl toegevoegd aan DO-bannerwidget: alleen plaatje, geen tekst.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 
 
@@ -485,6 +485,7 @@ if( function_exists('acf_add_local_field_group') ):
       		'do-groen'          => 'DO-groen - Donkergroene achtergrond, witte tekst',
       		'do-groen-light'    => 'DO-lichtgroen - Lichtgroene achtergrond, zwarte tekst',
       		'text-over-plaatje' => 'Plaats de tekst over het plaatje',
+      		'plaatje-link-notitel' => 'Alleen plaatje met een link, titel verborgen',
       	),
       	'default_value' => array (
       	),

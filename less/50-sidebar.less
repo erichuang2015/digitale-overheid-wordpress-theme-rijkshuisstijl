@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.11.1
-// * @desc.   Styling voor filterknop onderwerppagina.
+// * @version 0.11.16
+// * @desc.   Extra stijl toegevoegd aan DO-bannerwidget: alleen plaatje, geen tekst.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 // **
 
@@ -70,6 +70,14 @@
 
         &:hover {
           border-color: @grijs_4 !important;
+        }
+
+      	&.plaatje-link-notitel {
+        	border: 3px solid @grijs_1;
+        	
+        	.text {
+          	.visuallyhidden();
+        	}
         }
 
       	&.standaard {

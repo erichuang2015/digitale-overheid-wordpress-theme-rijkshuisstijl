@@ -15,10 +15,11 @@ Dit theme wordt gebruikt op [digitaleoverheid.nl](https://www.digitaleoverheid.n
 
 ## Current version:
 
-0.11.15 - Verwijder archief-titel en -beschrijving voor taxonomieën.
+0.11.16 - Extra stijl toegevoegd aan DO-bannerwidget: alleen plaatje, geen tekst.
 
 ## Version history
 
+* 0.11.16 - Extra stijl toegevoegd aan DO-bannerwidget: alleen plaatje, geen tekst.
 * 0.11.15 - Verwijder archief-titel en -beschrijving voor taxonomieën.
 * 0.11.14 - Dossier-nieuwspagina: id voor contentblocks.
 * 0.11.13 - Contactformulier: styling voor verstuurbevestiging.

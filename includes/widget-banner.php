@@ -1,17 +1,17 @@
 <?php
 
 /**
- * wp-rijkshuisstijl - widget-banner.php
- * ----------------------------------------------------------------------------------
- * Widget voor het aanmaken van een banner
- * ----------------------------------------------------------------------------------
- *
- * @author  Paul van Buuren
- * @license GPL-2.0+
- * @package wp-rijkshuisstijl
- * @version 0.11.1
- * @desc.   Bugfix voor carroussel. CSS external link.
- * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
+// * wp-rijkshuisstijl - widget-banner.php
+// * ----------------------------------------------------------------------------------
+// * Widget voor het aanmaken van een banner
+// * ----------------------------------------------------------------------------------
+// *
+// * @author  Paul van Buuren
+// * @license GPL-2.0+
+// * @package wp-rijkshuisstijl
+// * @version 0.11.16
+// * @desc.   Extra stijl toegevoegd aan DO-bannerwidget: alleen plaatje, geen tekst.
+// * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
 
@@ -145,15 +145,10 @@ function filter_for_rhswp_banner_widget( $params ) {
       $imagesize = 'widget-image-top';
     }
 
-    if( $rhswp_widget_class ) {
-      
-    }
-
-
     $params[0]['before_widget'] .= sprintf('<img src="%s" alt="' . $rhswp_widget_bannerimage['alt'] . '" class="align' . $rhswp_widget_bannerimage_alignment . '" width="%s" height="%s" />',
-      $rhswp_widget_bannerimage['sizes'][$imagesize], 
-      $rhswp_widget_bannerimage['sizes'][$imagesize.'-width'], 
-      $rhswp_widget_bannerimage['sizes'][$imagesize.'-height'] );
+    $rhswp_widget_bannerimage['sizes'][$imagesize], 
+    $rhswp_widget_bannerimage['sizes'][$imagesize.'-width'], 
+    $rhswp_widget_bannerimage['sizes'][$imagesize.'-height'] );
 
   }
 
