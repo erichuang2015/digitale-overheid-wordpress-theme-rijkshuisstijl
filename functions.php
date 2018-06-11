@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.11.19
-// * @desc.   Debug verbeterd en print style verbeterd.
+// * @version 0.12.1
+// * @desc.   Decorative images for dossiers.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "https://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.11.19" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Debug verbeterd en print style verbeterd." );
+define( 'CHILD_THEME_VERSION',              "0.12.1" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Decorative images for dossiers." );
 define( 'SHOW_CSS_DEBUG',                   false );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
@@ -98,6 +98,7 @@ define( 'RHSWP_DOSSIERPOSTCONTEXT_OPTION_DO_FLUSH', false );
 
 define( 'RHSWP_NR_FEAT_IMAGES',             2 ); // max number of posts with featured images on archive pages
 define( 'RHSWP_ARCHIVE_CSS',                'featured-images' );
+define( 'RHSWP_DOSSIER_CSS',                'dossier-header-css' );
 
 
 

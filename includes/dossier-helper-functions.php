@@ -2,20 +2,144 @@
 
 
 /**
- * Rijkshuisstijl (Digitale Overheid) - dossier-helper-functions.php
- * ----------------------------------------------------------------------------------
- * functies voor de header boven content in een dossier
- * ----------------------------------------------------------------------------------
- *
- * @author  Paul van Buuren
- * @license GPL-2.0+
- * @package wp-rijkshuisstijl
- * @version 0.9.5
- * @desc.   Bugfixes. Dossier-overzichtspagina.
- * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
+// * Rijkshuisstijl (Digitale Overheid) - dossier-helper-functions.php
+// * ----------------------------------------------------------------------------------
+// * functies voor de header boven content in een dossier
+// * ----------------------------------------------------------------------------------
+// * 
+// * @author  Paul van Buuren
+// * @license GPL-2.0+
+// * @package wp-rijkshuisstijl
+// * @version 0.12.1
+// * @desc.   Decorative images for dossiers.
+// * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
 $tellertje = 0;
+
+//========================================================================================================
+
+
+add_action( 'wp_enqueue_scripts', 'rhswp_add_dossier_header_css' );
+
+
+function rhswp_add_dossier_header_css( ) {
+
+  $posttype   = get_post_type();
+  $loop       = rhswp_get_context_info();
+  $term       = '';
+  $blogberichten_css = '';
+
+  if ( 'single' == $loop ) {
+    if ( get_query_var( RHSWP_DOSSIERPOSTCONTEXT ) ) {
+      $url            = get_query_var( RHSWP_DOSSIERPOSTCONTEXT );
+      $terms          = get_the_terms( $contextpageID , RHSWP_CT_DOSSIER );
+
+      if ($terms && ! is_wp_error( $terms ) ) { 
+        $term                 = array_pop($terms);
+      }
+    }
+  }
+  elseif ( 'category' == $loop ) {
+
+  }
+  elseif ( 'tag' == $loop ) {
+
+  }
+  elseif ( 'tax' == $loop ) {
+
+    if ( is_tax( RHSWP_CT_DOSSIER ) ) {
+      $currentID    = get_queried_object()->term_id;
+      $term         = get_term( $currentID, RHSWP_CT_DOSSIER );
+    }
+
+  }
+  else {
+
+    $currentID    = $post->ID;
+    $terms        = get_the_terms( $currentID , RHSWP_CT_DOSSIER );
+
+    if ($terms && ! is_wp_error( $terms ) ) { 
+      $term       = array_pop($terms);
+    }
+
+  }    
+
+  if ( $term && function_exists( 'get_field' ) ) {
+    
+    $acfid      = RHSWP_CT_DOSSIER . '_' . $term->term_id;
+    $bgimage    = get_field( 'dossier_use_background_image', $acfid );
+    $image_id   = get_field( 'dossier_background_image', $acfid );
+    $image_size = 'Carrousel (full width: 1200px wide)'; 
+
+    if( ( 'ja_achtergrondfoto' == $bgimage  ) && ( isset( $image_id['sizes'] ) ) && ( $image_id['sizes'][$image_size] ) ) {
+
+      $blogberichten_css = '@media screen and (min-width: 650px) {';
+      $blogberichten_css .= '/* bgimage = ' . $bgimage . ' */';
+      $blogberichten_css .= '.breadcrumb, .dossier-overview {';
+      $blogberichten_css .= " background: white;";
+      $blogberichten_css .= '}';
+      $blogberichten_css .= '.dossier-overview {';
+      $blogberichten_css .= ' position: relative;';
+      $blogberichten_css .= '}';
+
+      $blogberichten_css .= '.dossier-overview .taxonomy-title {';
+      $blogberichten_css .= ' display: inline-block;';
+      $blogberichten_css .= ' background: white;';
+      $blogberichten_css .= ' padding: .25em .5em;';
+      $blogberichten_css .= ' margin: 1em;';
+      $blogberichten_css .= '}';
+
+      $blogberichten_css .= '.dossier-overview .wrap nav {';
+      $blogberichten_css .= ' position: absolute;';
+      $blogberichten_css .= ' bottom: 0;';
+      $blogberichten_css .= '}';
+      
+      $blogberichten_css .= '.dossier-overview nav {';
+      $blogberichten_css .= ' padding: 0;';
+      $blogberichten_css .= '}';
+
+      $blogberichten_css .= '.dossier-overview nav ul {';
+      $blogberichten_css .= ' margin-top: 0;';
+      $blogberichten_css .= '}';
+
+      $blogberichten_css .= '.dossier-overview nav ul li {';
+      $blogberichten_css .= ' background: #e6e6e6;';
+      $blogberichten_css .= ' margin-right: 2px;';
+      $blogberichten_css .= ' margin-bottom: -2px;';
+      $blogberichten_css .= ' transform: translateY(3px);';
+      $blogberichten_css .= '}';
+
+      $blogberichten_css .= '.dossier-overview nav ul li.selected {';
+      $blogberichten_css .= ' background: white;';
+      $blogberichten_css .= ' font-size: 110%;';
+      $blogberichten_css .= ' margin-bottom: 0;';
+      $blogberichten_css .= ' transform: none;';
+      $blogberichten_css .= '}';
+
+      $blogberichten_css .= '.dossier-overview, #dossier-overview' . $term->term_id . ' {';
+      $blogberichten_css .= " height: " . $image_id['sizes'][$image_size . '-height'] . "px;";
+      $blogberichten_css .= " background: white url('" . $image_id['url'] . "');";
+      $blogberichten_css .= " background-repeat: no-repeat;";
+      $blogberichten_css .= " background-size: cover;";
+      $blogberichten_css .= " background-position: center center;";
+      $blogberichten_css .= '}';
+      $blogberichten_css .= '}';
+
+      wp_enqueue_style( RHSWP_DOSSIER_CSS, RHSWP_THEMEFOLDER . '/css/featured-background-images.css', array(), CHILD_THEME_VERSION, 'screen and (min-width: 650px)' );
+      
+      if ( $blogberichten_css ) {
+        wp_add_inline_style( RHSWP_DOSSIER_CSS, $blogberichten_css );
+      }
+
+
+    }  
+
+    
+  }
+
+
+}
 
 //========================================================================================================
 
@@ -57,10 +181,10 @@ function rhswp_dossier_title_checker( ) {
 
     // checken of dit een post is en is_single() en of in de URL de juiste dossier-contetxt is meegegeven.
     
-    $posttype = get_post_type();
-    $loop     = rhswp_get_context_info();
-    $term     = '';
-    $tellertje = 1;
+    $posttype   = get_post_type();
+    $loop       = rhswp_get_context_info();
+    $term       = '';
+    $tellertje  = 1;
 
     if ( 'single' == $loop ) {
       if ( get_query_var( RHSWP_DOSSIERPOSTCONTEXT ) ) {
@@ -74,14 +198,15 @@ function rhswp_dossier_title_checker( ) {
           $term                 = array_pop($terms);
           $standaardpaginanaam  = $term->name;       
         }
-  
       }
     }
     elseif ( 'category' == $loop ) {
+
       return;
       
     }
     elseif ( 'tag' == $loop ) {
+
       return;
       
     }
@@ -101,11 +226,9 @@ function rhswp_dossier_title_checker( ) {
       $parentID     = wp_get_post_parent_id( $post->ID );
       $parent       = get_post( $parentID );
 
-      
-
       if ($terms && ! is_wp_error( $terms ) ) { 
-        $term             = array_pop($terms);
-        $standaardpaginanaam =  $term->name;       
+        $term                 = array_pop($terms);
+        $standaardpaginanaam  =  $term->name;       
       }
       
       if ( is_single() && 'post' == $posttype ) {
@@ -121,7 +244,7 @@ function rhswp_dossier_title_checker( ) {
       $dossierinhoudpagina = '';
 
       $args['theterm'] = $term->term_id;
-  
+
       echo '<div class="dossier-overview"><div class="wrap">'; 
 
       if ( function_exists( 'get_field' ) ) {
