@@ -641,17 +641,23 @@ function rhswp_add_taxonomy_description() {
       $intro_text = sprintf( '<p>' . _x( "Alle bijlages en documenten op %s.", "beschrijving op documentpagina", 'wp-rijkshuisstijl' ) . '</p>', get_bloginfo('name') );
     }
     elseif ( $tax == RHSWP_CT_DOSSIER ) {
-      $plaatje = 'plaatje hier!';
       
       if ( function_exists( 'get_field' ) ) {
         $acfid      = RHSWP_CT_DOSSIER . '_' . $term->term_id;
         $bgimage    = get_field( 'dossier_use_background_image', $acfid );
         $image_id   = get_field( 'dossier_float_image', $acfid );
         $image_size = 'featured-post-widget'; 
-    
-    
+
         if ( ( 'ja_image_right' == $bgimage  ) && $image_id['ID'] ) {
-          $plaatje = wp_get_attachment_image( $image_id['ID'], $image_size );
+          $caption    = wp_get_attachment_caption( $image_id['ID'] );
+          $image      = wp_get_attachment_image( $image_id['ID'], $image_size );
+          $shortcode  = '[caption align="alignright" id="attachment_' . $image_id['ID'] . '"]' . $image . $caption . '[/caption]';
+          if ( $caption ) {
+            $plaatje    = '<div class="wp-caption alignright">' .  $image . '<p class="wp-caption-text">' . $caption . '</p></div>';
+          }
+          else {
+            $plaatje    = $image;
+          }
         }
         
       }
