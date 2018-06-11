@@ -72,10 +72,10 @@ if ( ! defined( 'RHSWP_CPT_DOCUMENT' ) ) {
   define( 'RHSWP_CPT_DOCUMENT',             'document' );   // slug for custom taxonomy 'document'
 }
 if ( ! defined( 'RHSWP_CPT_EVENT' ) ) {
-  define( 'RHSWP_CPT_EVENT',                'event' );      // slug for custom taxonomy 'document'
+  define( 'RHSWP_CPT_EVENT',                'event' );      // slug for custom taxonomy 'event'
 }
 if ( ! defined( 'RHSWP_CPT_SLIDER' ) ) {
-  define( 'RHSWP_CPT_SLIDER',               'slidertje' );  // slug for custom taxonomy 'dossier'
+  define( 'RHSWP_CPT_SLIDER',               'slidertje' );  // slug for custom post type of slider
 }
 
 
@@ -105,6 +105,9 @@ define( 'RHSWP_DOSSIER_CSS',                'dossier-header-css' );
 define( 'RHSWP_FOOTERWIDGET1',              'footer-1' );
 define( 'RHSWP_FOOTERWIDGET2',              'footer-2' );
 define( 'RHSWP_FOOTERWIDGET3',              'footer-3' );
+
+
+
 
 
 
@@ -629,6 +632,7 @@ function rhswp_add_taxonomy_description() {
         
     $headline   = '';
     $intro_text = '';
+    $plaatje    = '';
 
     $tax = isset( $wp_query->query_vars['taxonomy'] ) ? $wp_query->query_vars['taxonomy'] : '';
     
@@ -637,7 +641,22 @@ function rhswp_add_taxonomy_description() {
       $intro_text = sprintf( '<p>' . _x( "Alle bijlages en documenten op %s.", "beschrijving op documentpagina", 'wp-rijkshuisstijl' ) . '</p>', get_bloginfo('name') );
     }
     elseif ( $tax == RHSWP_CT_DOSSIER ) {
+      $plaatje = 'plaatje hier!';
+      
+      if ( function_exists( 'get_field' ) ) {
+        $acfid      = RHSWP_CT_DOSSIER . '_' . $term->term_id;
+        $bgimage    = get_field( 'dossier_use_background_image', $acfid );
+        $image_id   = get_field( 'dossier_float_image', $acfid );
+        $image_size = 'featured-post-widget'; 
     
+    
+        if ( ( 'ja_image_right' == $bgimage  ) && $image_id['ID'] ) {
+          $plaatje = wp_get_attachment_image( $image_id['ID'], $image_size );
+        }
+        
+      }
+      
+      
     }
     else {
       if ( $term->name ) {
@@ -658,6 +677,10 @@ function rhswp_add_taxonomy_description() {
         
     if ( $term->description ) {
         $intro_text = apply_filters( 'genesis_term_intro_text_output', $term->description );
+    }
+    
+    if ( $plaatje ) {
+      $intro_text = $plaatje . $intro_text;
     }
 
     if ( $headline || $intro_text ) {

@@ -270,6 +270,20 @@ if( function_exists('acf_add_local_field_group') ):
   //======================================================================================================
   // metadata voor CT RHSWP_CT_DOSSIER 
   //======================================================================================================
+
+
+$choicesarray = array(
+	'nee' => 'Nee',
+//	'ja_achtergrondfoto' => 'Ja, een achtergrondfoto',
+	'ja_image_right' => 'Ja, foto naast de dossierbeschrijvingstekst',
+);
+
+// deze zouden beter optioneel gemaakt worden; als CPT bestaat dan mogen ze mee doen.
+//$choicesarray['ja_video']     = 'Ja, een video';
+//$choicesarray['ja_carousel']  = 'Ja, een carrousel';
+
+
+  
   acf_add_local_field_group(array (
   	'key' => 'group_57f90d0a441e4',
   	'title' => 'Dossier-informatie',
@@ -348,95 +362,159 @@ if( function_exists('acf_add_local_field_group') ):
   			'max' => '',
   			'return_format' => 'object',
   		),
+
+
   
-  		array(
-  			'key' => 'field_5b1e74f65720b',
-  			'label' => 'Wil je een achtergrond-afbeelding of caroussel tonen bij dit dossier?',
-  			'name' => 'dossier_use_background_image',
-  			'type' => 'radio',
-  			'instructions' => '',
-  			'required' => 0,
-  			'conditional_logic' => 0,
-  			'wrapper' => array(
-  				'width' => '',
-  				'class' => '',
-  				'id' => '',
-  			),
-  			'choices' => array(
-  				'nee' => 'Nee',
-  				'ja_achtergrondfoto' => 'Ja, een achtergrondfoto',
-  				'ja_carousel' => 'Ja, een carrousel',
-  			),
-  			'allow_null' => 0,
-  			'other_choice' => 0,
-  			'save_other_choice' => 0,
-  			'default_value' => 'nee',
-  			'layout' => 'vertical',
-  			'return_format' => 'value',
-  		),
-  		array(
-  			'key' => 'field_5b1e74a75720a',
-  			'label' => 'Achtergrondbeeld bij dossier',
-  			'name' => 'dossier_background_image',
-  			'type' => 'image',
-  			'instructions' => '',
-  			'required' => 1,
-  			'conditional_logic' => array(
-  				array(
-  					array(
-  						'field' => 'field_5b1e74f65720b',
-  						'operator' => '==',
-  						'value' => 'ja_achtergrondfoto',
-  					),
-  				),
-  			),
-  			'wrapper' => array(
-  				'width' => '',
-  				'class' => '',
-  				'id' => '',
-  			),
-  			'return_format' => 'array',
-  			'preview_size' => 'Carrousel (preview: 400px wide)',
-  			'library' => 'all',
-  			'min_width' => 1400,
-  			'min_height' => '',
-  			'min_size' => '',
-  			'max_width' => '',
-  			'max_height' => '',
-  			'max_size' => '',
-  			'mime_types' => '',
-  		),
-  		array(
-  			'key' => 'field_5b1e78da1186a',
-  			'label' => 'Carrousel bij dossier',
-  			'name' => 'dossier_background_carrousel',
-  			'type' => 'post_object',
-  			'instructions' => '',
-  			'required' => 1,
-  			'conditional_logic' => array(
-  				array(
-  					array(
-  						'field' => 'field_5b1e74f65720b',
-  						'operator' => '==',
-  						'value' => 'ja_carousel',
-  					),
-  				),
-  			),
-  			'wrapper' => array(
-  				'width' => '',
-  				'class' => '',
-  				'id' => '',
-  			),
-  			'post_type' => array(
-  				0 => 'slidertje',
-  			),
-  			'taxonomy' => array(
-  			),
-  			'allow_null' => 0,
-  			'multiple' => 0,
-  			'return_format' => 'object',
-  			'ui' => 1,
-  		),
+
+		array(
+			'key' => 'field_5b1e74f65720b',
+			'label' => 'Wil je een achtergrond-afbeelding, video of carrousel tonen bij dit dossier?',
+			'name' => 'dossier_use_background_image',
+			'type' => 'radio',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'choices' => $choicesarray,
+			'allow_null' => 0,
+			'other_choice' => 0,
+			'save_other_choice' => 0,
+			'default_value' => 'nee',
+			'layout' => 'vertical',
+			'return_format' => 'value',
+		),
+		array(
+			'key' => 'field_5b1e78da1186a',
+			'label' => 'Carrousel bij dossier',
+			'name' => 'dossier_background_carrousel',
+			'type' => 'post_object',
+			'instructions' => '',
+			'required' => 1,
+			'conditional_logic' => array(
+				array(
+					array(
+						'field' => 'field_5b1e74f65720b',
+						'operator' => '==',
+						'value' => 'ja_carousel',
+					),
+				),
+			),
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'post_type' => array(
+				0 => 'slidertje',
+			),
+			'taxonomy' => array(
+			),
+			'allow_null' => 0,
+			'multiple' => 0,
+			'return_format' => 'object',
+			'ui' => 1,
+		),
+		array(
+			'key' => 'field_5b1e74a75720a',
+			'label' => 'Achtergrondbeeld bij dossier',
+			'name' => 'dossier_background_image',
+			'type' => 'image',
+			'instructions' => '',
+			'required' => 1,
+			'conditional_logic' => array(
+				array(
+					array(
+						'field' => 'field_5b1e74f65720b',
+						'operator' => '==',
+						'value' => 'ja_image',
+					),
+				),
+			),
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'return_format' => 'array',
+			'preview_size' => 'Carrousel (preview: 400px wide)',
+			'library' => 'all',
+			'min_width' => 1200,
+			'min_height' => '',
+			'min_size' => '',
+			'max_width' => '',
+			'max_height' => '',
+			'max_size' => '',
+			'mime_types' => '',
+		),
+		array(
+			'key' => 'field_5b1e95f65be86',
+			'label' => 'Plaatje naast dossiertekst',
+			'name' => 'dossier_float_image',
+			'type' => 'image',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => array(
+				array(
+					array(
+						'field' => 'field_5b1e74f65720b',
+						'operator' => '==',
+						'value' => 'ja_image_right',
+					),
+				),
+			),
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'return_format' => 'array',
+			'preview_size' => 'Carrousel (preview: 400px wide)',
+			'library' => 'all',
+			'min_width' => 400,
+			'min_height' => '',
+			'min_size' => '',
+			'max_width' => '',
+			'max_height' => '',
+			'max_size' => '',
+			'mime_types' => '',
+		),
+		array(
+			'key' => 'field_5b1e96425be87',
+			'label' => 'Ja, een video',
+			'name' => 'dossier_float_video',
+			'type' => 'post_object',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => array(
+				array(
+					array(
+						'field' => 'field_5b1e74f65720b',
+						'operator' => '==',
+						'value' => 'ja_video',
+					),
+				),
+			),
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'post_type' => array(
+				0 => 'rijksvideo',
+			),
+			'taxonomy' => array(
+			),
+			'allow_null' => 0,
+			'multiple' => 0,
+			'return_format' => 'object',
+			'ui' => 1,
+		),
+
+
   		
   	),
   	'location' => array (
@@ -1813,8 +1891,8 @@ endif;
 //========================================================================================================
 
 add_action( 'init', 'cptui_register_my_cpts' );
-function cptui_register_my_cpts() {
 
+function cptui_register_my_cpts() {
 
 	$labels = array(
 		"name"                  => __( 'Carrousels', 'wp-rijkshuisstijl' ),
