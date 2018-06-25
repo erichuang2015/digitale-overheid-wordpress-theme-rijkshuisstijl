@@ -14,7 +14,6 @@
  * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
-//* Template Name: 60 - Speciale zoekpagina 
 
 
 

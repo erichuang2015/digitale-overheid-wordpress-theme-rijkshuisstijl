@@ -30,45 +30,63 @@ genesis();
 
 function rhswp_get_page_childpages() {
 
+
   global $post;
   $currentpostID    = $post->ID;
-  $pagetemplateslug = basename( get_page_template_slug( $currentpostID ) );
+  $currentpostID    = 9;
   
   $args = array( 
         'child_of'      => $currentpostID, 
         'parent'        => $currentpostID,
         'hierarchical'  => 0,
-        'sort_column'   => 'menu_order', 
+//        'sort_column'   => 'menu_order', 
         'sort_order'    => 'asc'
   );
   $mypages = get_pages( $args );
 
+  if ( $mypages ) {
+    
+    foreach( $mypages as $post ) {
   
-  foreach( $mypages as $post ) {
+      $image      = get_the_post_thumbnail( $post->ID, 'featured-post-widget' );
+      $classattr  = '';
+    
+      if (  has_excerpt( $post->ID ) ) {
+        $text = get_the_excerpt( $post->ID );
+      } 
+      else {
+        $thecontent = wp_strip_all_tags( get_post_field('post_content', $post->ID ) );
+        $text = get_words( $thecontent, get_option( 'excerpt_length' ) );   
+      } 
+      if ( !$text ) {
 
-    $image      = get_the_post_thumbnail( $post->ID, 'featured-post-widget' );
-    $classattr  = '';
+        $user = wp_get_current_user();
+        if ( in_array( 'edit_pages', (array) $user->allcaps ) ) {
+          //The user has capability to edit pages
+          $text = '<div style="border: 1px solid black; padding: .1em 1em; margin-bottom: 2em;">';
+          $text .=  _x( 'Eh, dit is een pagina zonder tekst', 'Standaardtekst als pagina geen tekst heeft.', 'wp-rijkshuisstijl' );
+          $text .= '</div>';
+
+        }
+      }
+      
+      if ( $text ) {
+        $text = '<p>' . $text . '</p>';
+      }
   
-    if (  has_excerpt( $post->ID ) ) {
-      $text = get_the_excerpt( $post->ID );
-    } 
-    else {
-      $thecontent = wp_strip_all_tags( get_post_field('post_content', $post->ID ) );
-      $text = get_words( $thecontent, get_option( 'excerpt_length' ) );   
-    } 
-    if ( !$text ) {
-      $text = _x( 'Eh, dit is een pagina zonder tekst', 'Standaardtekst als pagina geen tekst heeft.', 'wp-rijkshuisstijl' );
+      printf( '<article %s>', $classattr );
+      if ( $image ) {
+        printf( '<div class="article-container"><div class="article-visual">%s</div>', $image );
+        printf( '<div class="article-excerpt"><a href="%s"><h2>%s</h2>%s</a></div></div>', get_permalink(), get_the_title(), $text );
+      }
+      else {
+        printf( '<a href="%s"><h2>%s</h2><p>%s</p></a>', get_permalink(), get_the_title(), $text );
+      }
     }
-
-    printf( '<article %s>', $classattr );
-    if ( $image ) {
-      printf( '<div class="article-container"><div class="article-visual">%s</div>', $image );
-      printf( '<div class="article-excerpt"><a href="%s"><h2>%s</h2><p>%s</p></a></div></div>', get_permalink(), get_the_title(), $text );
-    }
-    else {
-      printf( '<a href="%s"><h2>%s</h2><p>%s</p></a>', get_permalink(), get_the_title(), $text );
-    }
-
   }
+  else {
+    dodebug('NEE! rhswp_get_page_childpages: ' . $currentpostID . '<br>');
+  }
+  
     
 }
