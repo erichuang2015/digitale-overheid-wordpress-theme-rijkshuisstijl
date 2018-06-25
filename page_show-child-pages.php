@@ -1,17 +1,18 @@
 <?php
 
 /**
- * Rijkshuisstijl (Digitale Overheid) - page_show-child-pages.php
- * ----------------------------------------------------------------------------------
- * Toont onderliggende pagina's
- * ----------------------------------------------------------------------------------
- *
- * @author  Paul van Buuren
- * @license GPL-2.0+
- * @package wp-rijkshuisstijl
- * @version 0.8.1
- * @desc.   Sitemap uitgebreid (filtersitemap=nee), 'article-visual' als nieuw beeldformaat toegevoegd. CSS wijzigingen voor list-items. Revisie van dossier-menu. 
- * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
+// * Rijkshuisstijl (Digitale Overheid) - page_show-child-pages.php
+// * ----------------------------------------------------------------------------------
+// * Toont onderliggende pagina's
+// * ----------------------------------------------------------------------------------
+// *
+// * @author  Paul van Buuren
+// * @license GPL-2.0+
+// * @package wp-rijkshuisstijl
+// * @version 1.1.1
+// * @desc.   Verbeteringen en veranderingen voor Brede Agenda Digitale Overheid: citaten toevoegen en extra layout-opties.
+menu. 
+// * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
 
@@ -33,13 +34,15 @@ function rhswp_get_page_childpages() {
 
   global $post;
   $currentpostID    = $post->ID;
-  $currentpostID    = 9;
+//  $currentpostID    = 9;
+  
+  $pagetemplateslug = basename( get_page_template_slug( $currentpostID ) );
   
   $args = array( 
         'child_of'      => $currentpostID, 
         'parent'        => $currentpostID,
         'hierarchical'  => 0,
-//        'sort_column'   => 'menu_order', 
+        'sort_column'   => 'menu_order', 
         'sort_order'    => 'asc'
   );
   $mypages = get_pages( $args );

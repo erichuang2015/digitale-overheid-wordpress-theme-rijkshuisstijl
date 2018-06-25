@@ -9,8 +9,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.11.19
-// * @desc.   Debug verbeterd en print style verbeterd.
+// * @version 1.1.1
+// * @desc.   Verbeteringen en veranderingen voor Brede Agenda Digitale Overheid: citaten toevoegen en extra layout-opties.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 

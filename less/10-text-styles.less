@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.11.17
-// * @desc.   Tabel-stijl voor Regie Op Gegevens-programmatabel.
+// * @version 1.1.1
+// * @desc.   Verbeteringen en veranderingen voor Brede Agenda Digitale Overheid: citaten toevoegen en extra layout-opties.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 // **
 
@@ -517,6 +517,7 @@
       display: block;
       position: relative;
       
+      
       img {
         clear: both;
         float: right;
@@ -536,10 +537,22 @@
       }
     }
   }
+
+
+  .featured,
+  .wp-caption {
+    &, & + p {
+      max-width: 50%;
+      float: right;
+    }
+  }  
+  
   
   .featured {
     margin: 0 0 .25em 1em;
     padding-top: .25em;
+
+    
     &.toc-active {
 	    max-width: 25%;
 	    margin: .25em 1em 1em 0;
@@ -550,7 +563,6 @@
 	    }
     }
   }
-  
 
   
   .gallery-caption {

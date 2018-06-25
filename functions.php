@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.11.19
-// * @desc.   Debug verbeterd en print style verbeterd.
+// * @version 1.1.1
+// * @desc.   Verbeteringen en veranderingen voor Brede Agenda Digitale Overheid: citaten toevoegen en extra layout-opties.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "https://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.11.19" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Debug verbeterd en print style verbeterd." );
+define( 'CHILD_THEME_VERSION',              "1.1.1" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Verbeteringen en veranderingen voor Brede Agenda Digitale Overheid: citaten toevoegen en extra layout-opties." );
 define( 'SHOW_CSS_DEBUG',                   false );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
@@ -51,7 +51,7 @@ define( 'SOC_MED_YES',                      'socmed_ja' );
 $siteURL      =  get_stylesheet_directory_uri();
 $siteURL      =  preg_replace('|https://|i', '//', $siteURL );
 $siteURL      =  preg_replace('|http://|i', '//', $siteURL );
-define( 'RHSWP_THEMEFOLDER',                 $siteURL );
+  define( 'RHSWP_THEMEFOLDER',                 $siteURL );
 
 $sharedfolder = get_stylesheet_directory();
 $sharedfolder = preg_replace('|genesis|i','wp-rijkshuisstijl',$sharedfolder);
@@ -77,6 +77,20 @@ if ( ! defined( 'RHSWP_CPT_EVENT' ) ) {
 if ( ! defined( 'RHSWP_CPT_SLIDER' ) ) {
   define( 'RHSWP_CPT_SLIDER',               'slidertje' );  // slug for custom taxonomy 'dossier'
 }
+
+if ( ! defined( 'RHSWP_CT_BADO' ) ) {
+  define( 'RHSWP_CT_BADO',                  'digitaleagenda' );   // slug for custom taxonomy 'dossier'
+}
+
+if ( ! defined( 'RHSWP_ADMIN_STREAMER_CSS' ) ) {
+  define( 'RHSWP_ADMIN_STREAMER_CSS',       'adminstreamercss' );   // slug for custom taxonomy 'dossier'
+}
+if ( ! defined( 'RHSWP_INSERT_STREAMER' ) ) {
+  define( 'RHSWP_INSERT_STREAMER',          'insert-streamder' );   // slug for custom taxonomy 'dossier'
+}
+
+
+
 
 
 define( 'RHSWP_WIDGET_BANNER',              '(DO) banner widget');
@@ -3487,5 +3501,208 @@ function wpse_add_taxonomy_archive_options() {
 	
 }
 	
+//========================================================================================================
+
+add_filter( 'body_class', 'rhswp_add_body_class_bado_content' );
+
+function rhswp_add_body_class_bado_content( $classes ) {
+  
+  global $post;
+  
+  if ( 'post' == get_post_type() || 'page' == get_post_type() ) {
+
+    if( has_term( '', RHSWP_CT_BADO ) ) {
+      // if has any terms in RHSWP_CT_BADO
+      $classes['class'] .= ' bado';
+    }    
+
+    if ( function_exists( 'get_field' ) ) {
+
+      $postid     = get_the_id();
+      $badoterms  = wp_get_post_terms( $postid, RHSWP_CT_BADO );
+
+      if ( $badoterms ) {
+        foreach( $badoterms as $badoterm ) {
+          $term_id    = ' ' . $badoterm->term_id;
+          $acfid      = RHSWP_CT_BADO . '_' . $term_id;
+          $badoclass  = get_field( 'bado_term_achtergrondkleur', $acfid );
+
+          $classes['class'] .= ' ' . $badoclass;
+          
+        }    
+      }
+    }
+  }
+
+  return $classes;
+
+}
+
+//========================================================================================================
+
+add_action( 'admin_footer', 'rhswp_add_streamer_funcs', 11 );
+
+/**
+ * Append the call to action content content button to the admin pages
+ */
+function rhswp_add_streamer_funcs() {
+
+  global $pagenow;
+  global $post;
+
+  if ( ! is_admin() ) {
+    return '';
+  }
+  if ( ! isset( $post->ID ) ) {
+    return '';
+  }
+
+  wp_enqueue_style( RHSWP_ADMIN_STREAMER_CSS, RHSWP_THEMEFOLDER . '/css/admin-popup-css.css', false, CHILD_THEME_VERSION );
+  
+  do_action( RHSWP_ADMIN_STREAMER_CSS );
+
+  $my_saved_attachment_post_id = $post->ID;
+
+  // Only run in post/page creation and edit screens
+  if ( in_array( $pagenow, array( 'post.php', 'page.php', 'post-new.php', 'post-edit.php' ) ) ) {
+    ?>
+    <script type="text/javascript">
+      jQuery(document).ready(function() {
+
+
+			// Select files
+			var file_frame;
+			var wp_media_post_id  = wp.media.model.settings.post.id; // Store the old id
+			var set_to_post_id    = <?php echo $my_saved_attachment_post_id; ?>; // Set this
+
+
+			// Restore the main ID when the add media button is pressed
+			jQuery( 'a.add_media' ).on( 'click', function() {
+  			console.log( ' click add_media ' + wp_media_post_id );
+				wp.media.model.settings.post.id = wp_media_post_id;
+			});
+
+		    			
+        
+        jQuery('#insert_rhswp_quote').on('click', function() {
+          var rhswp_quote_author    = jQuery('#rhswp_quote_author').val();
+          var rhswp_quote_text      = jQuery('#rhswp_quote_text').val();
+          var rhswp_quote_url       = jQuery('#rhswp_quote_url').val();
+          var rhswp_quote_alignment = jQuery('#rhswp_quote_alignment').val();
+          var rhswp_quote_linktext  = '';
+
+          jQuery( '#rhswp_insert_aside_errormessages' ).text('');
+          jQuery( '#rhswp_insert_aside_errormessages' ).removeClass('error');
+          jQuery( '#rhswp_quote_author' ).removeClass('error');
+          jQuery( '#rhswp_quote_text' ).removeClass('error');
+          jQuery( '#rhswp_quote_url' ).removeClass('error');
+          
+          if (  ( rhswp_quote_text === '' ) ||  ( rhswp_quote_text == null ) ) {
+            jQuery( '#rhswp_insert_aside_errormessages' ).append('<?php echo _x( 'Voer een tekst in', 'Streamer errors', 'wp-rijkshuisstijl' ) ?>');
+            jQuery( '#rhswp_insert_aside_errormessages' ).addClass('error');
+            jQuery( '#rhswp_quote_text' ).addClass('error');
+            return false;
+          } 
+          if (  ( rhswp_quote_text === '' ) ||  ( rhswp_quote_text == null ) ) {
+            jQuery( '#rhswp_insert_aside_errormessages' ).append('<?php echo _x( 'Voer een tekst in', 'Streamer errors', 'wp-rijkshuisstijl' ) ?>');
+            jQuery( '#rhswp_insert_aside_errormessages' ).addClass('error');
+            jQuery( '#rhswp_quote_text' ).addClass('error');
+            return false;
+          } 
+          if (  ( rhswp_quote_url === '' ) ||  ( rhswp_quote_url == null ) ) {
+          } 
+          else {
+            if (  ( rhswp_quote_text === '' ) ||  ( rhswp_quote_text == null ) ) {
+            }
+            else {
+              rhswp_quote_linktext = '<p><a href="' + rhswp_quote_url + '">' + rhswp_quote_author + '</a></p>';
+            }
+          }
+          
+          window.send_to_editor('<aside class="<?php echo RHSWP_INSERT_STREAMER ?> streamer ' + rhswp_quote_alignment + '"><blockquote>' + rhswp_quote_text + '</blockquote>' + rhswp_quote_linktext + '</aside>');
+          tb_remove();
+        })
+      });
+    </script>
+    
+    <div id="insert_rhswp_quote_form" style="display: none;">
+    <div class="wrap">
+    <?php
+    
+    echo "<h3>" . _x( "Gegevens voor streamer", 'Insert streamer', 'wp-rijkshuisstijl' ) . "</h3>";
+    echo '<div class="divider" id="rhswp_insert_aside_errormessages" role="alert">';
+    echo "</div>";
+    echo "<div class='divider'>";
+    echo "<label for='rhswp_quote_text'>" . _x( "Tekst", 'Insert streamer', 'wp-rijkshuisstijl' ) . "</label>";
+    echo "<textarea id='rhswp_quote_text' name='rhswp_quote_text' rows='8'></textarea>";
+    echo "</div>";
+    echo "<div class='divider'>";
+    echo "<label for='rhswp_quote_author'>" . _x( "Auteur", 'Insert streamer', 'wp-rijkshuisstijl' ) . "</label>";
+    echo "<input type='text' id='rhswp_quote_author' name='rhswp_quote_author' value=''>";
+    echo "</div>";
+    echo "<div class='divider'>";
+    echo "<label for='rhswp_quote_alignment'>" . _x( "Uitlijnen", 'Insert streamer', 'wp-rijkshuisstijl' ) . "</label>";
+    echo "<label for='rhswp_quote_alignment_left'><input type='radio' id='rhswp_quote_alignment_left' name='rhswp_quote_alignment' value='align-left'> Links</label>";
+    echo "<label for='rhswp_quote_alignment_right'><input type='radio' id='rhswp_quote_alignment_right' name='rhswp_quote_alignment' checked='checked' value='align-right'> Rechts</label>";
+    echo "</div>";
+    
+    echo "<div class='divider'>";
+    echo "<label for='rhswp_quote_url'>" . _x( "Link naar post / pagina", 'Insert streamer', 'wp-rijkshuisstijl' ) . "</label>";
+    echo '<input type="url" name="rhswp_quote_url" id="rhswp_quote_url" value="">';
+    echo "<small>" . _x( "Je kunt een link invoegen of met de knop een PDF uit de mediabibliotheek selecteren.", 'Insert streamer', 'wp-rijkshuisstijl' ) . "</small>";
+    echo "</div>";
+    echo "<button class='button primary' id='insert_rhswp_quote'>" . _x( "Voeg citaat in", 'Insert streamer', 'wp-rijkshuisstijl' ) . "</button>";
+
+    ?>
+    </div>
+    </div>
+    
+    <?php
+  }
+
+}
+
+//========================================================================================================
+
+add_filter( 'media_buttons_context', 'rhswp_admin_insert_streamer_button' );
+
+/**
+ * Append the 'Add streamer' button to selected admin pages
+ */
+function rhswp_admin_insert_streamer_button( $context ) {
+
+  if ( ! current_user_can( 'edit_others_posts' ) ) {
+    return $context;
+  }
+  
+  global $pagenow;
+  
+  $posttype = 'post';
+  
+  if ( isset( $_GET['post'] ) ) {
+    $posttype = get_post_type( $_GET['post'] );
+  }
+  if ( isset( $_GET['post_type'] ) ) {
+    $posttype = $_GET['post_type'];
+  }
+  
+  $available_post_types = get_post_types();
+  $allowed_post_types   = array();
+  
+  foreach ( $available_post_types as $available_post_type ) {
+    array_push( $allowed_post_types, $available_post_type );
+  }
+  
+  if ( ( in_array( $pagenow, array( 'post.php', 'page.php', 'post-new.php', 'post-edit.php' ) ) ) && ( in_array( $posttype, $allowed_post_types ) ) ) {
+    $context .= '<a href="#TB_inline?&inlineId=insert_rhswp_quote_form" id="insert_rhswp_quote_form_button" class="thickbox button" title="' .
+    _x( "Gegevens voor je streamer", 'Insert streamer', 'wp-rijkshuisstijl' )  .
+    '">' . _x( "Voeg streamer toe", 'Insert streamer', 'wp-rijkshuisstijl' ) . '</a>';
+  }
+  
+  return $context;
+
+
+}
+
 //========================================================================================================
 

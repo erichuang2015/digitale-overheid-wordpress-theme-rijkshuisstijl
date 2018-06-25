@@ -7,8 +7,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.10.9
-// * @desc.   Kleine CSS bugs verholpen (onderwerppaginakolombreedte).
+// * @version 1.1.1
+// * @desc.   Verbeteringen en veranderingen voor Brede Agenda Digitale Overheid: citaten toevoegen en extra layout-opties.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 // **
 
@@ -222,7 +222,7 @@
   }
 
 
-//========================================================================================================
+  //========================================================================================================
   @media only screen and (min-width: ( @break_tablet ) ) {
 
     #mixitupfilterlist {
@@ -264,7 +264,7 @@
     }
   }
 
-//========================================================================================================
+  //========================================================================================================
   @media only screen and (min-width: ( @break_fullwidth ) ) {
 
     #mixitupfilterlist {
@@ -278,7 +278,7 @@
     }
   }
 
-//========================================================================================================
+  //========================================================================================================
 
   @media only screen and (min-width: ( @break_fullwidth ) ) {
     .flexbox {
@@ -346,7 +346,7 @@
     }
   }  
 
-//========================================================================================================
+  //========================================================================================================
 
   .page-template-page_show-child-pages {
     .content {
@@ -362,7 +362,6 @@
   }
 
   .error404,
-//  .page-template-page_showalldossiers,
   .page-template-page_sitemap {
     .site-inner {
       ul, ol {
@@ -377,11 +376,10 @@
     }
   }
 
-//========================================================================================================
-
+  //========================================================================================================
+  
   @media only screen and (min-width: ( @break_tablet ) ) {
     .error404 .site-inner,
-//    .page-template-page_showalldossiers,
     .page-template-page_sitemap .site-inner {
       ul, ol {
 
@@ -414,11 +412,10 @@
     }
   }
 
-//========================================================================================================
+  //========================================================================================================
 
   @media only screen and (min-width: ( @break_fullwidth ) ) {
     .error404,
-//    .page-template-page_showalldossiers,
     .page-template-page_sitemap {
       .category,
       .dossiers {
@@ -430,11 +427,11 @@
     }
   }
 
-//========================================================================================================
+  //========================================================================================================
 
   .page-template-page_search,
   .search {
-
+  
     .post-date {
       &:before {
         content: '|';
@@ -450,7 +447,7 @@
       
       a {
         margin: .1em;
-
+  
         &:hover,
         &:focus,
         &:active {
@@ -463,14 +460,14 @@
         margin: 0;        
       }
     }
-
+  
     .document,
     .type-document {
     }  
     .post {
-//      border-color: @communicatiekleur_vol;      
+  //      border-color: @communicatiekleur_vol;      
     }  
-
+  
     .taxonomy {
       margin-top: 1em;
       border-bottom: 3px solid @communicatiekleur_vol;
@@ -486,7 +483,7 @@
     }   
   
     .attachment.pdf {
-
+  
       a p {
         padding-left: 1.5em;
         background-image: url('images/icon-document.svg');
@@ -501,5 +498,77 @@
     }
   }
 
+  //========================================================================================================
+
   
+  
+  .badokleuren( bado-oker,    @bado_oker,   @txt );
+  .badokleuren( bado-oranje,  @bado_oranje, @txt );
+  .badokleuren( bado-blauw,   @bado_blauw,  @wit );
+  .badokleuren( bado-groen,   @bado_groen,  @wit );
+  .badokleuren( bado-violet,  @bado_violet,  @wit );
+  .badokleuren( bado-paars,   @bado_paars,  @wit );
+
+
+    .page-template-page_fullwidth {
+      .entry-content {
+
+        .wp-caption {
+          margin-top: .5em;          
+          margin-bottom: .5em;          
+        }
+      }
+    }  
+
+    @media only screen and (max-width: ( @break_fullwidth ) ) {
+      .page-template-page_fullwidth {
+        .entry-header {
+          width: 100%;
+          margin-left: 0;
+          margin-right: 0;
+        }  
+      }  
+    }  
+
+    @media only screen and (min-width: ( @break_fullwidth ) ) {
+      .page-template-page_fullwidth {
+
+        .entry-header {
+          margin-left: auto;
+          margin-right: auto;
+          
+          h1 {
+            text-align: center;
+            padding-top: .5em;
+            padding-bottom: .5em;
+          }
+        }
+
+        .entry-content {
+          
+          p,
+          h2, 
+          h3, 
+          h4, 
+          h5, 
+          h6, 
+          ol,
+          ul { 
+            max-width: 770px; // 770px
+            max-width: ( 770 / 18 ) * 1rem; // 770px
+            margin-left: auto;
+            margin-right: auto;
+          }
+        }
+        #reactieformulier {
+          max-width: 770px; // 770px
+          max-width: ( 770 / 18 ) * 1rem; // 770px
+          margin-left: auto;
+          margin-right: auto;
+        }
+      }
+    }
+
+  //========================================================================================================
+
 }

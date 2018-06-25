@@ -3,11 +3,25 @@
   Description: Editor CSS voor digitaleoverheid.nl
   Author: Paul van Buuren
   Author URI: https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl/
-  Version: 0.7.26
-  Version description: 0.7.26 - Waarschuwingen uit editor-styles.css opgeschoond.
+  Version: 0.11.4
+  Version description: 0.11.4 - CSS bug: icon for external link.
 
   License: GPL-2.0+
   License URI: http://www.opensource.org/licenses/gpl-license.php
+
+//**
+// * Rijkshuisstijl (Digitale Overheid) - editor-styles.less
+// * ----------------------------------------------------------------------------------
+// * CSS voor de admin
+// * ----------------------------------------------------------------------------------
+// * @author  Paul van Buuren
+// * @license GPL-2.0+
+// * @package wp-rijkshuisstijl
+// * @version 0.11.4
+// * @desc.   CSS bug: icon for external link.
+// * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
+// **
+  
 */
 
 
@@ -146,3 +160,101 @@ div.statusDoorlevering {
   display: inline-block;
 }
 
+
+//========================================================================================================
+
+#TB_window {
+
+  *, & {
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+  }
+  
+  #TB_ajaxContent {
+    min-width: 90% !important;    
+    min-height: 90% !important;    
+  }
+  .cmb-th,
+  .cmb-td {
+    padding: 0;
+    margin: 0 0 1em 0;
+  }
+  .cmb-th {
+    width: 24%;  
+  }
+  .cmb-td {
+    width: 75%;  
+  }
+  
+  .cmb2-wrap textarea {
+    width: 100%;    
+  }  
+
+  .error {
+    border: 3px solid red;
+    color: red;
+    font-weight: bold;
+  }
+  
+  
+  #insert_cta_form_errormessages {
+    border: 3px solid white;
+    padding: 0;
+    margin: 0;
+  }
+  #insert_cta_form_errormessages.error {
+    border: 3px solid red;
+    padding: 1em;
+    margin-bottom: 1em;
+  }
+
+  #insert_cta {
+    background: @nav_bg_color;
+    color: @wit;
+    margin-left: 20%;
+  }
+  
+  div.divider {
+    overflow: hidden;
+    width: 680px;
+    margin-bottom: 1em;
+    
+    label {
+      width: 20%;
+      font-weight: bold;
+    }  
+    input,
+    textarea {
+      width: 75%;
+    }  
+    input,
+    textarea {
+      height: 32px;
+    }  
+    textarea {
+      height: 150px;
+    }  
+    input,
+    textarea,
+    small,
+    label {
+      display: inline-block;
+      float: left;
+    }  
+    small {
+      padding-left: 20%;
+      clear: both;
+      width: auto;
+    }
+    #select_pdf_button {
+      width: 150px;
+    }
+    #insp_cta_url {
+      width: 320px;
+    }
+  }
+
+}
+
+
+.streamerstyle();

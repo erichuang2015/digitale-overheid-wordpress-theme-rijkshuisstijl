@@ -7,8 +7,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.11.4
-// * @desc.   CSS bug: icon for external link.
+// * @version 1.1.1
+// * @desc.   Verbeteringen en veranderingen voor Brede Agenda Digitale Overheid: citaten toevoegen en extra layout-opties.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 // **
 
@@ -424,4 +424,93 @@
 }
 
 //=========================================================================================================
+
+.badokleuren( @classname: 'bado_oker', @achtergrondkleur: @bado_oker, @tekstkleur: @txt, @alttext: @txt ) {
+
+  .page.bado {
+
+    .entry-header {
+      padding: 1rem 1rem 1rem 1rem;
+      h1 {
+        margin: 0;
+      }
+    }
+
+
+    .site-inner {
+      &,
+      article,
+      .content {
+        margin-top: 0;
+        padding-top: 0;
+      }
+    }
+  
+    &.@{classname} {
+      .entry-header {
+        background: @achtergrondkleur;
+        color: @tekstkleur;    
+        @media only screen and (min-width: ( @break_fullwidth ) ) {
+          max-width: 770px; // 770px
+          max-width: ( 770 / 18 ) * 1rem; // 770px
+        }
+      }
+      span.intro {
+        background: @achtergrondkleur;
+        color: @tekstkleur;    
+        padding: .1em 1em 1em 1em;
+        display: block;
+        overflow: hidden;
+      }
+    }
+  }
+  .bado {
+    &.@{classname} {
+      .streamer {
+        border-color: @achtergrondkleur;
+        &, & a {
+          color: @alttext;    
+        }
+      }
+    }
+  }
+  
+}
+
+//=========================================================================================================
+
+.streamerstyle() {
+  .streamer {
+    max-width: 30%;
+    display: inline-block;
+    float: right;
+    padding: .25em 0;
+  	border-top: .25em solid @grijs;
+  	border-bottom: .25em solid @grijs;
+  	margin-top: 4em;
+  	margin-bottom: 4em;
+    float: left;
+    text-align: right;
+    margin-right: 2em;
+    margin-left: 0;
+    
+    &.align-right {
+      margin-right: 0;
+      margin-left: 2em;
+      float: right;
+      text-align: left;
+    }
+    
+    blockquote {
+      border-top-style: none;
+      border-bottom-style: none;
+      font-style: normal;
+      padding: 0;
+      margin: 0;
+    }
+  }
+}
+
+//=========================================================================================================
+
 
