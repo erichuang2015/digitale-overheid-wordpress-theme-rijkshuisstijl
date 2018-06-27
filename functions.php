@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 1.1.1
-// * @desc.   Verbeteringen en veranderingen voor Brede Agenda Digitale Overheid: citaten toevoegen en extra layout-opties.
+// * @version 1.1.2a
+// * @desc.   Bugfixes in JS en kleine CSS-wijzigingen t.b.v. BADO.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "https://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "1.1.1" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Verbeteringen en veranderingen voor Brede Agenda Digitale Overheid: citaten toevoegen en extra layout-opties." );
+define( 'CHILD_THEME_VERSION',              "1.1.2a" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Bugfixes in JS en kleine CSS-wijzigingen t.b.v. BADO." );
 define( 'SHOW_CSS_DEBUG',                   false );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
@@ -3588,8 +3588,9 @@ function rhswp_add_streamer_funcs() {
           var rhswp_quote_author    = jQuery('#rhswp_quote_author').val();
           var rhswp_quote_text      = jQuery('#rhswp_quote_text').val();
           var rhswp_quote_url       = jQuery('#rhswp_quote_url').val();
-          var rhswp_quote_alignment = jQuery('#rhswp_quote_alignment').val();
+          var rhswp_quote_alignment = jQuery('input[name=rhswp_quote_alignment]:checked').val();
           var rhswp_quote_linktext  = '';
+
 
           jQuery( '#rhswp_insert_aside_errormessages' ).text('');
           jQuery( '#rhswp_insert_aside_errormessages' ).removeClass('error');

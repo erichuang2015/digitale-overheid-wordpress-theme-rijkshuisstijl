@@ -1,14 +1,4 @@
-/*!
-  File Name: editor-styles.less (Rijkshuisstijl - Digitale Overheid)
-  Description: Editor CSS voor digitaleoverheid.nl
-  Author: Paul van Buuren
-  Author URI: https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl/
-  Version: 0.11.4
-  Version description: 0.11.4 - CSS bug: icon for external link.
-
-  License: GPL-2.0+
-  License URI: http://www.opensource.org/licenses/gpl-license.php
-
+/*
 //**
 // * Rijkshuisstijl (Digitale Overheid) - editor-styles.less
 // * ----------------------------------------------------------------------------------
@@ -17,11 +7,10 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 1.1.1
-// * @desc.   Verbeteringen en veranderingen voor Brede Agenda Digitale Overheid: citaten toevoegen en extra layout-opties.
+// * @version 1.1.2a
+// * @desc.   Bugfixes in JS en kleine CSS-wijzigingen t.b.v. BADO.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 // **
-  
 */
 
 
@@ -101,18 +90,21 @@
       width: 20%;
       font-weight: bold;
     }  
-    input,
+    input[type="text"],
+    input[type="url"],
     textarea {
       width: 75%;
     }  
-    input,
+    input[type="text"],
+    input[type="url"],
     textarea {
       height: 32px;
     }  
     textarea {
       height: 150px;
     }  
-    input,
+    input[type="text"],
+    input[type="url"],
     textarea,
     small,
     label {
