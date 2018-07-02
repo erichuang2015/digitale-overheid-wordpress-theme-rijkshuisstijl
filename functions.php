@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 1.1.3
-// * @desc.   Hero-image obv. featured image. Pagina-template voor Digibeter landingspagina.
+// * @version 1.1.4
+// * @desc.   SVG-upload mogelijk gemaakt. Shortcode voor interesantere pullquote.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "https://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "1.1.3" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Hero-image obv. featured image. Pagina-template voor Digibeter landingspagina." );
+define( 'CHILD_THEME_VERSION',              "1.1.4" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "SVG-upload mogelijk gemaakt. Shortcode voor interesantere pullquote." );
 define( 'SHOW_CSS_DEBUG',                   false );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
@@ -3762,3 +3762,65 @@ function rhswp_admin_insert_streamer_button( $context ) {
 }
 
 //========================================================================================================
+
+function rhswp_get_pullquote_with_image( $atts ) {
+	global $post;
+
+  return '<blockquote class="pullquote-with-image">
+      <img src="http://digitaleoverheid.gebruikercentraal.co.uk/wp-content/uploads/sites/8/2018/05/Simone-Roos-150x150.jpg" alt="Hier een plaatje">  
+    <div><p>‘Burgers en bedrijven moeten zelf kunnen kiezen hoe ze digitaal bereikbaar willen zijn.’</p>
+    <footer>
+        <cite><a href="' .  $_SERVER["HTTP_HOST"] . '/dinges/">Lazo Bozarov, manager functioneel beheer bij informatievoorzieningen bij een lokale overheid:</a></cite>.
+    </footer>
+    </div>
+</blockquote>';
+
+}
+
+add_shortcode( 'pullquote_with_image', 'rhswp_get_pullquote_with_image' );
+
+//========================================================================================================
+
+// Allow SVG
+add_filter( 'wp_check_filetype_and_ext', function($data, $file, $filename, $mimes) {
+
+  global $wp_version;
+  if ( $wp_version !== '4.7.1' ) {
+     return $data;
+  }
+
+  $filetype = wp_check_filetype( $filename, $mimes );
+
+  return [
+      'ext'             => $filetype['ext'],
+      'type'            => $filetype['type'],
+      'proper_filename' => $data['proper_filename']
+  ];
+
+}, 10, 4 );
+
+//========================================================================================================
+
+function rhswp_svg_add_mime_types( $mimes ){
+  $mimes['svg'] = 'image/svg+xml';
+  return $mimes;
+}
+
+add_filter( 'upload_mimes', 'rhswp_svg_add_mime_types' );
+
+//========================================================================================================
+
+function rhswp_svg_css_display() {
+  echo '<style type="text/css">
+        .attachment-266x266, .thumbnail img {
+             width: 100% !important;
+             height: auto !important;
+        }
+        </style>';
+}
+
+add_action( 'admin_head', 'rhswp_svg_css_display' );
+
+//========================================================================================================
+
+
