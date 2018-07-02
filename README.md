@@ -15,12 +15,13 @@ Dit theme wordt gebruikt op [digitaleoverheid.nl](https://www.digitaleoverheid.n
 
 ## Current version:
 
-1.1.2a - Bugfixes in JS en kleine CSS-wijzigingen t.b.v. BADO.
+1.1.3 - Hero-image obv. featured image. Pagina-template voor Digibeter landingspagina.
 
 ## Version history
 
-* 1.1.2a - Bugfixes in JS en kleine CSS-wijzigingen t.b.v. BADO.
-* 1.1.0 - Versie 1.1 ter gelegenheid van BADO (zie 1.1.2a)
+* 1.1.3 - Hero-image obv. featured image. Pagina-template voor Digibeter landingspagina.
+* 1.1.2 - Bugfixes in JS en kleine CSS-wijzigingen t.b.v. BADO.
+* 1.1.0 - Versie 1.1 ter gelegenheid van BADO (zie 1.1.3)
 * 1.0.0 - 25 juni 2018: toch maar eens besloten het ding versie 1 te geven.
 * 0.11.19 - Debug verbeterd en print style verbeterd.
 * 0.11.18 - Pagina met full-width toegevoegd. 

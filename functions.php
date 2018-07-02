@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 1.1.2a
-// * @desc.   Bugfixes in JS en kleine CSS-wijzigingen t.b.v. BADO.
+// * @version 1.1.3
+// * @desc.   Hero-image obv. featured image. Pagina-template voor Digibeter landingspagina.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "https://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "1.1.2a" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Bugfixes in JS en kleine CSS-wijzigingen t.b.v. BADO." );
+define( 'CHILD_THEME_VERSION',              "1.1.3" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Hero-image obv. featured image. Pagina-template voor Digibeter landingspagina." );
 define( 'SHOW_CSS_DEBUG',                   false );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
@@ -78,8 +78,8 @@ if ( ! defined( 'RHSWP_CPT_SLIDER' ) ) {
   define( 'RHSWP_CPT_SLIDER',               'slidertje' );  // slug for custom taxonomy 'dossier'
 }
 
-if ( ! defined( 'RHSWP_CT_BADO' ) ) {
-  define( 'RHSWP_CT_BADO',                  'digitaleagenda' );   // slug for custom taxonomy 'dossier'
+if ( ! defined( 'RHSWP_CT_DIGIBETER' ) ) {
+  define( 'RHSWP_CT_DIGIBETER',                  'digitaleagenda' );   // slug for custom taxonomy 'dossier'
 }
 
 if ( ! defined( 'RHSWP_ADMIN_STREAMER_CSS' ) ) {
@@ -120,11 +120,16 @@ define( 'RHSWP_FOOTERWIDGET2',              'footer-2' );
 define( 'RHSWP_FOOTERWIDGET3',              'footer-3' );
 
 
+define( 'RHSWP_MIN_HERO_IMAGE_WIDTH',       1200 );
+define( 'RHSWP_HERO_IMAGE_WIDTH_NAME',      'Carrousel (full width: ' . RHSWP_MIN_HERO_IMAGE_WIDTH . ' wide)' );
+
+
+
 
 //========================================================================================================
 
 add_image_size( 'Carrousel (preview: 400px wide)', 400, 200, false );
-add_image_size( 'Carrousel (full width: 1200px wide)', 1200, 400, false );
+add_image_size( RHSWP_HERO_IMAGE_WIDTH_NAME, RHSWP_MIN_HERO_IMAGE_WIDTH, 400, false );
 add_image_size( 'featured-post-widget', 400, 250, false );
 add_image_size( 'grid-half', 350, 350, true );
 add_image_size( 'article-visual', 400, 400, true );
@@ -374,23 +379,22 @@ remove_action( 'genesis_after_header', 'genesis_do_nav' );
 
 // breadcrumb 
 // Reposition the breadcrumbs
-remove_action( 'genesis_before_loop', 'genesis_do_breadcrumbs' );
+remove_action( 'genesis_before_loop',       'genesis_do_breadcrumbs' );
 
 // Remove the site title
-remove_action( 'genesis_site_title', 'genesis_seo_site_title' );
+remove_action( 'genesis_site_title',        'genesis_seo_site_title' );
 
 // Remove the site title
-remove_action( 'genesis_site_title', 'genesis_seo_site_title' );
-remove_action( 'genesis_site_description', 'genesis_seo_site_description' );
+remove_action( 'genesis_site_title',        'genesis_seo_site_title' );
+remove_action( 'genesis_site_description',  'genesis_seo_site_description' );
 
-add_action( 'genesis_after_header', 'rhswp_site_description',       10 );
-add_action( 'genesis_after_header', 'rhswp_site_description',       10 );
-add_action( 'genesis_after_header', 'rhswp_menu_container_start',   12 );
-add_action( 'genesis_after_header', 'genesis_do_nav',               14 );
-add_action( 'genesis_after_header', 'rhswp_menu_container_end',     16 );
-add_action( 'genesis_after_header', 'genesis_do_breadcrumbs',       18 );
-add_action( 'genesis_after_header', 'rhswp_dossier_title_checker',  20 );
-add_action( 'genesis_after_header', 'rhswp_caroussel_checker',      22 );
+add_action( 'genesis_after_header', 'rhswp_site_description',                 10 );
+add_action( 'genesis_after_header', 'rhswp_menu_container_start',             12 );
+add_action( 'genesis_after_header', 'genesis_do_nav',                         14 );
+add_action( 'genesis_after_header', 'rhswp_menu_container_end',               16 );
+add_action( 'genesis_after_header', 'genesis_do_breadcrumbs',                 18 );
+add_action( 'genesis_after_header', 'rhswp_dossier_title_checker',            20 );
+add_action( 'genesis_after_header', 'rhswp_check_caroussel_or_featured_img',  24 );
 
 //========================================================================================================
 
@@ -2605,15 +2609,25 @@ function rhswp_write_extra_contentblokken() {
 
 //========================================================================================================
 
-function rhswp_caroussel_checker() {
+function rhswp_check_caroussel_or_featured_img() {
   
   global $post;
   
   
-  if ( function_exists( 'get_field' ) ) {
+  if ( ! function_exists( 'get_field' ) ) {
+    return;
+  }
+  
+  if ( 'page_digibeter-home.php' == get_page_template_slug( get_the_ID() ) && get_field( 'digibeter_content_intro', get_the_ID() ) ) {
+    // voorkomen dat pagina's met dit template ook een carroussel laten zien
+    // deze pagina heeft dus als template 'page_digibeter-home.php' en heeft iets in digibeter_content_intro
+    return;
 
+  }
+  else {
+    
     $carousselcheck = '';
-
+  
     if ( is_page() ) {
       $theid          = get_the_ID();
       $carousselcheck = get_field( 'carrousel_tonen_op_deze_pagina', $theid );
@@ -2623,36 +2637,34 @@ function rhswp_caroussel_checker() {
       $carousselcheck = get_field( 'carrousel_tonen_op_deze_pagina', $theid );
       $currentterm    = get_queried_object()->term_id;
     }
-
-   
-
+  
     if ( 'ja' == $carousselcheck ) {
       
       $getcarousel      = get_field( 'kies_carrousel', $theid );
       $carouselid       = 0;
-
+  
       if ( is_object( $getcarousel ) ) {
         $carouselid       = $getcarousel->ID;
         $carouseltitle    = $getcarousel->post_title;
         $carrousel_items  = get_field( 'carrousel_items', $carouselid );
       }
-
-
+  
+  
       if( have_rows('carrousel_items', $carouselid ) ) {
-
+  
         $itemcounter = 'items' . count( $carrousel_items ) ;
-
+  
         echo '<div class="slider" role="complementary">';
         echo '<div class="wrap">';
-
+  
         echo '<p class="visuallyhidden">' . $carouseltitle . '</p>';
         echo '<p class="slidenav" id="slidenavid">&nbsp;</p>';   	
         
         echo '<ul class="carousel ' . $itemcounter . '" id="carousel" data-slidecount="' . $itemcounter . '">';
-
-
+  
+  
         $slidecounter = 0;
-
+  
         foreach( $carrousel_items as $row ) {
           
           $slidecounter++;
@@ -2663,15 +2675,15 @@ function rhswp_caroussel_checker() {
           $slide_link_end       = ''; 
           $slide_caption_start  = '<div class="caption">';   	
           $slide_caption_end    = '</div>';   	
-
+  
           $image    = $row[ 'carrousel_item_photo' ];
           $titel    = esc_html( $row[ 'carrousel_item_title' ] );
           $text     = esc_html( $row[ 'carrousel_item_short_text' ] );
           $type     = $row[ 'carrousel_item_link_type' ];
           $link     = $row[ 'carrousel_item_link_page' ];
           $dossier  = $row[ 'carrousel_item_link_dossier' ];
-          $size     = 'Carrousel (full width: 1200px wide)';
-
+          $size     = RHSWP_HERO_IMAGE_WIDTH_NAME;
+  
           $selected = '';
           
           if ( $slidecounter == 1 ) {
@@ -2687,74 +2699,96 @@ function rhswp_caroussel_checker() {
             $linkid         = array_pop($link);
             $link_img_start     = '<a href="' . get_permalink( $linkid ) . '" tabindex="-1" class="img-container">';   	
             $link_end           = '</a>';
-
+  
             $slide_link_start = '<a href="' . get_permalink( $linkid ) . '">';   	
             $slide_link_end   = '</a>';   	
           }
           elseif ( $dossier && $type == 'dossier' ) {
             $link_img_start     = '<a href="' . get_term_link( $dossier ) . '" tabindex="-1" class="img-container">';   	
             $link_end           = '</a>';
-
+  
             $slide_link_start = '<a href="' . get_term_link( $dossier ) . '">';   	
             $slide_link_end   = '</a>';   	
-
+  
           }
           else {
             $link_img_start     = '<span class="img-container">';   	
             $link_end           = '</span>';
-
+  
           }
-
-
-
+  
+  
+  
           if ( $image ) {
             $thumb  = $image['sizes'][ $size ];
             $width  = $image['sizes'][ $size . '-width' ];
             $height = $image['sizes'][ $size . '-height' ];
-
-
+  
+  
             echo $slide_link_start;   		
-
+  
             if ( $titel || $text ) {
   
-
+  
               echo $slide_caption_start;   		
               
-
+  
               if ( $titel ) {
                 echo '<h2 class="caption-title">' .  $titel . '</h2>';   		
               }
-
+  
               if ( $text ) {
                 echo '<p class="caption-text">' .  $text . '</p>';   		
               }
-
-//            echo $link_img_start;   		
-//            echo $link_end;   		
-
-
+  
+  //            echo $link_img_start;   		
+  //            echo $link_end;   		
+  
+  
             echo $slide_caption_end;   		
-
+  
             
             }
-
+  
             echo '<img src="' . $thumb . '" alt="Bekijk de pagina ' . $titel . '" width="' . $width . '" height="' . $height . '" />';
-
+  
             echo $slide_link_end;   		
-
-
+  
+  
           }
             
           
           echo '</li>';   	
           
         }        
-
+  
         echo '</ul></div></div>';
         
       }
     }
-  }  
+    else {
+  
+      $postid = get_the_id();
+  
+      if ( has_post_thumbnail( $postid ) ) {
+  
+        // geen carroussel nodig, maar er is wel een featured image
+        // is dit featured image wel breed genoeg voor een heroimage?
+  
+        $image = wp_get_attachment_image_src( get_post_thumbnail_id( $getid ), $breakpoint['img_size_archive_list'] );
+        if ( RHSWP_MIN_HERO_IMAGE_WIDTH <= $image[1] ) {
+          // plaatje is van zichzelf breed genoeg
+          echo '<div class="hero-image wrap">' . get_the_post_thumbnail( $postid, 'full' ) . '</div>';
+        }
+        else {
+          // plaatje is niet breed genoeg. We schrijven 'm dadelijk wel uit, na de titel en naast de inleiding.
+        }
+      }
+    }
+  
+  
+  }
+
 }
 
 //========================================================================================================
@@ -3112,35 +3146,57 @@ function rhswp_single_add_featured_image() {
 
   if ( ( is_single() && ( 'post' == get_post_type() ) || (  'page' == get_post_type()  ) ) && ( has_post_thumbnail() ) && ( !is_front_page() && !is_home() ) ) {
 
-		$alignment = ' alignright';
-		
-		if ( class_exists( 'toc' ) && is_page() ) {
-			// the TOC+ plugin is active
-			$alignment = ' alignleft toc-active';
-		}
-
-
-    $theimageobject		= get_post(get_post_thumbnail_id());
-    $get_description	= $theimageobject->post_excerpt;
-
-		// check for an image caption
-    if(!empty( $theimageobject->post_excerpt )){
-      echo '<div class="wp-caption ' . $alignment . '">';
-    }
-    else {
-      echo '<div class="featured ' . $alignment . '">';
-    }
-    
-    echo get_the_post_thumbnail( $post->ID, 'article-visual', array( 'class' => 'alignright' ) );
+    $theid          = get_the_ID();
+    $carousselcheck = get_field( 'carrousel_tonen_op_deze_pagina', $theid );
     
 
-		// write the image caption if any
-    if(!empty( $theimageobject->post_excerpt )){
-      echo '<p class="wp-caption-text">' . $theimageobject->post_excerpt . '</p>';
-    }
+    $postid = get_the_id();
+  
+    $cssid        = 'image_featured_image_post_' . $postid;
 
-    echo '</div>';
-      
+  
+    if ( ( strval( $carousselcheck ) !==  'ja' ) &&  has_post_thumbnail( $postid ) ) {
+
+      $image = wp_get_attachment_image_src( get_post_thumbnail_id( $postid ), 'full' );
+
+      if ( $image[1] < RHSWP_MIN_HERO_IMAGE_WIDTH ) {
+        // de featured image is niet groot genoeg om gebruikt te worden als hero-image. 
+        // dus hebben we geen hiervoor geen hero-image neergezet
+        // dus mogeen we hem hier WEL neerzeggen.
+        // hoera...
+
+    		$alignment      = ' alignright';
+    		
+    		if ( class_exists( 'toc' ) && is_page() ) {
+    			// the TOC+ plugin is active
+    			$alignment = ' alignleft toc-active';
+    		}
+
+        $theimageobject		= get_post( get_post_thumbnail_id() );
+        $get_description	= $theimageobject->post_excerpt;
+    
+    		// check for an image caption
+        if(!empty( $theimageobject->post_excerpt )){
+          echo '<div class="wp-caption ' . $alignment . '">';
+        }
+        else {
+          echo '<div class="featured ' . $alignment . '">';
+        }
+
+        echo get_the_post_thumbnail( $postid, 'article-visual', array( 'class' => 'alignright' ) );
+    
+    		// write the image caption if any
+        if(!empty( $theimageobject->post_excerpt )){
+          echo '<p class="wp-caption-text">' . $theimageobject->post_excerpt . '</p>';
+        }
+    
+        echo '</div>';
+    
+      }
+      else {
+        // het plaatje is al neergezet als hero-image, want de breedte is groter dan RHSWP_MIN_HERO_IMAGE_WIDTH (1200px)
+      }
+    }
   }
 }
 
@@ -3503,31 +3559,31 @@ function wpse_add_taxonomy_archive_options() {
 	
 //========================================================================================================
 
-add_filter( 'body_class', 'rhswp_add_body_class_bado_content' );
+add_filter( 'body_class', 'rhswp_add_body_class_DIGIBETER_content' );
 
-function rhswp_add_body_class_bado_content( $classes ) {
+function rhswp_add_body_class_DIGIBETER_content( $classes ) {
   
   global $post;
   
   if ( 'post' == get_post_type() || 'page' == get_post_type() ) {
 
-    if( has_term( '', RHSWP_CT_BADO ) ) {
-      // if has any terms in RHSWP_CT_BADO
-      $classes['class'] .= ' bado';
+    if( has_term( '', RHSWP_CT_DIGIBETER ) ) {
+      // if has any terms in RHSWP_CT_DIGIBETER
+      $classes['class'] .= ' digibeter';
     }    
 
     if ( function_exists( 'get_field' ) ) {
 
       $postid     = get_the_id();
-      $badoterms  = wp_get_post_terms( $postid, RHSWP_CT_BADO );
+      $digibeterterms  = wp_get_post_terms( $postid, RHSWP_CT_DIGIBETER );
 
-      if ( $badoterms ) {
-        foreach( $badoterms as $badoterm ) {
-          $term_id    = ' ' . $badoterm->term_id;
-          $acfid      = RHSWP_CT_BADO . '_' . $term_id;
-          $badoclass  = get_field( 'bado_term_achtergrondkleur', $acfid );
+      if ( $digibeterterms ) {
+        foreach( $digibeterterms as $digibeterterm ) {
+          $term_id    = ' ' . $digibeterterm->term_id;
+          $acfid      = RHSWP_CT_DIGIBETER . '_' . $term_id;
+          $digibeterclass  = get_field( 'digibeter_term_achtergrondkleur', $acfid );
 
-          $classes['class'] .= ' ' . $badoclass;
+          $classes['class'] .= ' ' . $digibeterclass;
           
         }    
       }
@@ -3706,4 +3762,3 @@ function rhswp_admin_insert_streamer_button( $context ) {
 }
 
 //========================================================================================================
-

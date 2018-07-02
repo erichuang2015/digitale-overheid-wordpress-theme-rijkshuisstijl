@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 1.1.1
-// * @desc.   Verbeteringen en veranderingen voor Brede Agenda Digitale Overheid: citaten toevoegen en extra layout-opties.
+// * @version 1.1.3
+// * @desc.   Hero-image obv. featured image. Pagina-template voor Digibeter landingspagina.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 // **
 
@@ -84,17 +84,36 @@
   	border-top: 1px solid @grijs;
   	border-bottom: 1px solid @grijs;
   }
-/*  
-  blockquote::before {
-  	content: "\201C";
-  	display: block;
-  	.font-size(30);
-  	height: 0;
-  	left: ( -1 * @padding );
-  	position: relative;
-  	top: ( -1 * @padding );
+
+.pullquote-with-image {
+  
+  @img_pullquote_max_width: 150px;
+  float: none;
+  clear: both;
+  overflow: hidden;
+  
+  // dit is een soort blockquote, maar heeft een plaatje van de auteur van de uitspraak en waarschijnlijk een link
+  img {
+    float: right;
+    border-radius: 50%;
+    max-width: @img_pullquote_max_width;
+    margin: 0;
   }
-*/  
+  div {
+    border: 10px solid red;
+    max-width: ~"calc(99% - @{img_pullquote_max_width})";
+    border: 1px solid red;
+    margin: 0;
+    padding-right: 1em;
+    float: left;
+    overflow: hidden;
+  }
+  cite {
+    display: inline;
+    background: yellow;
+  }
+}
+
   .entry-content {
     pre,
     code {
@@ -143,6 +162,90 @@
   }
   dl + dl {
     margin-top: 1em;
+  }
+
+  ul,
+  ol,
+  table,
+  p {
+    & + details {
+      margin-top: 1em;
+    }
+  }
+  
+  details {
+    overflow: hidden;
+    margin-bottom: 1em;
+    border: 1px solid @txt;
+    
+    ul,
+    ol {
+      margin-left: 1rem;
+      margin-right: 1rem;
+    }
+    
+    li,
+    p {
+      &:first-child {
+        margin-top: 1em;
+      }
+    }
+    ul,
+    ol,
+    p {
+      &:last-child {
+        margin-bottom: 1em;
+      }    
+    }
+
+    
+    summary {
+
+      background-image: url('images/icon-arrow-fat-down.svg');
+      background-position: 98% center;
+      background-repeat: no-repeat;
+      cursor: pointer;
+      width: 100%;
+      padding-left: 0;
+      list-style: none;
+
+      
+      &:hover {
+        background-color: @wit;
+        background-image: url('images/icon-arrow-fat-down.svg');
+        text-decoration: underline;
+        color: @txt;        
+      }
+
+      &::-webkit-details-marker {
+        color: transparent;
+        display: none;
+      }    
+
+      &, & h2, & h3, & h4, & h5, & h6 {
+        font-size: 1.35rem;
+        font-family: @headerfont;
+        margin-top: 0;
+        margin-bottom: 0;
+        padding: .25rem 1rem;
+      }
+    }
+    
+
+    &[open] {
+      summary {
+        background-image: url('images/icon-arrow-fat-up.svg');
+
+        &:hover {
+          background-color: @txt;
+          background-image: url('images/icon-arrow-fat-up-white.svg');
+          text-decoration: underline;
+          color: white;        
+        }
+
+      }
+    }
+
   }
 
   p {
@@ -329,7 +432,6 @@
     
     & > h2 {
       margin-top: 1em;
-//      border: 10px solid red;
     }
           
     ul, ol {
@@ -517,7 +619,6 @@
       display: block;
       position: relative;
       
-      
       img {
         clear: both;
         float: right;
@@ -537,22 +638,10 @@
       }
     }
   }
-
-
-  .featured,
-  .wp-caption {
-    &, & + p {
-      max-width: 50%;
-      float: right;
-    }
-  }  
-  
-  
+/*  
   .featured {
     margin: 0 0 .25em 1em;
     padding-top: .25em;
-
-    
     &.toc-active {
 	    max-width: 25%;
 	    margin: .25em 1em 1em 0;
@@ -563,6 +652,21 @@
 	    }
     }
   }
+*/  
+  .featured {
+    margin: 0 0 .25em 1em;
+    padding-top: .25em;
+    &.toc-active {
+	    max-width: 25%;
+	    margin: .25em 1em 1em 0;
+	    padding-top: 0;
+	    
+	    & + #toc_container {
+		    max-width: 33%;
+	    }
+    }
+  }
+  
 
   
   .gallery-caption {
@@ -597,7 +701,6 @@
       font-size: 1.3125em;
       line-height: 1.5238;
       display: inline-block;
-      margin-bottom: 1em;
     }
   }
 
@@ -607,5 +710,221 @@
       -webkit-text-size-adjust: 112.5%;
     }  
   }
+
+//========================================================================================================
+
+  div.chapters {
+
+    background: @digibeter_oker;
+    display: flex;
+    margin-bottom: 1em;
+    
+    &, a {
+      color: @wit;
+    }
+
+    div {
+      flex: 1;
+      background-repeat: no-repeat;
+      padding: .5em;
+    }
+    
+    span {
+      display: block;
+    }
+    
+    a {
+      text-decoration: none;
+      display: block;
+
+      &:hover, 
+      &:active, 
+      &:focus {
+        
+        .chapter-number {
+          color: @wit;
+        }
+        .desc {
+          text-decoration: underline;
+        }
+      }
+    }
+      
+    .chapter-number {
+      font-family: @headerfont;
+      margin-bottom: 0;
+    }
+    
+    .digibeter-oranje {
+      // innovatie
+      background-color: @digibeter_oranje;
+      background-image: url('images/digibeter-icons/chapter-01.png?v1');
+      .chapter-number {
+        color: @oranje_lichtst;
+      }
+    }
+    
+    .digibeter-blauw {
+      // grondrechten
+      background-color: @digibeter_blauw;
+      background-image: url('images/digibeter-icons/chapter-02.png?v1');
+      .chapter-number {
+        color: @lichtblauw_lichtst;
+      }
+    }
+    
+    .digibeter-groen {
+      // toegankelijkheid
+      background-color: @digibeter_groen;
+      background-image: url('images/digibeter-icons/chapter-03.png?v1');
+      .chapter-number {
+        color: @groen_lichtst;
+      }
+    }
+    
+    .digibeter-violet {
+      // persoonlijke dienstverlening
+      background-color: @digibeter_violet;
+      background-image: url('images/digibeter-icons/chapter-04.png?v1');
+      .chapter-number {
+        color: @violet_lichtst;
+      }
+    }
+    
+    .digibeter-paars {
+      // toekomst
+      background-color: @digibeter_paars;
+      background-image: url('images/digibeter-icons/chapter-05.png?v1');
+      .chapter-number {
+        color: @paars_lichtst;
+      }
+    }
+
+  	@media only screen and (max-width: ( @menubreakpoint ) ) {
+      flex-direction: column;
+
+      div {
+        flex: 0 1 auto;
+      }
+      .chapter-number {
+        font-size: 2em;
+        float: left;
+        margin-right: .5em;
+      }
+
+      div {
+        background-size: contain;
+      }
+
+      .digibeter-oranje {
+        // innovatie
+        background-position: 2em center;
+        .desc {
+          padding-left: 7em;
+        }
+      }
+      
+      .digibeter-blauw {
+        // grondrechten
+        background-position: 98% center;
+        .desc {
+          padding-right: 6em;
+        }
+      }
+      
+      .digibeter-groen {
+        // toegankelijkheid
+        background-position: 2em center;
+        .desc {
+          padding-left: 7em;
+        }
+      }
+      
+      .digibeter-violet {
+        // persoonlijke dienstverlening
+        background-position: 98% center;
+        .desc {
+          padding-right: 6em;
+        }
+      }
+      
+      .digibeter-paars {
+        // toekomst
+        background-position: 2em center;
+        .desc {
+          padding-left: 7em;
+        }
+      }
+      
+    }
+
+  	@media only screen and (min-width: ( @menubreakpoint + 1 ) ) {
+
+      flex-direction: row;
+
+      div {
+        flex: 1;
+        background-repeat: no-repeat;
+        background-position: center 90%;
+        padding: .5em;
+        font-size: 125%;
+      }
+      
+      .chapter-number {
+        text-align: center;
+        font-size: 6em;
+        line-height: 1;
+        line-height: 1;
+      }
+    	
+      span {
+        display: block;
+        float: none;
+        clear: both;
+      }
+  
+      .digibeter-oranje {
+        // innovatie
+        background-image: url('images/digibeter-icons/chapter-01.png');
+//        background-image: url('images/digibeter-icons/plaatje-HDFST-1.png');
+      }
+      
+      .digibeter-blauw {
+        background-image: url('images/digibeter-icons/chapter-02.png');
+//        background-image: url('images/digibeter-icons/plaatje-HDFST-2.png');
+        background-position: center 1em;
+        padding-top: 8em;
+      }
+      
+      .digibeter-groen {
+        background-image: url('images/digibeter-icons/chapter-03.png');
+//        background-image: url('images/digibeter-icons/plaatje-HDFST-3.png');
+      }
+      
+      .digibeter-violet {
+        background-image: url('images/digibeter-icons/chapter-04.png');
+//        background-image: url('images/digibeter-icons/plaatje-HDFST-4.png');
+        padding-top: 8em;
+        background-position: center 1em;
+        
+        .chapter-number {
+          text-align: left;
+          text-indent: .25em;
+        }
+      }
+      
+      .digibeter-paars {
+        background-image: url('images/digibeter-icons/chapter-05.png');
+//        background-image: url('images/digibeter-icons/plaatje-HDFST-5.png');
+      }
+      
+  
+    }
+    
+  }
+  
+
+
+  
 }
 
