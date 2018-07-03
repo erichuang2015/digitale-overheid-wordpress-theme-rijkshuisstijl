@@ -7,8 +7,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 1.1.4
-// * @desc.   SVG-upload mogelijk gemaakt. Shortcode voor interesantere pullquote.
+// * @version 1.1.5
+// * @desc.   Achtergrondkleuren toegevoegd voor details. ACF-definitie voor digibeter_content_intro toegevoegd. Polyfill voor details-summary tags toegevoegd.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 // **
 
@@ -426,7 +426,7 @@
 
 //=========================================================================================================
 
-.digibeter_colors( @classname: 'bado_oker', @achtergrondkleur: @digibeter_oker, @tekstkleur: @txt, @alttext: @txt ) {
+.digibeter_colors( @classname: 'bado_oker', @achtergrondkleur: @digibeter_oker, @tekstkleur: @txt, @alttext: @txt, @softcolor: @grijs_2 ) {
 
   .page.digibeter {
 
@@ -465,53 +465,54 @@
           border-color: @achtergrondkleur;
         }
       }
-    }
 
-  details {
+      details {
+    
+        border-color: @achtergrondkleur;
+        background-color: @softcolor;
+    
+        summary {
+    
+          background-image: url('images/icon-arrow-fat-down-white.svg');
+          background-repeat: no-repeat;
+          background-position: 98% center;
+          background-color: @achtergrondkleur;
+          color: @tekstkleur;    
+          padding-left: 0;
+    
+          &, & h2, & h3, & h4, & h5 {
+            color: @alttext;    
+          }
+          
+          &:hover {
+            background-image: url('images/icon-arrow-fat-down.svg');
+            background-color: @wit;
 
-    border-color: @achtergrondkleur;
-    background-color: @grijs_2;
-
-    summary {
-
-      background-image: url('images/icon-arrow-fat-down-white.svg');
-      background-repeat: no-repeat;
-      background-position: 98% center;
-      background-color: @achtergrondkleur;
-      color: @tekstkleur;    
-      padding-left: 0;
-
-      &, & h2, & h3, & h4, & h5 {
-        color: @tekstkleur;    
-      }
-      
-      &:hover {
-        &, & h2, & h3, & h4, & h5 {
-          color: @txt;
+            &, & h2, & h3, & h4, & h5 {
+              color: @txt;
+            }
+            
+          }
+          
         }
         
-        background-image: url('images/icon-arrow-fat-down.svg');
-        background-color: @wit;
-      }
-      
-    }
-    
-    &[open] {
-      summary {
-        &:hover {
-          &, & h2, & h3, & h4, & h5 {
-            color: @tekstkleur;    
+        &[open] {
+          summary {
+
+            background-image: url('images/icon-arrow-fat-up-white.svg');
+
+            &:hover {
+              background-image: url('images/icon-arrow-fat-up.svg');
+              background-color: @wit;
+              
+              &, & h2, & h3, & h4, & h5 {
+                color: @tekstkleur;    
+              }
+            }
           }
         }
-        
-        background-color: @achtergrondkleur;
-        background-image: url('images/icon-arrow-fat-up-white.svg');
       }
     }
-
-  }
-
-    
   }
   
 }

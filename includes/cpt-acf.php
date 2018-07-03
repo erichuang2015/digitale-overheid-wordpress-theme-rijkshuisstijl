@@ -10,8 +10,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 1.1.3
-// * @desc.   Hero-image obv. featured image. Pagina-template voor Digibeter landingspagina.
+// * @version 1.1.5
+// * @desc.   Achtergrondkleuren toegevoegd voor details. ACF-definitie voor digibeter_content_intro toegevoegd. Polyfill voor details-summary tags toegevoegd.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 
 
@@ -2075,6 +2075,50 @@ if( function_exists('acf_add_local_field_group') ):
   	'description' => '',
   ));
   
+  //======================================================================================================
+
+  acf_add_local_field_group(array(
+  	'key' => 'group_5b3a69b639877',
+  	'title' => 'NL Digibeter landingspagina',
+  	'fields' => array(
+  		array(
+  			'key' => 'field_5b3a69dc16a11',
+  			'label' => 'Inleiding',
+  			'name' => 'digibeter_content_intro',
+  			'type' => 'wysiwyg',
+  			'instructions' => '',
+  			'required' => 0,
+  			'conditional_logic' => 0,
+  			'wrapper' => array(
+  				'width' => '',
+  				'class' => '',
+  				'id' => '',
+  			),
+  			'default_value' => '',
+  			'tabs' => 'all',
+  			'toolbar' => 'full',
+  			'media_upload' => 1,
+  			'delay' => 0,
+  		),
+  	),
+  	'location' => array(
+  		array(
+  			array(
+  				'param' => 'page_template',
+  				'operator' => '==',
+  				'value' => 'page_digibeter-home.php',
+  			),
+  		),
+  	),
+  	'menu_order' => 0,
+  	'position' => 'acf_after_title',
+  	'style' => 'default',
+  	'label_placement' => 'top',
+  	'instruction_placement' => 'label',
+  	'hide_on_screen' => '',
+  	'active' => 1,
+  	'description' => '',
+  ));
   
   //======================================================================================================
 

@@ -7,8 +7,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 1.1.4
-// * @desc.   SVG-upload mogelijk gemaakt. Shortcode voor interesantere pullquote.
+// * @version 1.1.5
+// * @desc.   Achtergrondkleuren toegevoegd voor details. ACF-definitie voor digibeter_content_intro toegevoegd. Polyfill voor details-summary tags toegevoegd.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 // **
 
@@ -500,12 +500,12 @@
 
   //========================================================================================================
 
-  .digibeter_colors( digibeter-oker,    @digibeter_oker,    @txt );
-  .digibeter_colors( digibeter-oranje,  @digibeter_oranje,  @txt );
-  .digibeter_colors( digibeter-blauw,   @digibeter_blauw,   @wit );
-  .digibeter_colors( digibeter-groen,   @digibeter_groen,   @wit );
-  .digibeter_colors( digibeter-violet,  @digibeter_violet,  @wit );
-  .digibeter_colors( digibeter-paars,   @digibeter_paars,   @wit );
+  .digibeter_colors( digibeter-oker,    @digibeter_oker,    @txt, @txt, @digibeter_oker_licht   );
+  .digibeter_colors( digibeter-oranje,  @digibeter_oranje,  @txt, @txt, @digibeter_oranje_licht );
+  .digibeter_colors( digibeter-blauw,   @digibeter_blauw,   @txt, @txt, @digibeter_blauw_licht  );
+  .digibeter_colors( digibeter-groen,   @digibeter_groen,   @txt, @wit, @digibeter_groen_licht  );
+  .digibeter_colors( digibeter-violet,  @digibeter_violet,  @txt, @txt, @digibeter_violet_licht );
+  .digibeter_colors( digibeter-paars,   @digibeter_paars,   @txt, @txt, @digibeter_paars_licht  );
 
 
   .page-template-page_fullwidth {

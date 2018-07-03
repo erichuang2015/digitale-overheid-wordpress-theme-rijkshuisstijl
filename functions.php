@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 1.1.4
-// * @desc.   SVG-upload mogelijk gemaakt. Shortcode voor interesantere pullquote.
+// * @version 1.1.5
+// * @desc.   Achtergrondkleuren toegevoegd voor details. ACF-definitie voor digibeter_content_intro toegevoegd. Polyfill voor details-summary tags toegevoegd.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "https://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "1.1.4" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "SVG-upload mogelijk gemaakt. Shortcode voor interesantere pullquote." );
+define( 'CHILD_THEME_VERSION',              "1.1.5" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Achtergrondkleuren toegevoegd voor details. ACF-definitie voor digibeter_content_intro toegevoegd. Polyfill voor details-summary tags toegevoegd." );
 define( 'SHOW_CSS_DEBUG',                   false );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
@@ -3767,7 +3767,7 @@ function rhswp_get_pullquote_with_image( $atts ) {
 	global $post;
 
   return '<blockquote class="pullquote-with-image">
-      <img src="http://digitaleoverheid.gebruikercentraal.co.uk/wp-content/uploads/sites/8/2018/05/Simone-Roos-150x150.jpg" alt="Hier een plaatje">  
+      <img src="/wp-content/uploads/sites/8/2018/05/Simone-Roos-150x150.jpg" alt="Hier een plaatje">  
     <div><p>‘Burgers en bedrijven moeten zelf kunnen kiezen hoe ze digitaal bereikbaar willen zijn.’</p>
     <footer>
         <cite><a href="' .  $_SERVER["HTTP_HOST"] . '/dinges/">Lazo Bozarov, manager functioneel beheer bij informatievoorzieningen bij een lokale overheid:</a></cite>.

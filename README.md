@@ -15,10 +15,11 @@ Dit theme wordt gebruikt op [digitaleoverheid.nl](https://www.digitaleoverheid.n
 
 ## Current version:
 
-1.1.4 - SVG-upload mogelijk gemaakt. Shortcode voor interesantere pullquote.
+1.1.5 - Achtergrondkleuren toegevoegd voor details. ACF-definitie voor digibeter_content_intro toegevoegd. Polyfill voor details-summary tags toegevoegd.
 
 ## Version history
 
+* 1.1.5 - Achtergrondkleuren toegevoegd voor details. ACF-definitie voor digibeter_content_intro toegevoegd. Polyfill voor details-summary tags toegevoegd.
 * 1.1.4 - SVG-upload mogelijk gemaakt. Shortcode voor interesantere pullquote.
 * 1.1.3 - Hero-image obv. featured image. Pagina-template voor Digibeter landingspagina.
 * 1.1.2 - Bugfixes in JS en kleine CSS-wijzigingen t.b.v. BADO.
