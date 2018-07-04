@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 1.1.6
-// * @desc.   Polyfill bijgewerkt: geen extra styling met driehoekjes, dank u wel.
+// * @version 1.1.7
+// * @desc.   Invoeren citaat verbeterd. SVG voor achtergrond in fotostrip digitale agenda.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "https://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "1.1.6" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Polyfill bijgewerkt: geen extra styling met driehoekjes, dank u wel." );
+define( 'CHILD_THEME_VERSION',              "1.1.7" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Invoeren citaat verbeterd. SVG voor achtergrond in fotostrip digitale agenda." );
 define( 'SHOW_CSS_DEBUG',                   false );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
@@ -79,15 +79,14 @@ if ( ! defined( 'RHSWP_CPT_SLIDER' ) ) {
 }
 
 if ( ! defined( 'RHSWP_CT_DIGIBETER' ) ) {
-  define( 'RHSWP_CT_DIGIBETER',                  'digitaleagenda' );   // slug for custom taxonomy 'dossier'
+  define( 'RHSWP_CT_DIGIBETER',             'digitaleagenda' );   // custom taxonomy for digitale agenda
 }
 
 if ( ! defined( 'RHSWP_ADMIN_STREAMER_CSS' ) ) {
-  define( 'RHSWP_ADMIN_STREAMER_CSS',       'adminstreamercss' );   // slug for custom taxonomy 'dossier'
+  define( 'RHSWP_ADMIN_STREAMER_CSS',       'adminstreamercss' ); // ID for admin streamer CSS
 }
 if ( ! defined( 'RHSWP_INSERT_STREAMER' ) ) {
-  define( 'RHSWP_INSERT_STREAMER',          'insert-streamder' );   // slug for custom taxonomy 'dossier'
-}
+  define( 'RHSWP_INSERT_STREAMER',          'pullquote-with-image' ); }
 
 
 
@@ -3631,22 +3630,94 @@ function rhswp_add_streamer_funcs() {
 			var wp_media_post_id  = wp.media.model.settings.post.id; // Store the old id
 			var set_to_post_id    = <?php echo $my_saved_attachment_post_id; ?>; // Set this
 
+console.log('media insert wp_media_post_id: ' + wp_media_post_id  );
+console.log('media insert set_to_post_id:   ' + set_to_post_id    );
 
 			// Restore the main ID when the add media button is pressed
 			jQuery( 'a.add_media' ).on( 'click', function() {
   			console.log( ' click add_media ' + wp_media_post_id );
 				wp.media.model.settings.post.id = wp_media_post_id;
+				
 			});
+
+			jQuery('#select_image_button').on('click', function( event ){
+
+				event.preventDefault();
+
+				// If the media frame already exists, reopen it.
+				if ( file_frame ) {
+					// Set the post ID to what we want
+					file_frame.uploader.uploader.param( 'post_id', set_to_post_id );
+					// Open frame
+					file_frame.open();
+					return;
+				} else {
+					// Set the wp.media post id so the uploader grabs the ID we want when initialised
+					wp.media.model.settings.post.id = set_to_post_id;
+				}
+
+				// Create the media frame.
+				file_frame = wp.media.frames.file_frame = wp.media({
+					title: '<?php echo _x( 'Selecteer of upload een PDF', 'CTA knop', "insp-tranlate" ) ?>',
+					button: {
+						text: '<?php echo _x( 'Link naar dit bestand', 'CTA knop', "insp-tranlate" ) ?>',
+					},
+					multiple: false	// Set to true to allow multiple files to be selected
+				});
+
+				// When an image is selected, run a callback.
+				file_frame.on( 'select', function() {
+					// We set multiple to false so only get one image from the uploader
+					attachment = file_frame.state().get('selection').first().toJSON();
+
+					
+console.log( 'bestand geselecteerd; Waarden: "article-visual" ' );
+
+var checkurl = attachment.hasOwnProperty("url");
+
+var checkplaatje = attachment['sizes'].hasOwnProperty('article-visual');
+if ( checkurl ) {
+  console.log( "URL klopt! " + checkurl );
+}
+if ( checkplaatje ) {
+  var theurl  = attachment['sizes']['article-visual']['url'];
+
+//console.log( JSON.stringify( thesizes ) );
+  
+  console.log( "plaatje klopt! 1: " + theurl );
+
+	// Do something with attachment.id and/or attachment.url here
+	jQuery( '#rhswp_quote_image' ).val( theurl );
+
+}
+else {
+  console.log( "plaatje klopt niet. " + checkplaatje );
+}
+
+
+
+
+					// Restore the main post ID
+					wp.media.model.settings.post.id = wp_media_post_id;
+				});
+
+					// Finally, open the modal
+					file_frame.open();
+					
+			});
+
+
 
 		    			
         
         jQuery('#insert_rhswp_quote').on('click', function() {
+          
           var rhswp_quote_author    = jQuery('#rhswp_quote_author').val();
           var rhswp_quote_text      = jQuery('#rhswp_quote_text').val();
           var rhswp_quote_url       = jQuery('#rhswp_quote_url').val();
           var rhswp_quote_alignment = jQuery('input[name=rhswp_quote_alignment]:checked').val();
+          var rhswp_quote_image     = jQuery('#rhswp_quote_image').val();
           var rhswp_quote_linktext  = '';
-
 
           jQuery( '#rhswp_insert_aside_errormessages' ).text('');
           jQuery( '#rhswp_insert_aside_errormessages' ).removeClass('error');
@@ -3660,23 +3731,41 @@ function rhswp_add_streamer_funcs() {
             jQuery( '#rhswp_quote_text' ).addClass('error');
             return false;
           } 
+          
           if (  ( rhswp_quote_text === '' ) ||  ( rhswp_quote_text == null ) ) {
             jQuery( '#rhswp_insert_aside_errormessages' ).append('<?php echo _x( 'Voer een tekst in', 'Streamer errors', 'wp-rijkshuisstijl' ) ?>');
             jQuery( '#rhswp_insert_aside_errormessages' ).addClass('error');
             jQuery( '#rhswp_quote_text' ).addClass('error');
             return false;
           } 
-          if (  ( rhswp_quote_url === '' ) ||  ( rhswp_quote_url == null ) ) {
-          } 
+          if ( rhswp_quote_image === '' ) {
+            
+          }
           else {
-            if (  ( rhswp_quote_text === '' ) ||  ( rhswp_quote_text == null ) ) {
+            rhswp_quote_image = '<div class="pullquote-img" style=\"background-image: url(\'' + rhswp_quote_image + '\');\">&nbsp;</div>';
+          }
+
+          if (  ( rhswp_quote_url === '' ) ||  ( rhswp_quote_url == null ) ) {
+
+            if (  ( rhswp_quote_author === '' ) ||  ( rhswp_quote_author == null ) ) {
             }
             else {
-              rhswp_quote_linktext = '<p><a href="' + rhswp_quote_url + '">' + rhswp_quote_author + '</a></p>';
+              rhswp_quote_linktext = '<cite>' + rhswp_quote_author + '</cite>';
+            }
+          } 
+          else {
+            // url is niet leeg
+            if (  ( rhswp_quote_author === '' ) ||  ( rhswp_quote_author == null ) ) {
+              // quote-auteur is wel leeg, maar er is een URL
+              rhswp_quote_linktext = '<cite><a href="' + rhswp_quote_url + '">(bron)</a></cite>';
+            }
+            else {
+              // quote-auteur is niet leeg en er is een URL
+              rhswp_quote_linktext = '<cite><a href="' + rhswp_quote_url + '">' + rhswp_quote_author + '</a></cite>';
             }
           }
           
-          window.send_to_editor('<aside class="<?php echo RHSWP_INSERT_STREAMER ?> streamer ' + rhswp_quote_alignment + '"><blockquote>' + rhswp_quote_text + '</blockquote>' + rhswp_quote_linktext + '</aside>');
+          window.send_to_editor('<aside class="<?php echo RHSWP_INSERT_STREAMER ?> ' + rhswp_quote_alignment + '"><blockquote>' + rhswp_quote_image + '<div class="quote">' + rhswp_quote_text + rhswp_quote_linktext + '</div></blockquote></aside>');
           tb_remove();
         })
       });
@@ -3690,24 +3779,32 @@ function rhswp_add_streamer_funcs() {
     echo '<div class="divider" id="rhswp_insert_aside_errormessages" role="alert">';
     echo "</div>";
     echo "<div class='divider'>";
-    echo "<label for='rhswp_quote_text'>" . _x( "Tekst", 'Insert streamer', 'wp-rijkshuisstijl' ) . "</label>";
+    echo "<label for='rhswp_quote_text'>" . _x( "Citaat", 'Insert streamer', 'wp-rijkshuisstijl' ) . "</label>";
     echo "<textarea id='rhswp_quote_text' name='rhswp_quote_text' rows='8'></textarea>";
     echo "</div>";
     echo "<div class='divider'>";
-    echo "<label for='rhswp_quote_author'>" . _x( "Auteur", 'Insert streamer', 'wp-rijkshuisstijl' ) . "</label>";
+    echo "<label for='rhswp_quote_author'>" . _x( "Citaatauteur", 'Insert streamer', 'wp-rijkshuisstijl' ) . "</label>";
     echo "<input type='text' id='rhswp_quote_author' name='rhswp_quote_author' value=''>";
     echo "</div>";
+
     echo "<div class='divider'>";
-    echo "<label for='rhswp_quote_alignment'>" . _x( "Uitlijnen", 'Insert streamer', 'wp-rijkshuisstijl' ) . "</label>";
-    echo "<label for='rhswp_quote_alignment_left'><input type='radio' id='rhswp_quote_alignment_left' name='rhswp_quote_alignment' value='align-left'> Links</label>";
-    echo "<label for='rhswp_quote_alignment_right'><input type='radio' id='rhswp_quote_alignment_right' name='rhswp_quote_alignment' checked='checked' value='align-right'> Rechts</label>";
+    echo "<label for='rhswp_quote_image'>" . _x( "Foto van citaatauteur", 'CTA knop', "insp-tranlate" ) . "</label>";
+    echo '<input type="text" name="rhswp_quote_image" id="rhswp_quote_image" value="">';
+    echo '<input id="select_image_button" type="button" class="button" value="' . _x( "Selecteer foto", 'CTA knop', "insp-tranlate" ) . '" />';
+    echo "<small>" . _x( "Je kunt een link invoegen of met de knop een foto uit de mediabibliotheek selecteren.", 'CTA knop', "insp-tranlate" ) . "</small>";
     echo "</div>";
     
     echo "<div class='divider'>";
     echo "<label for='rhswp_quote_url'>" . _x( "Link naar post / pagina", 'Insert streamer', 'wp-rijkshuisstijl' ) . "</label>";
     echo '<input type="url" name="rhswp_quote_url" id="rhswp_quote_url" value="">';
-    echo "<small>" . _x( "Je kunt een link invoegen of met de knop een PDF uit de mediabibliotheek selecteren.", 'Insert streamer', 'wp-rijkshuisstijl' ) . "</small>";
     echo "</div>";
+    
+    echo "<div class='divider'>";
+    echo "<label for='rhswp_quote_alignment'>" . _x( "Uitlijnen", 'Insert streamer', 'wp-rijkshuisstijl' ) . "</label>";
+    echo "<label for='rhswp_quote_alignment_left'><input type='radio' id='rhswp_quote_alignment_left' name='rhswp_quote_alignment' checked='checked' value='align-left'> Links</label>";
+    echo "<label for='rhswp_quote_alignment_right'><input type='radio' id='rhswp_quote_alignment_right' name='rhswp_quote_alignment' value='align-right'> Rechts</label>";
+    echo "</div>";
+
     echo "<button class='button primary' id='insert_rhswp_quote'>" . _x( "Voeg citaat in", 'Insert streamer', 'wp-rijkshuisstijl' ) . "</button>";
 
     ?>

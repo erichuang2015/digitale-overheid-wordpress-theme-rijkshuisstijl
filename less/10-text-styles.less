@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 1.1.4
-// * @desc.   SVG-upload mogelijk gemaakt. Shortcode voor interesantere pullquote.
+// * @version 1.1.7
+// * @desc.   Invoeren citaat verbeterd. SVG voor achtergrond in fotostrip digitale agenda.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 // **
 
@@ -85,9 +85,12 @@
   	border-bottom: 1px solid @grijs;
   }
 
+  @img_pullquote_max_width: 150px;
+  
+
   .pullquote-with-image {
     
-    @img_pullquote_max_width: 150px;
+    min-height: @img_pullquote_max_width;
     float: none;
     clear: both;
     overflow: hidden;
@@ -95,22 +98,36 @@
   	border-bottom-style: none;
   	position: relative;
   	padding: 0;
-  	margin-right: 1em;
+  	margin: 1em 1em 1em 1em;
   	font-style: normal;
     
-    // dit is een soort blockquote, maar heeft een plaatje van de auteur van de uitspraak en waarschijnlijk een link
-    img {
-      float: right;
-      border-radius: 50%;
-      max-width: @img_pullquote_max_width;
+    blockquote {
+    	border-top-style: none;
+    	border-bottom-style: none;
+    	overflow: hidden;
+      min-height: @img_pullquote_max_width;
       margin: 0;
-      position: absolute;
-      right: 1em;
-      top: 0;
-      height: 100%;
+      padding: 0;
+      font-style: normal;
     }
     
-    div {
+    // dit is een soort blockquote, maar heeft een plaatje van de auteur van de uitspraak en waarschijnlijk een link
+    div.pullquote-img {
+      float: right;
+      border-radius: 50%;
+      width: @img_pullquote_max_width;
+      height: @img_pullquote_max_width;
+      margin: 0;
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: cover;
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+    
+    div.quote {
+      min-height: @img_pullquote_max_width;
       border-top: 2px solid @lichtgrijs;
       border-bottom: 2px solid @lichtgrijs;
       max-width: ~"calc(99% - @{img_pullquote_max_width})";
@@ -128,8 +145,25 @@
       font-size: 80%;
     }
     cite {
-      display: inline;
+      display: block;
+      clear: both;
+      text-align: left;
     }
+
+    &.align-right {
+      float: right;      
+
+      div.pullquote-img {
+        float: left;
+        right: auto;
+        left: 0;
+      }
+      div.quote {
+        float: right;
+        padding: .5em 0 .5em 1em;
+      }
+    }
+    
   }
 
   .entry-content {
@@ -776,7 +810,7 @@
     .digibeter-oranje {
       // innovatie
       background-color: @digibeter_oranje;
-      background-image: url('images/digibeter-icons/chapter-01.png?v1');
+      background-image: url('images/digibeter-icons/01-innovatie.svg?v2');
       .chapter-number {
         color: @oranje_lichtst;
       }
@@ -794,7 +828,7 @@
     .digibeter-groen {
       // toegankelijkheid
       background-color: @digibeter_groen;
-      background-image: url('images/digibeter-icons/chapter-03.png?v1');
+      background-image: url('images/digibeter-icons/03-toegankelijk.svg?v2');
       .chapter-number {
         color: @groen_lichtst;
       }
@@ -803,7 +837,7 @@
     .digibeter-violet {
       // persoonlijke dienstverlening
       background-color: @digibeter_violet;
-      background-image: url('images/digibeter-icons/chapter-04.png?v1');
+      background-image: url('images/digibeter-icons/04-persoonlijker.svg?v2');
       .chapter-number {
         color: @violet_lichtst;
       }
@@ -812,7 +846,7 @@
     .digibeter-paars {
       // toekomst
       background-color: @digibeter_paars;
-      background-image: url('images/digibeter-icons/chapter-05.png?v1');
+      background-image: url('images/digibeter-icons/05-toekomst.svg?v2');
       .chapter-number {
         color: @paars_lichtst;
       }
@@ -903,25 +937,21 @@
   
       .digibeter-oranje {
         // innovatie
-        background-image: url('images/digibeter-icons/chapter-01.png');
-//        background-image: url('images/digibeter-icons/plaatje-HDFST-1.png');
+        background-image: url('images/digibeter-icons/01-innovatie-illustratie.svg?v1');
       }
       
       .digibeter-blauw {
-        background-image: url('images/digibeter-icons/chapter-02.png');
-//        background-image: url('images/digibeter-icons/plaatje-HDFST-2.png');
+        background-image: url('images/digibeter-icons/02-beschermen-grondrechten-illustratie.svg?v1');
         background-position: center 1em;
         padding-top: 8em;
       }
       
       .digibeter-groen {
-        background-image: url('images/digibeter-icons/chapter-03.png');
-//        background-image: url('images/digibeter-icons/plaatje-HDFST-3.png');
+        background-image: url('images/digibeter-icons/03-toegankelijk-illustratie.svg?v1');
       }
       
       .digibeter-violet {
-        background-image: url('images/digibeter-icons/chapter-04.png');
-//        background-image: url('images/digibeter-icons/plaatje-HDFST-4.png');
+        background-image: url('images/digibeter-icons/04-persoonlijker-illustratie.svg?v1');
         padding-top: 8em;
         background-position: center 1em;
         
@@ -932,8 +962,7 @@
       }
       
       .digibeter-paars {
-        background-image: url('images/digibeter-icons/chapter-05.png');
-//        background-image: url('images/digibeter-icons/plaatje-HDFST-5.png');
+        background-image: url('images/digibeter-icons/05-toekomst-illustratie.svg?v1');
       }
       
   
