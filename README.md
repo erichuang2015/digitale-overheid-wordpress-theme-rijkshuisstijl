@@ -15,10 +15,11 @@ Dit theme wordt gebruikt op [digitaleoverheid.nl](https://www.digitaleoverheid.n
 
 ## Current version:
 
-1.1.8 - Header-image voor pagina's met RHSWP_CT_DIGIBETER. Styling logo in titel landingspagina.
+1.1.9 - Filter voor titel op landinsgpagina.
 
 ## Version history
 
+* 1.1.9 - Filter voor titel op landinsgpagina.
 * 1.1.8 - Header-image voor pagina's met RHSWP_CT_DIGIBETER. Styling logo in titel landingspagina.
 * 1.1.7 - Invoeren citaat verbeterd. SVG voor achtergrond in fotostrip digitale agenda.
 * 1.1.6 - Polyfill bijgewerkt: geen extra styling met driehoekjes, dank u wel.

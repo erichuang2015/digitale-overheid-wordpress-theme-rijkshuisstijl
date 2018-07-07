@@ -9,8 +9,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 1.1.3
-// * @desc.   Hero-image obv. featured image. Pagina-template voor Digibeter landingspagina.
+// * @version 1.1.9
+// * @desc.   Filter voor titel op landinsgpagina.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 // *
  */
@@ -21,6 +21,13 @@
 //========================================================================================================
 
 remove_action( 'genesis_after_header', 'rhswp_check_caroussel_or_featured_img', 24 );
+
+
+remove_filter( 'genesis_post_title_text', 'genesis_post_title_text_filter', 15 );
+//add_filter( 'genesis_post_title_text', 'rhswp_digibeter_filter_page_title', 15 );
+add_filter( 'genesis_post_title_output', 'rhswp_digibeter_filter_page_title', 16 );
+
+
 
 //* Remove standard header
 remove_action( 'genesis_entry_header', 'genesis_entry_header_markup_open', 5 );
@@ -36,6 +43,7 @@ add_action( 'genesis_before_content_sidebar_wrap', 'genesis_entry_header_markup_
 // Remove the standard pagination, so we don't get two sets
 remove_action( 'genesis_after_endwhile', 'genesis_posts_nav' );
 
+
 //========================================================================================================
 
 genesis();
@@ -50,5 +58,42 @@ function rhswp_digibeter_extra_content() {
     echo get_field( 'digibeter_content_intro', get_the_ID() );
 
   }
+
+}
+
+//========================================================================================================
+
+/**
+ * Filter this page's H1 post titles to add <span> for styling
+ * 
+ */	
+
+function rhswp_digibeter_filter_page_title( $title ) {
+
+	if ( is_singular() )
+	
+  $thetitle = get_the_title();
+
+  
+  $pattern      = '/nl digibeter/i';
+  $replacement  = '<span class="logo"><strong>NL DIGI</strong>beter</span>';
+  $thetitle     = preg_replace( $pattern, $replacement, $thetitle );
+  
+  $pattern      = 'nl digibeter';
+  $replacement  = '';
+  $agenda       = str_ireplace( $pattern, $replacement, get_the_title() );
+  
+  if ( $agenda ) {
+    $agenda = '<span class="subtitle">' . $agenda . '</span>';
+  }
+  else {
+    $agenda = '<span class="subtitle">' . __( 'Agenda Digitale Overheid', 'wp-rijkshuisstijl' ) . '</span>';
+  }
+  
+  $title = sprintf( '<h1 class="entry-title">%s %s</h1>', $thetitle, $agenda );
+
+//replace
+
+	return $title;
 
 }
