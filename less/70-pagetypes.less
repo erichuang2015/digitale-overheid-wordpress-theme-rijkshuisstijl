@@ -7,8 +7,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 1.1.5
-// * @desc.   Achtergrondkleuren toegevoegd voor details. ACF-definitie voor digibeter_content_intro toegevoegd. Polyfill voor details-summary tags toegevoegd.
+// * @version 1.1.8
+// * @desc.   Header-image voor pagina's met RHSWP_CT_DIGIBETER. Styling logo in titel landingspagina.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 // **
 
@@ -236,7 +236,6 @@
     	    flex-grow: 1;
           float: left;
           flex-basis: @flexbasis_twocols;
-//          max-width: @flexbasis_twocols;
           width: @flexbasis_twocols;
           overflow: hidden;
         }
@@ -253,7 +252,6 @@
               flex-grow: 1;
               float: left;
               flex-basis: @flexbasis_fourcols;
-//              max-width: @flexbasis_fourcols;
               width: @flexbasis_fourcols;
               overflow: hidden;
             }              
@@ -518,6 +516,38 @@
     }
   }  
 
+  .page-template-page_digibeter-home {
+    .entry-header {
+        
+      h1 {
+        font-family: @bodyfont;
+        font-weight: normal;
+        .subtitle {
+          display: block;
+          overflow: hidden;
+          font-family: @fontitalic;
+        }
+        .logo {
+          display: block;
+          background:  url('images/digibeter-icons/nl-digibeter.svg');
+          max-width: 300px;
+          height: 45px;
+          background-position: left top;
+          background-repeat: no-repeat;
+          background-size: contain;
+          text-indent: -9999em;
+          overflow: hidden;
+          font-family: @fontitalic;
+        }
+      }
+      
+      & + h2 {
+        margin-top: .5rem;
+      }
+    }
+  }
+
+
     @media only screen and (max-width: ( @break_fullwidth ) ) {
       .page-template-page_fullwidth {
         .entry-header {
@@ -533,11 +563,10 @@
       .page-template-page_fullwidth {
 
         .entry-header {
-          margin-left: auto;
-          margin-right: auto;
+          
+          .fullwidth_content_with_padding();
           
           h1 {
-            text-align: center;
             padding-top: .5em;
             padding-bottom: .5em;
           }
@@ -554,10 +583,7 @@
           ul,
           blockquote,
           details { 
-            max-width: 770px; // 770px
-            max-width: ( 770 / 18 ) * 1rem; // 770px
-            margin-left: auto;
-            margin-right: auto;
+            .fullwidth_content_with_padding();
           }
           .pullquote-with-image {
             max-width: 40%;
@@ -590,10 +616,7 @@
           
         }
         #reactieformulier {
-          max-width: 770px; // 770px
-          max-width: ( 770 / 18 ) * 1rem; // 770px
-          margin-left: auto;
-          margin-right: auto;
+          .fullwidth_content_with_padding();
         }
       }
     }

@@ -7,8 +7,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 1.1.7
-// * @desc.   Invoeren citaat verbeterd. SVG voor achtergrond in fotostrip digitale agenda.
+// * @version 1.1.8
+// * @desc.   Header-image voor pagina's met RHSWP_CT_DIGIBETER. Styling logo in titel landingspagina.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 // **
 
@@ -68,6 +68,7 @@
 
 @bodyfont: 				     'Rijksoverheid Sans regular', Helvetica, Arial, sans-serif;
 @fontstrong:			     'Rijksoverheid Sans bold', Helvetica, Arial, sans-serif;
+@fontitalic:			     'Rijksoverheid Sans italic', Helvetica, Arial, sans-serif;
 @headerfont: 				   'Rijksoverheid Sans bold', Helvetica, Arial, sans-serif;
 
 
@@ -430,14 +431,6 @@
 
   .page.digibeter {
 
-    .entry-header {
-      padding: 1rem 1rem 1rem 1rem;
-      h1 {
-        margin: 0;
-      }
-    }
-
-
     .site-inner {
       &,
       article,
@@ -561,4 +554,14 @@
 
 //=========================================================================================================
 
+.fullwidth_content_with_padding() {
+
+  max-width: 770px; // 770px
+  max-width: ( 770 / 18 ) * 1rem; // 770px
+  margin-left: auto;
+  margin-right: auto;
+
+}
+
+//=========================================================================================================
 
