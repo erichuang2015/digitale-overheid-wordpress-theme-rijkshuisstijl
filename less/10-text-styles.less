@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 1.1.8
-// * @desc.   Header-image voor pagina's met RHSWP_CT_DIGIBETER. Styling logo in titel landingspagina.
+// * @version 1.1.10
+// * @desc.   Invoeren pullquotes aangepast: nu 2 soorten (simple & met foto).
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 // **
 
@@ -132,13 +132,15 @@
     
     div.quote {
       min-height: @img_pullquote_max_width;
-      border-top: 2px solid @lichtgrijs;
-      border-bottom: 2px solid @lichtgrijs;
+      border-top: 3px solid @donkerblauw_vol;
+      border-bottom: 3px solid @donkerblauw_vol;
       max-width: ~"calc(99% - @{img_pullquote_max_width})";
       margin: 0;
       padding: .5em 1em .5em 0;
       float: left;
       overflow: hidden;
+      font-size: 105%;
+      font-style: italic;
       
       p {
         margin-left: 0;
@@ -152,6 +154,17 @@
       display: block;
       clear: both;
       text-align: left;
+      font-size: 80%;
+      margin-top: 1em;
+      
+      a {
+        padding-right: 1.5em;
+        .icon_socmed_icon('../images/svg/list-arrow.svg', @donkerblauw_vol );
+        background-repeat: no-repeat;
+        background-position: right center;
+        display: block;
+        
+      }
     }
 
     &.align-right {
@@ -167,7 +180,35 @@
         padding: .5em 0 .5em 1em;
       }
     }
+  }
+  
+  .pullquote-with-image,
+  .simple-pullquote {
+    font-size: 90%; 
+    &, a, * {
+      color: @donkerblauw_vol;
+    }
+  }
+  .simple-pullquote {
+
+    @media only screen and (min-width: ( @break_tablet ) ) {
+      max-width: 50%;
+      float: left;
+      
+      &.align-left {
+        margin-right: 1em;
+      }
+      &.align-right {
+        float: right;
+        margin-left: 1em;
+      }
+    }
     
+    blockquote {
+      border-top: 3px solid @donkerblauw_vol;
+      border-bottom: 3px solid @donkerblauw_vol;
+      padding: 1em 0;
+    }
   }
 
   .entry-content {

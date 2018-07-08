@@ -9,8 +9,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 1.1.9
-// * @desc.   Filter voor titel op landinsgpagina.
+// * @version 1.1.10
+// * @desc.   Invoeren pullquotes aangepast: nu 2 soorten (simple & met foto).
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 // *
  */
@@ -55,7 +55,7 @@ function rhswp_digibeter_extra_content() {
   if ( get_field( 'digibeter_content_intro', get_the_ID() ) ) {
     // voorkomen dat pagina's met dit template ook een carroussel laten zien
     // deze pagina heeft dus als template 'page_digibeter-home.php' en heeft iets in digibeter_content_intro
-    echo get_field( 'digibeter_content_intro', get_the_ID() );
+    echo do_shortcode( get_field( 'digibeter_content_intro', get_the_ID() ) );
 
   }
 
