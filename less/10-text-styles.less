@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 1.1.11
-// * @desc.   Invoermogelijkheid voor details/summary toegevoegd.
+// * @version 1.1.12
+// * @desc.   Invoermogelijkheid voor kaders herzien.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 // **
 
@@ -781,18 +781,53 @@
   	border-bottom: none;
   }
   
-  .kaderblok {
-    border: 1px solid @communicatiekleur_vol;
-    
-    padding: 0 1em 1em 1em;
-    
-    h2, h3, h4, h5, h6 {
-      background: @communicatiekleur_vol;
-      color: @wit;
-      margin: 0 0 .4em 0;
-      padding: .2rem;
-      font-size: 1.2rem;
+  .borderframe {
+
+    border: 1px solid @block_border_color;
+
+    h2, 
+    h3, 
+    h4, 
+    h5, 
+    h6 {
+      &.blocktitle {
+        margin: 0 0 .4em 0;
+        padding: .5rem 1rem;
+        font-size: 1.2rem;
+      }
     }
+    
+    
+    &.gray {
+      background: @grijs;      
+      border-color: @border_footer_top;
+    }
+
+    &.green {
+
+      h2, 
+      h3, 
+      h4, 
+      h5, 
+      h6 {
+        &.blocktitle {
+          background: @communicatiekleur_vol;
+          color: @wit;
+        }
+      }
+    }
+    
+    padding: 0;
+    
+    .the-content,
+    div {
+      margin: 1rem;
+    }
+    .block-audio-video {
+      margin: 0;
+    }
+    
+
     p, ul, ol {
       margin: 0;
       padding: 0 .2rem;
@@ -803,6 +838,21 @@
     }
     }
 
+    & + p,
+    & + ol,
+    & + ul,
+    & + div {
+      margin-top: 1em;
+    }
+
+  }
+
+  p,
+  ol,
+  ul {
+    & + .borderframe {
+      margin-top: 1em;
+    }
   }
 
   @media only screen and (min-width: ( @break_tablet ) ) {

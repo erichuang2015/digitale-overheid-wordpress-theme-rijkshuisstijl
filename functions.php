@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 1.1.11
-// * @desc.   Invoermogelijkheid voor details/summary toegevoegd.
+// * @version 1.1.12
+// * @desc.   Invoermogelijkheid voor kaders herzien.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "https://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "1.1.11" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Invoermogelijkheid voor details/summary toegevoegd." );
+define( 'CHILD_THEME_VERSION',              "1.1.12" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Invoermogelijkheid voor kaders herzien." );
 define( 'SHOW_CSS_DEBUG',                   false );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
@@ -1466,13 +1466,6 @@ function admin_set_tinymce_options( $settings ) {
     $settings['toolbar1'] = 'formatselect,italic,bullist,numlist,blockquote,|,link,unlink,|,spellchecker,|,styleselect,|,removeformat,cleanup,|,alignleft,alignright,undo,redo,outdent,indent,hr,fullscreen';
     $settings['toolbar2'] = '';
     $settings['block_formats'] = 'Tussenkop niveau 2=h2;Tussenkop niveau 3=h3;Tussenkop niveau 4=h4;Tussenkop niveau 5=h5;Tussenkop niveau 6=h6;Paragraaf=p;Citaat=q';
-
-//    $settings['style_formats'] = '[
-//            {title: "Kaderblok - groen", block: "div", classes: "kaderblok groen"},
-//            {title: "Kaderblok - grijs", block: "div", classes: "kaderblok grijs"},
-//            {title: "Intro-paragraaf", block: "span", classes: "intro"},
-//    ]';
-
 
     $settings['style_formats'] = '[
             {title: "Intro-paragraaf", block: "span", classes: "intro"},
@@ -3988,6 +3981,11 @@ function rhswp_admin_insert_streamer_button( $context ) {
     _x( "Voeg inklapblok toe", 'Insert streamer', 'wp-rijkshuisstijl' )  .
     '">' . _x( "Voeg uitklapblok toe", 'Insert details summary', 'wp-rijkshuisstijl' ) . '</a>';
     
+    // Kaders met randjes
+    $context .= '<a href="#TB_inline?&inlineId=insert_rhswp_add_framebox_form" id="insert_rhswp_detailssummary_button" class="thickbox button" title="' .
+    _x( "Voeg kader toe", 'Insert streamer', 'wp-rijkshuisstijl' )  .
+    '">' . _x( "Voeg kader toe", 'kader', 'wp-rijkshuisstijl' ) . '</a>';
+    
   }
   
   return $context;
@@ -4182,10 +4180,13 @@ add_shortcode( 'detailssummary', 'rhswp_html_for_shortcode_details_summary' );
 
 //========================================================================================================
 
-function rhswp_filter_the_content_detailsopen($content) {
+function rhswp_filter_the_content_cleanup($content) {
   
   if( is_singular() && is_main_query() ) {
 
+    // wat lege tags weghalen
+    $content =  preg_replace('|<aside></aside>|i', '', $content );
+    
     $content =  preg_replace('|details open=""|i', 'details', $content );
     $content =  preg_replace('|details open|i', 'details', $content );
 		
@@ -4194,7 +4195,144 @@ function rhswp_filter_the_content_detailsopen($content) {
 	
 }
 
-add_filter('the_content', 'rhswp_filter_the_content_detailsopen');
+add_filter('the_content', 'rhswp_filter_the_content_cleanup');
+
+//========================================================================================================
+
+add_action( 'admin_footer', 'rhswp_add_add_framebox_funcs', 14 );
+
+/**
+ * Append the call to action content content button to the admin pages
+ */
+function rhswp_add_add_framebox_funcs() {
+
+  global $pagenow;
+  global $post;
+
+  if ( ! is_admin() ) {
+    return '';
+  }
+  if ( ! isset( $post->ID ) ) {
+    return '';
+  }
+
+  $my_saved_attachment_post_id = $post->ID;
+
+  // Only run in post/page creation and edit screens
+  if ( in_array( $pagenow, array( 'post.php', 'page.php', 'post-new.php', 'post-edit.php' ) ) ) {
+    ?>
+    <script type="text/javascript">
+      jQuery(document).ready(function() {
+
+			// Select files
+			var file_frame;
+			var set_to_post_id    = <?php echo $my_saved_attachment_post_id; ?>; // Set this
+
+        jQuery('#insert_rhswp_add_framebox_confirm').on('click', function() {
+          
+          var rhswp_add_framebox_text         = jQuery('#rhswp_add_framebox_text').val();
+          var rhswp_add_framebox_title        = jQuery('#rhswp_add_framebox_title').val();
+          var rhswp_add_framebox_headerlevel  = jQuery('#rhswp_add_framebox_headerlevel').val();
+          var rhswp_add_framebox_style        = jQuery('input[name=rhswp_add_framebox_style]:checked').val();
+          var theReturn                       = true;
+
+          jQuery( '#rhswp_add_framebox_errors' ).text('');
+          jQuery( '#rhswp_add_framebox_errors' ).removeClass('error');
+          jQuery( '#rhswp_add_framebox_text' ).removeClass('error');
+          jQuery( '#rhswp_add_framebox_title' ).removeClass('error');
+
+          if (  ( rhswp_add_framebox_style === '' ) ||  ( rhswp_add_framebox_style == null ) ) {
+          }
+          else {
+            rhswp_add_framebox_style = ' ' + rhswp_add_framebox_style;
+          }
+          
+          if (  ( rhswp_add_framebox_title === '' ) ||  ( rhswp_add_framebox_title == null ) ) {
+            // titel is niet verplicht
+          }
+          else {
+            // maar als je 'm gevuld heb moet er ook een header-niveau gekozen zijn
+            if (  ( rhswp_add_framebox_headerlevel === '' ) ||  ( rhswp_add_framebox_headerlevel == null ) ) {
+              jQuery( '#rhswp_add_framebox_errors' ).append('<?php echo _x( 'Kies een header-niveau<br>', 'Streamer errors', 'wp-rijkshuisstijl' ) ?>');
+              jQuery( '#rhswp_add_framebox_errors' ).addClass('error');
+              jQuery( '#rhswp_add_framebox_headerlevel' ).addClass('error');
+              theReturn = false;
+            }
+            else {
+              rhswp_add_framebox_title = '<' + rhswp_add_framebox_headerlevel + ' class="blocktitle">' + rhswp_add_framebox_title + '</' + rhswp_add_framebox_headerlevel + '>';              
+            }
+          } 
+          
+          if (  ( rhswp_add_framebox_text === '' ) ||  ( rhswp_add_framebox_text == null ) ) {
+            jQuery( '#rhswp_add_framebox_errors' ).append('<?php echo _x( 'Voer een tekst in<br>', 'Streamer errors', 'wp-rijkshuisstijl' ) ?>');
+            jQuery( '#rhswp_add_framebox_errors' ).addClass('error');
+            jQuery( '#rhswp_add_framebox_text' ).addClass('error');
+            theReturn = false;
+          } 
+          else {
+            rhswp_add_framebox_text = rhswp_add_framebox_text.replace(/(?:\r\n|\r|\n)/g, '<br>');            
+          }
+
+
+          if ( theReturn ) {
+          }
+          else {
+            return false;
+          }
+
+          window.send_to_editor('<div class="borderframe' + rhswp_add_framebox_style + '">' + rhswp_add_framebox_title + '<div class="the-content">' + rhswp_add_framebox_text + '</div></div>');
+          tb_remove();
+        })
+      });
+    </script>
+    
+    <div id="insert_rhswp_add_framebox_form" style="display: none;">
+    <div class="wrap">
+    <?php
+    
+    echo "<h3>" . _x( "Voeg een kader toe.", 'Insert streamer', 'wp-rijkshuisstijl' ) . "</h3>";
+    
+    echo '<div class="divider" id="rhswp_add_framebox_errors" role="alert">';
+    echo "</div>";
+
+    echo "<div class='divider'>";
+    echo "<label for='rhswp_add_framebox_style'>" . _x( "Randkleur", 'Insert streamer', 'wp-rijkshuisstijl' ) . "</label>";
+    echo "<label for='rhswp_add_framebox_style_green'><input type='radio' id='rhswp_add_framebox_style_green' name='rhswp_add_framebox_style' checked='checked' value=\"green\">Groen</label>";
+    echo "<label for='rhswp_add_framebox_style_gray'><input type='radio' id='rhswp_add_framebox_style_gray' name='rhswp_add_framebox_style' value=\"gray\">Grijs</label>";
+    echo "</div>";
+
+
+    echo "<div class='divider'>";
+    echo "<label for='rhswp_add_framebox_title'>" . _x( "Titel", 'Insert streamer', 'wp-rijkshuisstijl' ) . "</label>";
+    echo "<input type='text' id='rhswp_add_framebox_title' name='rhswp_add_framebox_title' value=''>";
+    echo "</div>";
+
+    echo "<div class='divider'>";
+    echo "<label for='rhswp_add_framebox_headerlevel'>" . _x( "Header-niveau", 'Insert streamer', 'wp-rijkshuisstijl' ) . "</label>";
+    echo "<select id='rhswp_add_framebox_headerlevel' name='rhswp_add_framebox_headerlevel'>";
+    echo '<option value="h2">' . _x( "H2 (niveau 2)", 'Insert streamer', 'wp-rijkshuisstijl' ) . "</option>";
+    echo '<option value="h3">' . _x( "H3 (niveau 3)", 'Insert streamer', 'wp-rijkshuisstijl' ) . "</option>";
+    echo '<option value="h4">' . _x( "H4 (niveau 4)", 'Insert streamer', 'wp-rijkshuisstijl' ) . "</option>";
+    echo '<option value="h5">' . _x( "H5 (niveau 5)", 'Insert streamer', 'wp-rijkshuisstijl' ) . "</option>";
+    echo '<option value="h6">' . _x( "H6 (niveau 6)", 'Insert streamer', 'wp-rijkshuisstijl' ) . "</option>";
+    echo "</select>";
+    echo "</div>";
+
+    echo "<div class='divider'>";
+    echo "<label for='rhswp_add_framebox_text'>" . _x( "Inhoud van blok", 'Insert streamer', 'wp-rijkshuisstijl' ) . "</label>";
+    echo "<textarea id='rhswp_add_framebox_text' name='rhswp_add_framebox_text' rows='8'></textarea>";
+    echo "</div>";
+
+    echo "<button class='button primary' id='insert_rhswp_add_framebox_confirm'>" . _x( "Voeg uitklapblok toe", 'Insert streamer', 'wp-rijkshuisstijl' ) . "</button>";
+
+    ?>
+    </div>
+    </div>
+    
+    <?php
+  }
+
+}
 
 //========================================================================================================
 

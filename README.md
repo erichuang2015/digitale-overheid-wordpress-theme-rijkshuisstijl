@@ -15,10 +15,11 @@ Dit theme wordt gebruikt op [digitaleoverheid.nl](https://www.digitaleoverheid.n
 
 ## Current version:
 
-1.1.11 - Invoermogelijkheid voor details/summary toegevoegd.
+1.1.12 - Invoermogelijkheid voor kaders herzien.
 
 ## Version history
 
+* 1.1.12 - Invoermogelijkheid voor kaders herzien.
 * 1.1.11 - Invoermogelijkheid voor details/summary toegevoegd.
 * 1.1.10 - Invoeren pullquotes aangepast: nu 2 soorten (simple & met foto).
 * 1.1.9 - Filter voor titel op landinsgpagina.
