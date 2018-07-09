@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 1.1.10
-// * @desc.   Invoeren pullquotes aangepast: nu 2 soorten (simple & met foto).
+// * @version 1.1.11
+// * @desc.   Invoermogelijkheid voor details/summary toegevoegd.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 // **
 
@@ -192,22 +192,33 @@
   .simple-pullquote {
 
     @media only screen and (min-width: ( @break_tablet ) ) {
-      max-width: 50%;
-      float: left;
-      
+
+      &.align-none {
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 80%;
+        float: none;
+      }
       &.align-left {
         margin-right: 1em;
+        max-width: 50%;
+        float: left;
       }
       &.align-right {
         float: right;
         margin-left: 1em;
+        max-width: 50%;
+        float: left;
       }
     }
     
     blockquote {
       border-top: 3px solid @donkerblauw_vol;
       border-bottom: 3px solid @donkerblauw_vol;
-      padding: 1em 0;
+      padding: .5em 2em;
+      font-size: 110%;
+      line-height: 1.2;
+      text-align: center;
     }
   }
 
@@ -772,7 +783,8 @@
   
   .kaderblok {
     border: 1px solid @communicatiekleur_vol;
-    padding: 0;
+    
+    padding: 0 1em 1em 1em;
     
     h2, h3, h4, h5, h6 {
       background: @communicatiekleur_vol;
@@ -864,7 +876,7 @@
     .digibeter-blauw {
       // grondrechten
       background-color: @digibeter_blauw;
-      background-image: url('images/digibeter-icons/chapter-02.png?v1');
+      background-image: url('images/digibeter-icons/02-beschermen-grondrechten.svg?v2');
       .chapter-number {
         color: @lichtblauw_lichtst;
       }

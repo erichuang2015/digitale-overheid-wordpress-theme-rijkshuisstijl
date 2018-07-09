@@ -15,10 +15,11 @@ Dit theme wordt gebruikt op [digitaleoverheid.nl](https://www.digitaleoverheid.n
 
 ## Current version:
 
-1.1.10 - Invoeren pullquotes aangepast: nu 2 soorten (simple & met foto).
+1.1.11 - Invoermogelijkheid voor details/summary toegevoegd.
 
 ## Version history
 
+* 1.1.11 - Invoermogelijkheid voor details/summary toegevoegd.
 * 1.1.10 - Invoeren pullquotes aangepast: nu 2 soorten (simple & met foto).
 * 1.1.9 - Filter voor titel op landinsgpagina.
 * 1.1.8 - Header-image voor pagina's met RHSWP_CT_DIGIBETER. Styling logo in titel landingspagina.

@@ -7,8 +7,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 1.1.10
-// * @desc.   Invoeren pullquotes aangepast: nu 2 soorten (simple & met foto).
+// * @version 1.1.11
+// * @desc.   Invoermogelijkheid voor details/summary toegevoegd.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 // **
 
@@ -466,7 +466,7 @@
           padding-left: 0;
     
           &, & h2, & h3, & h4, & h5 {
-            color: @alttext;    
+            color: @tekstkleur;    
           }
           
           &:hover {
@@ -491,10 +491,14 @@
               background-color: @wit;
               
               &, & h2, & h3, & h4, & h5 {
-                color: @tekstkleur;    
+                color: @txt;
               }
             }
           }
+        }
+
+        li:before {
+          .icon_socmed_icon('../images/svg/list-arrow.svg', @txt);
         }
       }
     }

@@ -7,8 +7,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 1.1.10
-// * @desc.   Invoeren pullquotes aangepast: nu 2 soorten (simple & met foto).
+// * @version 1.1.11
+// * @desc.   Invoermogelijkheid voor details/summary toegevoegd.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 // **
 
@@ -500,10 +500,10 @@
 
   .digibeter_colors( digibeter-oker,    @digibeter_oker,    @txt, @txt, @digibeter_oker_licht   );
   .digibeter_colors( digibeter-oranje,  @digibeter_oranje,  @txt, @txt, @digibeter_oranje_licht );
-  .digibeter_colors( digibeter-blauw,   @digibeter_blauw,   @txt, @txt, @digibeter_blauw_licht  );
+  .digibeter_colors( digibeter-blauw,   @digibeter_blauw,   @txt, @wit, @digibeter_blauw_licht  );
   .digibeter_colors( digibeter-groen,   @digibeter_groen,   @txt, @wit, @digibeter_groen_licht  );
-  .digibeter_colors( digibeter-violet,  @digibeter_violet,  @txt, @txt, @digibeter_violet_licht );
-  .digibeter_colors( digibeter-paars,   @digibeter_paars,   @txt, @txt, @digibeter_paars_licht  );
+  .digibeter_colors( digibeter-violet,  @digibeter_violet,  @txt, @wit, @digibeter_violet_licht );
+  .digibeter_colors( digibeter-paars,   @digibeter_paars,   @wit, @wit, @digibeter_paars_licht  );
 
 
   .page-template-page_fullwidth {
@@ -589,6 +589,21 @@
           .simple-pullquote {
             max-width: 40%;
           }
+
+          .simple-pullquote {
+            margin-left: auto;
+            margin-right: auto;
+            clear: both;
+            float: none;
+            font-size: 115%;
+            text-align: center;
+
+            blockquote {
+              padding-left: 1em !important;
+              padding-right: 1em !important;
+            }
+          }
+
 
           details { 
             p,
