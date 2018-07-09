@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 1.1.12
-// * @desc.   Invoermogelijkheid voor kaders herzien.
+// * @version 1.1.13
+// * @desc.   CSS bugfixes (mobile dig. agenda).
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 // **
 
@@ -885,7 +885,7 @@
     div {
       flex: 1;
       background-repeat: no-repeat;
-      padding: .5em;
+      padding: .5em .5em 0 .5em;
     }
     
     span {
@@ -917,7 +917,7 @@
     .digibeter-oranje {
       // innovatie
       background-color: @digibeter_oranje;
-      background-image: url('images/digibeter-icons/01-innovatie.svg?v2');
+      background-image: url('images/digibeter-icons/01-innovatie.svg');
       .chapter-number {
         color: @oranje_lichtst;
       }
@@ -926,7 +926,7 @@
     .digibeter-blauw {
       // grondrechten
       background-color: @digibeter_blauw;
-      background-image: url('images/digibeter-icons/02-beschermen-grondrechten.svg?v2');
+      background-image: url('images/digibeter-icons/02-beschermen-grondrechten.svg');
       .chapter-number {
         color: @lichtblauw_lichtst;
       }
@@ -935,7 +935,7 @@
     .digibeter-groen {
       // toegankelijkheid
       background-color: @digibeter_groen;
-      background-image: url('images/digibeter-icons/03-toegankelijk.svg?v2');
+      background-image: url('images/digibeter-icons/03-toegankelijk.svg');
       .chapter-number {
         color: @groen_lichtst;
       }
@@ -944,7 +944,7 @@
     .digibeter-violet {
       // persoonlijke dienstverlening
       background-color: @digibeter_violet;
-      background-image: url('images/digibeter-icons/04-persoonlijker.svg?v2');
+      background-image: url('images/digibeter-icons/04-persoonlijker.svg');
       .chapter-number {
         color: @violet_lichtst;
       }
@@ -953,7 +953,7 @@
     .digibeter-paars {
       // toekomst
       background-color: @digibeter_paars;
-      background-image: url('images/digibeter-icons/05-toekomst.svg?v2');
+      background-image: url('images/digibeter-icons/05-toekomst.svg');
       .chapter-number {
         color: @paars_lichtst;
       }
@@ -968,7 +968,11 @@
       .chapter-number {
         font-size: 2em;
         float: left;
-        margin-right: .5em;
+        margin-right: .25em;
+      }
+      
+      .desc {
+        font-size: 90%;
       }
 
       div {
@@ -985,15 +989,15 @@
       
       .digibeter-blauw {
         // grondrechten
-        background-position: 98% center;
+        background-position: 99% center;
         .desc {
-          padding-right: 6em;
+          padding-right: 3.5em;
         }
       }
       
       .digibeter-groen {
         // toegankelijkheid
-        background-position: 2em center;
+        background-position: 1.75em center;
         .desc {
           padding-left: 7em;
         }
@@ -1003,7 +1007,7 @@
         // persoonlijke dienstverlening
         background-position: 98% center;
         .desc {
-          padding-right: 6em;
+          padding-right: 3.5em;
         }
       }
       
@@ -1044,21 +1048,21 @@
   
       .digibeter-oranje {
         // innovatie
-        background-image: url('images/digibeter-icons/01-innovatie-illustratie.svg?v1');
+        background-image: url('images/digibeter-icons/01-innovatie-illustratie.svg');
       }
       
       .digibeter-blauw {
-        background-image: url('images/digibeter-icons/02-beschermen-grondrechten-illustratie.svg?v1');
+        background-image: url('images/digibeter-icons/02-beschermen-grondrechten-illustratie.svg');
         background-position: center 1em;
         padding-top: 8em;
       }
       
       .digibeter-groen {
-        background-image: url('images/digibeter-icons/03-toegankelijk-illustratie.svg?v1');
+        background-image: url('images/digibeter-icons/03-toegankelijk-illustratie.svg');
       }
       
       .digibeter-violet {
-        background-image: url('images/digibeter-icons/04-persoonlijker-illustratie.svg?v1');
+        background-image: url('images/digibeter-icons/04-persoonlijker-illustratie.svg');
         padding-top: 8em;
         background-position: center 1em;
         
@@ -1069,7 +1073,7 @@
       }
       
       .digibeter-paars {
-        background-image: url('images/digibeter-icons/05-toekomst-illustratie.svg?v1');
+        background-image: url('images/digibeter-icons/05-toekomst-illustratie.svg');
       }
       
   
