@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 1.1.14
-// * @desc.   CSS bugfixes (blockquote font sizes).
+// * @version 1.1.15
+// * @desc.   CSS bugfixes (blockquote sizes, oude manier van details/summary invoegen hersteld).
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "https://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "1.1.14" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "CSS bugfixes (blockquote font sizes)." );
+define( 'CHILD_THEME_VERSION',              "1.1.15" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "CSS bugfixes (blockquote sizes, oude manier van details/summary invoegen hersteld)." );
 define( 'SHOW_CSS_DEBUG',                   false );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
@@ -1456,23 +1456,23 @@ var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(sz
  * Modifying TinyMCE editor to remove unused items.
 */
 
-function admin_set_tinymce_options( $settings ) {
-    $settings['theme_advanced_blockformats']  = 'p,h2,h3,h4,h5,h6,q,hr';
-    $settings['theme_advanced_disable']       = 'underline,spellchecker,forecolor,justifyfull';
-    $settings['theme_advanced_buttons2_add']  = 'styleselect';
-//    $settings['theme_advanced_styles']        = "'Infoblok'=infoblock, 'Streamer'=pullquote";
-    // ============
-     
-    $settings['toolbar1'] = 'formatselect,italic,bullist,numlist,blockquote,|,link,unlink,|,spellchecker,|,styleselect,|,removeformat,cleanup,|,alignleft,alignright,undo,redo,outdent,indent,hr,fullscreen';
-    $settings['toolbar2'] = '';
-    $settings['block_formats'] = 'Tussenkop niveau 2=h2;Tussenkop niveau 3=h3;Tussenkop niveau 4=h4;Tussenkop niveau 5=h5;Tussenkop niveau 6=h6;Paragraaf=p;Citaat=q';
+function admin_set_tinymce_options( $settings ) {    $settings['theme_advanced_blockformats']  = 'p,h2,h3,h4,h5,h6,q,hr';
 
-    $settings['style_formats'] = '[
-            {title: "Intro-paragraaf", block: "span", classes: "intro"},
-    ]';
+  $settings['theme_advanced_disable']       = 'underline,spellchecker,forecolor,justifyfull';
+  $settings['theme_advanced_buttons2_add']  = 'styleselect';
 
+  $settings['entity_encoding']              = 'raw';
+  $settings['extended_valid_elements']      = 'details,summary';
 
-    return $settings;
+  $settings['toolbar1'] = 'formatselect,italic,bullist,numlist,blockquote,|,link,unlink,|,spellchecker,|,styleselect,|,removeformat,cleanup,|,alignleft,alignright,undo,redo,outdent,indent,hr,fullscreen';
+  $settings['toolbar2'] = '';
+  $settings['block_formats'] = 'Tussenkop niveau 2=h2;Tussenkop niveau 3=h3;Tussenkop niveau 4=h4;Tussenkop niveau 5=h5;Tussenkop niveau 6=h6;Paragraaf=p;Citaat=q';
+  $settings['style_formats'] = '[
+    {title: "Intro-paragraaf", block: "span", classes: "intro"},
+  ]';
+  
+  return $settings;
+
 }
  
 add_filter('tiny_mce_before_init', 'admin_set_tinymce_options');
@@ -3820,8 +3820,9 @@ function rhswp_add_streamer_funcs() {
     
     echo "<div class='divider'>";
     echo "<label for='rhswp_quote_alignment'>" . _x( "Uitlijnen", 'Insert streamer', 'wp-rijkshuisstijl' ) . "</label>";
-    echo "<label for='rhswp_quote_alignment_left'><input type='radio' id='rhswp_quote_alignment_left' name='rhswp_quote_alignment' checked='checked' value='align-left'> Links</label>";
-    echo "<label for='rhswp_quote_alignment_right'><input type='radio' id='rhswp_quote_alignment_right' name='rhswp_quote_alignment' value='align-right'> Rechts</label>";
+    echo "<label for='rhswp_quote_alignment_left'><input type='radio' id='rhswp_quote_alignment_left' name='rhswp_quote_alignment' value='align-left'>". _x( "Links", 'Insert streamer', 'wp-rijkshuisstijl' ) . "</label>";
+    echo "<label for='rhswp_quote_alignment_none'><input type='radio' id='rhswp_quote_alignment_none' name='rhswp_quote_alignment' checked='checked' value='align-none'>". _x( "Geen uitlijning", 'Insert streamer', 'wp-rijkshuisstijl' ) . "</label>";
+    echo "<label for='rhswp_quote_alignment_right'><input type='radio' id='rhswp_quote_alignment_right' name='rhswp_quote_alignment' value='align-right'>". _x( "Rechts", 'Insert streamer', 'wp-rijkshuisstijl' ) . "</label>";
     echo "</div>";
 
     echo "<button class='button primary' id='insert_rhswp_streamer_with_image_confirm'>" . _x( "Voeg citaat in", 'Insert streamer', 'wp-rijkshuisstijl' ) . "</button>";
@@ -3917,9 +3918,9 @@ function rhswp_add_simple_streamer_funcs() {
     
     echo "<div class='divider'>";
     echo "<label for='rhswp_simple_quote_alignment'>" . _x( "Uitlijnen", 'Insert streamer', 'wp-rijkshuisstijl' ) . "</label>";
-    echo "<label for='rhswp_simple_quote_alignment_none'><input type='radio' id='rhswp_simple_quote_alignment_none' name='rhswp_simple_quote_alignment' checked='checked' value='align-none'>Niet uitlijnen</label>";
-    echo "<label for='rhswp_simple_quote_alignment_left'><input type='radio' id='rhswp_simple_quote_alignment_left' name='rhswp_simple_quote_alignment' value='align-left'>Links</label>";
-//    echo "<label for='rhswp_simple_quote_alignment_right'><input type='radio' id='rhswp_simple_quote_alignment_right' name='rhswp_simple_quote_alignment' value='align-right'>Rechts</label>";
+    echo "<label for='rhswp_simple_quote_alignment_none'><input type='radio' id='rhswp_simple_quote_alignment_none' name='rhswp_simple_quote_alignment' checked='checked' value='align-none'>". _x( "Geen uitlijning", 'Insert streamer', 'wp-rijkshuisstijl' ) . "</label>";
+    echo "<label for='rhswp_simple_quote_alignment_left'><input type='radio' id='rhswp_simple_quote_alignment_left' name='rhswp_simple_quote_alignment' value='align-left'>". _x( "Links", 'Insert streamer', 'wp-rijkshuisstijl' ) . "</label>";
+//    echo "<label for='rhswp_simple_quote_alignment_right'><input type='radio' id='rhswp_simple_quote_alignment_right' name='rhswp_simple_quote_alignment' value='align-right'>". _x( "Links", 'Insert streamer', 'wp-rijkshuisstijl' ) . "</label>";
     echo "</div>";
 
     echo "<button class='button primary' id='insert_rhswp_simple_streamer_confirm'>" . _x( "Voeg streamer toe", 'Insert streamer', 'wp-rijkshuisstijl' ) . "</button>";
@@ -4108,10 +4109,13 @@ function rhswp_add_detailssummary_funcs() {
           else {
             return false;
           }
+
+//      'headerlevel' => '',
+//      'summary'     => '',
           
 
 
-          window.send_to_editor('<details open>[detailssummary headerlevel="' + rhswp_detailssummary_headerlevel + '"]' + rhswp_detailssummary_title + '[/detailssummary]<p>' + rhswp_detailssummary_text + '</p></details>');
+          window.send_to_editor('[detailssummary summary="' + rhswp_detailssummary_title + '" headerlevel="' + rhswp_detailssummary_headerlevel + '"]<p>' + rhswp_detailssummary_text + '</p>[/detailssummary]');
           tb_remove();
         })
       });
@@ -4164,15 +4168,19 @@ function rhswp_html_for_shortcode_details_summary( $atts, $content = null ) {
 	global $post;
 
   $a = shortcode_atts( array(
-      'headerlevel' => 'something',
-      'summary'     => 'something else',
+      'headerlevel' => '',
+      'summary'     => '',
   ), $atts );
 
   if ( ! isset( $a['headerlevel'] ) ) {
     $a['headerlevel'] = 'h2';  
   }
   
-  return '<summary><' . $a['headerlevel'] . '>' . $content . '</' . $a['headerlevel'] . '></summary>';
+  if ( ! isset( $a['summary'] ) ) {
+    $a['summary'] = 'Meer details';  
+  }
+  
+  return '<details><summary><' . $a['headerlevel'] . '>' . $a['summary'] . '</' . $a['headerlevel'] . '></summary>' . $content . '</details>';
 
 }
 
@@ -4186,9 +4194,15 @@ function rhswp_filter_the_content_cleanup($content) {
 
     // wat lege tags weghalen
     $content =  preg_replace('|<aside></aside>|i', '', $content );
+
+    $content =  preg_replace('|<hr class="detailssummary" />|i', '', $content );
+    $content =  preg_replace('|<hr class="detailssummary">|i', '', $content );
+    
     
     $content =  preg_replace('|details open=""|i', 'details', $content );
     $content =  preg_replace('|details open|i', 'details', $content );
+
+
 		
 	}	
 	return $content;
@@ -4333,6 +4347,17 @@ function rhswp_add_add_framebox_funcs() {
   }
 
 }
+
+//========================================================================================================
+
+function override_mce_options($initArray) {
+	$opts                                 = '*[*]';
+	$initArray['valid_elements']          = $opts;
+	$initArray['extended_valid_elements'] = $opts;
+	return $initArray;
+}
+
+//add_filter('tiny_mce_before_init', 'override_mce_options');
 
 //========================================================================================================
 

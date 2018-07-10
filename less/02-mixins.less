@@ -7,8 +7,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 1.1.11
-// * @desc.   Invoermogelijkheid voor details/summary toegevoegd.
+// * @version 1.1.15
+// * @desc.   CSS bugfixes (blockquote sizes, oude manier van details/summary invoegen hersteld).
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 // **
 
@@ -313,6 +313,17 @@
 
 //=========================================================================================================
 
+.arrow_up_and_down(@src, @fill-new) {
+    @data-uri:          data-uri('image/svg+xml;charset=UTF-8', "@{src}");
+    @replace-default:   escape('fill="#fff"');
+    @replace-new:       escape('fill="@{fill-new}"');
+    @replacesrc1:       replace("@{data-uri}", @replace-default, @replace-new, "g");
+
+    background-image: e(@replacesrc1);
+}
+
+//=========================================================================================================
+
 .iconaddfill(@src, @fill-new) {
     @data-uri:          data-uri('image/svg+xml;charset=UTF-8', "@{src}");
     @replace-default:   escape('fill="#000000"');
@@ -457,8 +468,9 @@
         background-color: @softcolor;
     
         summary {
-    
-          background-image: url('images/icon-arrow-fat-down-white.svg');
+  
+          .arrow_up_and_down('../images/svg/icon-arrow-fat-down-replace.svg', @tekstkleur );
+
           background-repeat: no-repeat;
           background-position: 98% center;
           background-color: @achtergrondkleur;
@@ -470,7 +482,8 @@
           }
           
           &:hover {
-            background-image: url('images/icon-arrow-fat-down.svg');
+
+            .arrow_up_and_down('../images/svg/icon-arrow-fat-down-replace.svg', @txt);
             background-color: @wit;
 
             &, & h2, & h3, & h4, & h5 {
@@ -484,10 +497,10 @@
         &[open] {
           summary {
 
-            background-image: url('images/icon-arrow-fat-up-white.svg');
+            .arrow_up_and_down('../images/svg/icon-arrow-fat-up-replace.svg', @tekstkleur );
 
             &:hover {
-              background-image: url('images/icon-arrow-fat-up.svg');
+              .arrow_up_and_down('../images/svg/icon-arrow-fat-up-replace.svg', @txt);
               background-color: @wit;
               
               &, & h2, & h3, & h4, & h5 {
@@ -540,9 +553,15 @@
   }
 
   @media only screen and (min-width: ( @break_fullwidth ) ) {
-    .pullquote-with-image {
+    .pullquote-with-image.align-left,
+    .pullquote-with-image.align-right {
       max-width: 50%;
+    }
+    .pullquote-with-image.align-left {
       float: left; 
+    }
+    .pullquote-with-image.align-right {
+      float: right; 
     }
   }
   

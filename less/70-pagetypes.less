@@ -7,8 +7,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 1.1.12
-// * @desc.   Invoermogelijkheid voor kaders herzien.
+// * @version 1.1.15
+// * @desc.   CSS bugfixes (blockquote sizes, oude manier van details/summary invoegen hersteld).
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 // **
 
@@ -500,9 +500,9 @@
 
   .digibeter_colors( digibeter-oker,    @digibeter_oker,    @txt, @txt, @digibeter_oker_licht   );
   .digibeter_colors( digibeter-oranje,  @digibeter_oranje,  @txt, @txt, @digibeter_oranje_licht );
-  .digibeter_colors( digibeter-blauw,   @digibeter_blauw,   @txt, @wit, @digibeter_blauw_licht  );
-  .digibeter_colors( digibeter-groen,   @digibeter_groen,   @txt, @wit, @digibeter_groen_licht  );
-  .digibeter_colors( digibeter-violet,  @digibeter_violet,  @txt, @wit, @digibeter_violet_licht );
+  .digibeter_colors( digibeter-blauw,   @digibeter_blauw,   @wit, @wit, @digibeter_blauw_licht  );
+  .digibeter_colors( digibeter-groen,   @digibeter_groen,   @wit, @wit, @digibeter_groen_licht  );
+  .digibeter_colors( digibeter-violet,  @digibeter_violet,  @wit, @wit, @digibeter_violet_licht );
   .digibeter_colors( digibeter-paars,   @digibeter_paars,   @wit, @wit, @digibeter_paars_licht  );
 
 
@@ -522,6 +522,7 @@
       h1 {
         font-family: @bodyfont;
         font-weight: normal;
+        margin-bottom: .5em;
         .subtitle {
           display: block;
           overflow: hidden;
@@ -530,14 +531,15 @@
         .logo {
           display: block;
           background:  url('images/digibeter-icons/nl-digibeter.svg');
-          max-width: 300px;
-          height: 45px;
+          max-width: 403px;
+          height: 60px;
           background-position: left top;
           background-repeat: no-repeat;
           background-size: contain;
           text-indent: -9999em;
           overflow: hidden;
           font-family: @fontitalic;
+          margin-bottom: .25em;
         }
       }
       
@@ -581,14 +583,28 @@
           h6, 
           ol,
           ul,
-          blockquote,
+          .simple-pullquote,
+          .pullquote-with-image,
           details, 
           .borderframe { 
             .fullwidth_content_with_padding();
           }
-          .pullquote-with-image,
-          .simple-pullquote {
+          
+
+          .simple-pullquote.align-left,
+          .simple-pullquote.align-right {
             max-width: 40%;
+          }
+
+          .pullquote-with-image.align-left,
+          .pullquote-with-image.align-right {
+            max-width: 45%;
+          }
+          .pullquote-with-image.align-left {
+            margin-left: 4em;
+          }
+          .pullquote-with-image.align-right {
+            margin-right: 4em;
           }
 
           .simple-pullquote {
@@ -596,13 +612,7 @@
             margin-right: auto;
             clear: both;
             float: none;
-            font-size: 115%;
             text-align: center;
-
-            blockquote {
-              padding-left: 1em !important;
-              padding-right: 1em !important;
-            }
           }
 
           .borderframe,

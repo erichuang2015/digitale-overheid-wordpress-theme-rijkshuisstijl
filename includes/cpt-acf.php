@@ -10,8 +10,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 1.1.5
-// * @desc.   Achtergrondkleuren toegevoegd voor details. ACF-definitie voor digibeter_content_intro toegevoegd. Polyfill voor details-summary tags toegevoegd.
+// * @version 1.1.15
+// * @desc.   CSS bugfixes (blockquote sizes, oude manier van details/summary invoegen hersteld).
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 
 
@@ -114,7 +114,7 @@ function rhswp_register_my_taxes() {
 		"rest_base"           => "",
 		"show_in_quick_edit"  => false,
 	);
-	register_taxonomy( RHSWP_CT_DIGIBETER, array( "post", "page" ), $args );
+	register_taxonomy( RHSWP_CT_DIGIBETER, array( "page" ), $args );
 
 
 }
