@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 1.1.13
-// * @desc.   CSS bugfixes (mobile dig. agenda).
+// * @version 1.1.14
+// * @desc.   CSS bugfixes (blockquote font sizes).
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 // **
 
@@ -87,9 +87,11 @@
   	font-style: italic;
   	border-top: 1px solid @grijs;
   	border-bottom: 1px solid @grijs;
+    font-size: 1.3rem;
+    line-height: 1.2;
   }
 
-  @img_pullquote_max_width: 150px;
+  @img_pullquote_max_width: 140px;
   
 
   .pullquote-with-image {
@@ -139,7 +141,6 @@
       padding: .5em 1em .5em 0;
       float: left;
       overflow: hidden;
-      font-size: 105%;
       font-style: italic;
       
       p {
@@ -158,12 +159,11 @@
       margin-top: 1em;
       
       a {
-        padding-right: 1.5em;
+        padding-left: 1em;
         .icon_socmed_icon('../images/svg/list-arrow.svg', @donkerblauw_vol );
         background-repeat: no-repeat;
-        background-position: right center;
-        display: block;
-        
+        background-position: left center;
+        display: inline-block;
       }
     }
 
@@ -184,12 +184,12 @@
   
   .pullquote-with-image,
   .simple-pullquote {
-    font-size: 90%; 
     &, a, * {
       color: @donkerblauw_vol;
     }
   }
   .simple-pullquote {
+
 
     @media only screen and (min-width: ( @break_tablet ) ) {
 
@@ -216,7 +216,6 @@
       border-top: 3px solid @donkerblauw_vol;
       border-bottom: 3px solid @donkerblauw_vol;
       padding: .5em 2em;
-      font-size: 110%;
       line-height: 1.2;
       text-align: center;
     }

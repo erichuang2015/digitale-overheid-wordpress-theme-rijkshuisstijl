@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 1.1.13
-// * @desc.   CSS bugfixes (mobile dig. agenda).
+// * @version 1.1.14
+// * @desc.   CSS bugfixes (blockquote font sizes).
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "https://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "1.1.13" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "CSS bugfixes (mobile dig. agenda)." );
+define( 'CHILD_THEME_VERSION',              "1.1.14" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "CSS bugfixes (blockquote font sizes)." );
 define( 'SHOW_CSS_DEBUG',                   false );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
