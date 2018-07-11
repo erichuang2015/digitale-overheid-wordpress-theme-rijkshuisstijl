@@ -15,10 +15,11 @@ Dit theme wordt gebruikt op [digitaleoverheid.nl](https://www.digitaleoverheid.n
 
 ## Current version:
 
-1.1.16 - Vertalingen bijgewerkt.
+1.1.17 - CSS voor citaten in overleg met Isabel nog bijgewerkt.
 
 ## Version history
 
+* 1.1.17 - CSS voor citaten in overleg met Isabel nog bijgewerkt.
 * 1.1.16 - Vertalingen bijgewerkt.
 * 1.1.15 - CSS bugfixes (blockquote sizes, oude manier van details/summary invoegen hersteld).
 * 1.1.14 - CSS bugfixes (blockquote font sizes).
