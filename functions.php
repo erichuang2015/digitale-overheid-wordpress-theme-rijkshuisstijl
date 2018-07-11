@@ -2636,8 +2636,7 @@ function rhswp_check_caroussel_or_featured_img() {
         $term_id    = ' ' . $digibeterterm->term_id;
         $acfid      = RHSWP_CT_DIGIBETER . '_' . $term_id;
         $digibeterclass  = get_field( 'digibeter_term_achtergrondkleur', $acfid );
-
-        $classes['class'] .= ' ' . $digibeterclass;
+//        $classes['class'] .= ' ' . $digibeterclass;
         echo '<img src="' . RHSWP_THEMEFOLDER . '/images/digibeter-icons/' . $digibeterclass . '.svg" alt="' . $digibeterclass . '" width="1200" height="400" >';
       }    
       echo '</div>';
@@ -3592,7 +3591,12 @@ function rhswp_add_body_class_DIGIBETER_content( $classes ) {
 
     if( has_term( '', RHSWP_CT_DIGIBETER ) ) {
       // if has any terms in RHSWP_CT_DIGIBETER
-      $classes['class'] .= ' digibeter';
+      if ( isset( $classes['class'] ) ) {
+        $classes['class'] .= ' digibeter';
+      }
+      else {
+        $classes['class'] = 'digibeter';
+      }
     }    
 
     if ( function_exists( 'get_field' ) ) {
