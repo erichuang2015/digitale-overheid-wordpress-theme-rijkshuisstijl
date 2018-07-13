@@ -7,8 +7,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.10.9
-// * @desc.   Kleine CSS bugs verholpen (onderwerppaginakolombreedte).
+// * @version 1.1.17
+// * @desc.   CSS voor citaten in overleg met Isabel nog bijgewerkt.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 // **
 
@@ -222,7 +222,7 @@
   }
 
 
-//========================================================================================================
+  //========================================================================================================
   @media only screen and (min-width: ( @break_tablet ) ) {
 
     #mixitupfilterlist {
@@ -236,7 +236,6 @@
     	    flex-grow: 1;
           float: left;
           flex-basis: @flexbasis_twocols;
-//          max-width: @flexbasis_twocols;
           width: @flexbasis_twocols;
           overflow: hidden;
         }
@@ -253,7 +252,6 @@
               flex-grow: 1;
               float: left;
               flex-basis: @flexbasis_fourcols;
-//              max-width: @flexbasis_fourcols;
               width: @flexbasis_fourcols;
               overflow: hidden;
             }              
@@ -264,7 +262,7 @@
     }
   }
 
-//========================================================================================================
+  //========================================================================================================
   @media only screen and (min-width: ( @break_fullwidth ) ) {
 
     #mixitupfilterlist {
@@ -278,7 +276,7 @@
     }
   }
 
-//========================================================================================================
+  //========================================================================================================
 
   @media only screen and (min-width: ( @break_fullwidth ) ) {
     .flexbox {
@@ -346,7 +344,7 @@
     }
   }  
 
-//========================================================================================================
+  //========================================================================================================
 
   .page-template-page_show-child-pages {
     .content {
@@ -362,7 +360,6 @@
   }
 
   .error404,
-//  .page-template-page_showalldossiers,
   .page-template-page_sitemap {
     .site-inner {
       ul, ol {
@@ -377,11 +374,10 @@
     }
   }
 
-//========================================================================================================
-
+  //========================================================================================================
+  
   @media only screen and (min-width: ( @break_tablet ) ) {
     .error404 .site-inner,
-//    .page-template-page_showalldossiers,
     .page-template-page_sitemap .site-inner {
       ul, ol {
 
@@ -414,11 +410,10 @@
     }
   }
 
-//========================================================================================================
+  //========================================================================================================
 
   @media only screen and (min-width: ( @break_fullwidth ) ) {
     .error404,
-//    .page-template-page_showalldossiers,
     .page-template-page_sitemap {
       .category,
       .dossiers {
@@ -430,11 +425,11 @@
     }
   }
 
-//========================================================================================================
+  //========================================================================================================
 
   .page-template-page_search,
   .search {
-
+  
     .post-date {
       &:before {
         content: '|';
@@ -450,7 +445,7 @@
       
       a {
         margin: .1em;
-
+  
         &:hover,
         &:focus,
         &:active {
@@ -463,14 +458,14 @@
         margin: 0;        
       }
     }
-
+  
     .document,
     .type-document {
     }  
     .post {
-//      border-color: @communicatiekleur_vol;      
+  //      border-color: @communicatiekleur_vol;      
     }  
-
+  
     .taxonomy {
       margin-top: 1em;
       border-bottom: 3px solid @communicatiekleur_vol;
@@ -486,7 +481,7 @@
     }   
   
     .attachment.pdf {
-
+  
       a p {
         padding-left: 1.5em;
         background-image: url('images/icon-document.svg');
@@ -501,5 +496,159 @@
     }
   }
 
+  //========================================================================================================
+
+  .digibeter_colors( digibeter-oker,    @digibeter_oker,    @txt, @txt, @digibeter_oker_licht   );
+  .digibeter_colors( digibeter-oranje,  @digibeter_oranje,  @txt, @txt, @digibeter_oranje_licht );
+  .digibeter_colors( digibeter-blauw,   @digibeter_blauw,   @wit, @wit, @digibeter_blauw_licht  );
+  .digibeter_colors( digibeter-groen,   @digibeter_groen,   @wit, @wit, @digibeter_groen_licht  );
+  .digibeter_colors( digibeter-violet,  @digibeter_violet,  @wit, @wit, @digibeter_violet_licht );
+  .digibeter_colors( digibeter-paars,   @digibeter_paars,   @wit, @wit, @digibeter_paars_licht  );
+
+
+  .page-template-page_fullwidth {
+    .entry-content {
   
+      .wp-caption {
+        margin-top: .5em;          
+        margin-bottom: .5em;          
+      }
+    }
+  }  
+
+  .page-template-page_digibeter-home {
+    .entry-header {
+        
+      h1 {
+        font-family: @bodyfont;
+        font-weight: normal;
+        margin-bottom: .5em;
+        .subtitle {
+          display: block;
+          overflow: hidden;
+          font-family: @fontitalic;
+        }
+        .logo {
+          display: block;
+          background:  url('images/digibeter-icons/nl-digibeter.svg');
+          max-width: 403px;
+          height: 60px;
+          background-position: left top;
+          background-repeat: no-repeat;
+          background-size: contain;
+          text-indent: -9999em;
+          overflow: hidden;
+          font-family: @fontitalic;
+          margin-bottom: .25em;
+        }
+      }
+      
+      & + h2 {
+        margin-top: .5rem;
+      }
+    }
+  }
+
+
+    @media only screen and (max-width: ( @break_fullwidth ) ) {
+      .page-template-page_fullwidth {
+        .entry-header {
+          width: 100%;
+          margin-left: 0;
+          margin-right: 0;
+        }  
+      }  
+    }  
+
+    @media only screen and (min-width: ( @break_fullwidth ) ) {
+
+      .page-template-page_fullwidth {
+
+        .entry-header {
+          
+          .fullwidth_content_with_padding();
+          
+          h1 {
+            padding-top: .5em;
+            padding-bottom: .5em;
+          }
+        }
+
+        .entry-content {
+          p,
+          h2, 
+          h3, 
+          h4, 
+          h5, 
+          h6, 
+          ol,
+          ul,
+          .simple-pullquote,
+          .pullquote-with-image,
+          details, 
+          .borderframe { 
+            .fullwidth_content_with_padding();
+          }
+          
+
+          .simple-pullquote.align-left,
+          .simple-pullquote.align-right {
+            max-width: 40%;
+          }
+
+          .pullquote-with-image.align-left,
+          .pullquote-with-image.align-right {
+            max-width: 45%;
+            margin-top: 1.5em;
+            margin-bottom: 1.5em;
+          }
+          .pullquote-with-image.align-left {
+            margin-left: 4em;
+          }
+          .pullquote-with-image.align-right {
+            margin-right: 4em;
+          }
+
+          .simple-pullquote {
+            margin-left: auto;
+            margin-right: auto;
+            clear: both;
+            float: none;
+          }
+
+          .borderframe,
+          details { 
+            p,
+            h2, 
+            h3, 
+            h4, 
+            h5, 
+            h6, 
+            ol,
+            ul {
+              max-width: 100%;              
+            }
+    
+            ul,
+            ol,
+            p, {
+              margin-left: 1rem;
+              margin-right: 1rem;
+            }
+            ul,
+            ol,
+            p, {
+            }
+            
+          }
+          
+        }
+        #reactieformulier {
+          .fullwidth_content_with_padding();
+        }
+      }
+    }
+
+  //========================================================================================================
+
 }

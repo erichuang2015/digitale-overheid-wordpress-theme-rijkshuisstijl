@@ -9,8 +9,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.11.19
-// * @desc.   Debug verbeterd en print style verbeterd.
+// * @version 1.1.15
+// * @desc.   CSS bugfixes (blockquote sizes, oude manier van details/summary invoegen hersteld).
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
@@ -76,31 +76,48 @@ function dodebug2($file = '', $extra = '') {
 
 //========================================================================================================
 
-function dovardump($data, $context = '', $echo = true ) {
-  if ( WP_DEBUG ) {
-    $contextstring  = '';
-    $startstring    = '<div class="debug-context-info">';
-    $endtring       = '</div>';
+if (! function_exists( 'dovardump' ) ) {
+  
+  function dovardump($data, $context = '', $echo = true ) {
     
-    if ( $context ) {
-      $contextstring = '<p>Vardump ' . $context . '</p>';        
-    }
-    
-    if ( $echo ) {
+    if ( WP_DEBUG ) {
+      $contextstring  = '';
+      $startstring    = '<div class="debug-context-info">';
+      $endtring       = '</div>';
       
-      echo $startstring . '<hr>';
-      echo $contextstring;        
-      echo '<pre>';
-      print_r($data);
-      echo '</pre><hr>' . $endtring;
-    }
-    else {
-      return '<hr>' . $contextstring . '<pre>' . print_r($data, true) . '</pre><hr>';
-    }
+      if ( $context ) {
+
+        $contextstring = '<p>Vardump ' . $context . '</p>';        
+      }
+      
+      if ( is_array( $data ) || is_object( $data ) ) {
+        
+        $theline = "array: " . print_r( $data, true );
+      }
+      else {
+
+        $theline = $data;
+      }
+      
+      error_log( $theline );
+      
+      if ( $echo ) {
+      
+        echo $startstring . '<hr>';
+        echo $contextstring;        
+        echo '<pre>';
+        print_r($data);
+        echo '</pre><hr>' . $endtring;
+      }
+      else {
+
+        return '<hr>' . $contextstring . '<pre>' . print_r($data, true) . '</pre><hr>';
+      }
+    }        
   }        
 }        
-
-
+  
+  
 //========================================================================================================
 
 function rhswp_admin_display_wpquery_in_context() {
