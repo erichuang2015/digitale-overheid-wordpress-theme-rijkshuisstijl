@@ -41,23 +41,32 @@ function wbvb_newsletter_createlink( $title = '',  $newsletter ) {
 function wbvb_newsletter_list_newsletters() {
   
   global $email_newsletter, $email_builder;
-  $newsletters  = $email_newsletter->get_newsletters();
 
-  if ( $newsletters ) {
-    
-    krsort( $newsletters );
-    
-    echo '<ul>';
-    foreach ( $newsletters as $newsletter ) {
+// php7 try / catch error
 
-      if ( $newsletter['subject'] ) {
-        echo '<li>'  . wbvb_newsletter_createlink( $newsletter['subject'], $newsletter ) . ' (' . date_i18n( get_option( 'date_format' ), $newsletter['create_date'] ) . ')</li>';
+  if ( function_exists( $email_newsletter->get_newsletters() ) ) {
+    
+    $newsletters  = $email_newsletter->get_newsletters();
+  
+    if ( $newsletters ) {
+      
+      krsort( $newsletters );
+      
+      echo '<ul>';
+      foreach ( $newsletters as $newsletter ) {
+  
+        if ( $newsletter['subject'] ) {
+          echo '<li>'  . wbvb_newsletter_createlink( $newsletter['subject'], $newsletter ) . ' (' . date_i18n( get_option( 'date_format' ), $newsletter['create_date'] ) . ')</li>';
+        }
+        else {
+          echo '<li>'  . wbvb_newsletter_createlink( __('Geen titel bekend', 'wp-rijkshuisstijl' ), $newsletter ) . ' (' . date_i18n( get_option( 'date_format' ), $newsletter['create_date'] ) . ')</li>';
+        }
       }
-      else {
-        echo '<li>'  . wbvb_newsletter_createlink( __('Geen titel bekend', 'wp-rijkshuisstijl' ), $newsletter ) . ' (' . date_i18n( get_option( 'date_format' ), $newsletter['create_date'] ) . ')</li>';
-      }
+      echo '</ul>';
     }
-    echo '</ul>';
+  }
+  else {
+    echo '<p>' . __( 'Het systeem kan geen nieuwsbrieven vinden voor deze pagina.', 'wp-rijkshuisstijl' ) . '</p>';
   }
 }
 

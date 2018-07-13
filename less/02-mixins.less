@@ -7,8 +7,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.11.4
-// * @desc.   CSS bug: icon for external link.
+// * @version 1.1.15
+// * @desc.   CSS bugfixes (blockquote sizes, oude manier van details/summary invoegen hersteld).
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 // **
 
@@ -68,11 +68,12 @@
 
 @bodyfont: 				     'Rijksoverheid Sans regular', Helvetica, Arial, sans-serif;
 @fontstrong:			     'Rijksoverheid Sans bold', Helvetica, Arial, sans-serif;
+@fontitalic:			     'Rijksoverheid Sans italic', Helvetica, Arial, sans-serif;
 @headerfont: 				   'Rijksoverheid Sans bold', Helvetica, Arial, sans-serif;
 
 
 @fontsize_title_h1:     ( 2.6 * @basefontsize ); // zou moeten uitkomen op etwa 32px
-@fontsize_title_h2:     ( 2.3 *   @basefontsize );
+@fontsize_title_h2:     ( 2.3 * @basefontsize );
 @fontsize_title_h3:     ( 1.9 * @basefontsize );
 @fontsize_title_h4:     ( 1.7 * @basefontsize );
 @fontsize_title_h5:     ( 1.3 * @basefontsize );
@@ -312,6 +313,17 @@
 
 //=========================================================================================================
 
+.arrow_up_and_down(@src, @fill-new) {
+    @data-uri:          data-uri('image/svg+xml;charset=UTF-8', "@{src}");
+    @replace-default:   escape('fill="#fff"');
+    @replace-new:       escape('fill="@{fill-new}"');
+    @replacesrc1:       replace("@{data-uri}", @replace-default, @replace-new, "g");
+
+    background-image: e(@replacesrc1);
+}
+
+//=========================================================================================================
+
 .iconaddfill(@src, @fill-new) {
     @data-uri:          data-uri('image/svg+xml;charset=UTF-8', "@{src}");
     @replace-default:   escape('fill="#000000"');
@@ -414,6 +426,7 @@
     content: ' ';
     display: inline-block;
     .iconaddfill('../images/icon-externe-link.svg', @blauw3);
+    speak: none;
     background-repeat: no-repeat;
     width: 20px;
     height: 20px;
@@ -421,6 +434,148 @@
     float: right;
   }
   
+}
+
+//=========================================================================================================
+
+.digibeter_colors( @classname: 'bado_oker', @achtergrondkleur: @digibeter_oker, @tekstkleur: @txt, @alttext: @txt, @softcolor: @grijs_2 ) {
+
+  .page.digibeter {
+
+    .site-inner {
+      &,
+      article,
+      .content {
+        margin-top: 0;
+        padding-top: 0;
+      }
+    }
+  }
+  
+  .digibeter {
+    
+    &.@{classname} {
+      .streamer {
+        border-color: @achtergrondkleur;
+        &, & a {
+          color: @alttext;    
+        }
+      }
+
+      details {
+    
+        border-color: @achtergrondkleur;
+        background-color: @softcolor;
+    
+        summary {
+  
+          .arrow_up_and_down('../images/svg/icon-arrow-fat-down-replace.svg', @tekstkleur );
+
+          background-repeat: no-repeat;
+          background-position: 98% center;
+          background-color: @achtergrondkleur;
+          color: @tekstkleur;    
+          padding-left: 0;
+    
+          &, & h2, & h3, & h4, & h5 {
+            color: @tekstkleur;    
+          }
+          
+          &:hover {
+
+            .arrow_up_and_down('../images/svg/icon-arrow-fat-down-replace.svg', @txt);
+            background-color: @wit;
+
+            &, & h2, & h3, & h4, & h5 {
+              color: @txt;
+            }
+            
+          }
+          
+        }
+        
+        &[open] {
+          summary {
+
+            .arrow_up_and_down('../images/svg/icon-arrow-fat-up-replace.svg', @tekstkleur );
+
+            &:hover {
+              .arrow_up_and_down('../images/svg/icon-arrow-fat-up-replace.svg', @txt);
+              background-color: @wit;
+              
+              &, & h2, & h3, & h4, & h5 {
+                color: @txt;
+              }
+            }
+          }
+        }
+
+        li:before {
+          .icon_socmed_icon('../images/svg/list-arrow.svg', @txt);
+        }
+      }
+    }
+  }
+  
+}
+
+//=========================================================================================================
+
+.streamerstyle() {
+  .streamer {
+    max-width: 30%;
+    display: inline-block;
+    float: right;
+    padding: 1em 0;
+  	border-top: 1px solid @grijs;
+  	border-bottom: 1px solid @grijs;
+  	margin-top: 4em;
+  	margin-bottom: 4em;
+    float: left;
+    text-align: right;
+    margin-right: 2em;
+    margin-left: 0;
+    
+    &.align-right {
+      margin-right: 0;
+      margin-left: 2em;
+      float: right;
+      text-align: left;
+    }
+    
+    blockquote {
+      border-top-style: none;
+      border-bottom-style: none;
+      font-style: normal;
+      padding: 0;
+      margin: 0;
+    }
+  }
+
+  @media only screen and (min-width: ( @break_fullwidth ) ) {
+    .pullquote-with-image.align-left,
+    .pullquote-with-image.align-right {
+      max-width: 50%;
+    }
+    .pullquote-with-image.align-left {
+      float: left; 
+    }
+    .pullquote-with-image.align-right {
+      float: right; 
+    }
+  }
+  
+}
+
+//=========================================================================================================
+
+.fullwidth_content_with_padding() {
+
+  max-width: 770px; // 770px
+  max-width: ( 770 / 18 ) * 1rem; // 770px
+  margin-left: auto;
+  margin-right: auto;
+
 }
 
 //=========================================================================================================

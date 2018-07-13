@@ -15,10 +15,28 @@ Dit theme wordt gebruikt op [digitaleoverheid.nl](https://www.digitaleoverheid.n
 
 ## Current version:
 
-0.11.19 - Debug verbeterd en print style verbeterd.
+1.1.18 - Merge branch 'master' of https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 
 ## Version history
 
+* 1.1.18 - Merge branch 'master' of https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
+* 1.1.17 - CSS voor citaten in overleg met Isabel nog bijgewerkt.
+* 1.1.16 - Vertalingen bijgewerkt.
+* 1.1.15 - CSS bugfixes (blockquote sizes, oude manier van details/summary invoegen hersteld).
+* 1.1.14 - CSS bugfixes (blockquote font sizes).
+* 1.1.13 - CSS bugfixes (mobile dig. agenda).
+* 1.1.11 - Invoermogelijkheid voor details/summary toegevoegd.
+* 1.1.10 - Invoeren pullquotes aangepast: nu 2 soorten (simple & met foto).
+* 1.1.9 - Filter voor titel op landinsgpagina.
+* 1.1.8 - Header-image voor pagina's met RHSWP_CT_DIGIBETER. Styling logo in titel landingspagina.
+* 1.1.7 - Invoeren citaat verbeterd. SVG voor achtergrond in fotostrip digitale agenda.
+* 1.1.6 - Polyfill bijgewerkt: geen extra styling met driehoekjes, dank u wel.
+* 1.1.5 - Achtergrondkleuren toegevoegd voor details. ACF-definitie voor digibeter_content_intro toegevoegd. Polyfill voor details-summary tags toegevoegd.
+* 1.1.4 - SVG-upload mogelijk gemaakt. Shortcode voor interesantere pullquote.
+* 1.1.3 - Hero-image obv. featured image. Pagina-template voor Digibeter landingspagina.
+* 1.1.2 - Bugfixes in JS en kleine CSS-wijzigingen t.b.v. BADO.
+* 1.1.0 - Versie 1.1 ter gelegenheid van BADO (zie 1.1.3)
+* 1.0.0 - 25 juni 2018: toch maar eens besloten het ding versie 1 te geven.
 * 0.11.19 - Debug verbeterd en print style verbeterd.
 * 0.11.18 - Pagina met full-width toegevoegd. 
 * 0.11.17 - Tabel-stijl voor Regie Op Gegevens-programmatabel.

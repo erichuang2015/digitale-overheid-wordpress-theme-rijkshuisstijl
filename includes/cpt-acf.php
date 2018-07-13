@@ -10,8 +10,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.11.16
-// * @desc.   Extra stijl toegevoegd aan DO-bannerwidget: alleen plaatje, geen tekst.
+// * @version 1.1.18
+// * @desc.   Merge branch 'master' of https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 
 
@@ -22,6 +22,7 @@
 add_action( 'init', 'rhswp_register_my_taxes' );
 
 function rhswp_register_my_taxes() {
+
 	$labels = array(
 		"name" => __( 'Dossiers', 'wp-rijkshuisstijl' ),
 		"singular_name" => __( 'Dossier', 'wp-rijkshuisstijl' ),
@@ -71,6 +72,50 @@ function rhswp_register_my_taxes() {
      remove_meta_box( RHSWP_CT_DOSSIER . 'div', array( 'page' ), 'normal');
   }
   
+
+	$labels = array(
+		"name" => __( 'Onderdelen NL Digibeter', 'wp-rijkshuisstijl' ),
+		"singular_name" => __( 'Onderdeel NL Digibeter', 'wp-rijkshuisstijl' ),
+		);
+
+	$labels = array(
+		"name"                  => __( 'Digibeter-kleuren', 'wp-rijkshuisstijl' ),
+		"singular_name"         => __( 'Digibeter-kleur', 'wp-rijkshuisstijl' ),
+		"menu_name"             => __( 'Digibeter-kleuren', 'wp-rijkshuisstijl' ),
+		"all_items"             => __( 'Alle kleuren', 'wp-rijkshuisstijl' ),
+		"add_new"               => __( 'Nieuw onderdeel toevoegen', 'wp-rijkshuisstijl' ),
+		"add_new_item"          => __( 'Voeg nieuw onderdeel toe', 'wp-rijkshuisstijl' ),
+		"edit_item"             => __( 'Bewerk onderdeel', 'wp-rijkshuisstijl' ),
+		"new_item"              => __( 'Nieuw onderdeel', 'wp-rijkshuisstijl' ),
+		"view_item"             => __( 'Bekijk onderdeel', 'wp-rijkshuisstijl' ),
+		"search_items"          => __( 'Zoek onderdeel', 'wp-rijkshuisstijl' ),
+		"not_found"             => __( 'Geen onderdelen gevonden', 'wp-rijkshuisstijl' ),
+		"not_found_in_trash"    => __( 'Geen onderdelen gevonden in de prullenbak', 'wp-rijkshuisstijl' ),
+		"featured_image"        => __( 'Uitgelichte afbeelding', 'wp-rijkshuisstijl' ),
+		"archives"              => __( 'Overzichten', 'wp-rijkshuisstijl' ),
+		"uploaded_to_this_item" => __( 'Bijbehorende bestanden', 'wp-rijkshuisstijl' ),
+		);
+
+
+
+	$args = array(
+		"label"               => __( 'Onderdelen NL Digibeter', 'wp-rijkshuisstijl' ),
+		"labels"              => $labels,
+		"public"              => true,
+		"hierarchical"        => true,
+		"label"               => __( 'Onderdelen NL Digibeter', 'wp-rijkshuisstijl' ),
+		"show_ui"             => true,
+		"show_in_menu"        => true,
+		"show_in_nav_menus"   => true,
+		"query_var"           => true,
+		"rewrite"             => array( 'slug' => RHSWP_CT_DIGIBETER, 'with_front' => true, ),
+		"show_admin_column"   => false,
+		"show_in_rest"        => false,
+		"rest_base"           => "",
+		"show_in_quick_edit"  => false,
+	);
+	register_taxonomy( RHSWP_CT_DIGIBETER, array( "page" ), $args );
+
 
 }
 
@@ -1973,7 +2018,109 @@ if( function_exists('acf_add_local_field_group') ):
   	'active' => 1,
   	'description' => '',
   ));
-    
+
+  //======================================================================================================
+  
+  acf_add_local_field_group(array(
+  	'key' => 'group_5b30e4089957f',
+  	'title' => 'Kleuren voor NL Digibeter',
+  	'fields' => array(
+  		array(
+  			'key' => 'field_5b30e4db4e762',
+  			'label' => 'Achtergrondkleur',
+  			'name' => 'digibeter_term_achtergrondkleur',
+  			'type' => 'select',
+  			'instructions' => '<img src="' . RHSWP_THEMEFOLDER . '/images/digibeter-kleuren.png" alt="">',
+  			'required' => 1,
+  			'conditional_logic' => 0,
+  			'wrapper' => array(
+  				'width' => '',
+  				'class' => '',
+  				'id' => '',
+  			),
+  			'choices' => array(
+  				'digibeter-oker' => 'oker',
+  				'digibeter-oranje' => 'oranje',
+  				'digibeter-blauw' => 'blauw',
+  				'digibeter-groen' => 'groen',
+  				'digibeter-violet' => 'violet',
+  				'digibeter-paars' => 'paars',
+  			),
+  			'default_value' => array(
+  			),
+  			'allow_null' => 0,
+  			'multiple' => 0,
+  			'ui' => 0,
+  			'ajax' => 0,
+  			'return_format' => 'value',
+  			'placeholder' => '',
+  		),
+  	),
+  	'location' => array(
+  		array(
+  			array(
+  				'param' => 'taxonomy',
+  				'operator' => '==',
+  				'value' => RHSWP_CT_DIGIBETER,
+  			),
+  		),
+  	),
+  	'menu_order' => 0,
+  	'position' => 'normal',
+  	'style' => 'default',
+  	'label_placement' => 'top',
+  	'instruction_placement' => 'label',
+  	'hide_on_screen' => '',
+  	'active' => 1,
+  	'description' => '',
+  ));
+  
+  //======================================================================================================
+
+  acf_add_local_field_group(array(
+  	'key' => 'group_5b3a69b639877',
+  	'title' => 'NL Digibeter landingspagina',
+  	'fields' => array(
+  		array(
+  			'key' => 'field_5b3a69dc16a11',
+  			'label' => 'Inleiding',
+  			'name' => 'digibeter_content_intro',
+  			'type' => 'wysiwyg',
+  			'instructions' => '',
+  			'required' => 0,
+  			'conditional_logic' => 0,
+  			'wrapper' => array(
+  				'width' => '',
+  				'class' => '',
+  				'id' => '',
+  			),
+  			'default_value' => '',
+  			'tabs' => 'all',
+  			'toolbar' => 'full',
+  			'media_upload' => 1,
+  			'delay' => 0,
+  		),
+  	),
+  	'location' => array(
+  		array(
+  			array(
+  				'param' => 'page_template',
+  				'operator' => '==',
+  				'value' => 'page_digibeter-home.php',
+  			),
+  		),
+  	),
+  	'menu_order' => 0,
+  	'position' => 'acf_after_title',
+  	'style' => 'default',
+  	'label_placement' => 'top',
+  	'instruction_placement' => 'label',
+  	'hide_on_screen' => '',
+  	'active' => 1,
+  	'description' => '',
+  ));
+  
+  //======================================================================================================
 
 endif;
 
