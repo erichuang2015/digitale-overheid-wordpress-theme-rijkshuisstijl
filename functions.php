@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 1.1.20
-// * @desc.   Allow banner widget to display larger sized images.
+// * @version 1.1.21
+// * @desc.   Widget list item: add listimage before link for widget_custom_html widgets.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "https://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "1.1.20" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Allow banner widget to display larger sized images." );
+define( 'CHILD_THEME_VERSION',              "1.1.21" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Widget list item: add listimage before link for widget_custom_html widgets." );
 define( 'SHOW_CSS_DEBUG',                   false );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
