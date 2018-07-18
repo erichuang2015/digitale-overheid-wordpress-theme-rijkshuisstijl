@@ -9,8 +9,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.11.16
-// * @desc.   Extra stijl toegevoegd aan DO-bannerwidget: alleen plaatje, geen tekst.
+// * @version 1.1.20
+// * @desc.   Allow banner widget to display larger sized images.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
@@ -139,10 +139,18 @@ function filter_for_rhswp_banner_widget( $params ) {
   // plaatje toevoegen, if any
   if( $rhswp_widget_bannerimage ) {
 
+
     $rhswp_widget_bannerimage_alignment = empty( get_field( 'rhswp_widget_image_alignment', 'widget_' . $widget_id) ) ? 'top' : get_field( 'rhswp_widget_image_alignment', 'widget_' . $widget_id);
 
     if ( $rhswp_widget_bannerimage_alignment == 'top' || $rhswp_widget_class == 'text-over-plaatje' ) {
-      $imagesize = 'widget-image-top';
+
+      if ( $rhswp_widget_bannerimage['sizes']['large-width'] > 700 ) {
+        $imagesize = 'large';
+      }
+      else {
+        $imagesize = 'widget-image-top';
+      }
+
     }
 
     $params[0]['before_widget'] .= sprintf('<img src="%s" alt="' . $rhswp_widget_bannerimage['alt'] . '" class="align' . $rhswp_widget_bannerimage_alignment . '" width="%s" height="%s" />',

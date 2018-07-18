@@ -14,10 +14,11 @@ Dit theme wordt gebruikt op [digitaleoverheid.nl](https://www.digitaleoverheid.n
 * single_XXX.php hernoemen naar single.php
 
 ## Current version:
-1.1.19 - Bugix: hero image wrongly displayed on a taxonomy page.
+1.1.20 - Allow banner widget to display larger sized images.
 
 ## Version history
 
+* 1.1.20 - Allow banner widget to display larger sized images.
 * 1.1.19 - Bugix: hero image wrongly displayed on a taxonomy page.
 * 1.1.18 - Merge branch 'master' of https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 * 1.1.17 - CSS voor citaten in overleg met Isabel nog bijgewerkt.
