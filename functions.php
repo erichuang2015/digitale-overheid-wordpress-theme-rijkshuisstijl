@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 1.1.18
-// * @desc.   Merge branch 'master' of https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
+// * @version 1.1.19
+// * @desc.   Bugix: hero image wrongly displayed on a taxonomy page.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "https://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "1.1.18" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Merge branch 'master' of https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl" );
+define( 'CHILD_THEME_VERSION',              "1.1.19" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Bugix: hero image wrongly displayed on a taxonomy page." );
 define( 'SHOW_CSS_DEBUG',                   false );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
@@ -2788,7 +2788,8 @@ function rhswp_check_caroussel_or_featured_img() {
         
       }
     }
-    else {
+    elseif ( is_singular() ) {
+      
   
       $postid = get_the_id();
   
@@ -2800,6 +2801,7 @@ function rhswp_check_caroussel_or_featured_img() {
         $image = wp_get_attachment_image_src( get_post_thumbnail_id( $getid ), $breakpoint['img_size_archive_list'] );
         if ( RHSWP_MIN_HERO_IMAGE_WIDTH <= $image[1] ) {
           // plaatje is van zichzelf breed genoeg
+          dodebug( 'singular: ' . $postid );
           echo '<div class="hero-image wrap">' . get_the_post_thumbnail( $postid, 'full' ) . '</div>';
         }
         else {
