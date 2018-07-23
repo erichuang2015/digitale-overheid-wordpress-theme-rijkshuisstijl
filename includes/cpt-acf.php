@@ -10,8 +10,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 1.1.18
-// * @desc.   Merge branch 'master' of https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
+// * @version 1.1.22
+// * @desc.   Voor pagina's: hero image toegevoegd.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 
 
@@ -1062,27 +1062,27 @@ if( function_exists('acf_add_local_field_group') ):
   
 
   //====================================================================================================
-  // Wel of niet tonen caroussel?
-    acf_add_local_field_group(array (
+    acf_add_local_field_group(array(
     	'key' => 'group_5804cc93cdcc6',
-    	'title' => 'Carrousel',
-    	'fields' => array (
-    		array (
+    	'title' => 'Carrousel of header-image',
+    	'fields' => array(
+    		array(
     			'key' => 'field_5804ccac137a5',
-    			'label'   => __( 'Wil je hier een carrousel tonen?', 'wp-rijkshuisstijl' ),
+    			'label' => 'Wil je hier een header-image of carrousel tonen?',
     			'name' => 'carrousel_tonen_op_deze_pagina',
     			'type' => 'radio',
     			'instructions' => '',
     			'required' => 1,
     			'conditional_logic' => 0,
-    			'wrapper' => array (
+    			'wrapper' => array(
     				'width' => '',
     				'class' => '',
     				'id' => '',
     			),
-    			'choices' => array (
-    				'ja' => 'ja',
-    				'nee' => 'nee',
+    			'choices' => array(
+    				'ja' => 'Ja, toon een carrousel',
+    				'show_header_image' => 'Ja, toon een afbeelding (evt met tekst)',
+    				'nee' => 'Nee',
     			),
     			'allow_null' => 0,
     			'other_choice' => 0,
@@ -1091,49 +1091,115 @@ if( function_exists('acf_add_local_field_group') ):
     			'layout' => 'horizontal',
     			'return_format' => 'value',
     		),
-    		array (
+    		array(
     			'key' => 'field_5804cd037c566',
-    			'label'   => __( 'Welke carrousel wil je tonen?', 'wp-rijkshuisstijl' ),
+    			'label' => 'Kies carrousel',
     			'name' => 'kies_carrousel',
     			'type' => 'post_object',
     			'instructions' => '',
-    			'required' => 0,
-    			'conditional_logic' => array (
-    				array (
-    					array (
+    			'required' => 1,
+    			'conditional_logic' => array(
+    				array(
+    					array(
     						'field' => 'field_5804ccac137a5',
     						'operator' => '==',
     						'value' => 'ja',
     					),
     				),
     			),
-    			'wrapper' => array (
+    			'wrapper' => array(
     				'width' => '',
     				'class' => '',
     				'id' => '',
     			),
-    			'post_type' => array (
-    				0 => RHSWP_CPT_SLIDER,
+    			'post_type' => array(
+    				0 => 'carrousel',
     			),
-    			'taxonomy' => array (
+    			'taxonomy' => array(
     			),
     			'allow_null' => 0,
     			'multiple' => 0,
     			'return_format' => 'object',
     			'ui' => 1,
     		),
+    		array(
+    			'key' => 'field_5b55f5085efb5',
+    			'label' => 'Kies header-image',
+    			'name' => 'kies_header_image',
+    			'type' => 'image',
+    			'instructions' => 'De afbeelding moet minimaal ' . RHSWP_MIN_HERO_IMAGE_WIDTH . ' pixels breed en 300 pixels hoog zijn.',
+    			'required' => 1,
+    			'conditional_logic' => array(
+    				array(
+    					array(
+    						'field' => 'field_5804ccac137a5',
+    						'operator' => '==',
+    						'value' => 'show_header_image',
+    					),
+    				),
+    			),
+    			'wrapper' => array(
+    				'width' => '',
+    				'class' => '',
+    				'id' => '',
+    			),
+    			'return_format' => 'array',
+    			'preview_size' => 'thumbnail',
+    			'library' => 'all',
+    			'min_width' => RHSWP_MIN_HERO_IMAGE_WIDTH,
+    			'min_height' => '',
+    			'min_size' => '',
+    			'max_width' => '',
+    			'max_height' => '',
+    			'max_size' => '',
+    			'mime_types' => '',
+    		),
+    		array(
+    			'key' => 'field_5b560fba61073',
+    			'label' => 'Tekst over afbeelding',
+    			'name' => 'kies_header_image_tekst',
+    			'type' => 'wysiwyg',
+    			'instructions' => '',
+    			'required' => 0,
+    			'conditional_logic' => array(
+    				array(
+    					array(
+    						'field' => 'field_5804ccac137a5',
+    						'operator' => '==',
+    						'value' => 'show_header_image',
+    					),
+    				),
+    			),
+    			'wrapper' => array(
+    				'width' => '',
+    				'class' => '',
+    				'id' => '',
+    			),
+    			'default_value' => '',
+    			'tabs' => 'all',
+    			'toolbar' => 'basic',
+    			'media_upload' => 0,
+    			'delay' => 1,
+    		),
     	),
-    	'location' => array (
-    		array (
-    			array (
+    	'location' => array(
+    		array(
+    			array(
     				'param' => 'post_type',
     				'operator' => '==',
     				'value' => 'page',
     			),
     		),
+    		array(
+    			array(
+    				'param' => 'taxonomy',
+    				'operator' => '==',
+    				'value' => 'dossiers',
+    			),
+    		),
     	),
     	'menu_order' => 0,
-    	'position' => 'normal',
+    	'position' => 'acf_after_title',
     	'style' => 'default',
     	'label_placement' => 'top',
     	'instruction_placement' => 'label',
@@ -1141,7 +1207,7 @@ if( function_exists('acf_add_local_field_group') ):
     	'active' => 1,
     	'description' => '',
     ));
-    
+
 
   //====================================================================================================
   // contentblocks onderaan een pagina.

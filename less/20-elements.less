@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 1.1.21
-// * @desc.   Widget list item: add listimage before link for widget_custom_html widgets.
+// * @version 1.1.22
+// * @desc.   Voor pagina's: hero image toegevoegd.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 // **
 
@@ -542,5 +542,26 @@
 
   .element_slider();
 
+  // ====
+  .hero-image {
+    position: relative;
+    min-height: 300px;
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    
+    .hero-image-tekst {
+      position: absolute;
+      bottom: 1em;
+      left: 1em;
+      max-width: 40%;
+      background: @wit;
+      padding: .5em 1em;      
+
+       p {
+        margin-bottom: 0;
+      }
+    }
+  }
   
 }

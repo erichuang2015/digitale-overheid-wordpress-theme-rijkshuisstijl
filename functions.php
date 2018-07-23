@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 1.1.21
-// * @desc.   Widget list item: add listimage before link for widget_custom_html widgets.
+// * @version 1.1.22
+// * @desc.   Voor pagina's: hero image toegevoegd.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
@@ -51,7 +51,7 @@ define( 'SOC_MED_YES',                      'socmed_ja' );
 $siteURL      =  get_stylesheet_directory_uri();
 $siteURL      =  preg_replace('|https://|i', '//', $siteURL );
 $siteURL      =  preg_replace('|http://|i', '//', $siteURL );
-  define( 'RHSWP_THEMEFOLDER',                 $siteURL );
+define( 'RHSWP_THEMEFOLDER',                 $siteURL );
 
 $sharedfolder = get_stylesheet_directory();
 $sharedfolder = preg_replace('|genesis|i','wp-rijkshuisstijl',$sharedfolder);
@@ -93,6 +93,14 @@ if ( ! defined( 'RHSWP_SIMPLE_PULLQUOTE' ) ) {
 }
 
 
+if ( ! defined( 'RHSWP_HEADER_CARROUSEL_CONFIRM' ) ) {
+  define( 'RHSWP_HEADER_CARROUSEL_CONFIRM',   'ja' ); 
+}
+
+if ( ! defined( 'RHSWP_HEADER_IMAGE_CONFIRM' ) ) {
+  define( 'RHSWP_HEADER_IMAGE_CONFIRM',       'show_header_image' ); 
+}
+
 
 
 
@@ -123,8 +131,10 @@ define( 'RHSWP_FOOTERWIDGET2',              'footer-2' );
 define( 'RHSWP_FOOTERWIDGET3',              'footer-3' );
 
 
-define( 'RHSWP_MIN_HERO_IMAGE_WIDTH',       1200 );
+define( 'RHSWP_MIN_HERO_IMAGE_WIDTH',       1500 );
+define( 'RHSWP_MIN_HERO_IMAGE_HEIGHT',      400 );
 define( 'RHSWP_HERO_IMAGE_WIDTH_NAME',      'Carrousel (full width: ' . RHSWP_MIN_HERO_IMAGE_WIDTH . ' wide)' );
+define( 'RHSWP_HERO_IMAGE2_WIDTH_NAME',     RHSWP_MIN_HERO_IMAGE_WIDTH . 'w' );
 
 
 
@@ -132,7 +142,8 @@ define( 'RHSWP_HERO_IMAGE_WIDTH_NAME',      'Carrousel (full width: ' . RHSWP_MI
 //========================================================================================================
 
 add_image_size( 'Carrousel (preview: 400px wide)', 400, 200, false );
-add_image_size( RHSWP_HERO_IMAGE_WIDTH_NAME, RHSWP_MIN_HERO_IMAGE_WIDTH, 400, false );
+add_image_size( RHSWP_HERO_IMAGE_WIDTH_NAME, RHSWP_MIN_HERO_IMAGE_WIDTH, RHSWP_MIN_HERO_IMAGE_HEIGHT, false );
+add_image_size( RHSWP_MIN_HERO_IMAGE_WIDTH . 'w', RHSWP_MIN_HERO_IMAGE_WIDTH, 9999, false );
 add_image_size( 'featured-post-widget', 400, 250, false );
 add_image_size( 'grid-half', 350, 350, true );
 add_image_size( 'article-visual', 400, 400, true );
@@ -2645,9 +2656,7 @@ function rhswp_check_caroussel_or_featured_img() {
     
   }
   else {
-    
-    
-    
+
     $carousselcheck = '';
   
     if ( is_page() ) {
@@ -2659,8 +2668,33 @@ function rhswp_check_caroussel_or_featured_img() {
       $carousselcheck = get_field( 'carrousel_tonen_op_deze_pagina', $theid );
       $currentterm    = get_queried_object()->term_id;
     }
-  
-    if ( 'ja' == $carousselcheck ) {
+
+    if ( RHSWP_HEADER_IMAGE_CONFIRM == $carousselcheck ) {
+      $headerimage      = get_field( 'kies_header_image', $theid );
+      $image_tekst      = get_field( 'kies_header_image_tekst', $theid );
+
+      if ( $headerimage ) {
+
+        $thumb      = $headerimage['sizes'][ RHSWP_HERO_IMAGE2_WIDTH_NAME ];
+        $width      = $headerimage['sizes'][ RHSWP_HERO_IMAGE2_WIDTH_NAME . '-width' ];
+        $height     = $headerimage['sizes'][ RHSWP_HERO_IMAGE2_WIDTH_NAME . '-height' ];
+
+        if ( RHSWP_MIN_HERO_IMAGE_WIDTH <= $width ) {
+          echo '<div class="hero-image" id="hero_' . $theid . '">';
+          if ( $image_tekst ) {
+            echo '<div class="hero-image-tekst">';
+            echo $image_tekst;
+            echo '</div>';
+          }
+          else {
+            echo '&nbsp;';
+          }
+          echo '</div>';
+        }
+        
+      }
+    }
+    elseif ( RHSWP_HEADER_CARROUSEL_CONFIRM == $carousselcheck ) {
       
       $getcarousel      = get_field( 'kies_carrousel', $theid );
       $carouselid       = 0;
@@ -3299,6 +3333,36 @@ function rhswp_add_blog_archive_css() {
   $countertje   = 0;
 
   if ( have_posts() ) : 
+  
+
+    if ( is_page() ) {
+      $theid          = get_the_ID();
+      $carousselcheck = get_field( 'carrousel_tonen_op_deze_pagina', $theid );
+    }
+    elseif ( is_tax( RHSWP_CT_DOSSIER ) ) {
+      $theid          = RHSWP_CT_DOSSIER . '_' . get_queried_object()->term_id;
+      $carousselcheck = get_field( 'carrousel_tonen_op_deze_pagina', $theid );
+      $currentterm    = get_queried_object()->term_id;
+    }
+  
+    if ( RHSWP_HEADER_IMAGE_CONFIRM == $carousselcheck ) {
+      $headerimage      = get_field( 'kies_header_image', $theid );
+
+      if ( $headerimage ) {
+
+        $thumb      = $headerimage['sizes'][ RHSWP_HERO_IMAGE2_WIDTH_NAME ];
+        $width      = $headerimage['sizes'][ RHSWP_HERO_IMAGE2_WIDTH_NAME . '-width' ];
+        $height     = $headerimage['sizes'][ RHSWP_HERO_IMAGE2_WIDTH_NAME . '-height' ];
+
+        if ( RHSWP_MIN_HERO_IMAGE_WIDTH <= $width ) {
+          $blogberichten_css .= '#hero_' . $theid . " { ";
+          $blogberichten_css .= "background-image: url('" . $thumb . "'); ";
+          $blogberichten_css .= "} ";
+        }
+      }
+    }
+
+
   
   
     while ( have_posts() ) : the_post();
