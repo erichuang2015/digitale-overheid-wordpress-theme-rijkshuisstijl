@@ -15,10 +15,11 @@ Dit theme wordt gebruikt op [digitaleoverheid.nl](https://www.digitaleoverheid.n
 
 ## Current version:
 
-0.12.1 - Decorative images for dossiers.
+0.12.2 - Extra optie toegevoegd.
 
 ## Version history
 
+* 0.12.2 - Extra optie toegevoegd.
 * 0.12.1 - Decorative images for dossiers.
 * 0.11.19 - Debug verbeterd en print style verbeterd.
 * 0.11.18 - Pagina met full-width toegevoegd. 

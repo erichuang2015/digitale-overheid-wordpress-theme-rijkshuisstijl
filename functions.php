@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.12.1
-// * @desc.   Decorative images for dossiers.
+// * @version 0.12.2
+// * @desc.   Extra optie toegevoegd.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "https://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "0.12.1" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Decorative images for dossiers." );
+define( 'CHILD_THEME_VERSION',              "0.12.2" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Extra optie toegevoegd." );
 define( 'SHOW_CSS_DEBUG',                   false );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
@@ -653,16 +653,16 @@ function rhswp_add_taxonomy_description() {
           $image      = wp_get_attachment_image( $image_id['ID'], $image_size );
           $shortcode  = '[caption align="alignright" id="attachment_' . $image_id['ID'] . '"]' . $image . $caption . '[/caption]';
           if ( $caption ) {
+            // add a caption to the image
             $plaatje    = '<div class="wp-caption alignright">' .  $image . '<p class="wp-caption-text">' . $caption . '</p></div>';
           }
           else {
+            // no caption, just the image
             $plaatje    = $image;
           }
         }
-        
       }
-      
-      
+
     }
     else {
       if ( $term->name ) {
