@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 1.1.22
-// * @desc.   Voor pagina's: hero image toegevoegd.
+// * @version 1.1.23
+// * @desc.   Added a hero-image to pages.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 // **
 
@@ -544,24 +544,64 @@
 
   // ====
   .hero-image {
-    position: relative;
-    min-height: 300px;
+    max-width: 2000px;
+    margin-left: auto;
+    margin-right: auto;
     background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;
-    
-    .hero-image-tekst {
-      position: absolute;
-      bottom: 1em;
-      left: 1em;
-      max-width: 40%;
-      background: @wit;
-      padding: .5em 1em;      
+    overflow: visible;
+    border-bottom: 1px solid @wit;
 
-       p {
+    .hero-image-tekst {
+      overflow: visible;
+      background: @wit;
+      padding: .25em .5em;      
+      font-size: 95%;
+      overflow: visible;
+      margin: 1em;
+
+      p,
+      ol,
+      ul {
         margin-bottom: 0;
       }
+      ol,
+      ul {
+        li {
+          list-style: none;
+          margin-left: 0;
+          margin-bottom: 0;
+          padding-left: 0;
+        }
+        a {
+        	padding-left: 1.2em;
+        	.listitem_arrow( @a_color_default, .7em, 7px );
+        	display: block;
+        }        
+      }
+
+      @media only screen and (min-width: ( @break_fullwidth ) ) {
+        max-width: ( 100% / 3 );
+      }
+      
     }
+
+    @media only screen and (max-width: ( @break_fullwidth ) ) {
+      padding-top: @slider_li_minheight;
+    }
+    
+    @media only screen and (min-width: ( @break_fullwidth ) ) {
+
+      min-height: @slider_li_minheight;
+      padding: 1em;
+      
+      .wrapper {
+      	max-width: @break_fullwidth;
+        margin-left: auto;        
+        margin-right: auto;        
+      }
+    }
+    
   }
-  
 }

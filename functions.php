@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 1.1.22
-// * @desc.   Voor pagina's: hero image toegevoegd.
+// * @version 1.1.23
+// * @desc.   Added a hero-image to pages.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "https://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "1.1.21" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Widget list item: add listimage before link for widget_custom_html widgets." );
+define( 'CHILD_THEME_VERSION',              "1.1.23" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Added a hero-image to pages." );
 define( 'SHOW_CSS_DEBUG',                   false );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
@@ -2682,8 +2682,10 @@ function rhswp_check_caroussel_or_featured_img() {
         if ( RHSWP_MIN_HERO_IMAGE_WIDTH <= $width ) {
           echo '<div class="hero-image" id="hero_' . $theid . '">';
           if ( $image_tekst ) {
+            echo '<div class="wrapper">';
             echo '<div class="hero-image-tekst">';
             echo $image_tekst;
+            echo '</div>';
             echo '</div>';
           }
           else {
