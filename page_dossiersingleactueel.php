@@ -9,8 +9,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.11.14
-// * @desc.   Dossier-nieuwspagina: id voor contentblocks.
+// * @version 1.1.25
+// * @desc.   Bug in post list on dossier page.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 // */
 
@@ -172,24 +172,12 @@ function rhswp_get_page_dossiersingleactueel() {
           $theurl         = get_the_permalink();
         }
 
-        $title = rhswp_filter_alternative_title( get_the_id(), get_the_title( ) );
-    		
-        ?>
+        $title      = rhswp_filter_alternative_title( get_the_id(), get_the_title( ) );
+        $excerpt    = get_the_excerpt();
+        $postdate   = get_the_date( );
 
-        <section>
-          <h2><a href="<?php echo $theurl ?>"><?php echo $title; ?></a></h2>
-          <?php 
-            the_excerpt();
-            
-              if ( WP_DEBUG && SHOW_CSS_DEBUG ) {
-                dodebug('Check category & dossier:');
-                the_category( ', ' ); 
-                dodebug(get_the_term_list( $post->ID, RHSWP_CT_DOSSIER, 'Dossiers: ', ', ' ) );  
-              }
-          ?>            
-        </section>
+        printf( '<section><a href="%s"><h2>%s</h2><p>%s</p><p class="meta">%s</p></a></section>', $theurl, $title, wp_strip_all_tags( $excerpt ), $postdate );
 
-      <?php
       }      
 
     }
