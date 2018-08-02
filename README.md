@@ -14,9 +14,10 @@ Dit theme wordt gebruikt op [digitaleoverheid.nl](https://www.digitaleoverheid.n
 * single_XXX.php hernoemen naar single.php
 
 ## Current version:
-1.1.23 - Added a hero-image to pages.
+1.1.24 - Bug in searchresult list.
 
 ## Version history
+* 1.1.24 - Bug in searchresult list.
 * 1.1.23 - Added a hero-image to pages.
 * 1.1.21 - Widget list item: add listimage before link for widget_custom_html widgets.
 * 1.1.20 - Allow banner widget to display larger sized images.

@@ -2,16 +2,16 @@
 
 
 /**
- * Rijkshuisstijl (Digitale Overheid) - page_search.php
- * ----------------------------------------------------------------------------------
- * Zoekresultaatpagina
- * ----------------------------------------------------------------------------------
- * @author  Paul van Buuren
- * @license GPL-2.0+
- * @package wp-rijkshuisstijl
- * @version 0.8.33
- * @desc.   Search results for releasekalender items
- * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
+// Rijkshuisstijl (Digitale Overheid) - page_search.php
+// ----------------------------------------------------------------------------------
+// Zoekresultaatpagina
+// ----------------------------------------------------------------------------------
+// * @author  Paul van Buuren
+// * @license GPL-2.0+
+// * @package wp-rijkshuisstijl
+// * @version 1.1.24
+// * @desc.   Bug in searchresult list.
+// * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
 
@@ -182,7 +182,7 @@ function rhswp_archive_custom_search_with_searchWP() {
           }
 
         endif; 
-
+      	$excerpt  =  wp_strip_all_tags( $excerpt );
         printf( '<article %s>', $classattr );
         printf( '<a href="%s"><h2>%s</h2><p>%s</p><p class="meta">%s</p></a>', $theurl, $thetitle, $excerpt, $documenttype );
         echo '</article>';
