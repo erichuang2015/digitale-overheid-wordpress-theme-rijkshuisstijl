@@ -7,8 +7,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 1.1.25
-// * @desc.   Bug in post list on dossier page.
+// * @version 1.1.26
+// * @desc.   Revised the structure of the homepage.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 // **
 
@@ -677,6 +677,110 @@
     }
   }
       
+
+  //========================================================================================================
+
+      
+  .home,
+  .page-template-front-page {
+    
+    article {
+//      .visuallyhidden();
+    }
+    
+    .site-inner {
+      width: 100%;
+      max-width: none;
+      margin-top: 0;
+      
+      #reactieformulier,
+      .block,
+      article,
+      .wrap {
+      	margin: 0 auto;
+      	max-width: @break_fullwidth;
+      	overflow: visible;
+      }
+      
+      .row {
+        overflow: hidden;
+        padding-bottom: 1em;
+      }
+      
+      .linkblock {
+        display: block;
+        clear: none;
+        width: 33%;
+        float: left;
+        padding-left: .3em;
+        padding-right: .6em;
+        
+        &:first-of-type {
+          padding-left: 0;
+        }
+
+        p {
+          color: @txt;
+          margin: 0;
+        }
+        h3 {
+          color: @donkerblauw_vol;
+        }
+
+        &:hover,
+        &:active,
+        &:focus {
+          text-decoration: none;
+          
+          h3 {
+            text-decoration: underline;
+          }
+        }
+        
+      }
+      
+      .vollebreedte {
+        width: 100%;
+        overflow: hidden;
+        
+        .linkblock {
+          width: 25%;
+          
+          &:last-of-type {
+            padding-right: 0;
+//            background: yellow;
+          }
+        }
+      }
+      
+      .driekwart {
+        width: 75%;
+        overflow: hidden;
+        clear: none;
+        float: left;
+      }
+
+      .home-widget-area {
+        display: block;
+        overflow: hidden;
+        clear: none;
+        float: left;
+        width: 25%;
+        padding-left: .3em;
+        padding-right: 0;
+//        background: yellow;
+      }
+      
+
+      
+    }
+    
+    section.onderwerpen {
+      background-color: @grijs_2;
+      padding: 1em;      
+    }
+  }  
+
   //========================================================================================================
 
 }

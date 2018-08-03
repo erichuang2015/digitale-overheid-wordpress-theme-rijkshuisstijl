@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 1.1.23
-// * @desc.   Added a hero-image to pages.
+// * @version 1.1.26
+// * @desc.   Revised the structure of the homepage.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 // **
 
@@ -58,7 +58,8 @@
 
   .block:not(.no-top) {
     margin-top: 2em;
-    border-top: 3px solid @block_border_color;
+//    border-top: 3px solid @block_border_color;
+    border-top: 1px solid @block_border_color;
   }
 
   
@@ -446,7 +447,38 @@
               max-width: 100%;
             }            
           }
-          
+        }
+      }
+
+      .page-template-front-page {      
+        .block {
+          article {
+            &.has-post-thumbnail {
+              max-width: 33%;
+              flex-basis: 33%;
+
+              .article-container {
+                display: block;
+                width: 100%;
+              }          
+
+              .article-visual,
+              .article-excerpt {
+                width: 100%;
+                float: none;
+              }          
+              
+              .article-visual {
+                img {
+                  position: relative;
+                  transform: none;
+                  top: auto;
+                  left: auto;
+                }
+              }
+
+            }
+          }
         }
       }
     }
@@ -551,7 +583,7 @@
     background-size: cover;
     background-repeat: no-repeat;
     overflow: visible;
-    border-bottom: 1px solid @wit;
+    border-bottom: 1px solid transparent;
 
     .hero-image-tekst {
       overflow: visible;

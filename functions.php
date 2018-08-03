@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 1.1.23
-// * @desc.   Added a hero-image to pages.
+// * @version 1.1.26
+// * @desc.   Revised the structure of the homepage.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "https://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "1.1.23" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Added a hero-image to pages." );
+define( 'CHILD_THEME_VERSION',              "1.1.26" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Revised the structure of the homepage." );
 define( 'SHOW_CSS_DEBUG',                   false );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
@@ -1145,8 +1145,8 @@ class rhswp_custom_walker_for_taxonomies extends Walker_Category {
       }
       
     	$excerpt  =  wp_strip_all_tags( $excerpt );
-    }
 
+    }
 
     $link = '<a href="' . esc_url( get_term_link($category) ) . '" ';
     $link .= '>';
@@ -2141,6 +2141,7 @@ function rhswp_write_extra_contentblokken() {
           $categoriefilter        = $row['extra_contentblok_categoriefilter'];
           $maxnr_posts            = $row['extra_contentblok_maxnr_posts'];
           $with_featured_image    = $row['extra_contentblok_maxnr_posts_with_featured_image'];
+          $limit                  = $row['extra_contentblok_maxnr_events'];
           
           if ( $blockidattribute_prev == $titel ) {
 	          $blockidattribute_name =  $titel . '-' . $thecounter;  
@@ -2193,6 +2194,31 @@ function rhswp_write_extra_contentblokken() {
 
             // RESET THE QUERY
             wp_reset_query();
+            
+          }
+          elseif ( 'events' == $type_block ) {
+
+            echo '<div class="block"' . $blockidattribute . '>';
+
+            if ( $titel ) {
+              echo '<h2>' . $titel . ' (' . $limit . ')</h2>';
+            }
+
+            if (class_exists('EM_Events')) {
+              
+              $eventlist = EM_Events::output( array( 'orderby'=>'name','scope'=>'future', 'limit' => $limit ) );
+
+              if ( $eventlist == get_option ( 'dbem_no_events_message' ) ) {
+                // er zijn dus geen evenementen
+                echo get_option ( 'dbem_no_events_message' );
+              }
+              else {
+//                echo do_shortcode( '[events_list orderby="name" scope="future" limit="' . $limit . '"]#_LOCATIONNAME<br />[/events_list]' );
+                echo $eventlist;
+              }
+            }
+
+            echo '</div>';
             
           }
           elseif ( 'berichten_paginas' == $type_block ) {
