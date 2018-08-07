@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 1.1.27
-// * @desc.   Revised the structure of the homepage.
+// * @version 1.1.28
+// * @desc.   New footer structure and content.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "https://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "1.1.27" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Revised the structure of the homepage." );
+define( 'CHILD_THEME_VERSION',              "1.1.28" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "New footer structure and content." );
 define( 'SHOW_CSS_DEBUG',                   false );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
@@ -273,8 +273,8 @@ require_once( RHSWP_FOLDER . '/includes/widget-paginalinks.php' );
 require_once( RHSWP_FOLDER . '/includes/widget-subpages.php' );
 require_once( RHSWP_FOLDER . '/includes/widget-events.php' );
 
-// Add support for 3-column footer widgets
-add_theme_support( 'genesis-footer-widgets', 3 );
+// Add support for 2-column footer widgets
+add_theme_support( 'genesis-footer-widgets', 2 );
 
 // haal de footer widgets weg uit een aparte ruimte VOOR de footer
 remove_action( 'genesis_before_footer', 'genesis_footer_widget_areas' );
@@ -283,7 +283,6 @@ remove_action( 'genesis_before_footer', 'genesis_footer_widget_areas' );
 remove_action( 'genesis_footer', 'genesis_do_footer' );
 
 // zet de footerwidgets IN de footer
-add_action( 'genesis_before_footer', 'rhswp_add_payoff' );
 //add_action( 'genesis_footer', 'rhswp_footer_widget_area' );
 //add_action( 'genesis_footer', 'genesis_footer_widget_areas' );
 
@@ -401,7 +400,7 @@ remove_action( 'genesis_site_title',        'genesis_seo_site_title' );
 remove_action( 'genesis_site_title',        'genesis_seo_site_title' );
 remove_action( 'genesis_site_description',  'genesis_seo_site_description' );
 
-add_action( 'genesis_after_header', 'rhswp_site_description',                 10 );
+// add_action( 'genesis_after_header', 'rhswp_site_description',                 10 );
 add_action( 'genesis_after_header', 'rhswp_menu_container_start',             12 );
 add_action( 'genesis_after_header', 'genesis_do_nav',                         14 );
 add_action( 'genesis_after_header', 'rhswp_menu_container_end',               16 );
@@ -1540,11 +1539,6 @@ function rhswp_add_id_to_search_form( $form ) {
 }
 
 //========================================================================================================
-
-function rhswp_add_payoff() {
-  echo '<div id="payoff"><div class="wrapper"><span>&nbsp;</span></div></div>';
-  
-}
 
 function rhswp_footer_widget_area() {
   echo '<h3 class="screen-reader-text">' . _x( 'Footer widgets', 'Title of footer widgets', 'wp-rijkshuisstijl' ) . '</h3>';
@@ -3430,9 +3424,7 @@ function rhswp_add_blog_archive_css() {
 
     if ( is_page() || is_tax() ) {
 
-dodebug( 'header CSS' );
-
-      $dossier_in_content_block      = '';
+	      $dossier_in_content_block      = '';
 
       if ( is_page() ) {
         $theid          = get_the_ID();
@@ -3447,43 +3439,37 @@ dodebug( 'header CSS' );
 
      
       if( $contentblokken && ( $contentblokken[0] != '' ) ) {
-
-$thecounter = 0;
-dodebug( 'header CSS: er zijn contentblokken' );
+        
+        $thecounter = 0;
 
         foreach( $contentblokken as $row ) {
 
-  
 					$thecounter++;  
-
-
 
           $chosen_category        = $row['extra_contentblok_chosen_category'];
           $categoriefilter        = $row['extra_contentblok_categoriefilter'];
           $maxnr_posts            = $row['extra_contentblok_maxnr_posts'];
-
           $type_block             = $row['extra_contentblok_type_block'];
           $with_featured_image    = $row['extra_contentblok_maxnr_posts_with_featured_image'];
 
           if ( 'algemeen' == $type_block ) {
-            
+            // niks
           }
           elseif ( 'events' == $type_block ) {
-            
+            // ook niks
           }
           elseif ( 'berichten_paginas' == $type_block ) {
-            
+            // net zo min niks
           }
           elseif ( 'berichten' == $type_block ) {
-              // er moet contentblock getoond worden van het type 'berichten'  
-
-dodebug( 'header CSS: contentblok ' . $thecounter );
+            // er moet contentblock getoond worden van het type 'berichten'  
 
               $overviewurl        = '';
               $overviewlinktext   = '';
               $toonlinksindossiercontext = false;
 
               if ( $dossier_in_content_block ) {
+
                 // we zijn op een dossieroverzicht
 
                 $term             = get_term( $dossier_in_content_block, RHSWP_CT_DOSSIER );
@@ -3509,6 +3495,7 @@ dodebug( 'header CSS: contentblok ' . $thecounter );
                   
               }
               else {
+
                 // niet op een dossieroverzicht
 
                 $args = array(
@@ -3591,13 +3578,9 @@ dodebug( 'header CSS: contentblok ' . $thecounter );
               // Assign predefined $args to your query
               $sidebarposts = new WP_query();
               $sidebarposts->query($args);
-              
-dovardump( $args );
-              
+
               if ( $sidebarposts->have_posts() ) {
 
-dodebug( 'header CSS: contentblok ' . $thecounter . ' Er zijn posts! ' );
-  
                 $postcounter = 0;
   
                 while ($sidebarposts->have_posts()) : $sidebarposts->the_post();
@@ -3606,9 +3589,6 @@ dodebug( 'header CSS: contentblok ' . $thecounter . ' Er zijn posts! ' );
                   $getid        = get_the_ID();
                   $the_image_ID = 'image_featured_image_post_' . $getid;
 
-dodebug( 'header CSS: contentblok ' . $thecounter . ' Er zijn posts! ' . $getid );
-
-          
                   $image = wp_get_attachment_image_src( get_post_thumbnail_id( $getid ), 'full' );
             
                   if ( $image[0] ) {
@@ -3617,20 +3597,12 @@ dodebug( 'header CSS: contentblok ' . $thecounter . ' Er zijn posts! ' . $getid 
                     $blogberichten_css .= "}\n";
                   }
 
-                  
                 endwhile;
-  
-                
+
               }
-              else {
-                
-dodebug( 'header CSS: contentblok ' . $thecounter . ' Er zijn geen posts.' );
-                
-              }
-              
+
               // RESET THE QUERY
               wp_reset_query();
-      
 
           }
         }
@@ -3658,10 +3630,12 @@ dodebug( 'header CSS: contentblok ' . $thecounter . ' Er zijn geen posts.' );
 
 add_action( 'widgets_init',   'rhswp_widget_definition_footer1' );
 add_action( 'widgets_init',   'rhswp_widget_definition_footer2' );
-add_action( 'widgets_init',   'rhswp_widget_definition_footer3' );
 add_action( 'genesis_footer', 'rhswp_widget_output_footer1');	
 add_action( 'genesis_footer', 'rhswp_widget_output_footer2');	
-add_action( 'genesis_footer', 'rhswp_widget_output_footer3');	
+
+add_action( 'genesis_before_footer-1_widget_area', 'rhswp_footer_payoff');	
+
+
 
 // Add in new Widget area
 function rhswp_widget_definition_footer1() {	
@@ -3717,31 +3691,6 @@ function rhswp_widget_definition_footer2() {
 }
 
 
-// Add in new Widget area
-function rhswp_widget_definition_footer3() {	
-	genesis_register_sidebar( array(
-		'id'            => RHSWP_FOOTERWIDGET3,
-		'name'          => __( RHSWP_FOOTERWIDGET3, 'yourtheme' ),
-		'description'   => __( 'This is the general footer area', 'yourtheme' ),
-    'before_widget' => genesis_markup( array(
-        'html5' => '<section role="complementary" id="%1$s" class="widget-area widget footer-widgets-1 footer-widget-area %2$s '.RHSWP_FOOTERWIDGET3 . '" aria-labelledby="title_' . RHSWP_FOOTERWIDGET3 . '"><div class="widget-wrap">',
-        'xhtml' => '<div id="%1$s" class="widget %2$s"><div class="widget-wrap">',
-        'echo'  => false,
-    ) ),
-    'after_widget'  => genesis_markup( array(
-        'html5' => '</div></section>' . "\n",
-        'xhtml' => '</div></div>' . "\n",
-        'echo'  => false
-    ) ),
-    'before_title'  => genesis_markup( array(
-        'html5' => '<h2 id="title_' . RHSWP_FOOTERWIDGET3 . '">',
-        'xhtml' => '<h2 id="title_' . RHSWP_FOOTERWIDGET3 . '">',
-        'echo'  => false,
-    ) ),
-    'after_title'   => "</h2>\n",
-
-	));
-}
 
 //========================================================================================================
 
@@ -3759,15 +3708,6 @@ function rhswp_widget_output_footer2() {
 	genesis_widget_area ( RHSWP_FOOTERWIDGET2, array(
 		'before'  => '',
 		'after'  => '',
-	));
-}
-
-	
-// Position the Footer Area
-function rhswp_widget_output_footer3() {
-	genesis_widget_area ( RHSWP_FOOTERWIDGET3, array(
-		'before'  => '',
-		'after'  => '</div></div>',
 	));
 }
 
@@ -4676,6 +4616,13 @@ function override_mce_options($initArray) {
 }
 
 //add_filter('tiny_mce_before_init', 'override_mce_options');
+
+
+//========================================================================================================
+
+function rhswp_footer_payoff( ) {
+  echo '<div id="payoff"> ' . wp_strip_all_tags( get_bloginfo( 'description' ) ) . '</div>';
+}
 
 //========================================================================================================
 

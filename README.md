@@ -14,9 +14,10 @@ Dit theme wordt gebruikt op [digitaleoverheid.nl](https://www.digitaleoverheid.n
 * single_XXX.php hernoemen naar single.php
 
 ## Current version:
-1.1.27 - Revised the structure of the homepage.
+1.1.28 - New footer structure and content.
 
 ## Version history
+* 1.1.28 - New footer structure and content.
 * 1.1.26 & 1.1.27 - Revised the structure of the homepage.
 * 1.1.25 - Bug in post list on dossier page.
 * 1.1.24 - Bug in searchresult list.

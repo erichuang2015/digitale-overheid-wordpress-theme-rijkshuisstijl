@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 0.11.16
-// * @desc.   Extra stijl toegevoegd aan DO-bannerwidget: alleen plaatje, geen tekst.
+// * @version 1.1.28
+// * @desc.   New footer structure and content.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 // **
 
@@ -364,10 +364,14 @@
   
   .site-footer {
     overflow: hidden;
-    background-color: @grijs_2;
-    border-top: 3px solid @border_footer_top;
-    color: @grijs_7;
-    
+    background-color: @communicatiekleur_vol;
+
+    &, .widget {
+      *, a {
+        color: @wit;
+      }
+    }
+
     .widget_nav_menu {
     	li {
       	ul {
@@ -376,7 +380,7 @@
       	}
       	a {
           &, &:before {
-            color: @grijs_7;
+            color: @wit;
           }	
         }	
         &.current-menu-item {
@@ -421,8 +425,7 @@
     }
     
     .footer-widgets-1,
-    .footer-widgets-2,
-    .footer-widgets-3 {
+    .footer-widgets-2 {
       width: 100%;
     }
     
@@ -430,13 +433,20 @@
     .footer-widgets-2 {
       margin-right: @padding;
     }
-    
-    
-    
-    
-    
+
+    #payoff {
+      display: block;
+    }
+
   @media only screen and (min-width: ( @break_tablet ) ) {
-    
+
+    #payoff {
+      width: 50%;
+      float: left;
+      font-family: @fontitalic;
+      font-size: 1.75em;
+    }
+
       .home-widget-area {
         & {
           display: flex;
@@ -455,7 +465,7 @@
       }
     	
       .page-link-widget:first-child {
-        max-width: 32%;
+        max-width: 24%;
         margin-right: 1%;
       }
       .footer-widgets {
@@ -464,7 +474,7 @@
         .footer-widgets-1,
         .footer-widgets-2,
         .footer-widgets-3 {
-        	width: 32%;
+        	width: 24%;
         	margin-right: 1%;
         	margin-bottom: 1em;
         	float: left;
