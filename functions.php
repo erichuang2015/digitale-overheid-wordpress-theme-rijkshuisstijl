@@ -2201,7 +2201,7 @@ function rhswp_write_extra_contentblokken() {
             echo '<div class="block"' . $blockidattribute . '>';
 
             if ( $titel ) {
-              echo '<h2>' . $titel . ' (' . $limit . ')</h2>';
+              echo '<h2>' . $titel . '</h2>';
             }
 
             if (class_exists('EM_Events')) {
