@@ -6,12 +6,12 @@
 // Toont alle dossiers
 // ----------------------------------------------------------------------------------
 //
-// @author  Paul van Buuren
-// @license GPL-2.0+
-// @package wp-rijkshuisstijl
-// * @version 0.11.1
-// * @desc.   Styling voor filterknop onderwerppagina.
-// @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
+// * @author  Paul van Buuren
+// * @license GPL-2.0+
+// * @package wp-rijkshuisstijl
+// * @version 1.1.27
+// * @desc.   Revised the structure of the homepage.
+// * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
 

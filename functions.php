@@ -8,7 +8,7 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 1.1.26
+// * @version 1.1.27
 // * @desc.   Revised the structure of the homepage.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
@@ -23,7 +23,7 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "https://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "1.1.26" );
+define( 'CHILD_THEME_VERSION',              "1.1.27" );
 define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Revised the structure of the homepage." );
 define( 'SHOW_CSS_DEBUG',                   false );
 
@@ -2523,8 +2523,16 @@ function rhswp_write_extra_contentblokken() {
                   printf( '<article %s>', $classattr );
   
                   if ( $doimage ) {
-                    printf( '<div class="article-container"><div class="article-visual">%s</div>', get_the_post_thumbnail( $post->ID, 'article-visual' ) );
-                    printf( '<div class="article-excerpt"><a href="%s"><h3>%s</h3><p>%s</p><p class="meta">%s</p></a></div></div>', $theurl, $title, $excerpt, $postdate );
+                    echo '<div class="article-container">';
+                    
+                    if ( 'front-page.php' == $pagetemplate ) {
+                      printf( '<div class="article-visual" id="%s">&nbsp;</div>', 'image_featured_image_post_' . $post->ID );
+                    }
+                    else {
+                      printf( '<div class="article-visual">%s</div>', get_the_post_thumbnail( $post->ID, 'article-visual' ) );
+                    }
+                    printf( '<div class="article-excerpt"><a href="%s"><h3>%s</h3><p>%s</p><p class="meta">%s</p></a></div>', $theurl, $title, $excerpt, $postdate );
+                    echo '</div>';
                   }
                   else {
                     printf( '<a href="%s"><h3>%s</h3><p>%s</p><p class="meta">%s</p></a>', $theurl, $title, $excerpt, $postdate );
@@ -2663,7 +2671,6 @@ function rhswp_check_caroussel_or_featured_img() {
 
   }
   elseif( has_term( '', RHSWP_CT_DIGIBETER, get_the_id() ) ) {
-    //hiero.
 
     $digibeterterms  = wp_get_post_terms( get_the_id(), RHSWP_CT_DIGIBETER );
 
@@ -3405,17 +3412,230 @@ function rhswp_add_blog_archive_css() {
         $image = wp_get_attachment_image_src( get_post_thumbnail_id( $getid ), 'full' );
   
         if ( $image[0] ) {
-          $blogberichten_css .= '#' . $the_image_ID . " { ";
+          $blogberichten_css .= '#' . $the_image_ID . " {\n";
           $blogberichten_css .= "background-image: url('" . $image[0] . "'); ";
-          $blogberichten_css .= "} ";
+          $blogberichten_css .= "}\n";
         }
       }
     
     endwhile; /** end of one post **/
+    
+    
 
   else : /** if no posts exist **/
 
   endif; /** end loop **/
+
+    // extra contentblokken hiero
+
+    if ( is_page() || is_tax() ) {
+
+dodebug( 'header CSS' );
+
+      $dossier_in_content_block      = '';
+
+      if ( is_page() ) {
+        $theid          = get_the_ID();
+        $contentblokken = get_field( 'extra_contentblokken', $theid );
+        $dossier_in_content_block    = get_the_terms( $theid , RHSWP_CT_DOSSIER );
+      }
+      elseif ( is_tax( RHSWP_CT_DOSSIER ) ) {
+        $theid          = RHSWP_CT_DOSSIER . '_' . get_queried_object()->term_id;
+        $contentblokken = get_field( 'extra_contentblokken', $theid );
+        $dossier_in_content_block    = get_queried_object()->term_id;
+      }
+
+     
+      if( $contentblokken && ( $contentblokken[0] != '' ) ) {
+
+$thecounter = 0;
+dodebug( 'header CSS: er zijn contentblokken' );
+
+        foreach( $contentblokken as $row ) {
+
+  
+					$thecounter++;  
+
+
+
+          $chosen_category        = $row['extra_contentblok_chosen_category'];
+          $categoriefilter        = $row['extra_contentblok_categoriefilter'];
+          $maxnr_posts            = $row['extra_contentblok_maxnr_posts'];
+
+          $type_block             = $row['extra_contentblok_type_block'];
+          $with_featured_image    = $row['extra_contentblok_maxnr_posts_with_featured_image'];
+
+          if ( 'algemeen' == $type_block ) {
+            
+          }
+          elseif ( 'events' == $type_block ) {
+            
+          }
+          elseif ( 'berichten_paginas' == $type_block ) {
+            
+          }
+          elseif ( 'berichten' == $type_block ) {
+              // er moet contentblock getoond worden van het type 'berichten'  
+
+dodebug( 'header CSS: contentblok ' . $thecounter );
+
+              $overviewurl        = '';
+              $overviewlinktext   = '';
+              $toonlinksindossiercontext = false;
+
+              if ( $dossier_in_content_block ) {
+                // we zijn op een dossieroverzicht
+
+                $term             = get_term( $dossier_in_content_block, RHSWP_CT_DOSSIER );
+                $currentterm      = $term->term_id;
+                $currenttermname  = $term->name;
+                $currenttermslug  = $term->slug; 
+                $toonlinksindossiercontext = $term;
+  
+                $args = array(
+                  'post_type'       => 'post',
+                  'post_status'     => 'publish',
+                  'posts_per_page'  => $maxnr_posts,
+                  'tax_query' => array(
+                    array(
+                      'taxonomy'  => RHSWP_CT_DOSSIER,
+                      'field'     => 'term_id',
+                      'terms'     => $currentterm
+                    ),
+                  )
+                );
+                
+                $overviewlinktext = $dossier_in_content_block;
+                  
+              }
+              else {
+                // niet op een dossieroverzicht
+
+                $args = array(
+                  'post_type'       => 'post',
+                  'post_status'     => 'publish',
+                  'posts_per_page'  => $maxnr_posts
+                );
+              }            
+              
+              if ( $categoriefilter == 'nee' ) {
+  
+                $actueelpageid    = get_option( 'page_for_posts' );
+                $overviewlinktext = get_the_title( $actueelpageid );
+                $overviewurl      = get_permalink( $actueelpageid ); // general page_for_posts
+  
+              }
+              else {
+  
+                $slugs = array();
+                
+                if ( $chosen_category ) {
+  
+                  foreach( $chosen_category as $filter ): 
+  
+                    $terminfo     = get_term_by( 'id', $filter, 'category' );
+                    $slugs[]      = $terminfo->slug;
+  
+                    $overviewlinktext = $terminfo->name;
+                    $actueelpageid    = get_option( 'page_for_posts' );
+                    
+                    $overviewurl      = get_permalink( $actueelpageid ) . $terminfo->slug . '/'; // page_for_posts
+              
+                  endforeach;
+                  
+                  if ( $dossier_in_content_block ) {
+                    
+                    // filter op dossier
+                    $args = array(
+                      'post_type' => 'post',
+                      'post_status'     => 'publish',
+                      'posts_per_page'  => $maxnr_posts,
+                      'tax_query' => array(
+                        'relation' => 'AND',
+                        array(
+                          'taxonomy'  => RHSWP_CT_DOSSIER,
+                          'field'     => 'term_id',
+                          'terms'     => $dossier_in_content_block
+                        ),
+                        array(
+                          'taxonomy'  => 'category',
+                          'field'     => 'slug',
+                          'terms'     => $slugs,
+                        )
+                      )
+                    );
+                    
+                    // deze weer leeg maken, want er is niet zoiets als een overview mogelijk voor deze combinatie
+                    $overviewlinktext = '';
+                    $overviewurl      = '';
+                  }
+                  else {
+  
+                    // geen verder filter
+                    $args = array(
+                      'post_type' => 'post',
+                      'post_status'     => 'publish',
+                      'posts_per_page'  => $maxnr_posts,
+                      'tax_query' => array(
+                        array(
+                          'taxonomy'  => 'category',
+                          'field'     => 'slug',
+                          'terms'     => $slugs,
+                        )
+                      )
+                    );
+                  }
+                } 
+              }
+              
+              // Assign predefined $args to your query
+              $sidebarposts = new WP_query();
+              $sidebarposts->query($args);
+              
+dovardump( $args );
+              
+              if ( $sidebarposts->have_posts() ) {
+
+dodebug( 'header CSS: contentblok ' . $thecounter . ' Er zijn posts! ' );
+  
+                $postcounter = 0;
+  
+                while ($sidebarposts->have_posts()) : $sidebarposts->the_post();
+                  $postcounter++;
+
+                  $getid        = get_the_ID();
+                  $the_image_ID = 'image_featured_image_post_' . $getid;
+
+dodebug( 'header CSS: contentblok ' . $thecounter . ' Er zijn posts! ' . $getid );
+
+          
+                  $image = wp_get_attachment_image_src( get_post_thumbnail_id( $getid ), 'full' );
+            
+                  if ( $image[0] ) {
+                    $blogberichten_css .= '#' . $the_image_ID . " {\n";
+                    $blogberichten_css .= "background-image: url('" . $image[0] . "'); ";
+                    $blogberichten_css .= "}\n";
+                  }
+
+                  
+                endwhile;
+  
+                
+              }
+              else {
+                
+dodebug( 'header CSS: contentblok ' . $thecounter . ' Er zijn geen posts.' );
+                
+              }
+              
+              // RESET THE QUERY
+              wp_reset_query();
+      
+
+          }
+        }
+      }
+    }
 
   wp_enqueue_style( RHSWP_ARCHIVE_CSS, RHSWP_THEMEFOLDER . '/css/featured-background-images.css', array(), CHILD_THEME_VERSION, 'screen and (min-width: 650px)' );
 

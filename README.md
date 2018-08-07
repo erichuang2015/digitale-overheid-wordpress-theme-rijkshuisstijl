@@ -14,10 +14,10 @@ Dit theme wordt gebruikt op [digitaleoverheid.nl](https://www.digitaleoverheid.n
 * single_XXX.php hernoemen naar single.php
 
 ## Current version:
-1.1.26 - Revised the structure of the homepage.
+1.1.27 - Revised the structure of the homepage.
 
 ## Version history
-* 1.1.26 - Revised the structure of the homepage.
+* 1.1.26 & 1.1.27 - Revised the structure of the homepage.
 * 1.1.25 - Bug in post list on dossier page.
 * 1.1.24 - Bug in searchresult list.
 * 1.1.23 - Added a hero-image to pages.
