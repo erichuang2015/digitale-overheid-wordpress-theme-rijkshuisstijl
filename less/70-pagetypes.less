@@ -7,8 +7,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 1.1.26
-// * @desc.   Revised the structure of the homepage.
+// * @version 1.1.29
+// * @desc.   Visually hide article content on home page.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 // **
 
@@ -684,8 +684,8 @@
   .home,
   .page-template-front-page {
     
-    article {
-//      .visuallyhidden();
+    article.entry.type-page {
+      .visuallyhidden();
     }
     
     .site-inner {

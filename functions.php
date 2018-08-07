@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 1.1.28
-// * @desc.   New footer structure and content.
+// * @version 1.1.29
+// * @desc.   Visually hide article content on home page.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "https://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "1.1.28" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "New footer structure and content." );
+define( 'CHILD_THEME_VERSION',              "1.1.29" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Visually hide article content on home page." );
 define( 'SHOW_CSS_DEBUG',                   false );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
