@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 1.1.28
-// * @desc.   New footer structure and content.
+// * @version 1.2.1
+// * @desc.   List items in home widget space.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 // **
 
@@ -357,6 +357,17 @@
   	}
   }
   
+
+  .home-widget-area {
+    &.widget_custom_html,
+    &.widget_nav_menu {
+      li {
+        padding-left: 1.2em;
+        .listitem_arrow( @a_color_default, .7em, 8px );
+        display: block;
+      }
+    }
+  }
 
   /*
   Footer Widgets
