@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 1.1.28
-// * @desc.   New footer structure and content.
+// * @version 1.2.2
+// * @desc.   Removed the menu bar.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 // **
 
@@ -99,9 +99,15 @@
   	}     
   }
   .block .events-table {
+    
+    a {
+      font-family: @fontstrong;
+      font-size: 1.125em;
+    }
+    
     li {
   		padding-left: 1.2em;
-  		.listitem_arrow( @a_color_default, .7em, 8px );
+  		.listitem_arrow( @a_color_default, .7em, 9px );
   		display: block;
     }
   }
@@ -143,6 +149,7 @@
     }
   }
 
+
   .flexbox {
     .page-template-page_showalldossiers,
     .home,
@@ -161,6 +168,18 @@
       }
     }  
   }  
+  
+  ul.events-table {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+  
+    li {
+      flex-grow: 1;
+      float: left;
+      flex-basis: 100%;
+    }
+  }
   
   .block {
     h2,
@@ -468,7 +487,37 @@
           }
         }
       }
+
+      ul.events-table {
+      
+        li {
+          max-width: 33%;
+          flex-basis: 33%;
+        }
+      }
     }
+
+
+    .flexbox {
+      .full-width-content {
+        &.home,
+        &.page-template-page_showalldossiers,
+        &.blog,
+        &.archive {
+          .block {
+            article {
+              flex-basis: @flexbasis_threecols;
+              max-width: @flexbasis_threecols;
+                      
+              &:last-of-type {
+                max-width: @flexbasis_threecols;
+              }
+            }
+          }
+        }
+      }
+    }
+    
     
     .block {
 
@@ -563,7 +612,7 @@
 
   // ====
   .hero-image {
-    max-width: 2000px;
+    max-width: 3000px;
     margin-left: auto;
     margin-right: auto;
     background-position: center center;
@@ -571,6 +620,8 @@
     background-repeat: no-repeat;
     overflow: visible;
     border-bottom: 1px solid transparent;
+    
+//    border: 10px solid red;
 
     .hero-image-tekst {
       overflow: visible;
@@ -602,8 +653,8 @@
 
       @media only screen and (min-width: ( @break_fullwidth ) ) {
         max-width: ( 100% / 3 );
+        float: left;
       }
-      
     }
 
     @media only screen and (max-width: ( @break_fullwidth ) ) {
@@ -618,9 +669,12 @@
       .wrapper {
       	max-width: @break_fullwidth;
         margin-left: auto;        
-        margin-right: auto;        
+        margin-right: auto;       
+
+        .search-form {
+          float: right;
+        }
       }
     }
-    
   }
 }

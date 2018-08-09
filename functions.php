@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 1.1.29
-// * @desc.   Visually hide article content on home page.
+// * @version 1.2.2
+// * @desc.   Removed the menu bar.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "https://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "1.1.29" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Visually hide article content on home page." );
+define( 'CHILD_THEME_VERSION',              "1.2.2" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Removed the menu bar." );
 define( 'SHOW_CSS_DEBUG',                   false );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
@@ -400,9 +400,10 @@ remove_action( 'genesis_site_title',        'genesis_seo_site_title' );
 remove_action( 'genesis_site_title',        'genesis_seo_site_title' );
 remove_action( 'genesis_site_description',  'genesis_seo_site_description' );
 
-// add_action( 'genesis_after_header', 'rhswp_site_description',                 10 );
+//add_action( 'genesis_after_header', 'rhswp_site_description',                 10 ); 
 add_action( 'genesis_after_header', 'rhswp_menu_container_start',             12 );
-add_action( 'genesis_after_header', 'genesis_do_nav',                         14 );
+add_action( 'genesis_after_header', 'genesis_do_nav',                         14 ); // DEZE MOET WEG!!!
+
 add_action( 'genesis_after_header', 'rhswp_menu_container_end',               16 );
 add_action( 'genesis_after_header', 'genesis_do_breadcrumbs',                 18 );
 add_action( 'genesis_after_header', 'rhswp_dossier_title_checker',            20 );
@@ -427,7 +428,9 @@ load_child_theme_textdomain('wp-rijkshuisstijl', RHSWP_FOLDER . '/languages' );
 //========================================================================================================
 
 // append search box to navigation menu
-add_filter( 'wp_nav_menu_items', 'rhswp_append_search_box_to_menu', 10, 2 );
+// add_filter( 'wp_nav_menu_items', 'rhswp_append_search_box_to_menu', 10, 2 );
+
+// genesis_do_breadcrumbs
 
 /**
  * Filter menu items, appending either a search form or today's date.
@@ -556,65 +559,73 @@ function rhswp_breadcrumb_add_newspage( $crumb, $args ) {
 add_filter( 'genesis_breadcrumb_args', 'rhswp_breadcrumb_args' );
 
 function rhswp_breadcrumb_args( $args ) {
-    global $wp_query;
-    $separator = __( '<span class="separator">&#8250;</span>', 'wp-rijkshuisstijl' );
-    
-		$args['home']                       = esc_html( __( "Home", 'wp-rijkshuisstijl' ) );
-    $args['sep']                        = $separator ;
-    $args['list_sep']                   = ', ';
-    $args['prefix']                     = '<div class="breadcrumb"><div class="wrap"><nav class="breadlist" aria-label="' . esc_attr( __( 'Kruimelpad', 'wp-rijkshuisstijl' ) ) . '" >';
-    $args['suffix']                     = '</nav></div></div>';
-    $args['heirarchial_attachments']    = true;
-    $args['heirarchial_categories']     = true;
-    $args['display']                    = true;
-    $args['labels']['prefix']           = '';
-    $args['labels']['author']           = esc_html( __( "Auteurs", 'wp-rijkshuisstijl' ) ) . $separator;
-    $args['labels']['category']         = '';
-    $args['labels']['date']             = '';
 
-    $args['labels']['tag']              = esc_html( __( "Tags", 'wp-rijkshuisstijl' ) ) . $separator;
-    $args['labels']['search']           = esc_html( __( "Zoekresultaat voor ", 'wp-rijkshuisstijl' ) );
-    $args['labels']['tax']              = '';
-    
-    if ( isset( $wp_query->query_vars['taxonomy'] ) ) {
-        
-        $tax = $wp_query->query_vars['taxonomy'];
-        
-        if ( $tax == CTAX_contentsoort ) {
-            $args['labels']['tax'] = '<a href="/' . CTAX_contentsoort . '/">' . __( 'Contentsoort', 'wp-rijkshuisstijl' ) . '</a>' . $separator;
-        }
-        elseif ( $tax == RHSWP_CT_DOSSIER ) {
-          if( get_field( 'dossier_overzichtspagina', 'option') ) {
-            
-            $dossier_overzichtspagina     = get_field( 'dossier_overzichtspagina', 'option');
-            $dossier_overzichtspagina_id  = $dossier_overzichtspagina->ID;
-            
-            $auteursoverzichtpagina_start = '<a href="' . get_permalink( $dossier_overzichtspagina_id ) . '">' ;
-            $auteursoverzichtpagina_end   = '</a>';
+  global $wp_query;
 
-            $actueelpagetitle = get_the_title( $dossier_overzichtspagina_id );
-            $tax = '';
-            $args['labels']['tax'] = $auteursoverzichtpagina_start . $actueelpagetitle . $auteursoverzichtpagina_end . $separator;
-            
-          }
-          else {
-            $args['labels']['tax'] =  $separator;
-          }
-        }
-        elseif ( $tax == CTAX_thema ) {
-          $tax = '';
-          $args['labels']['tax'] = '<a href="/' . CTAX_thema . '/">' . __( 'Onderwerpen', 'wp-rijkshuisstijl' ) . '</a>' . $separator;
-        }
-        else {
-          $args['labels']['tax'] = '<a href="/' . $tax . '/">' . $tax . '</a>' . $args['sep'] ;
-        }
+  $separator  = __( '<span class="separator">&#8250;</span>', 'wp-rijkshuisstijl' );
+  $searchform = '';    
+  
+  if ( is_home() || is_front_page() ) {
+  }
+  else {
+    $searchform = get_search_form( false );
+  }
+
+  $args['home']                       = esc_html( __( "Home", 'wp-rijkshuisstijl' ) );
+  $args['sep']                        = $separator ;
+  $args['list_sep']                   = ', ';
+  $args['prefix']                     = '<div class="breadcrumb"><div class="wrap"><nav class="breadlist" aria-label="' . esc_attr( __( 'Kruimelpad', 'wp-rijkshuisstijl' ) ) . '" >';
+  $args['suffix']                     = '</nav>' . $searchform . '</div></div>';
+  $args['heirarchial_attachments']    = true;
+  $args['heirarchial_categories']     = true;
+  $args['display']                    = true;
+  $args['labels']['prefix']           = '';
+  $args['labels']['author']           = esc_html( __( "Auteurs", 'wp-rijkshuisstijl' ) ) . $separator;
+  $args['labels']['category']         = '';
+  $args['labels']['date']             = '';
+  
+  $args['labels']['tag']              = esc_html( __( "Tags", 'wp-rijkshuisstijl' ) ) . $separator;
+  $args['labels']['search']           = esc_html( __( "Zoekresultaat voor ", 'wp-rijkshuisstijl' ) );
+  $args['labels']['tax']              = '';
+  
+  if ( isset( $wp_query->query_vars['taxonomy'] ) ) {
+    
+    $tax = $wp_query->query_vars['taxonomy'];
+    
+    if ( $tax == CTAX_contentsoort ) {
+        $args['labels']['tax'] = '<a href="/' . CTAX_contentsoort . '/">' . __( 'Contentsoort', 'wp-rijkshuisstijl' ) . '</a>' . $separator;
     }
-    
-    
-    $args['labels']['post_type']        = '';
-    $args['labels']['404']              = esc_html( __( "404 - Pagina niet gevonden", 'wp-rijkshuisstijl' ) );
-    return $args;
-    
+    elseif ( $tax == RHSWP_CT_DOSSIER ) {
+      if( get_field( 'dossier_overzichtspagina', 'option') ) {
+        
+        $dossier_overzichtspagina     = get_field( 'dossier_overzichtspagina', 'option');
+        $dossier_overzichtspagina_id  = $dossier_overzichtspagina->ID;
+        
+        $auteursoverzichtpagina_start = '<a href="' . get_permalink( $dossier_overzichtspagina_id ) . '">' ;
+        $auteursoverzichtpagina_end   = '</a>';
+  
+        $actueelpagetitle = get_the_title( $dossier_overzichtspagina_id );
+        $tax = '';
+        $args['labels']['tax'] = $auteursoverzichtpagina_start . $actueelpagetitle . $auteursoverzichtpagina_end . $separator;
+        
+      }
+      else {
+        $args['labels']['tax'] =  $separator;
+      }
+    }
+    elseif ( $tax == CTAX_thema ) {
+      $tax = '';
+      $args['labels']['tax'] = '<a href="/' . CTAX_thema . '/">' . __( 'Onderwerpen', 'wp-rijkshuisstijl' ) . '</a>' . $separator;
+    }
+    else {
+      $args['labels']['tax'] = '<a href="/' . $tax . '/">' . $tax . '</a>' . $args['sep'] ;
+    }
+  }
+
+  $args['labels']['post_type']        = '';
+  $args['labels']['404']              = esc_html( __( "404 - Pagina niet gevonden", 'wp-rijkshuisstijl' ) );
+  return $args;
+  
 }
 
 //========================================================================================================
@@ -2685,18 +2696,22 @@ function rhswp_check_caroussel_or_featured_img() {
   else {
 
     $carousselcheck = '';
+    $divid          = '';
   
     if ( is_page() ) {
       $theid          = get_the_ID();
+      $divid          = $theid;
       $carousselcheck = get_field( 'carrousel_tonen_op_deze_pagina', $theid );
     }
     elseif ( is_tax( RHSWP_CT_DOSSIER ) ) {
       $theid          = RHSWP_CT_DOSSIER . '_' . get_queried_object()->term_id;
-      $carousselcheck = get_field( 'carrousel_tonen_op_deze_pagina', $theid );
+      $divid          = get_queried_object()->term_id;
+      $carousselcheck = get_field( 'carrousel_tonen_op_deze_pagina', $acfid );
       $currentterm    = get_queried_object()->term_id;
     }
 
     if ( RHSWP_HEADER_IMAGE_CONFIRM == $carousselcheck ) {
+
       $headerimage      = get_field( 'kies_header_image', $theid );
       $image_tekst      = get_field( 'kies_header_image_tekst', $theid );
 
@@ -2707,16 +2722,24 @@ function rhswp_check_caroussel_or_featured_img() {
         $height     = $headerimage['sizes'][ RHSWP_HERO_IMAGE2_WIDTH_NAME . '-height' ];
 
         if ( RHSWP_MIN_HERO_IMAGE_WIDTH <= $width ) {
-          echo '<div class="hero-image" id="hero_' . $theid . '">';
+          echo '<div class="hero-image" id="hero_' . $divid . '">';
           if ( $image_tekst ) {
             echo '<div class="wrapper">';
             echo '<div class="hero-image-tekst">';
-            echo $image_tekst;
+            echo $image_tekst;            
             echo '</div>';
+
+            if ( is_home() || is_front_page() ) {
+              get_search_form();
+            }          
+            
             echo '</div>';
           }
           else {
             echo '&nbsp;';
+            if ( is_home() || is_front_page() ) {
+              get_search_form();
+            }          
           }
           echo '</div>';
         }
@@ -3361,18 +3384,47 @@ function rhswp_add_blog_archive_css() {
   
   $countertje   = 0;
 
-  if ( have_posts() ) : 
+  if ( have_posts() || is_tax( RHSWP_CT_DOSSIER ) ) : 
   
+    $divid = '';
 
     if ( is_page() ) {
       $theid          = get_the_ID();
+      $divid          = $theid;
       $carousselcheck = get_field( 'carrousel_tonen_op_deze_pagina', $theid );
     }
     elseif ( is_tax( RHSWP_CT_DOSSIER ) ) {
       $theid          = RHSWP_CT_DOSSIER . '_' . get_queried_object()->term_id;
+      $divid          = get_queried_object()->term_id;
       $carousselcheck = get_field( 'carrousel_tonen_op_deze_pagina', $theid );
       $currentterm    = get_queried_object()->term_id;
     }
+
+
+/*
+    if ( is_page() ) {
+      $theid          = get_the_ID();
+      $divid          = $theid;
+      $carousselcheck = get_field( 'carrousel_tonen_op_deze_pagina', $theid );
+    }
+    elseif ( is_tax( RHSWP_CT_DOSSIER ) ) {
+      $theid          = RHSWP_CT_DOSSIER . '_' . get_queried_object()->term_id;
+      $divid          = get_queried_object()->term_id;
+      $carousselcheck = get_field( 'carrousel_tonen_op_deze_pagina', $acfid );
+      $currentterm    = get_queried_object()->term_id;
+    }
+
+    if ( RHSWP_HEADER_IMAGE_CONFIRM == $carousselcheck ) {
+
+echo '<p>HIER MOET EEN HEADER IMAGE!!</p>';      
+      
+      $headerimage      = get_field( 'kies_header_image', $theid );
+      $image_tekst      = get_field( 'kies_header_image_tekst', $theid );
+
+
+
+*/  
+    
   
     if ( RHSWP_HEADER_IMAGE_CONFIRM == $carousselcheck ) {
       $headerimage      = get_field( 'kies_header_image', $theid );
@@ -3384,7 +3436,7 @@ function rhswp_add_blog_archive_css() {
         $height     = $headerimage['sizes'][ RHSWP_HERO_IMAGE2_WIDTH_NAME . '-height' ];
 
         if ( RHSWP_MIN_HERO_IMAGE_WIDTH <= $width ) {
-          $blogberichten_css .= '#hero_' . $theid . " { ";
+          $blogberichten_css .= '#hero_' . $divid . " { ";
           $blogberichten_css .= "background-image: url('" . $thumb . "'); ";
           $blogberichten_css .= "} ";
         }
@@ -4621,7 +4673,22 @@ function override_mce_options($initArray) {
 //========================================================================================================
 
 function rhswp_footer_payoff( ) {
-  echo '<div id="payoff"> ' . wp_strip_all_tags( get_bloginfo( 'description' ) ) . '</div>';
+  $title        = get_bloginfo( 'title' );
+  $description  = get_bloginfo( 'description' );
+  
+  if ( $title ) {
+    $title = wp_strip_all_tags( $title ) . '<br>';
+  }
+  
+  $needle   = '&lt;strong&gt;';
+  $replacer = '';
+  $description = str_replace( $needle, $replacer, $description);
+  
+  $needle   = '&lt;/strong&gt;';
+  $replacer = '';
+  $description = str_replace( $needle, $replacer, $description);
+  
+  echo '<div id="payoff"> ' . $title . wp_strip_all_tags( $description ) . '</div>';
 }
 
 //========================================================================================================

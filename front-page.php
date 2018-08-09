@@ -9,8 +9,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 1.1.26
-// * @desc.   Revised the structure of the homepage.
+// * @version 1.2.2
+// * @desc.   Removed the menu bar.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 // 
  */
@@ -19,6 +19,9 @@
 
 //* Force full-width-content layout
 add_filter( 'genesis_pre_get_option_site_layout', '__genesis_return_full_width_content' );
+
+add_action( 'genesis_after_header', 'genesis_do_nav',                         14 );
+
 
 remove_action( 'genesis_after_endwhile', 'genesis_posts_nav' );
 
@@ -47,7 +50,6 @@ function rhswp_home_onderwerpen_dossiers() {
 
   }
 
-
   echo '<section class="onderwerpen">';
   echo '<div class="wrap">';
     
@@ -59,6 +61,7 @@ function rhswp_home_onderwerpen_dossiers() {
     while( have_rows( 'home_onderwerpen_dossiers') ): the_row(); 
     
       $rowcounter++;
+
       $url_extern   = get_sub_field('kies_een_onderwerp');
       $acfid        = RHSWP_CT_DOSSIER . '_' . $url_extern->term_id;
       $kortebeschr  = get_field( 'dossier_korte_beschrijving_voor_dossieroverzicht', $acfid );
@@ -71,13 +74,26 @@ function rhswp_home_onderwerpen_dossiers() {
         $description = $kortebeschr;
       }
 
-      if ( $rowcounter > $maxnr ) {
+// to do
+
+//WOEHOE!! Waar isme dinges?      
+      
+
+      $name = 'naam';
+      $url  = '';
+      if ( $url_extern ) {
+        $name = $url_extern->name;
+        $url  = get_term_link( $url_extern->term_id );
+      }
+    
+      echo '<a href="' . $url . '" class="linkblock"><h3>' .  $name . '</h3><p>' .  wp_strip_all_tags( $description ) . '</p></a>';
+
+      if ( $rowcounter >= $maxnr ) {
         echo '</div>';
         echo '<div class="row">';
         $rowcounter = 0;
       }
-    
-      echo '<a href="' . get_term_link( $url_extern->term_id ) . '" class="linkblock"><h3>' .  $url_extern->name . '</h3><p>' .  wp_strip_all_tags( $description ) . '</p></a>';
+
 
     endwhile; 
 
