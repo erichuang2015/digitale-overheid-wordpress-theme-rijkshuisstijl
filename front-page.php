@@ -9,8 +9,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 1.2.2
-// * @desc.   Removed the menu bar.
+// * @version 1.2.3
+// * @desc.   Responsive styling homepage.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 // 
  */
@@ -22,7 +22,6 @@ add_filter( 'genesis_pre_get_option_site_layout', '__genesis_return_full_width_c
 
 add_action( 'genesis_after_header', 'genesis_do_nav',                         14 );
 
-
 remove_action( 'genesis_after_endwhile', 'genesis_posts_nav' );
 
 if ( is_home() || is_front_page() ) {
@@ -32,8 +31,26 @@ if ( is_home() || is_front_page() ) {
 
   // nieuws
   add_action( 'genesis_loop', 'rhswp_write_extra_contentblokken', 14 );
-
+  
+    
+  add_filter('the_content', 'rhswp_home_content_filter');
+  
 }
+
+//========================================================================================================
+
+function rhswp_home_content_filter( $content ) {
+
+	if( is_singular() && is_main_query() && $content ) {
+
+    $content = wp_strip_all_tags( $content );
+
+	}	
+	
+	return $content;
+	
+}
+
 
 //========================================================================================================
 
@@ -55,8 +72,7 @@ function rhswp_home_onderwerpen_dossiers() {
     
   if( have_rows( 'home_onderwerpen_dossiers' ) ) {
 
-    echo '<div class="' . $breedte . '">';
-    echo '<div class="row">';
+    echo '<div class="row ' . $breedte . '">';
 
     while( have_rows( 'home_onderwerpen_dossiers') ): the_row(); 
     
@@ -88,16 +104,8 @@ function rhswp_home_onderwerpen_dossiers() {
     
       echo '<a href="' . $url . '" class="linkblock"><h3>' .  $name . '</h3><p>' .  wp_strip_all_tags( $description ) . '</p></a>';
 
-      if ( $rowcounter >= $maxnr ) {
-        echo '</div>';
-        echo '<div class="row">';
-        $rowcounter = 0;
-      }
-
-
     endwhile; 
 
-    echo '</div>';
     echo '</div>';
 
 

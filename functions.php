@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 1.2.2
-// * @desc.   Removed the menu bar.
+// * @version 1.2.3
+// * @desc.   Responsive styling homepage.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "https://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "1.2.2" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Removed the menu bar." );
+define( 'CHILD_THEME_VERSION',              "1.2.3" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Responsive styling homepage." );
 define( 'SHOW_CSS_DEBUG',                   false );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
@@ -966,8 +966,9 @@ function rhswp_get_sitemap_for_pagenotfound() {
 
 function rhswp_get_sitemap_content() {
   
-  $filtersitemap = true;
-  $listitem = 'ul';
+  $filtersitemap    = true;
+  $showpagetemplate = false;
+  $listitem         = 'ul';
   
   if ( isset( $_GET['filtersitemap'] ) ) {
     $filtersitemap = filter_input(INPUT_GET, 'filtersitemap', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -1018,7 +1019,7 @@ function rhswp_get_sitemap_content() {
     else { 
       ?>
       <section aria-labelledby="title_sitemap_documenten">
-        <h2 id="title_sitemap_documenten"><?php _e( "Documenten", 'wp-rijkshuisstijl' ); ?></h2>
+        <h2 id="title_sitemap_documenten"><?php _e( "Documenten", 'wp-rijkshuisstijl' )  . _e( "(ordered by post date)", 'wp-rijkshuisstijl' ) ; ?></h2>
         <<?php echo $listitem; ?>>
             <?php 
     
@@ -1383,14 +1384,19 @@ function rhswp_enqueue_js_scripts() {
 
   if ( ! is_admin() ) {
 
-    wp_enqueue_script( 'modernizr', 'https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js', '', '', true );
+//    wp_enqueue_script( 'modernizr', 'https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js', '', '', true );
+
     
     if ( DO_MINIFY_JS ) {
       // the minified file
+      wp_enqueue_script( 'modernizr', RHSWP_THEMEFOLDER . '/js/modernizr-custom.js', '', '', true );
       wp_enqueue_script( 'slider2', RHSWP_THEMEFOLDER . '/js/min/scripts-min.js', array( 'jquery' ), '', true );
       wp_enqueue_script( 'wp-rijkshuisstijl-menu', RHSWP_THEMEFOLDER . '/js/min/menu-min.js', '', '', true );
     }
     else {
+
+      wp_enqueue_script( 'modernizr', RHSWP_THEMEFOLDER . '/js/modernizr-custom.js', '', CHILD_THEME_VERSION, true );
+
       // these are the unminified JS-files
       wp_enqueue_script( 'wp-rijkshuisstijl-polyfill-eventlistener', RHSWP_THEMEFOLDER . '/js/polyfill-eventlistener.js', array( 'jquery' ), '', true );
       wp_enqueue_script( 'wp-rijkshuisstijl-polyfill-matchmedia', RHSWP_THEMEFOLDER . '/js/polyfill-matchmedia.js', array( 'jquery' ), '', true );
@@ -2672,6 +2678,7 @@ function rhswp_check_caroussel_or_featured_img() {
   if ( 'page_digibeter-home.php' == get_page_template_slug( get_the_ID() ) && get_field( 'digibeter_content_intro', get_the_ID() ) ) {
     // voorkomen dat pagina's met dit template ook een carroussel laten zien
     // deze pagina heeft dus als template 'page_digibeter-home.php' en heeft iets in digibeter_content_intro
+    // dodebug( 'rhswp_check_caroussel_or_featured_img 1: template voor digibeter ' );
     return;
 
   }
@@ -2679,24 +2686,28 @@ function rhswp_check_caroussel_or_featured_img() {
 
     $digibeterterms  = wp_get_post_terms( get_the_id(), RHSWP_CT_DIGIBETER );
 
+    // dodebug( 'rhswp_check_caroussel_or_featured_img 2: has term check: ' . RHSWP_CT_DIGIBETER );
+
     if ( $digibeterterms ) {
+
+      // dodebug( 'rhswp_check_caroussel_or_featured_img 2: en jawel ' . RHSWP_CT_DIGIBETER );
+
       echo '<div class="wrap header-image">';
       foreach( $digibeterterms as $digibeterterm ) {
         $term_id    = ' ' . $digibeterterm->term_id;
         $acfid      = RHSWP_CT_DIGIBETER . '_' . $term_id;
         $digibeterclass  = get_field( 'digibeter_term_achtergrondkleur', $acfid );
-//        $classes['class'] .= ' ' . $digibeterclass;
         echo '<img src="' . RHSWP_THEMEFOLDER . '/images/digibeter-icons/' . $digibeterclass . '.svg" alt="' . $digibeterclass . '" width="1200" height="400" >';
       }    
       echo '</div>';
     }
-
-    
   }
   else {
 
     $carousselcheck = '';
     $divid          = '';
+
+    // dodebug( 'rhswp_check_caroussel_or_featured_img 3: page or tax' );
   
     if ( is_page() ) {
       $theid          = get_the_ID();
@@ -2706,11 +2717,13 @@ function rhswp_check_caroussel_or_featured_img() {
     elseif ( is_tax( RHSWP_CT_DOSSIER ) ) {
       $theid          = RHSWP_CT_DOSSIER . '_' . get_queried_object()->term_id;
       $divid          = get_queried_object()->term_id;
-      $carousselcheck = get_field( 'carrousel_tonen_op_deze_pagina', $acfid );
+      $carousselcheck = get_field( 'carrousel_tonen_op_deze_pagina', $theid );
       $currentterm    = get_queried_object()->term_id;
     }
 
     if ( RHSWP_HEADER_IMAGE_CONFIRM == $carousselcheck ) {
+
+      // dodebug( 'rhswp_check_caroussel_or_featured_img 3: page or tax : has headerimage ' );
 
       $headerimage      = get_field( 'kies_header_image', $theid );
       $image_tekst      = get_field( 'kies_header_image_tekst', $theid );

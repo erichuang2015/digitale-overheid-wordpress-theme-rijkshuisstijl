@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 1.2.2
-// * @desc.   Removed the menu bar.
+// * @version 1.2.3
+// * @desc.   Responsive styling homepage.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 // **
 
@@ -418,6 +418,23 @@
     }
   }
 
+  @media only screen and ( max-width: ( @break_tablet ) ) {
+  
+    .page-template-front-page {     
+      .block {
+        article + article {
+          margin-top: 1em;
+          padding-bottom: 1em;
+        }
+      }
+      .events-table {
+        li + li {
+          margin-top: 1em;
+          padding-bottom: 1em;
+        }
+      } 
+    }
+  }
   
 
   @media only screen and (min-width: ( @break_tablet ) ) {
@@ -620,8 +637,6 @@
     background-repeat: no-repeat;
     overflow: visible;
     border-bottom: 1px solid transparent;
-    
-//    border: 10px solid red;
 
     .hero-image-tekst {
       overflow: visible;
@@ -629,7 +644,7 @@
       padding: .25em .5em;      
       font-size: 95%;
       overflow: visible;
-      margin: 1em 1em 1em 0;
+      margin: 0 1em 1em 1em;
 
       p,
       ol,
@@ -653,15 +668,17 @@
 
       @media only screen and (min-width: ( @break_fullwidth ) ) {
         max-width: ( 100% / 3 );
+        margin-left: 0;
         float: left;
       }
     }
-
-    @media only screen and (max-width: ( @break_fullwidth ) ) {
-      padding-top: @slider_li_minheight;
+    
+    @media only screen and (max-width: ( @break_tablet ) ) {
+//      padding-top: @slider_li_minheight;
+      padding-top: 1em;
     }
     
-    @media only screen and (min-width: ( @break_fullwidth ) ) {
+    @media only screen and (min-width: ( @break_tablet ) ) {
 
       min-height: @slider_li_minheight;
       padding: 1em;
