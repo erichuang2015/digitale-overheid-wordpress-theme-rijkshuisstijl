@@ -383,7 +383,7 @@ if ( document.getElementById("carousel") ) {
 }
 
 
-
+/*
 var collapsiblelist = document.querySelectorAll("tabs");
 
 if ( collapsiblelist.length > 0 ) {
@@ -406,3 +406,4 @@ if ( collapsiblelist.length > 0 ) {
 
 }
 
+*/

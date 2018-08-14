@@ -307,54 +307,6 @@
   
   .dojs {
 
-
-
-    @media only screen and (max-width: ( @break_fullwidth  - 1 ) ) {
-      
-      .breadcrumb,
-      .dossier-overview .entry-title {
-        padding-left: @padding;
-      }
-      
-      .tabs {
-
-        .selected span, a {
-          padding-left: @padding;
-        }
-        .selected span {
-          display: block;
-          background-image: url('images/icon-arrow-up.svg');
-          background-repeat: no-repeat;
-          background-position: 98% 6px;
-          cursor: pointer;          
-        }        
-      }
-      .collapsed {  
-
-        margin-top: 0;
-        position: relative;
-
-          li {
-            position: absolute;
-            top: 0;
-            right: 0;
-            left: 0;
-          }
-          
-          .selected {
-            position: relative;
-            z-index: 9999;
-            cursor: pointer;
-
-            span {
-              display: block;
-              background-image: url('images/icon-arrow-down.svg');
-            }            
-        }
-      }
-    }
-      
-
     @media only screen and (max-width: ( @break_tablet ) ) {
 
       .block {
@@ -370,11 +322,9 @@
           }
         }
       }
-
     }
-
-  }
-
+  } // .dojs
+ 
   @media only screen and (min-width: ( @break_tablet ) ) {
 
     .article-visual,

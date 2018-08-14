@@ -19,6 +19,55 @@ $tellertje = 0;
 
 //========================================================================================================
 
+function rhswp_dossier_title_checker3( ) {
+
+  global $post;
+  global $wp_query;
+  global $tellertje;
+
+  if ( ! is_object( $post ) ) {
+    // bail early if no post object available (s.a. 404)
+    return;
+  }
+  
+  $currentID = 0;
+  
+  if ( is_posts_page() || is_search() ) {
+    return;
+  }
+  
+  if ( taxonomy_exists( RHSWP_CT_DOSSIER ) ) {
+
+  
+    $subpaginas               = '';
+    $shownalready             = '';
+    $dossier_overzichtpagina  = '';
+    $parentID                 = '';
+    $standaardpaginanaam      = '';
+  
+    $args = array(
+      'dossier_overzichtpagina' => '',
+      'menu_voor_dossier' => '',
+      'markerforclickableactivepage' => '',
+      'currentpageid' => '',
+      'preferedtitle' => '',
+      'maxlength'     => 50,
+    );
+
+
+    // checken of dit een post is en is_single() en of in de URL de juiste dossier-contetxt is meegegeven.
+    
+    $posttype = get_post_type();
+    $loop     = rhswp_get_context_info();
+    $term     = '';
+    $tellertje = 1;
+
+  }
+
+}
+
+//========================================================================================================
+
 function rhswp_dossier_title_checker( ) {
 
   global $post;
@@ -130,9 +179,9 @@ function rhswp_dossier_title_checker( ) {
         $menu_voor_dossier        = get_field('menu_pages', $term );
 
         $itemsinmenu   = [];
-//        if ( $dossier_overzichtpagina ) {
+
         if ( is_object( $dossier_overzichtpagina ) ) {
-              $itemsinmenu[] = $dossier_overzichtpagina->ID;
+          $itemsinmenu[] = $dossier_overzichtpagina->ID;
         }
 
         if ( $menu_voor_dossier ) {
@@ -153,7 +202,6 @@ function rhswp_dossier_title_checker( ) {
             }
           }
 
-          
           $args['menu_voor_dossier'] = $itemsinmenu;
 
         }
@@ -295,8 +343,8 @@ function rhswp_dossier_title_checker( ) {
           echo '</p>';
         }
 
-        echo '<nav class="collapsible"><ul class="tabs">' . $dossierinhoudpagina  .  $subpaginas;    
-        echo '</ul></nav>';    
+//        echo '<nav class="collapsible"><ul class="tabs">' . $dossierinhoudpagina  .  $subpaginas . '</ul></nav>';     
+        echo '<nav><ul>' . $dossierinhoudpagina  .  $subpaginas . '</ul></nav>';    
       }
   
       echo '</div>';

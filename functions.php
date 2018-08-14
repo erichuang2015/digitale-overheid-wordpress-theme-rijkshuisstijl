@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 1.2.3
-// * @desc.   Responsive styling homepage.
+// * @version 1.2.4a
+// * @desc.   Search form in breadcrumb.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "https://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "1.2.3" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Responsive styling homepage." );
+define( 'CHILD_THEME_VERSION',              "1.2.4a" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Search form in breadcrumb." );
 define( 'SHOW_CSS_DEBUG',                   false );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
@@ -471,19 +471,25 @@ function rhswp_breadcrumb_add_newspage( $crumb, $args ) {
   $span_before_start  = '<span class="breadcrumb-link-wrap" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">';  
   $span_between_start = '<span itemprop="name">';  
   $span_before_end    = '</span>';  
-  $loop     = rhswp_get_context_info();
+  $loop               = rhswp_get_context_info();
+  $rarecounter        = '(0) ';
+
+// dodebug( 'crumb: ' . $crumb );
+// dovardump( $args );
   
 	if ( ( is_singular( 'post' ) && ( ! get_query_var( RHSWP_DOSSIERPOSTCONTEXT ) ) ) || is_date() || is_category() ) {
 
-    $actueelpageid    = get_option( 'page_for_posts' );
-    $actueelpagetitle = rhswp_filter_alternative_title( $actueelpageid, get_the_title( $actueelpageid ) );
+    $actueelpageid      = get_option( 'page_for_posts' );
+    $rarecounter        = '(A) ';
+    $actueelpagetitle   = rhswp_filter_alternative_title( $actueelpageid, get_the_title( $actueelpageid ) );
 
   	
   	if ( $actueelpageid ) {
-  		return '<a href="' . get_permalink( get_option( 'page_for_posts' ) ) . '">' . $actueelpagetitle .'</a>' . $args['sep'] . ' ' . $crumb;
+      $rarecounter        = '(B) ';
+  		return $rarecounter . '<a href="' . get_permalink( get_option( 'page_for_posts' ) ) . '">' . $actueelpagetitle .'</a>' . $args['sep'] . ' ' . $crumb;
   	}
   	else {
-  		return $crumb;
+  		return $rarecounter . $crumb;
   	}
 	}
 	else {
@@ -503,8 +509,9 @@ function rhswp_breadcrumb_add_newspage( $crumb, $args ) {
           
             $dossier_overzichtspagina       = get_field( 'dossier_overzichtspagina', 'option');
             $dossier_overzichtspagina_id    = $dossier_overzichtspagina->ID;
+            $rarecounter                    = '(C) ';
             
-            $dossier_overzichtspagina_start = $span_before_start . '<a href="' . get_permalink( $dossier_overzichtspagina_id ) . '" itemprop="item">' . $span_between_start;
+            $dossier_overzichtspagina_start = $span_before_start . $rarecounter . '<a href="' . get_permalink( $dossier_overzichtspagina_id ) . '" itemprop="item">' . $span_between_start;
             $dossier_overzichtspagina_end   = $span_before_end . '</a>' . $span_before_end;
             $needle = $dossier_overzichtspagina_start . get_the_title( $dossier_overzichtspagina_id ) . $dossier_overzichtspagina_end  . $args['sep'];
           
@@ -512,8 +519,9 @@ function rhswp_breadcrumb_add_newspage( $crumb, $args ) {
           else {
           }
         }
+        $rarecounter                    = '(D) ';
         
-        $replacer = $needle . $span_before_start . '<a href="' . get_term_link( $term ) . '">' . $term->name .'</a>' . $span_before_end . $args['sep'];
+        $replacer = $needle . $span_before_start . $rarecounter . '<a href="' . get_term_link( $term ) . '">' . $term->name .'</a>' . $span_before_end . $args['sep'];
         $crumb = str_replace( $needle, $replacer, $crumb);
         
     		return $crumb;
@@ -527,21 +535,74 @@ function rhswp_breadcrumb_add_newspage( $crumb, $args ) {
 
           // de ID achterhalen van de pagina vanwaar dit bericht / event / whatever gelinkt werd
           $urlofparentpage  = get_query_var( RHSWP_DOSSIERPOSTCONTEXT ); 
+          
+dodebug( 'URL of parent: ' . $urlofparentpage );
+          
           $parentpageid     = url_to_postid( $urlofparentpage );
 
-          // in deze array zit als laatste element de titel van de huidige post / event / whatever
-          $titlearray = explode( $args['sep'], $crumb );
+          if ( $parentpageid ) {
+            // het is een pagina
+            dodebug( 'ID of parent: ' . $parentpageid );
+          
+            // in deze array zit als laatste element de titel van de huidige post / event / whatever
+            $titlearray = explode( $args['sep'], $crumb );
+          
+            // haal de ancestors op voor de huidige pagina
+            $ancestors = get_post_ancestors( $parentpageid );
+          
+            $returnstring   = '';
+            $rarecounter    = '(E) ';
+            // haal de hele keten aan ancestors op en zet ze in de returnstring
+            foreach ( $ancestors as $ancestorid ) {
+          
+              $returnstring = $span_before_start . $rarecounter . ' <a href="' . get_permalink( $ancestorid ) . '">' . get_the_title( $ancestorid ) .'</a>' . $span_before_end . $args['sep'] . $returnstring;
+            }
+          
+            $rarecounter    = '(F) ';
+          
+            $returnstring .= $span_before_start . $rarecounter . ' <a href="' . get_permalink( $parentpageid ) . '">' . get_the_title( $parentpageid ) .'</a>' . $span_before_end . $args['sep'] . array_pop($titlearray);
 
-          // haal de ancestors op voor de huidige pagina
-          $ancestors = get_post_ancestors( $parentpageid );
-
-          $returnstring = '';
-          // haal de hele keten aan ancestors op en zet ze in de returnstring
-          foreach ( $ancestors as $ancestorid ) {
-            $returnstring = $span_before_start . '<a href="' . get_permalink( $ancestorid ) . '">' . get_the_title( $ancestorid ) .'</a>' . $span_before_end . $args['sep'] . $returnstring;
           }
+          else {
+            // geen pagina
+            
+            $crumb = $args['sep'] . ' <a href="' . get_permalink( $ancestorid ) . '">' . get_the_title( $ancestorid ) .'</a>';
+          
+            // voeg onderwerppagina toe
+            if ( function_exists( 'get_field' ) ) {
+              if( get_field( 'dossier_overzichtspagina', 'option') ) {
+              
+                $dossier_overzichtspagina       = get_field( 'dossier_overzichtspagina', 'option');
+                $dossier_overzichtspagina_id    = $dossier_overzichtspagina->ID;
+                $rarecounter                    = '(G) ';
+          
+                $returnstring .= $span_before_start . $rarecounter . ' <a href="' . get_permalink( $dossier_overzichtspagina_id ) . '">' . get_the_title( $dossier_overzichtspagina_id ) .'</a>' . $span_before_end;
 
-          $returnstring .= $span_before_start . '<a href="' . get_permalink( $parentpageid ) . '">' . get_the_title( $parentpageid ) .'</a>' . $span_before_end . $args['sep'] . array_pop($titlearray);
+              }
+            }
+            
+// $urlofparentpage            
+
+//Returns Array of Term ID's for RHSWP_CT_DOSSIER
+$term_list = wp_get_post_terms( get_the_id(), RHSWP_CT_DOSSIER, array("fields" => "ids"));
+print_r($term_list);
+/*
+$term         = get_term_by("slug", get_query_var("term"), get_query_var("taxonomy") );
+$parent       = get_term($term->parent, get_query_var("taxonomy"));
+$parentItems  = array();
+  
+while ($parent->term_id) {
+  array_push($parentItems,"<li><a href=\"" . home_url() . "/project-category/" . $parent->slug . "\">" . $parent->name . "</a></li>");
+  $parent = get_term($parent->parent, get_query_var("taxonomy"));
+}
+
+echo implode (array_reverse($parentItems));
+echo "<li><a href=\"" . home_url() . "/project-category/" . $term->slug . "\">" . $term->name . "</a></li>";
+*/            
+
+            $returnstring .= $crumb;
+          
+          }
 
       		return $returnstring;
     
@@ -624,6 +685,7 @@ function rhswp_breadcrumb_args( $args ) {
 
   $args['labels']['post_type']        = '';
   $args['labels']['404']              = esc_html( __( "404 - Pagina niet gevonden", 'wp-rijkshuisstijl' ) );
+
   return $args;
   
 }
@@ -1389,9 +1451,9 @@ function rhswp_enqueue_js_scripts() {
     
     if ( DO_MINIFY_JS ) {
       // the minified file
-      wp_enqueue_script( 'modernizr', RHSWP_THEMEFOLDER . '/js/modernizr-custom.js', '', '', true );
+//      wp_enqueue_script( 'modernizr', RHSWP_THEMEFOLDER . '/js/modernizr-custom.js', '', '', true );
       wp_enqueue_script( 'slider2', RHSWP_THEMEFOLDER . '/js/min/scripts-min.js', array( 'jquery' ), '', true );
-      wp_enqueue_script( 'wp-rijkshuisstijl-menu', RHSWP_THEMEFOLDER . '/js/min/menu-min.js', '', '', true );
+//      wp_enqueue_script( 'wp-rijkshuisstijl-menu', RHSWP_THEMEFOLDER . '/js/min/menu-min.js', '', '', true );
     }
     else {
 
@@ -1401,7 +1463,7 @@ function rhswp_enqueue_js_scripts() {
       wp_enqueue_script( 'wp-rijkshuisstijl-polyfill-eventlistener', RHSWP_THEMEFOLDER . '/js/polyfill-eventlistener.js', array( 'jquery' ), '', true );
       wp_enqueue_script( 'wp-rijkshuisstijl-polyfill-matchmedia', RHSWP_THEMEFOLDER . '/js/polyfill-matchmedia.js', array( 'jquery' ), '', true );
       wp_enqueue_script( 'slider2', RHSWP_THEMEFOLDER . '/js/carousel-actions.js', array( 'jquery' ), '', true );
-      wp_enqueue_script( 'wp-rijkshuisstijl-menu', RHSWP_THEMEFOLDER . '/js/menu.js', '', CHILD_THEME_VERSION, true );
+//      wp_enqueue_script( 'wp-rijkshuisstijl-menu', RHSWP_THEMEFOLDER . '/js/menu.js', '', CHILD_THEME_VERSION, true );
     }
   }
 
