@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 1.2.3
-// * @desc.   Responsive styling homepage.
+// * @version 1.2.5
+// * @desc.   Added footer link.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "https://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "1.2.3" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Responsive styling homepage." );
+define( 'CHILD_THEME_VERSION',              "1.2.5" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Added footer link." );
 define( 'SHOW_CSS_DEBUG',                   false );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
@@ -4688,6 +4688,23 @@ function override_mce_options($initArray) {
 function rhswp_footer_payoff( ) {
   $title        = get_bloginfo( 'title' );
   $description  = get_bloginfo( 'description' );
+
+  $strprefix = '';  
+  $strsuffix = '';  
+
+  if ( function_exists( 'get_field' ) ) {
+    
+    if( get_field( 'footer_about_us', 'option') ) {
+      $footer_about_us       = get_field( 'footer_about_us', 'option');
+      
+      if ( $footer_about_us->ID ) {
+
+        $strprefix = '<a href="' . get_permalink( $footer_about_us->ID ) . '">';  
+        $strsuffix = '</a>';  
+
+      }
+    }
+  }
   
   if ( $title ) {
     $title = wp_strip_all_tags( $title ) . '<br>';
@@ -4701,7 +4718,7 @@ function rhswp_footer_payoff( ) {
   $replacer = '';
   $description = str_replace( $needle, $replacer, $description);
   
-  echo '<div id="payoff"> ' . $title . wp_strip_all_tags( $description ) . '</div>';
+  echo '<div id="payoff"> ' . $strprefix . $title . wp_strip_all_tags( $description ) . $strsuffix . '</div>';
 }
 
 //========================================================================================================
