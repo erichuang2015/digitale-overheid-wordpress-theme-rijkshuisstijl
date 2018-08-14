@@ -2209,6 +2209,8 @@ function rhswp_write_extra_contentblokken() {
           }
           elseif ( 'events' == $type_block ) {
 
+            $termname = get_term( $dossier_in_content_block, RHSWP_CT_DOSSIER );
+
             echo '<div class="block"' . $blockidattribute . '>';
 
             if ( $titel ) {
@@ -2217,7 +2219,7 @@ function rhswp_write_extra_contentblokken() {
 
             if (class_exists('EM_Events')) {
               
-              $eventlist = EM_Events::output( array( 'orderby'=>'name','scope'=>'future', 'limit' => $limit ) );
+              $eventlist = EM_Events::output( array( 'orderby'=>'name', RHSWP_CT_DOSSIER => $termname->slug, 'scope'=>'future', 'limit' => $limit ) );
 
               if ( $eventlist == get_option ( 'dbem_no_events_message' ) ) {
                 // er zijn dus geen evenementen
