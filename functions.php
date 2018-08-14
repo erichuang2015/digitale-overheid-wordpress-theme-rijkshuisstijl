@@ -8,7 +8,7 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 1.2.4a
+// * @version 1.2.4b
 // * @desc.   Search form in breadcrumb.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
@@ -23,7 +23,7 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "https://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "1.2.4a" );
+define( 'CHILD_THEME_VERSION',              "1.2.4b" );
 define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Search form in breadcrumb." );
 define( 'SHOW_CSS_DEBUG',                   false );
 
@@ -2188,14 +2188,14 @@ function rhswp_write_extra_contentblokken() {
       $dossier_in_content_block      = '';
 
       if ( is_page() ) {
-        $theid          = get_the_ID();
-        $contentblokken = get_field( 'extra_contentblokken', $theid );
-        $dossier_in_content_block    = get_the_terms( $theid , RHSWP_CT_DOSSIER );
+        $theid                    = get_the_ID();
+        $contentblokken           = get_field( 'extra_contentblokken', $theid );
+        $dossier_in_content_block = get_the_terms( $theid , RHSWP_CT_DOSSIER );
       }
       elseif ( is_tax( RHSWP_CT_DOSSIER ) ) {
-        $theid          = RHSWP_CT_DOSSIER . '_' . get_queried_object()->term_id;
-        $contentblokken = get_field( 'extra_contentblokken', $theid );
-        $dossier_in_content_block    = get_queried_object()->term_id;
+        $theid                    = RHSWP_CT_DOSSIER . '_' . get_queried_object()->term_id;
+        $contentblokken           = get_field( 'extra_contentblokken', $theid );
+        $dossier_in_content_block = get_queried_object()->term_id;
       }
 
      
@@ -2271,6 +2271,8 @@ function rhswp_write_extra_contentblokken() {
           }
           elseif ( 'events' == $type_block ) {
 
+            $termname = get_term( $dossier_in_content_block, RHSWP_CT_DOSSIER );
+
             echo '<div class="block"' . $blockidattribute . '>';
 
             if ( $titel ) {
@@ -2279,14 +2281,13 @@ function rhswp_write_extra_contentblokken() {
 
             if (class_exists('EM_Events')) {
               
-              $eventlist = EM_Events::output( array( 'orderby'=>'name','scope'=>'future', 'limit' => $limit ) );
+              $eventlist = EM_Events::output( array( 'orderby'=>'name', RHSWP_CT_DOSSIER => $termname->slug, 'scope'=>'future', 'limit' => $limit ) );
 
               if ( $eventlist == get_option ( 'dbem_no_events_message' ) ) {
                 // er zijn dus geen evenementen
                 echo get_option ( 'dbem_no_events_message' );
               }
               else {
-//                echo do_shortcode( '[events_list orderby="name" scope="future" limit="' . $limit . '"]#_LOCATIONNAME<br />[/events_list]' );
                 echo $eventlist;
               }
             }
@@ -2294,6 +2295,7 @@ function rhswp_write_extra_contentblokken() {
             echo '</div>';
             
           }
+
           elseif ( 'berichten_paginas' == $type_block ) {
 
             echo '<div class="block"' . $blockidattribute . '>';

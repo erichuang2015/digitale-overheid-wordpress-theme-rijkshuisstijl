@@ -303,7 +303,7 @@ function rhswp_dossier_title_checker( ) {
         }
         else {
 
-          dodebug('er is geen menu ingevoerd...');
+//          dodebug('er is geen menu ingevoerd...');
           
           if ( $parentID ) {
 
