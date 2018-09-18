@@ -8,7 +8,7 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 1.2.4b
+// * @version 1.2.4d
 // * @desc.   Search form in breadcrumb.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
@@ -23,9 +23,10 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "https://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "1.2.4b" );
+define( 'CHILD_THEME_VERSION',              "1.2.4d" );
 define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Search form in breadcrumb." );
 define( 'SHOW_CSS_DEBUG',                   false );
+//define( 'SHOW_CSS_DEBUG',                   true );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
   define( 'DO_MINIFY_JS',                   false );
@@ -137,6 +138,10 @@ define( 'RHSWP_HERO_IMAGE_WIDTH_NAME',      'Carrousel (full width: ' . RHSWP_MI
 define( 'RHSWP_HERO_IMAGE2_WIDTH_NAME',     RHSWP_MIN_HERO_IMAGE_WIDTH . 'w' );
 
 
+define( 'RHSWP_DOSSIERCONTEXTPOSTOVERVIEW',         'dossier-berichten' );
+define( 'RHSWP_DOSSIERCONTEXTCATEGORYPOSTOVERVIEW', 'dossier-categorie' );
+define( 'RHSWP_DOSSIERCONTEXTEVENTOVERVIEW',        'dossier-events' );
+define( 'RHSWP_DOSSIERCONTEXTDOCUMENTOVERVIEW',     'dossier-documenten' );
 
 
 //========================================================================================================
@@ -159,7 +164,7 @@ add_filter( 'image_size_names_choose', 'rhswp_add_imagesize_to_editor' );
 function rhswp_add_imagesize_to_editor( $sizes ) {
 
     $mythemesizes = array(
-        'nieuwsbriefthumb' 		=> __( 'Nieuwsbrief-grootte' ), 
+        'nieuwsbriefthumb' 		=> __( 'Nieuwsbrief-grootte', 'wp-rijkshuisstijl' ), 
     );
     $sizes = array_merge( $sizes, $mythemesizes );
 
@@ -401,10 +406,10 @@ remove_action( 'genesis_site_title',        'genesis_seo_site_title' );
 remove_action( 'genesis_site_description',  'genesis_seo_site_description' );
 
 //add_action( 'genesis_after_header', 'rhswp_site_description',                 10 ); 
-add_action( 'genesis_after_header', 'rhswp_menu_container_start',             12 );
-add_action( 'genesis_after_header', 'genesis_do_nav',                         14 ); // DEZE MOET WEG!!!
+//add_action( 'genesis_after_header', 'rhswp_menu_container_start',             12 ); // DEZE MOET WEG!!!
+//add_action( 'genesis_after_header', 'genesis_do_nav',                         14 ); // DEZE MOET WEG!!!
+//add_action( 'genesis_after_header', 'rhswp_menu_container_end',               16 ); // DEZE MOET WEG!!!
 
-add_action( 'genesis_after_header', 'rhswp_menu_container_end',               16 );
 add_action( 'genesis_after_header', 'genesis_do_breadcrumbs',                 18 );
 add_action( 'genesis_after_header', 'rhswp_dossier_title_checker',            20 );
 add_action( 'genesis_after_header', 'rhswp_check_caroussel_or_featured_img',  24 );
@@ -462,156 +467,270 @@ function rhswp_append_search_box_to_menu( $menu, $args ) {
 
 //========================================================================================================
 
-add_filter( 'genesis_single_crumb',   'rhswp_breadcrumb_add_newspage', 10, 2 );
-add_filter( 'genesis_page_crumb',     'rhswp_breadcrumb_add_newspage', 10, 2 );
-add_filter( 'genesis_archive_crumb',  'rhswp_breadcrumb_add_newspage', 10, 2 );
+add_filter( 'genesis_single_crumb',   'rhswp_add_extra_info_to_breadcrumb', 10, 2 );
+add_filter( 'genesis_page_crumb',     'rhswp_add_extra_info_to_breadcrumb', 10, 2 );
+add_filter( 'genesis_archive_crumb',  'rhswp_add_extra_info_to_breadcrumb', 10, 2 );
 
-function rhswp_breadcrumb_add_newspage( $crumb, $args ) {
+function rhswp_add_extra_info_to_breadcrumb( $crumb = '', $args = '' ) {
 
-  $span_before_start  = '<span class="breadcrumb-link-wrap" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">';  
-  $span_between_start = '<span itemprop="name">';  
-  $span_before_end    = '</span>';  
-  $loop               = rhswp_get_context_info();
-  $rarecounter        = '(0) ';
+  if ( $crumb ) {
+    
+    $span_before_start  = '<span class="breadcrumb-link-wrap" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">';  
+    $span_between_start = '<span itemprop="name">';  
+    $span_before_end    = '</span>';  
+    $loop               = rhswp_get_context_info();
+    $berichtnaam        = get_the_title();
 
-// dodebug( 'crumb: ' . $crumb );
-// dovardump( $args );
+  	if ( ( is_singular( 'post' ) && ( ( get_query_var( RHSWP_DOSSIERPOSTCONTEXT ) ) && ( ! get_query_var( RHSWP_DOSSIERCONTEXTPOSTOVERVIEW ) ) ) ) || is_date() || is_category() ) {
+
+dodebug('rhswp_add_extra_info_to_breadcrumb: A');  
+
+      $actueelpageid      = get_option( 'page_for_posts' );
+      $actueelpagetitle   = rhswp_filter_alternative_title( $actueelpageid, get_the_title( $actueelpageid ) );
   
-	if ( ( is_singular( 'post' ) && ( ! get_query_var( RHSWP_DOSSIERPOSTCONTEXT ) ) ) || is_date() || is_category() ) {
-
-    $actueelpageid      = get_option( 'page_for_posts' );
-    $rarecounter        = '(A) ';
-    $actueelpagetitle   = rhswp_filter_alternative_title( $actueelpageid, get_the_title( $actueelpageid ) );
-
-  	
-  	if ( $actueelpageid ) {
-      $rarecounter        = '(B) ';
-  		return $rarecounter . '<a href="' . get_permalink( get_option( 'page_for_posts' ) ) . '">' . $actueelpagetitle .'</a>' . $args['sep'] . ' ' . $crumb;
+    	if ( $actueelpageid ) {
+    		return '<a href="' . get_permalink( get_option( 'page_for_posts' ) ) . '">' . $actueelpagetitle .'</a>' . $args['sep'] . ' ' . $crumb;
+    	}
+    	else {
+    		return $crumb;
+    	}
   	}
   	else {
-  		return $rarecounter . $crumb;
-  	}
-	}
-	else {
-  	
-    $terms = get_the_terms( get_the_ID(), RHSWP_CT_DOSSIER );
 
-    if ( $terms && ! is_wp_error( $terms ) ) {
+      if ( RHSWP_DOSSIERCONTEXTPOSTOVERVIEW == get_query_var( 'pagename' ) ) {
+        dodebug('rhswp_add_extra_info_to_breadcrumb: B');  
+        $terms = get_term_by( 'slug', get_query_var( RHSWP_CT_DOSSIER ), RHSWP_CT_DOSSIER );
 
-      if ( is_singular( 'page' ) ) {
-
-  
-        $term = array_values( $terms )[0]; 
-        $needle = '';
-        
-        if ( function_exists( 'get_field' ) ) {
-          if( get_field( 'dossier_overzichtspagina', 'option') ) {
-          
-            $dossier_overzichtspagina       = get_field( 'dossier_overzichtspagina', 'option');
-            $dossier_overzichtspagina_id    = $dossier_overzichtspagina->ID;
-            $rarecounter                    = '(C) ';
-            
-            $dossier_overzichtspagina_start = $span_before_start . $rarecounter . '<a href="' . get_permalink( $dossier_overzichtspagina_id ) . '" itemprop="item">' . $span_between_start;
-            $dossier_overzichtspagina_end   = $span_before_end . '</a>' . $span_before_end;
-            $needle = $dossier_overzichtspagina_start . get_the_title( $dossier_overzichtspagina_id ) . $dossier_overzichtspagina_end  . $args['sep'];
-          
-          }
-          else {
-          }
+        if ( $terms && ! is_wp_error( $terms ) ) {
+          $term = $terms; 
         }
-        $rarecounter                    = '(D) ';
-        
-        $replacer = $needle . $span_before_start . $rarecounter . '<a href="' . get_term_link( $term ) . '">' . $term->name .'</a>' . $span_before_end . $args['sep'];
-        $crumb = str_replace( $needle, $replacer, $crumb);
-        
-    		return $crumb;
-        
+
       }
       else {
+        dodebug('rhswp_add_extra_info_to_breadcrumb: C');  
+        $terms = get_the_terms( get_the_ID(), RHSWP_CT_DOSSIER );
 
-        if ( get_query_var( RHSWP_DOSSIERPOSTCONTEXT ) ) {
-          
-          // het is een bericht / event / whatever in een dossiercontext
-
-          // de ID achterhalen van de pagina vanwaar dit bericht / event / whatever gelinkt werd
-          $urlofparentpage  = get_query_var( RHSWP_DOSSIERPOSTCONTEXT ); 
-          
-dodebug( 'URL of parent: ' . $urlofparentpage );
-          
-          $parentpageid     = url_to_postid( $urlofparentpage );
-
-          if ( $parentpageid ) {
-            // het is een pagina
-            dodebug( 'ID of parent: ' . $parentpageid );
-          
-            // in deze array zit als laatste element de titel van de huidige post / event / whatever
-            $titlearray = explode( $args['sep'], $crumb );
-          
-            // haal de ancestors op voor de huidige pagina
-            $ancestors = get_post_ancestors( $parentpageid );
-          
-            $returnstring   = '';
-            $rarecounter    = '(E) ';
-            // haal de hele keten aan ancestors op en zet ze in de returnstring
-            foreach ( $ancestors as $ancestorid ) {
-          
-              $returnstring = $span_before_start . $rarecounter . ' <a href="' . get_permalink( $ancestorid ) . '">' . get_the_title( $ancestorid ) .'</a>' . $span_before_end . $args['sep'] . $returnstring;
-            }
-          
-            $rarecounter    = '(F) ';
-          
-            $returnstring .= $span_before_start . $rarecounter . ' <a href="' . get_permalink( $parentpageid ) . '">' . get_the_title( $parentpageid ) .'</a>' . $span_before_end . $args['sep'] . array_pop($titlearray);
-
-          }
-          else {
-            // geen pagina
-            
-            $crumb = $args['sep'] . ' <a href="' . get_permalink( $ancestorid ) . '">' . get_the_title( $ancestorid ) .'</a>';
-          
-            // voeg onderwerppagina toe
-            if ( function_exists( 'get_field' ) ) {
-              if( get_field( 'dossier_overzichtspagina', 'option') ) {
-              
-                $dossier_overzichtspagina       = get_field( 'dossier_overzichtspagina', 'option');
-                $dossier_overzichtspagina_id    = $dossier_overzichtspagina->ID;
-                $rarecounter                    = '(G) ';
-          
-                $returnstring .= $span_before_start . $rarecounter . ' <a href="' . get_permalink( $dossier_overzichtspagina_id ) . '">' . get_the_title( $dossier_overzichtspagina_id ) .'</a>' . $span_before_end;
-
-              }
-            }
-            
-// $urlofparentpage            
-
-//Returns Array of Term ID's for RHSWP_CT_DOSSIER
-$term_list = wp_get_post_terms( get_the_id(), RHSWP_CT_DOSSIER, array("fields" => "ids"));
-print_r($term_list);
-/*
-$term         = get_term_by("slug", get_query_var("term"), get_query_var("taxonomy") );
-$parent       = get_term($term->parent, get_query_var("taxonomy"));
-$parentItems  = array();
-  
-while ($parent->term_id) {
-  array_push($parentItems,"<li><a href=\"" . home_url() . "/project-category/" . $parent->slug . "\">" . $parent->name . "</a></li>");
-  $parent = get_term($parent->parent, get_query_var("taxonomy"));
-}
-
-echo implode (array_reverse($parentItems));
-echo "<li><a href=\"" . home_url() . "/project-category/" . $term->slug . "\">" . $term->name . "</a></li>";
-*/            
-
-            $returnstring .= $crumb;
-          
-          }
-
-      		return $returnstring;
-    
+        if ( $terms && ! is_wp_error( $terms ) ) {
+          $term = array_values( $terms )[0]; 
         }
       }
-    }
 
-		return $crumb;
-	}
+      if ( $term ) {
+        
+        if ( is_singular( 'page' ) && ( RHSWP_DOSSIERCONTEXTPOSTOVERVIEW !== get_query_var( 'pagename' ) ) ) {
+
+dodebug('rhswp_add_extra_info_to_breadcrumb: is page');  
+
+          $needle = '';
+          
+          if ( function_exists( 'get_field' ) ) {
+            if( get_field( 'dossier_overzichtspagina', 'option') ) {
+            
+              $dossier_overzichtspagina       = get_field( 'dossier_overzichtspagina', 'option');
+              $dossier_overzichtspagina_id    = $dossier_overzichtspagina->ID;
+              
+              $dossier_overzichtspagina_start = $span_before_start . '<a href="' . get_permalink( $dossier_overzichtspagina_id ) . '" itemprop="item">' . $span_between_start;
+              $dossier_overzichtspagina_end   = $span_before_end . '</a>' . $span_before_end;
+              $needle = $dossier_overzichtspagina_start . get_the_title( $dossier_overzichtspagina_id ) . $dossier_overzichtspagina_end  . $args['sep'];
+            
+            }
+          }
+          
+          $replacer = $needle . $span_before_start . '<a href="' . get_term_link( $term ) . '">' . $term->name .'</a>' . $span_before_end . $args['sep'];
+          $crumb = str_replace( $needle, $replacer, $crumb);
+          
+      		return $crumb;
+          
+        }
+        else {
+
+dodebug('rhswp_add_extra_info_to_breadcrumb: NOT page');  
+
+          if ( get_query_var( RHSWP_DOSSIERPOSTCONTEXT ) || is_tax( RHSWP_CT_DOSSIER ) || get_query_var( RHSWP_CT_DOSSIER )  ) {
+
+if ( is_tax( RHSWP_CT_DOSSIER ) ) {
+  dodebug('rhswp_add_extra_info_to_breadcrumb: is_tax(' . RHSWP_CT_DOSSIER . ')! RHSWP_CT_DOSSIER : ' . get_query_var( RHSWP_CT_DOSSIER ) );  
+}
+
+if ( get_query_var( RHSWP_DOSSIERPOSTCONTEXT ) ) {
+  dodebug('rhswp_add_extra_info_to_breadcrumb: get_query_var(' . RHSWP_DOSSIERPOSTCONTEXT . ')! ' );  
+}
+
+            
+            // het is een bericht / event / whatever in een dossiercontext
+
+            if ( get_query_var( RHSWP_CT_DOSSIER ) && get_query_var( 'category_slug' ) ) {
+
+              dodebug('rhswp_add_extra_info_to_breadcrumb: A: ' . get_query_var( 'category_slug' ) . '  RHSWP_CT_DOSSIER : ' . get_query_var( RHSWP_CT_DOSSIER ) );  
+
+
+              $term                 = get_term_by( 'slug', get_query_var( RHSWP_CT_DOSSIER ), RHSWP_CT_DOSSIER );
+              $standaardpaginanaam  = $term->name;       
+              $ancestorid           = $term->term_id;       
+              $parentpageid         = 0;
+              
+            }
+            elseif ( get_query_var( RHSWP_DOSSIERPOSTCONTEXT ) ) {
+
+              dodebug('rhswp_add_extra_info_to_breadcrumb: B: RHSWP_DOSSIERPOSTCONTEXT : ' . get_query_var( RHSWP_DOSSIERPOSTCONTEXT ) );  
+
+              // de ID achterhalen van de pagina vanwaar dit bericht / event / whatever gelinkt werd
+              $urlofparentpage  = get_query_var( RHSWP_DOSSIERPOSTCONTEXT ); 
+              
+              dodebug( 'URL of parent: ' . $urlofparentpage );
+              
+              $parentpageid     = url_to_postid( $urlofparentpage );
+              
+            }
+            elseif ( get_query_var( RHSWP_CT_DOSSIER ) ) {
+
+              dodebug('rhswp_add_extra_info_to_breadcrumb: C: RHSWP_CT_DOSSIER : ' . get_query_var( RHSWP_CT_DOSSIER ) );  
+
+              $term                 = get_term_by( 'slug', get_query_var( RHSWP_CT_DOSSIER ), RHSWP_CT_DOSSIER );
+              $standaardpaginanaam  = $term->name;       
+              $ancestorid           = $term->term_id;       
+              $parentpageid         = 0;
+              
+            }
+            
+            else {
+
+              $parentpageid     = 0;
+            
+            }
+          
+  
+            if ( $parentpageid ) {
+              // het is een pagina
+              dodebug( 'ID of parent: ' . $parentpageid );
+            
+              // in deze array zit als laatste element de titel van de huidige post / event / whatever
+              $titlearray = explode( $args['sep'], $crumb );
+            
+              // haal de ancestors op voor de huidige pagina
+              $ancestors = get_post_ancestors( $parentpageid );
+            
+              $returnstring   = '';
+              // haal de hele keten aan ancestors op en zet ze in de returnstring
+              foreach ( $ancestors as $ancestorid ) {
+            
+                $returnstring = $span_before_start . ' <a href="' . get_permalink( $ancestorid ) . '">' . get_the_title( $ancestorid ) .'</a>' . $span_before_end . $args['sep'] . $returnstring;
+
+              }
+            
+              $returnstring .= $span_before_start .  ' <a href="' . get_permalink( $parentpageid ) . '">' . get_the_title( $parentpageid ) .'</a>' . $span_before_end . $args['sep'] . array_pop($titlearray);
+  
+            }
+            elseif ( is_tax( RHSWP_CT_DOSSIER ) ) {
+              // dit is de taxonomie-pagina
+
+//              $term                 = get_term_by( 'slug', get_query_var( RHSWP_CT_DOSSIER ), RHSWP_CT_DOSSIER );
+//              $standaardpaginanaam  = $term->name;       
+
+              if ( function_exists( 'get_field' ) ) {
+                if( get_field( 'dossier_overzichtspagina', 'option') ) {
+                
+                  $dossier_overzichtspagina       = get_field( 'dossier_overzichtspagina', 'option');
+                  $dossier_overzichtspagina_id    = $dossier_overzichtspagina->ID;
+            
+                  $returnstring = $span_before_start . ' <a href="' . get_permalink( $dossier_overzichtspagina_id ) . '">' . get_the_title( $dossier_overzichtspagina_id ) .'</a>' . $span_before_end;
+  
+                }
+              }
+                            
+                $returnstring .= $span_before_start . $standaardpaginanaam . $span_before_end;  
+              dodebug('rhswp_add_extra_info_to_breadcrumb: D: is_tax(' . RHSWP_CT_DOSSIER . ')' );  
+
+              
+              
+            }
+            elseif ( get_query_var( RHSWP_CT_DOSSIER ) ) {
+
+              dodebug('rhswp_add_extra_info_to_breadcrumb: E: RHSWP_CT_DOSSIER : ' . get_query_var( RHSWP_CT_DOSSIER ) );  
+
+              if ( function_exists( 'get_field' ) ) {
+                if( get_field( 'dossier_overzichtspagina', 'option') ) {
+                
+                  $dossier_overzichtspagina       = get_field( 'dossier_overzichtspagina', 'option');
+                  $dossier_overzichtspagina_id    = $dossier_overzichtspagina->ID;
+            
+                  $returnstring = $span_before_start . ' <a href="' . get_permalink( $dossier_overzichtspagina_id ) . '">' . get_the_title( $dossier_overzichtspagina_id ) .'</a>' . $span_before_end;
+  
+                }
+              }
+
+              $returnstring .= $span_before_start .  ' <a href="' . get_term_link( $term->term_id ) . '">' .  $term->name .'</a>' . $span_before_end . $args['sep'];
+
+
+              if ( get_query_var( 'category_slug' ) ) {
+                $category                 = get_term_by( 'slug', get_query_var( 'category_slug' ), 'category' );
+
+                $returnstring .= $span_before_start .  ' <a href="' . get_term_link( $term->term_id ) . RHSWP_DOSSIERCONTEXTPOSTOVERVIEW . '/' . RHSWP_DOSSIERCONTEXTCATEGORYPOSTOVERVIEW . '/' . $category->slug . '/">' .  $category->name .'</a>' . $span_before_end . $args['sep'];
+
+                $returnstring .= $span_before_start . $berichtnaam . $span_before_end;  
+
+              }
+              else {
+
+                $returnstring .= $span_before_start . ' <a href="' . get_term_link( $term->term_id ) . RHSWP_DOSSIERCONTEXTPOSTOVERVIEW . '/">' .  _x( 'Berichten', 'Linktekst in dossiermenu', 'wp-rijkshuisstijl' ) .'</a>' . $span_before_end;
+                
+              }
+
+            }
+            else {
+              // geen pagina
+              
+              $crumb = $args['sep'] . ' <a href="' . get_permalink( $ancestorid ) . '">' . get_the_title( $ancestorid ) .' / ' . $ancestorid . '</a>';
+            
+              // voeg onderwerppagina toe
+              if ( function_exists( 'get_field' ) ) {
+                if( get_field( 'dossier_overzichtspagina', 'option') ) {
+                
+                  $dossier_overzichtspagina       = get_field( 'dossier_overzichtspagina', 'option');
+                  $dossier_overzichtspagina_id    = $dossier_overzichtspagina->ID;
+            
+                  $returnstring .= $span_before_start . ' <a href="' . get_permalink( $dossier_overzichtspagina_id ) . '">' . get_the_title( $dossier_overzichtspagina_id ) .'</a>' . $span_before_end;
+  
+                }
+              }
+              
+  // $urlofparentpage            
+  
+  //Returns Array of Term ID's for RHSWP_CT_DOSSIER
+  $term_list = wp_get_post_terms( get_the_id(), RHSWP_CT_DOSSIER, array("fields" => "ids"));
+  print_r($term_list);
+  /*
+  $term         = get_term_by("slug", get_query_var("term"), get_query_var("taxonomy") );
+  $parent       = get_term($term->parent, get_query_var("taxonomy"));
+  $parentItems  = array();
+    
+  while ($parent->term_id) {
+    array_push($parentItems,"<li><a href=\"" . home_url() . "/project-category/" . $parent->slug . "\">" . $parent->name . "</a></li>");
+    $parent = get_term($parent->parent, get_query_var("taxonomy"));
+  }
+  
+  echo implode (array_reverse($parentItems));
+  echo "<li><a href=\"" . home_url() . "/project-category/" . $term->slug . "\">" . $term->name . "</a></li>";
+  */            
+  
+              $returnstring .= $crumb;
+            
+            }
+
+
+            
+  
+        		return $returnstring;
+      
+          }
+        }
+      }
+
+  
+  		return $crumb;
+  	}
+  }
+	
 }
 
 //========================================================================================================
@@ -626,7 +745,7 @@ function rhswp_breadcrumb_args( $args ) {
   $separator  = __( '<span class="separator">&#8250;</span>', 'wp-rijkshuisstijl' );
   $searchform = '';    
   
-  if ( is_home() || is_front_page() ) {
+  if ( is_home() || is_front_page() || is_search() ) {
   }
   else {
     $searchform = get_search_form( false );
@@ -1613,7 +1732,13 @@ add_filter( 'theme_page_templates', 'rhswp_remove_genesis_page_templates' );
 add_filter( 'get_search_form', 'rhswp_add_id_to_search_form', 21 );
 
 function rhswp_add_id_to_search_form( $form ) {
+
   $form = str_replace("<form", '<form tabindex="-1" id="' . ID_ZOEKEN . '" ', $form);
+
+  // remove the submit button
+  $tag_regex = "/<input[^>]*\btype=\"submit\"[^>]*>/i";
+  $form = preg_replace( $tag_regex, '<button id="search-submit" class="searchSubmit" name="search-submit" type="submit" title="' . _x( 'Zoeken', 'label zoekknop', 'wp-rijkshuisstijl' ) . '">' . _x( 'Zoeken', 'label zoekknop', 'wp-rijkshuisstijl' ) . '</button>', $form );
+
   return apply_filters( 'genesis_search_form', $form );
 }
 
@@ -1832,14 +1957,19 @@ function rhswp_add_single_socialmedia_buttons() {
 }
 
 //========================================================================================================
-
+    
 function rhswp_filter_alternative_title( $postid = 0,  $title = '' ) {
 
-  $yoasttitle = get_post_meta( $postid , '_yoast_wpseo_title', true); 
+  if ( function_exists( 'wpseo_replace_vars' ) ) {
+    
+    $yoasttitle = get_post_meta( $postid , '_yoast_wpseo_title', true); 
+  
+    if ( $yoasttitle ) {
+  		$title = wpseo_replace_vars( $yoasttitle, get_post( $postid ) );
+    }
 
-  if ( $yoasttitle ) {
-    $title = $yoasttitle;
   }
+
   
   if ( function_exists( 'get_field' ) ) {
     
@@ -2072,6 +2202,37 @@ function rhswp_dossiercontext_add_rewrite_rules() {
   // rewrite rules for events in dossier context
   add_rewrite_rule( '(.+?)(/' . RHSWP_DOSSIEREVENTCONTEXT . '/)(.+?)/?$', 'index.php?event=$matches[3]&' . RHSWP_DOSSIERPOSTCONTEXT . '=$matches[1]', 'top');
   add_rewrite_rule( '(.+?)/' . RHSWP_DOSSIEREVENTCONTEXT . '/?$', 'index.php?pagename=$matches[1]', 'top');
+  
+  // posts overview with paging
+  add_rewrite_rule( RHSWP_CT_DOSSIER . '/(.+?)/' . RHSWP_DOSSIERCONTEXTPOSTOVERVIEW . '/page/([0-9]+)/?$', 'index.php?paged=$matches[2]&pagename=' . RHSWP_DOSSIERCONTEXTPOSTOVERVIEW . '&' . RHSWP_CT_DOSSIER . '=$matches[1]', 'top');
+
+  // posts overview without paging
+  add_rewrite_rule( RHSWP_CT_DOSSIER . '/(.+?)/' . RHSWP_DOSSIERCONTEXTPOSTOVERVIEW . '/?$', 'index.php?pagename=' . RHSWP_DOSSIERCONTEXTPOSTOVERVIEW . '&' . RHSWP_CT_DOSSIER . '=$matches[1]', 'top');
+  
+  // events overview with paging
+  add_rewrite_rule( RHSWP_CT_DOSSIER . '/(.+?)/' . RHSWP_DOSSIERCONTEXTEVENTOVERVIEW . '/page/([0-9]+)/?$', 'index.php?paged=$matches[2]&pagename=' . RHSWP_DOSSIERCONTEXTEVENTOVERVIEW . '&' . RHSWP_CT_DOSSIER . '=$matches[1]', 'top');
+
+  // events overview without paging
+  add_rewrite_rule( RHSWP_CT_DOSSIER . '/(.+?)/' . RHSWP_DOSSIERCONTEXTEVENTOVERVIEW . '/?$', 'index.php?pagename=' . RHSWP_DOSSIERCONTEXTEVENTOVERVIEW . '&' . RHSWP_CT_DOSSIER . '=$matches[1]', 'top');
+
+  // documents overview with paging
+  add_rewrite_rule( RHSWP_CT_DOSSIER . '/(.+?)/' . RHSWP_DOSSIERCONTEXTDOCUMENTOVERVIEW . '/page/([0-9]+)/?$', 'index.php?paged=$matches[2]&pagename=' . RHSWP_DOSSIERCONTEXTDOCUMENTOVERVIEW . '&' . RHSWP_CT_DOSSIER . '=$matches[1]', 'top');
+
+  // documents overview without paging
+  add_rewrite_rule( RHSWP_CT_DOSSIER . '/(.+?)/' . RHSWP_DOSSIERCONTEXTDOCUMENTOVERVIEW . '/?$', 'index.php?pagename=' . RHSWP_DOSSIERCONTEXTDOCUMENTOVERVIEW . '&' . RHSWP_CT_DOSSIER . '=$matches[1]', 'top');
+
+
+  // posts overview for category with paging
+  add_rewrite_rule( RHSWP_CT_DOSSIER . '/(.+?)/' . RHSWP_DOSSIERCONTEXTPOSTOVERVIEW . '/' . RHSWP_DOSSIERCONTEXTCATEGORYPOSTOVERVIEW . '/(.+?)/page/([0-9]+)/?$', 'index.php?pagename=' . RHSWP_DOSSIERCONTEXTPOSTOVERVIEW . '&' . RHSWP_CT_DOSSIER . '=$matches[1]&category_slug=$matches[2]&paged=$matches[3]', 'top');
+
+  // single post in context of dossier and category
+  add_rewrite_rule( RHSWP_CT_DOSSIER . '/(.+?)/' . RHSWP_DOSSIERCONTEXTPOSTOVERVIEW . '/' . RHSWP_DOSSIERCONTEXTCATEGORYPOSTOVERVIEW . '/([^/]*)/([^/]*)/?$', 'index.php?' . RHSWP_CT_DOSSIER . '=$matches[1]&category_slug=$matches[2]&name=$matches[3]', 'top');
+
+  // posts overview for category without paging
+  add_rewrite_rule( RHSWP_CT_DOSSIER . '/(.+?)/' . RHSWP_DOSSIERCONTEXTPOSTOVERVIEW . '/' . RHSWP_DOSSIERCONTEXTCATEGORYPOSTOVERVIEW . '/([^/]*)/?$', 'index.php?pagename=' . RHSWP_DOSSIERCONTEXTPOSTOVERVIEW . '&' . RHSWP_CT_DOSSIER . '=$matches[1]&category_slug=$matches[2]', 'top');
+
+  // posts overview without category without paging
+  add_rewrite_rule( RHSWP_CT_DOSSIER . '/(.+?)/' . RHSWP_DOSSIERCONTEXTPOSTOVERVIEW . '/([^/]*)/?$', 'index.php?' . RHSWP_CT_DOSSIER . '=$matches[1]&name=$matches[2]', 'top');
 
   if ( function_exists( 'get_field' ) ) {
     if( get_field( 'global_search_page', 'option') ) {
@@ -2083,6 +2244,8 @@ function rhswp_dossiercontext_add_rewrite_rules() {
       
     }  
   }  
+
+  
 
 }
 
@@ -2123,10 +2286,15 @@ add_action( 'query_vars', 'rhswp_dossiercontext_add_query_vars' );
 
 function rhswp_dossiercontext_add_query_vars($vars) {
 	$vars[] = RHSWP_DOSSIERPOSTCONTEXT;
+	$vars[] = RHSWP_DOSSIERCONTEXTPOSTOVERVIEW;
+	$vars[] = RHSWP_DOSSIERCONTEXTCATEGORYPOSTOVERVIEW;
+	$vars[] = RHSWP_DOSSIERCONTEXTEVENTOVERVIEW;
+	$vars[] = RHSWP_DOSSIERCONTEXTDOCUMENTOVERVIEW;
 	$vars[] = 'searchwpquery';
 	
 	return $vars;
 }
+
 
 //========================================================================================================
 
@@ -2412,9 +2580,12 @@ function rhswp_write_extra_contentblokken() {
             else {
               // er moet contentblock getoond worden van het type 'berichten'  
 
-              $overviewurl        = '';
-              $overviewlinktext   = '';
-              $toonlinksindossiercontext = false;
+              $overviewurl                = '';
+              $overviewlinktext           = '';
+              $toonlinksindossiercontext  = false;
+              $do_cat_permalinks          = false;
+              $threshold                  = get_field('dossier_post_overview_categor_threshold', 'option');
+              $permalink_categories       = get_field('dossier_post_overview_categories', 'option' );
 
               if ( $dossier_in_content_block ) {
                 // we zijn op een dossieroverzicht
@@ -2432,7 +2603,20 @@ function rhswp_write_extra_contentblokken() {
                   'post_type'       => 'post',
                   'post_status'     => 'publish',
                   'posts_per_page'  => $maxnr_posts,
-                  'tax_query' => array(
+                  'tax_query'       => array(
+                    array(
+                      'taxonomy'  => RHSWP_CT_DOSSIER,
+                      'field'     => 'term_id',
+                      'terms'     => $currentterm
+                    ),
+                  )
+                );
+                
+                $argscount = array(
+                  'post_type'       => 'post',
+                  'post_status'     => 'publish',
+                  'posts_per_page'  => -1,
+                  'tax_query'       => array(
                     array(
                       'taxonomy'  => RHSWP_CT_DOSSIER,
                       'field'     => 'term_id',
@@ -2442,16 +2626,25 @@ function rhswp_write_extra_contentblokken() {
                 );
                 
                 $overviewlinktext = $dossier_in_content_block;
-                  
+                
+
+                // Assign predefined $args to your query
+                $contentblockpostscount = new WP_query();
+                $contentblockpostscount->query( $argscount );
+
+                if ( intval( $contentblockpostscount->post_count ) >= intval( $threshold ) ) {
+                  $do_cat_permalinks   = true;
+                }
+
               }
               else {
                 // niet op een dossieroverzicht
-
                 $args = array(
                   'post_type'       => 'post',
                   'post_status'     => 'publish',
                   'posts_per_page'  => $maxnr_posts
                 );
+                
               }            
               
               if ( $categoriefilter == 'nee' ) {
@@ -2469,8 +2662,8 @@ function rhswp_write_extra_contentblokken() {
   
                   foreach( $chosen_category as $filter ): 
   
-                    $terminfo     = get_term_by( 'id', $filter, 'category' );
-                    $slugs[]      = $terminfo->slug;
+                    $terminfo         = get_term_by( 'id', $filter, 'category' );
+                    $slugs[]          = $terminfo->slug;
   
                     $overviewlinktext = $terminfo->name;
                     $actueelpageid    = get_option( 'page_for_posts' );
@@ -2483,10 +2676,10 @@ function rhswp_write_extra_contentblokken() {
                     
                     // filter op dossier
                     $args = array(
-                      'post_type' => 'post',
+                      'post_type'       => 'post',
                       'post_status'     => 'publish',
                       'posts_per_page'  => $maxnr_posts,
-                      'tax_query' => array(
+                      'tax_query'       => array(
                         'relation' => 'AND',
                         array(
                           'taxonomy'  => RHSWP_CT_DOSSIER,
@@ -2509,14 +2702,14 @@ function rhswp_write_extra_contentblokken() {
   
                     // geen verder filter
                     $args = array(
-                      'post_type' => 'post',
+                      'post_type'       => 'post',
                       'post_status'     => 'publish',
                       'posts_per_page'  => $maxnr_posts,
-                      'tax_query' => array(
+                      'tax_query'       => array(
                         array(
-                          'taxonomy'  => 'category',
-                          'field'     => 'slug',
-                          'terms'     => $slugs,
+                          'taxonomy'    => 'category',
+                          'field'       => 'slug',
+                          'terms'       => $slugs,
                         )
                       )
                     );
@@ -2525,10 +2718,10 @@ function rhswp_write_extra_contentblokken() {
               }
               
               // Assign predefined $args to your query
-              $sidebarposts = new WP_query();
-              $sidebarposts->query($args);
+              $contentblockposts = new WP_query();
+              $contentblockposts->query($args);
               
-              if ( $sidebarposts->have_posts() ) {
+              if ( $contentblockposts->have_posts() ) {
   
 		            echo '<div class="block"' . $blockidattribute . '>';
   
@@ -2541,13 +2734,13 @@ function rhswp_write_extra_contentblokken() {
   
                 $postcounter = 0;
   
-                while ($sidebarposts->have_posts()) : $sidebarposts->the_post();
+                while ($contentblockposts->have_posts()) : $contentblockposts->the_post();
                   $postcounter++;
   
                   $doimage = false;
                   
                   $classattr = genesis_attr( 'entry' );
-  
+
                   do_action( 'genesis_before_entry' );
   
                   if ( 
@@ -2561,32 +2754,68 @@ function rhswp_write_extra_contentblokken() {
                     $classattr = str_replace( 'has-post-thumbnail', '', $classattr );
                   }
   
-                  $theurl     = get_permalink();
-                  $excerpt    = wp_strip_all_tags( get_the_excerpt( $post ) );
-                  $postdate   = get_the_date( );
-                  $title      = get_the_title();
+                  $theurl         = get_permalink();
+                  $excerpt        = wp_strip_all_tags( get_the_excerpt( $post ) );
+                  $postdate       = get_the_date( );
+                  $title          = get_the_title();
+                  $categories     = get_the_category();
+                  $categorielinks = '';
+                  $permalink_cat  = '';
+
+                  foreach( $categories as $category ) {
+                    
+                    if ( $toonlinksindossiercontext && ( ! $permalink_cat ) ) {
+                      if ( in_array( $category->term_id, $permalink_categories ) ) {
+                        // only register the first eligible category ID
+                        $permalink_cat = $category->slug;
+                        dodebug( 'INARRAY!! (' . $toonlinksindossiercontext . ') ' . $category->term_id . ' / ' . $category->slug );
+                      }                                          
+                    }
+                    
+                    if ( $categorielinks ) {
+                      $categorielinks .= ', ' . $category->name;
+                    }
+                    else {
+                      $categorielinks = $category->name;
+                    }
+                  }                  
                   
-      
+                  $categorielinks = '<p>' . wp_strip_all_tags( $categorielinks ) . '</p>';
+
+
                   if ( $currentsite && $currentpage && $toonlinksindossiercontext ) {
                     // aaaaa, what a fuckup.
                     // o holy ToDo: make me use a page for this URL (bug: 
 
-                  if ( is_page() ) {
-                  
-                    $postpermalink  = '/' . $post->post_name;
-                    $theurl         = $currentpage  . RHSWP_DOSSIERPOSTCONTEXT . $postpermalink;
+                    if ( is_page() ) {
+                      // RHSWP_DOSSIERCONTEXTPOSTOVERVIEW
+                      $postpermalink  = '/' . $post->post_name;
+                      $theurl         = $currentpage  . RHSWP_DOSSIERPOSTCONTEXT . $postpermalink;
+  
+                    }
+                    elseif ( is_tax( RHSWP_CT_DOSSIER ) ) {
+                    
+                      $postpermalink  = get_term_link( $toonlinksindossiercontext );
+                      $postpermalink  = str_replace( $currentsite, '', $postpermalink);
+  
+                      $postpermalink  = '/' . $post->post_name;
+                      $crumb          = str_replace( $currentsite, '', $currentpage);
+                      
+                      if ( $do_cat_permalinks && $permalink_cat ) {
+                        $theurl         = get_term_link( $toonlinksindossiercontext )  . RHSWP_DOSSIERCONTEXTPOSTOVERVIEW . '/' . RHSWP_DOSSIERCONTEXTCATEGORYPOSTOVERVIEW . '/' . $permalink_cat . $postpermalink;
 
-                  }
-                  elseif ( is_tax( RHSWP_CT_DOSSIER ) ) {
-                  
-                    $postpermalink  = get_term_link( $toonlinksindossiercontext );
-                    $postpermalink  = str_replace( $currentsite, '', $postpermalink);
+                        dodebug( 'A: theurl: ' . $theurl );
+                        
+                      }
+                      else {
+                        $theurl         = get_term_link( $toonlinksindossiercontext )  . RHSWP_DOSSIERCONTEXTPOSTOVERVIEW . $postpermalink;
 
-                    $postpermalink  = '/' . $post->post_name;
-                    $crumb          = str_replace( $currentsite, '', $currentpage);
-                    $theurl         = get_term_link( $toonlinksindossiercontext )  . RHSWP_DOSSIERPOSTCONTEXT . $postpermalink;
-                  
-                  }
+                        dodebug( 'B: theurl: ' . $theurl );
+
+                      }
+
+                    
+                    }
         
                   }
                   else {
@@ -2606,11 +2835,11 @@ function rhswp_write_extra_contentblokken() {
                     else {
                       printf( '<div class="article-visual">%s</div>', get_the_post_thumbnail( $post->ID, 'article-visual' ) );
                     }
-                    printf( '<div class="article-excerpt"><a href="%s"><h3>%s</h3><p>%s</p><p class="meta">%s</p></a></div>', $theurl, $title, $excerpt, $postdate );
+                    printf( '<div class="article-excerpt"><a href="%s"><h3>%s</h3><p>%s</p>%s<p class="meta">%s</p></a></div>', $theurl, $title, $excerpt, $categorielinks, $postdate );
                     echo '</div>';
                   }
                   else {
-                    printf( '<a href="%s"><h3>%s</h3><p>%s</p><p class="meta">%s</p></a>', $theurl, $title, $excerpt, $postdate );
+                    printf( '<a href="%s"><h3>%s</h3><p>%s</p>%s<p class="meta">%s</p></a>', $theurl, $title, $excerpt, $categorielinks, $postdate );
                   }
   
   
@@ -3663,7 +3892,7 @@ echo '<p>HIER MOET EEN HEADER IMAGE!!</p>';
                     
                     // filter op dossier
                     $args = array(
-                      'post_type' => 'post',
+                      'post_type'       => 'post',
                       'post_status'     => 'publish',
                       'posts_per_page'  => $maxnr_posts,
                       'tax_query' => array(
@@ -3689,7 +3918,7 @@ echo '<p>HIER MOET EEN HEADER IMAGE!!</p>';
   
                     // geen verder filter
                     $args = array(
-                      'post_type' => 'post',
+                      'post_type'       => 'post',
                       'post_status'     => 'publish',
                       'posts_per_page'  => $maxnr_posts,
                       'tax_query' => array(
@@ -4497,11 +4726,6 @@ function rhswp_add_detailssummary_funcs() {
             return false;
           }
 
-//      'headerlevel' => '',
-//      'summary'     => '',
-          
-
-
           window.send_to_editor('[detailssummary summary="' + rhswp_detailssummary_title + '" headerlevel="' + rhswp_detailssummary_headerlevel + '"]<p>' + rhswp_detailssummary_text + '</p>[/detailssummary]');
           tb_remove();
         })
@@ -4746,7 +4970,6 @@ function override_mce_options($initArray) {
 
 //add_filter('tiny_mce_before_init', 'override_mce_options');
 
-
 //========================================================================================================
 
 function rhswp_footer_payoff( ) {
@@ -4766,6 +4989,512 @@ function rhswp_footer_payoff( ) {
   $description = str_replace( $needle, $replacer, $description);
   
   echo '<div id="payoff"> ' . $title . wp_strip_all_tags( $description ) . '</div>';
+}
+
+//========================================================================================================
+
+// activate the page filters
+//add_action( 'template_redirect', 'rhswp_use_page_template' );
+
+add_action( 'pre_get_posts', 'rhswp_use_page_template' );
+
+//========================================================================================================
+
+function get_template_hoofdpagina_kalender( $thecontent = '' ) {
+
+  return $thecontent . '<p>joehoe, get_template_hoofdpagina_kalender</p>';
+
+}
+
+//========================================================================================================
+
+/**
+ * Exclude Category from Blog
+ * 
+ * @author Bill Erickson
+ * @link http://www.billerickson.net/customize-the-wordpress-query/
+ * @param object $query data
+ *
+ */
+function rhswp_use_page_template( $query ) {
+	
+	global $wp_the_query;
+
+  if( $query->is_main_query() && !$query->is_feed() && !is_admin() ) {
+
+    if ( 
+      ( RHSWP_DOSSIERCONTEXTPOSTOVERVIEW == get_query_var( 'pagename' ) ) ||
+      ( RHSWP_DOSSIERCONTEXTEVENTOVERVIEW == get_query_var( 'pagename' ) ) ||
+      ( RHSWP_DOSSIERCONTEXTDOCUMENTOVERVIEW == get_query_var( 'pagename' ) ) 
+      ) {
+
+//      set_query_var( 'pagename', '' ) ;
+      
+      // get posts for this dossier: tax_query
+      $artax_query = array(
+          array(
+            'taxonomy'  => RHSWP_CT_DOSSIER,
+            'field'     => 'slug',
+            'terms'     => get_query_var( 'dossiers' ),
+          ),
+        );
+      
+//      $query->set( 'post_status',     'publish' );
+//      $query->set( 'pagename',        'doe-mee' );
+//      $query->set( 'post_type',       'post' );
+//      $query->set( 'limit',           4 );
+//      $query->set( 'posts_per_page',  4 );
+//      $query->set( 'tax_query',       $artax_query );
+
+//      echo 'ja<br>';
+      
+      //* Force full-width-content layout
+//      add_filter( 'genesis_pre_get_option_site_layout', '__genesis_return_full_width_content' );
+      
+      add_filter( 'genesis_post_title_text', 'rhswp_custom_page_title_for_overviewpage', 15 );  // filter normal <h1> title
+      
+      add_filter( 'pre_get_document_title', 'rhswp_custom_page_title_for_overviewpage', 20 );  // Yoast hooks on #15
+
+
+      if ( RHSWP_DOSSIERCONTEXTPOSTOVERVIEW == get_query_var( 'pagename' ) ) {
+        // posts
+        add_action( 'genesis_entry_content', 'rhswp_get_page_dossiersingleactueel', 15 );
+        
+      }
+      elseif ( RHSWP_DOSSIERCONTEXTEVENTOVERVIEW == get_query_var( 'pagename' ) ) {
+        // events
+        add_action( 'genesis_entry_content', 'rhswp_get_events_for_dossier', 15 );
+        
+      }
+      elseif ( RHSWP_DOSSIERCONTEXTDOCUMENTOVERVIEW == get_query_var( 'pagename' ) ) {
+        // documents
+        add_action( 'genesis_entry_content', 'rhswp_get_documents_for_dossier', 15 );
+        
+      }
+      else {
+      
+        // filter the main template page
+        add_filter( 'the_content', 'get_template_hoofdpagina_kalender' );
+        
+      }
+
+    }
+    
+  }
+
+  return $query;
+
+}
+
+//========================================================================================================
+
+function rhswp_get_page_dossiersingleactueel() {
+
+  global $post;
+  global $wp_query;
+  
+  $terms            = get_the_terms( $post->ID , RHSWP_CT_DOSSIER );
+  $currentpageid    = $post->ID;
+  $currentpageslug  = $post->post_name;
+  $currentpage      = get_permalink();
+  $currentsite      = get_site_url();
+  $paged            = ( get_query_var('paged') ) ? get_query_var('paged') : 1;
+  $dossierfilter    = '';
+  $categoryfilter   = '';
+
+  if ( function_exists( 'get_field' ) ) {
+    $filter    = get_field('wil_je_filteren_op_categorie_op_deze_pagina', $post->ID );
+    $filters   = get_field('kies_de_categorie_waarop_je_wilt_filteren', $post->ID );
+  }
+
+  // check if the category is passed on via the query string
+  if ( get_query_var( RHSWP_CT_DOSSIER ) ) {
+    
+    // posts must be filtered by category as well
+    $dossierfilter  = get_query_var( RHSWP_CT_DOSSIER );
+
+    if ( get_query_var( 'category_slug' ) ) {
+      $categoryfilter = get_query_var( 'category_slug' );
+      $category_slug  = get_query_var( 'category_slug' );
+      $categoryinfo   = get_term_by( 'slug', $category_slug, 'category' );
+
+      $filters        = array();
+      $filters[]      = $categoryinfo->term_id;
+
+    }
+
+dodebug('Cat=' . $categoryfilter . ', dossier=' . $dossierfilter . '.' );
+
+    $filter         = 'ja';
+    $terms          = get_term_by("slug", get_query_var( RHSWP_CT_DOSSIER ), RHSWP_CT_DOSSIER );
+
+    if ($terms && ! is_wp_error( $terms ) ) { 
+    
+      $term             = $terms;
+      
+    }
+
+  }
+  else {
+
+    // nope, just use the known dossier
+    if ($terms && ! is_wp_error( $terms ) ) { 
+
+      $term = array_pop($terms);
+
+    }
+    
+  }
+
+
+  // default = very unspecific filter
+  $args = array(
+    'post_type'       => 'post',
+    'paged'           => $paged,
+    'posts_per_page'  => get_option('posts_per_page'),
+  );
+
+  $message          = 'Alle berichten';
+  $currentterm      = '';
+  $currenttermname  = '';
+  $currenttermslug  = '';
+
+  
+  if ( $term && ! is_wp_error( $term ) ) { 
+    // we can make the query more specific
+      
+    $currentterm      = $term->term_id;
+    $currenttermname  = $term->name;
+    $currenttermslug  = $term->slug; 
+
+    if ( $currentterm ) {
+      // filter op dossier
+      $args = array(
+        'post_type'       => 'post',
+        'paged'           => $paged,
+        'posts_per_page'  => get_option('posts_per_page'),
+        'tax_query'       => array(
+          'relation' => 'AND',
+          array(
+            'taxonomy' => RHSWP_CT_DOSSIER,
+            'field' => 'term_id',
+            'terms' => $currentterm
+          )
+        )
+      );
+    
+      $message = sprintf( __( 'berichten in het dossier %s', 'wp-rijkshuisstijl' ), $currenttermname );
+    }
+    
+  }
+  else {
+dodebug('Terms NIET bekend :-(' );    
+  }
+
+
+  if ( $filter !== 'ja' ) {
+  }
+  else {
+    
+    if ( $filters ) {
+
+      $slugs = array();
+      
+      foreach( $filters as $filter ): 
+
+        $terminfo = get_term_by( 'id', $filter, 'category' );
+        $message .= ' gecombineerd met de categorie "' . $terminfo->name . '"';
+
+        $slugs[] = $terminfo->slug;
+  
+      endforeach;
+
+      if ( $currentterm ) {
+
+        $args = array(
+            'post_type'       => 'post',
+            'paged'           => $paged,
+            'posts_per_page'  => get_option('posts_per_page'),
+            'tax_query'       => array(
+              'relation' => 'AND',
+              array(
+                'taxonomy' => RHSWP_CT_DOSSIER,
+                'field' => 'term_id',
+                'terms' => $currentterm
+              ),
+              array(
+                'taxonomy'  => 'category',
+                'field'     => 'slug',
+                'terms'     => $slugs,
+              )
+            )
+          );
+          
+      }
+      else {
+        $args = array(
+          'post_type'       => 'post',
+          'paged'           => $paged,
+          'posts_per_page'  => get_option('posts_per_page'),
+          'tax_query'       => array(
+            array(
+              'taxonomy'  => 'category',
+              'field'     => 'slug',
+              'terms'     => $slugs,
+            )
+          )
+        );
+        
+      }
+    }
+  }
+
+  $wp_query = new WP_Query( $args );
+  
+  if( $wp_query->have_posts() ) {
+
+      echo '<div class="posts-for-dossier">';
+
+    	while ( $wp_query->have_posts() ) {
+    		$wp_query->the_post();
+
+        if ( $currentsite && $currentpage ) {
+          
+          $postpermalink  = get_the_permalink();
+          $postpermalink  = str_replace( $currentsite, '', $postpermalink);
+          $postpermalink  = '/' . $post->post_name;
+          $crumb          = str_replace( $currentsite, '', $currentpage);
+
+          if ( $dossierfilter ) {
+          
+            $crumb          = '/' . RHSWP_CT_DOSSIER . '/' . $dossierfilter . '/' . RHSWP_DOSSIERCONTEXTPOSTOVERVIEW;
+          
+            if ( $categoryfilter ) {
+          
+              $crumb          .= '/' . RHSWP_DOSSIERCONTEXTCATEGORYPOSTOVERVIEW . '/' . $categoryfilter;
+
+            }
+
+            $theurl         = $currentsite . $crumb . $postpermalink . '/';
+
+          }
+          else {
+            
+            $theurl         = $currentsite . $crumb  . RHSWP_DOSSIERPOSTCONTEXT . $postpermalink . '/';
+            
+          }
+
+        }
+        else {
+          $theurl         = get_the_permalink();
+        }
+
+        $title          = rhswp_filter_alternative_title( get_the_id(), get_the_title( ) );
+        $excerpt        = get_the_excerpt();
+        $postdate       = get_the_date( );
+        $categorielinks = '';
+
+
+        printf( '<section><a href="%s"><h2>%s</h2><p>%s</p>%s<p class="meta">%s</p></a></section>', $theurl, $title, wp_strip_all_tags( $excerpt ), $categorielinks, $postdate );
+
+      }      
+
+      echo '</div>'; // class="posts-for-dossier">';
+
+    }
+    else {
+      echo '<p>';
+      echo sprintf( _x( 'We zochten naar %s, maar konden niets vinden.', 'foutboodschap als er geen content gevonden is', 'wp-rijkshuisstijl' ), $message );
+      echo '</p>';
+    }
+
+    genesis_posts_nav();
+
+    wp_reset_query();        
+
+    
+}
+
+//========================================================================================================
+
+function rhswp_get_documents_for_dossier() {
+  
+  global $post;
+  global $wp_query;
+
+  $message          = 'Alle documenten';
+  $currentpage      = get_permalink();
+  $currentsite      = get_site_url();
+  $paged            = ( get_query_var('paged') ) ? get_query_var('paged') : 1;
+
+  if ( get_query_var( RHSWP_CT_DOSSIER ) ) {
+    $term = get_term_by( 'slug', get_query_var( RHSWP_CT_DOSSIER ), RHSWP_CT_DOSSIER );
+  }
+  else {
+
+    $terms  = get_the_terms( $post->ID , RHSWP_CT_DOSSIER );
+    
+    if ($terms && ! is_wp_error( $terms ) ) { 
+    
+      $term = array_pop($terms);
+    
+    }
+  }
+
+  if ( $term ) { 
+
+    $message = sprintf( __( 'documenten in het dossier %s', 'wp-rijkshuisstijl' ), $term->name );
+
+dodebug( 'rhswp_get_documents_for_dossier: B. Term is gevuld. ' . $message );
+    
+    $args = array(
+      'post_type'       => RHSWP_CPT_DOCUMENT,
+      'paged'           => $paged,
+      'posts_per_page'  => get_option('posts_per_page'),
+      'tax_query'       => array(
+        'relation'      => 'AND',
+        array(
+          'taxonomy'    => RHSWP_CT_DOSSIER,
+          'field'       => 'term_id',
+          'terms'       => $term->term_id
+        )
+      )
+    );
+
+        
+    $wp_query = new WP_Query( $args );
+    
+    if( $wp_query->have_posts() ) {
+
+          while( $wp_query->have_posts() ): 
+            $wp_query->the_post(); 
+            global $post;
+  
+            if ( $currentsite && $currentpage ) {
+              
+              $postpermalink  = get_the_permalink();
+              $postpermalink  = str_replace( $currentsite, '', $postpermalink);
+              $postpermalink  = '/' . $post->post_name;
+  
+              $crumb          = str_replace( $currentsite, '', $currentpage);
+              
+              $theurl         = $currentsite . $crumb  . RHSWP_DOSSIERDOCUMENTCONTEXT . $postpermalink;
+  
+            }
+            else {
+              $theurl         = get_the_permalink();
+            }
+        		
+        
+          ?>
+  
+          <section>
+            <h2><a href="<?php echo $theurl ?>"><?php the_title(); ?></a></h2>
+            <?php 
+              the_excerpt();
+              
+                if ( WP_DEBUG && SHOW_CSS_DEBUG ) {
+                  dodebug('Check category & dossier:');
+                  the_category( ', ' ); 
+                  dodebug(get_the_term_list( $post->ID, RHSWP_CT_DOSSIER, 'Dossiers: ', ', ' ) );  
+                }
+            ?>            
+          </section>
+
+        <?php
+
+    		endwhile;
+    		
+        genesis_posts_nav();
+
+        wp_reset_query();        
+        
+        
+      }
+      else {
+        echo '<p>';
+        echo sprintf( _x( 'We zochten naar %s, maar konden niets vinden.', 'foutboodschap als er geen content gevonden is', 'wp-rijkshuisstijl' ), $message );
+        echo '</p>';
+      }
+    }
+    else {
+      dodebug( 'rhswp_get_documents_for_dossier: C. Term NIET gevuld. ' . $message );
+    }
+    
+}
+
+//========================================================================================================
+
+function rhswp_get_events_for_dossier() {
+  global $post;
+
+  if ( get_query_var( RHSWP_CT_DOSSIER ) ) {
+    $term = get_term_by( 'slug', get_query_var( RHSWP_CT_DOSSIER ), RHSWP_CT_DOSSIER );
+  }
+  else {
+
+    $terms  = get_the_terms( $post->ID , RHSWP_CT_DOSSIER );
+    
+    if ($terms && ! is_wp_error( $terms ) ) { 
+    
+      $term = array_pop($terms);
+    
+    }
+  }
+
+
+  $paged  = ( get_query_var('paged') ) ? get_query_var('paged') : 1;
+
+  if ( $term && class_exists( 'EM_Events' ) ) {
+    $eventlist =  EM_Events::output(     array( RHSWP_CT_DOSSIER  => $term->term_id ) );
+    echo $eventlist ;
+  }    
+
+}
+
+
+//========================================================================================================
+
+function rhswp_custom_page_title_for_overviewpage( $title ) {
+  
+  if ( 
+    ( RHSWP_DOSSIERCONTEXTPOSTOVERVIEW == get_query_var( 'pagename' ) ) ||
+    ( RHSWP_DOSSIERCONTEXTEVENTOVERVIEW == get_query_var( 'pagename' ) ) ||
+    ( RHSWP_DOSSIERCONTEXTDOCUMENTOVERVIEW == get_query_var( 'pagename' ) ) 
+    ) {
+
+    $term   = get_term_by( 'slug', get_query_var( RHSWP_CT_DOSSIER ), RHSWP_CT_DOSSIER );
+    $paged  = ( get_query_var('paged') ) ? sprintf( __( '- pagina %s', 'wp-rijkshuisstijl' ), get_query_var('paged') ) : '';
+
+    if ( RHSWP_DOSSIERCONTEXTPOSTOVERVIEW == get_query_var( 'pagename' ) ) {
+      // posts
+
+      $category_slug = get_query_var( 'category_slug' );
+
+      if ( $category_slug ) {
+        $categoryinfo = get_term_by( 'slug', $category_slug, 'category' );
+        $title        = sprintf( _x( 'Berichten voor \'%s\' en \'%s\' %s', 'berichten voor onderwerp met categorie', 'wp-rijkshuisstijl' ), $term->name, $categoryinfo->name, $paged );
+      }
+      else {
+        $title = sprintf( _x( 'Berichten voor %s %s', 'berichten voor onderwerp zonder categorie', 'wp-rijkshuisstijl' ), $term->name, $paged );
+      }
+      
+    }
+    elseif ( RHSWP_DOSSIERCONTEXTEVENTOVERVIEW == get_query_var( 'pagename' ) ) {
+      // events
+      $title = sprintf( __( 'Evenementen voor %s %s', 'wp-rijkshuisstijl' ), $term->name, $paged );
+      
+    }
+    elseif ( RHSWP_DOSSIERCONTEXTDOCUMENTOVERVIEW == get_query_var( 'pagename' ) ) {
+      // documents
+      $title = sprintf( __( 'Documenten voor %s %s', 'wp-rijkshuisstijl' ), $term->name, $paged );
+      
+    }
+    
+  }
+    
+  return $title ;  
+  
 }
 
 //========================================================================================================

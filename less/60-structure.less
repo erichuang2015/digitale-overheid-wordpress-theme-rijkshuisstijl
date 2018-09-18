@@ -179,8 +179,11 @@
 
   .dossier-overview {
 
+    background: @grijs_1;
+
     .wrap {
       padding-top: 1em;
+      padding-bottom: 1em;
     }
 
   	@media only screen and ( max-width: ( @break_fullwidth ) ) {
@@ -226,6 +229,14 @@
 
   	@media only screen and (min-width: ( @break_fullwidth ) ) {
       nav {
+        ul {
+          width: 75%;
+          float: left;
+          display: block;
+          column-count: 3;
+        }
+        li {
+        }        
 /*        
         border-bottom-style: none;
         
