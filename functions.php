@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 1.2.5
-// * @desc.   Added footer link.
+// * @version 1.2.6
+// * @desc.   Siteimprove code weggehaald.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "https://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "1.2.5" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Added footer link." );
+define( 'CHILD_THEME_VERSION',              "1.2.6" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Siteimprove code weggehaald." );
 define( 'SHOW_CSS_DEBUG',                   false );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
@@ -1456,15 +1456,6 @@ function rhswp_trackercode() {
     g.type="text/javascript"; g.async=true; g.defer=true; g.src=u+"js/tracker.php"; s.parentNode.insertBefore(g,s);
   })();
 <!-- End Piwik Code -->
-
-<!-- Start SiteImprove Code -->
-(function() {
-var sz = document.createElement("script"); sz.type = "text/javascript"; sz.async = true;
-sz.src = "//siteimproveanalytics.com/js/siteanalyze_6017476.js";
-var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(sz, s);
-})();
-<!-- End SiteImprove Code -->
-
 
 </script>';
 
