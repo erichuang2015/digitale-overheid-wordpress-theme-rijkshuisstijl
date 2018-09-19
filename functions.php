@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 1.2.8
-// * @desc.   Onderwerppagina met uitzonderingsonderwerpen. Kleine stijlwijzigingen. Bugfix voor single posts zonder dossiercontext.
+// * @version 1.2.9
+// * @desc.   Modernizr voor live-site. Bugfix voor dossier. List-item CSS aangepast.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
@@ -23,13 +23,14 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "https://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "1.2.8" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Onderwerppagina met uitzonderingsonderwerpen. Kleine stijlwijzigingen. Bugfix voor single posts zonder dossiercontext." );
+define( 'CHILD_THEME_VERSION',              "1.2.9" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Modernizr voor live-site. Bugfix voor dossier. List-item CSS aangepast." );
 define( 'SHOW_CSS_DEBUG',                   false );
 //define( 'SHOW_CSS_DEBUG',                   true );
 
 if ( SHOW_CSS_DEBUG && WP_DEBUG ) {
-  define( 'DO_MINIFY_JS',                   false );
+//  define( 'DO_MINIFY_JS',                   false );
+  define( 'DO_MINIFY_JS',                   true );
 }
 else {
   define( 'DO_MINIFY_JS',                   true );
@@ -1546,14 +1547,11 @@ function rhswp_enqueue_js_scripts() {
 
   if ( ! is_admin() ) {
 
-//    wp_enqueue_script( 'modernizr', 'https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js', '', '', true );
-
-    
     if ( DO_MINIFY_JS ) {
       // the minified file
-//      wp_enqueue_script( 'modernizr', RHSWP_THEMEFOLDER . '/js/modernizr-custom.js', '', '', true );
+      wp_enqueue_script( 'modernizr', RHSWP_THEMEFOLDER . '/js/modernizr-custom.js', '', CHILD_THEME_VERSION, true );
       wp_enqueue_script( 'slider2', RHSWP_THEMEFOLDER . '/js/min/scripts-min.js', array( 'jquery' ), '', true );
-//      wp_enqueue_script( 'wp-rijkshuisstijl-menu', RHSWP_THEMEFOLDER . '/js/min/menu-min.js', '', '', true );
+
     }
     else {
 
@@ -1563,13 +1561,9 @@ function rhswp_enqueue_js_scripts() {
       wp_enqueue_script( 'wp-rijkshuisstijl-polyfill-eventlistener', RHSWP_THEMEFOLDER . '/js/polyfill-eventlistener.js', array( 'jquery' ), '', true );
       wp_enqueue_script( 'wp-rijkshuisstijl-polyfill-matchmedia', RHSWP_THEMEFOLDER . '/js/polyfill-matchmedia.js', array( 'jquery' ), '', true );
       wp_enqueue_script( 'slider2', RHSWP_THEMEFOLDER . '/js/carousel-actions.js', array( 'jquery' ), '', true );
-//      wp_enqueue_script( 'wp-rijkshuisstijl-menu', RHSWP_THEMEFOLDER . '/js/menu.js', '', CHILD_THEME_VERSION, true );
     }
   }
 
-//  if ( ( is_home() || is_front_page() ) ) {
-//    wp_enqueue_script( 'commentform', RHSWP_THEMEFOLDER . '/js/min/scripts-home-min.js', array( 'jquery' ), '', true );
-//  }
 }
 
 //========================================================================================================

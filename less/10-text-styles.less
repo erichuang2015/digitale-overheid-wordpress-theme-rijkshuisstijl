@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 1.1.18
-// * @desc.   Merge branch 'master' of https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
+// * @version 1.2.9
+// * @desc.   Modernizr voor live-site. Bugfix voor dossier. List-item CSS aangepast.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 // **
 
@@ -617,10 +617,9 @@
         list-style: none;
       }
       li {
-        margin-left: 0;
-    		padding-left: 1.2em;
-    		.listitem_arrow( @a_color_default, .7em, 8px );
-        display: block;
+        margin-left: 1em;
+        list-style: outside;
+        list-style-type: square;
         
         &.rss {
           &:before {

@@ -10,8 +10,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 1.2.8
-// * @desc.   Onderwerppagina met uitzonderingsonderwerpen. Kleine stijlwijzigingen. Bugfix voor single posts zonder dossiercontext.
+// * @version 1.2.9
+// * @desc.   Modernizr voor live-site. Bugfix voor dossier. List-item CSS aangepast.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
@@ -170,7 +170,9 @@ function rhswp_dossier_title_checker( ) {
     }
     else {
 
-      if ( ( isset($wp_query->query_vars['category_name'] ) ) && ( get_query_var( RHSWP_CT_DOSSIER ) ) ) {
+      if ( is_singular( 'page' ) || ( is_singular( 'post' ) && ( isset($wp_query->query_vars['category_name'] ) ) && ( get_query_var( RHSWP_CT_DOSSIER ) ) ) ) {
+        
+        // get the dossier for pages OR for posts for which a context was provided
         
         $currentID    = $post->ID;
         $terms        = get_the_terms( $currentID , RHSWP_CT_DOSSIER );
