@@ -7,8 +7,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 1.2.3
-// * @desc.   Responsive styling homepage.
+// * @version 1.2.10
+// * @desc.   CSS voor list-items op onderwerppagina aangepast.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 // **
 
@@ -143,16 +143,16 @@
         }
         
         a, & {
-          line-height: 1.4;
+//          line-height: 1.4;
         }
         
         a {
           text-decoration: none;
           display: inline-block;
           overflow: hidden;
-          margin-top: .2em;
-          margin-right: .2em;
-          padding-right: .75em;
+//          margin-top: .2em;
+//          margin-right: .2em;
+//          padding-right: .75em;
           
           &:focus,
           &:active,
@@ -170,6 +170,19 @@
           padding-right: 0;
           margin-bottom: 1em;
           border-bottom: 1px solid @grijs;
+
+          li {
+            margin-bottom: 0;
+            margin-left: 0;
+            display: block;
+            width: 100%;
+
+        		padding-left: 1em;
+        		.listitem_arrow( @a_color_default, .7em, 9px );
+        		display: block;
+
+          }        
+          
           
           &:before {
             content: '';
@@ -228,43 +241,37 @@
     #mixitupfilterlist {
       
       &.unfiltered {
-        display: flex;
-        flex-flow: row wrap;
-        justify-content: flex-start;
-  
-        li, div {
-    	    flex-grow: 1;
-          float: left;
-          flex-basis: @flexbasis_twocols;
-          width: @flexbasis_twocols;
-          overflow: hidden;
-        }
-
+      
+      div.cat-item {
+        width: 25%;
+        
         &.i-have-kids {
-
-          ul.children {
-          
-            display: flex;
-            flex-flow: row wrap;
-            justify-content: flex-start;
-
-            li {
-              flex-grow: 1;
-              float: left;
-              flex-basis: @flexbasis_fourcols;
-              width: @flexbasis_fourcols;
-              overflow: hidden;
-            }              
-          }
+          width: 100%;
         }
         
       }
+      
+        ul.children {
+          column-count: 4;
+          
+          li {
+            margin-bottom: 0;
+            margin-left: 0;
+            display: block;
+            width: 100%;
+
+
+          }        
+        }
+        
+      }
+
     }
   }
 
   //========================================================================================================
   @media only screen and (min-width: ( @break_fullwidth ) ) {
-
+/*
     #mixitupfilterlist {
       
       &.unfiltered {
@@ -274,6 +281,7 @@
         }
       }
     }
+*/    
   }
 
   //========================================================================================================

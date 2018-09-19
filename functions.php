@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 1.2.9
-// * @desc.   Modernizr voor live-site. Bugfix voor dossier. List-item CSS aangepast.
+// * @version 1.2.10
+// * @desc.   CSS voor list-items op onderwerppagina aangepast.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "https://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "1.2.9" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Modernizr voor live-site. Bugfix voor dossier. List-item CSS aangepast." );
+define( 'CHILD_THEME_VERSION',              "1.2.10" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "CSS voor list-items op onderwerppagina aangepast." );
 define( 'SHOW_CSS_DEBUG',                   false );
 //define( 'SHOW_CSS_DEBUG',                   true );
 
@@ -483,6 +483,8 @@ function rhswp_add_extra_info_to_breadcrumb( $crumb = '', $args = '' ) {
     $berichtnaam        = get_the_title();
 
   	if ( ( is_singular( 'post' ) && ( ( get_query_var( RHSWP_DOSSIERPOSTCONTEXT ) ) && ( ! get_query_var( RHSWP_DOSSIERCONTEXTPOSTOVERVIEW ) ) ) ) || is_date() || is_category() ) {
+    	
+    	// voor bericht in oude dossiercontext of categoriecontext: verwijs naar de pagina met alle berichten
 
       $actueelpageid      = get_option( 'page_for_posts' );
       $actueelpagetitle   = rhswp_filter_alternative_title( $actueelpageid, get_the_title( $actueelpageid ) );
@@ -495,12 +497,17 @@ function rhswp_add_extra_info_to_breadcrumb( $crumb = '', $args = '' ) {
     	}
   	}
   	else {
+    	
+    	// dit is geen bericht in oude dossiercontext of categoriecontext
 
       if ( 
         ( RHSWP_DOSSIERCONTEXTPOSTOVERVIEW == get_query_var( 'pagename' ) ) ||
         ( RHSWP_DOSSIERCONTEXTEVENTOVERVIEW == get_query_var( 'pagename' ) ) ||
         ( RHSWP_DOSSIERCONTEXTDOCUMENTOVERVIEW == get_query_var( 'pagename' ) ) 
         ) {
+
+        // er is wel een nieuwe dossiercontext          
+          
         $terms = get_term_by( 'slug', get_query_var( RHSWP_CT_DOSSIER ), RHSWP_CT_DOSSIER );
 
         if ( $terms && ! is_wp_error( $terms ) ) {
@@ -2734,7 +2741,7 @@ function rhswp_write_extra_contentblokken() {
                       if ( in_array( $category->term_id, $permalink_categories ) ) {
                         // only register the first eligible category ID
                         $permalink_cat = $category->slug;
-                        dodebug( 'INARRAY!! (' . $toonlinksindossiercontext . ') ' . $category->term_id . ' / ' . $category->slug );
+//                        dodebug( 'INARRAY!! (' . $toonlinksindossiercontext . ') ' . $category->term_id . ' / ' . $category->slug );
                       }                                          
                     }
                     
@@ -2768,13 +2775,13 @@ function rhswp_write_extra_contentblokken() {
                       $crumb          = str_replace( $currentsite, '', $currentpage);
                       
                       if ( $do_cat_permalinks && $permalink_cat ) {
-                        $theurl         = get_term_link( $toonlinksindossiercontext )  . RHSWP_DOSSIERCONTEXTPOSTOVERVIEW . '/' . RHSWP_DOSSIERCONTEXTCATEGORYPOSTOVERVIEW . '/' . $permalink_cat . $postpermalink;
+                        $theurl         = trailingslashit( get_term_link( $toonlinksindossiercontext )  . RHSWP_DOSSIERCONTEXTPOSTOVERVIEW . '/' . RHSWP_DOSSIERCONTEXTCATEGORYPOSTOVERVIEW . '/' . $permalink_cat . $postpermalink );
 
                         dodebug( 'A: theurl: ' . $theurl );
                         
                       }
                       else {
-                        $theurl         = get_term_link( $toonlinksindossiercontext )  . RHSWP_DOSSIERCONTEXTPOSTOVERVIEW . $postpermalink;
+                        $theurl         = trailingslashit( get_term_link( $toonlinksindossiercontext )  . RHSWP_DOSSIERCONTEXTPOSTOVERVIEW . $postpermalink );
 
                         dodebug( 'B: theurl: ' . $theurl );
 
