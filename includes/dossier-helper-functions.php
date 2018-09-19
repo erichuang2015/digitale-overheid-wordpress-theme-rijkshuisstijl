@@ -10,8 +10,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 1.2.7
-// * @desc.   Voor dossiers: automatische links toegevoegd voor berichten, events, documenten. Plus: search form in breadcrumb.
+// * @version 1.2.8
+// * @desc.   Onderwerppagina met uitzonderingsonderwerpen. Kleine stijlwijzigingen. Bugfix voor single posts zonder dossiercontext.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
@@ -170,18 +170,24 @@ function rhswp_dossier_title_checker( ) {
     }
     else {
 
-      $currentID    = $post->ID;
-      $terms        = get_the_terms( $currentID , RHSWP_CT_DOSSIER );
-      $parentID     = wp_get_post_parent_id( $post->ID );
-      $parent       = get_post( $parentID );
-
-      if ($terms && ! is_wp_error( $terms ) ) { 
-        $term             = array_pop($terms);
-        $standaardpaginanaam =  $term->name;       
+      if ( ( isset($wp_query->query_vars['category_name'] ) ) && ( get_query_var( RHSWP_CT_DOSSIER ) ) ) {
+        
+        $currentID    = $post->ID;
+        $terms        = get_the_terms( $currentID , RHSWP_CT_DOSSIER );
+        $parentID     = wp_get_post_parent_id( $post->ID );
+        $parent       = get_post( $parentID );
+        
+        if ($terms && ! is_wp_error( $terms ) ) { 
+          $term             = array_pop($terms);
+          $standaardpaginanaam =  $term->name;       
+        }
+        
+        if ( is_single() && 'post' == $posttype ) {
+          dodebug('ja, is single en post');
+        }
       }
-      
-      if ( is_single() && 'post' == $posttype ) {
-        dodebug('ja, is single en post');
+      else {
+        dodebug('ja, is single en post maar geen cat noch dossier');
       }
     }    
 

@@ -10,8 +10,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 1.2.7
-// * @desc.   Voor dossiers: automatische links toegevoegd voor berichten, events, documenten. Plus: search form in breadcrumb.
+// * @version 1.2.8
+// * @desc.   Onderwerppagina met uitzonderingsonderwerpen. Kleine stijlwijzigingen. Bugfix voor single posts zonder dossiercontext.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 
 
@@ -926,6 +926,30 @@ if( function_exists('acf_add_local_field_group') ):
     			'return_format' => 'id',
     			'multiple' => 0,
     		),
+
+    		array(
+    			'key' => 'field_5ba1eaafcc2c0',
+    			'label' => 'Welke dossiers wil je NIET tonen?',
+    			'name' => 'dossier_overzicht_hide_dossiers',
+    			'type' => 'taxonomy',
+    			'instructions' => '',
+    			'required' => 0,
+    			'conditional_logic' => 0,
+    			'wrapper' => array(
+    				'width' => '',
+    				'class' => '',
+    				'id' => '',
+    			),
+    			'taxonomy' => 'dossiers',
+    			'field_type' => 'checkbox',
+    			'allow_null' => 1,
+    			'add_term' => 0,
+    			'save_terms' => 0,
+    			'load_terms' => 0,
+    			'return_format' => 'id',
+    			'multiple' => 0,
+    		),
+    		
     	),
     	'location' => array (
     		array (

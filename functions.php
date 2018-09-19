@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 1.2.4e
-// * @desc.   Voor dossiers: automatische links toegevoegd voor berichten, events, documenten. Plus: search form in breadcrumb.
+// * @version 1.2.8
+// * @desc.   Onderwerppagina met uitzonderingsonderwerpen. Kleine stijlwijzigingen. Bugfix voor single posts zonder dossiercontext.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "https://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "1.2.4e" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Voor dossiers: automatische links toegevoegd voor berichten, events, documenten. Plus: search form in breadcrumb." );
+define( 'CHILD_THEME_VERSION',              "1.2.8" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Onderwerppagina met uitzonderingsonderwerpen. Kleine stijlwijzigingen. Bugfix voor single posts zonder dossiercontext." );
 define( 'SHOW_CSS_DEBUG',                   false );
 //define( 'SHOW_CSS_DEBUG',                   true );
 
@@ -2500,7 +2500,7 @@ function rhswp_write_extra_contentblokken() {
                 }
                 
                 printf( '<article %s>', $classattr );
-                printf( '<a href="%s"><h3>%s</h3><p>%s</p><p class="meta">%s</p></a>', get_permalink(), get_the_title(), $excerpt, $postdate );
+                printf( '<a href="%s"><h3>%s</h3><p class="meta">%s</p><p>%s</p></a>', get_permalink(), get_the_title(), $postdate, $excerpt );
                 echo '</article>';
                 
                 // RESET THE QUERY
@@ -2807,11 +2807,13 @@ function rhswp_write_extra_contentblokken() {
                     else {
                       printf( '<div class="article-visual">%s</div>', get_the_post_thumbnail( $post->ID, 'article-visual' ) );
                     }
-                    printf( '<div class="article-excerpt"><a href="%s"><h3>%s</h3><p>%s</p>%s<p class="meta">%s</p></a></div>', $theurl, $title, $excerpt, $categorielinks, $postdate );
+                    printf( '<div class="article-excerpt"><a href="%s"><h3>%s</h3><p class="meta">%s</p><p>%s</p>%s</a></div>', $theurl, $title, $postdate, $excerpt, $categorielinks );
+                    
                     echo '</div>';
                   }
                   else {
-                    printf( '<a href="%s"><h3>%s</h3><p>%s</p>%s<p class="meta">%s</p></a>', $theurl, $title, $excerpt, $categorielinks, $postdate );
+                    printf( '<a href="%s"><h3>%s</h3><p class="meta">%s</p><p>%s</p>%s</a>', $theurl, $title, $postdate, $excerpt, $categorielinks );
+                    
                   }
   
   
@@ -3354,14 +3356,14 @@ function rhswp_archive_custom_loop() {
           if ( $doimage ) {
 //            printf( '<div class="article-container"><div class="article-visual">%s</div>', get_the_post_thumbnail( $post->ID, 'featured-post-widget' ) );
             printf( '<div class="article-container"><div class="article-visual" id="%s">&nbsp;</div>', $cssid );
-            printf( '<div class="article-excerpt"><a href="%s"><h3>%s</h3><p>%s</p><p class="meta">%s</p></a></div></div>', get_permalink(), $thetitle, $excerpt, $postdate );
+            printf( '<div class="article-excerpt"><a href="%s"><h3>%s</h3><p class="meta">%s</p><p>%s</p></a></div></div>', get_permalink(), $thetitle, $postdate, $excerpt );
           }
           else {
             if ( ! ( 'post' == get_post_type( $post->ID ) ) ) {
               printf( '<a href="%s"><h3>%s</h3><p>%s</p></a>', get_permalink(), $thetitle, $excerpt );
             }
             else {
-              printf( '<a href="%s"><h3>%s</h3><p>%s</p><p class="meta">%s</p></a>', get_permalink(), $thetitle, $excerpt, $postdate );
+              printf( '<a href="%s"><h3>%s</h3><p class="meta">%s</p><p>%s</p></a>', get_permalink(), $thetitle, $postdate, $excerpt );
             }
           }
   
@@ -5286,7 +5288,7 @@ dodebug('Terms NIET bekend :-(' );
         $categorielinks = '';
 
 
-        printf( '<section><a href="%s"><h2>%s</h2><p>%s</p>%s<p class="meta">%s</p></a></section>', $theurl, $title, wp_strip_all_tags( $excerpt ), $categorielinks, $postdate );
+        printf( '<section><a href="%s"><h2>%s</h2><p class="meta">%s</p><p>%s</p>%s</a></section>', $theurl, $title, $postdate, wp_strip_all_tags( $excerpt ), $categorielinks );
 
       }      
 

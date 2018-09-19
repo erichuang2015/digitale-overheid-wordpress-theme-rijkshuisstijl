@@ -9,8 +9,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 1.1.27
-// * @desc.   Revised the structure of the homepage.
+// * @version 1.2.8
+// * @desc.   Onderwerppagina met uitzonderingsonderwerpen. Kleine stijlwijzigingen. Bugfix voor single posts zonder dossiercontext.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
@@ -53,9 +53,11 @@ $timestamp = time();
   $featonderwerpen  = '';
 
   if ( function_exists( 'get_field' ) ) {
-	  $title            = get_field('dossier_overzicht_filter_title', $post->ID );
-	  $dossierfilter    = get_field('dossier_overzicht_filter', $post->ID );
-	  $featonderwerpen  = get_field('uitgelichte_dossiers', $post->ID );
+	  $title              = get_field('dossier_overzicht_filter_title', $post->ID );
+	  $dossierfilter      = get_field('dossier_overzicht_filter', $post->ID );
+	  $featonderwerpen    = get_field('uitgelichte_dossiers', $post->ID );
+	  $hiddenonderwerpen  = get_field('dossier_overzicht_hide_dossiers', $post->ID );
+	  
   }
 
 // 1 toon alles
@@ -138,6 +140,7 @@ $timestamp = time();
   }
   
   echo '<h2 id="h-result">' . _x( 'Alle onderwerpen', 'Tussenkop op onderwerppagina', 'wp-rijkshuisstijl' ) . '</h2>';
+
   
   $args = array(
     'taxonomy'              => RHSWP_CT_DOSSIER,
@@ -147,6 +150,10 @@ $timestamp = time();
     'hierarchical'          => TRUE,
     'title_li'              => '',
   );
+
+  if ( $hiddenonderwerpen ) {
+    $args['exclude'] = $hiddenonderwerpen;
+  }
   
   $terms = get_terms( RHSWP_CT_DOSSIER, $args );
 	
