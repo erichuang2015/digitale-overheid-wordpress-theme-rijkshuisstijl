@@ -10,8 +10,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 1.2.5
-// * @desc.   Added footer link.
+// * @version 1.2.4e
+// * @desc.   Voor dossiers: automatische links toegevoegd voor berichten, events, documenten. Plus: search form in breadcrumb.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
 
 
@@ -2382,9 +2382,166 @@ if( function_exists('acf_add_local_field_group') ):
   	'active' => 1,
   	'description' => '',
   ));
-  
-  
 
+  //------------------------------------------------------------------------------------------------------
+  // check om te bepalen of bij een dossiers aparte links getoond moeten worden voor berichten
+  // als er voor een dossier meer dan XX berichten zijn dan wordt, in plaats van 1 simpele link naar
+  // alle berichten, een link getoond naar een pagina waarop de beschikbare berichten getoond worden
+  // voor de combinatie dossier + categorie
+  // 
+  acf_add_local_field_group(array(
+  	'key' => 'group_5b8f9051e2a03',
+  	'title' => 'Instellingen voor berichten bij een dossier',
+  	'fields' => array(
+  		array(
+  			'key' => 'field_5b8f916c20a29',
+  			'label' => 'Ondergrens berichtencheck',
+  			'name' => 'dossier_post_overview_categor_threshold',
+  			'type' => 'select',
+  			'instructions' => '',
+  			'required' => 1,
+  			'conditional_logic' => 0,
+  			'wrapper' => array(
+  				'width' => '',
+  				'class' => '',
+  				'id' => '',
+  			),
+  			'choices' => array(
+  				1 => '1',
+  				2 => '2',
+  				3 => '3',
+  				4 => '4',
+  				5 => '5',
+  				6 => '6',
+  				7 => '7',
+  				8 => '8',
+  				9 => '9',
+  				10 => '10',
+  				15 => '15',
+  				20 => '20',
+  			),
+  			'default_value' => array(
+  				0 => 4,
+  			),
+  			'allow_null' => 0,
+  			'multiple' => 0,
+  			'ui' => 0,
+  			'ajax' => 0,
+  			'return_format' => 'value',
+  			'placeholder' => '',
+  		),
+  		array(
+  			'key' => 'field_5b8f906dd4f37',
+  			'label' => 'Selecteer 1 of meer categorieen',
+  			'name' => 'dossier_post_overview_categories',
+  			'type' => 'taxonomy',
+  			'instructions' => 'Selecteer hier de categorieen die apart getoond mogen worden in een dossieroverzicht. Als er berichten bestaan in deze categorie EN het zijn er meer dan \'Ondergrens berichtencheck\' dan worden aparte overzichtspagina\'s per categorie getoond.',
+  			'required' => 0,
+  			'conditional_logic' => 0,
+  			'wrapper' => array(
+  				'width' => '',
+  				'class' => '',
+  				'id' => '',
+  			),
+  			'taxonomy' => 'category',
+  			'field_type' => 'checkbox',
+  			'allow_null' => 0,
+  			'add_term' => 0,
+  			'save_terms' => 0,
+  			'load_terms' => 0,
+  			'return_format' => 'id',
+  			'multiple' => 0,
+  		),
+  		array(
+  			'key' => 'field_5b8f96a6d3686',
+  			'label' => 'Pagina voor berichten',
+  			'name' => 'dossier_post_overview_page',
+  			'type' => 'post_object',
+  			'instructions' => '',
+  			'required' => 0,
+  			'conditional_logic' => 0,
+  			'wrapper' => array(
+  				'width' => '',
+  				'class' => '',
+  				'id' => '',
+  			),
+  			'post_type' => array(
+  				0 => 'page',
+  			),
+  			'taxonomy' => array(
+  			),
+  			'allow_null' => 1,
+  			'multiple' => 0,
+  			'return_format' => 'object',
+  			'ui' => 1,
+  		),
+  		array(
+  			'key' => 'field_5b8f98627f62a',
+  			'label' => 'Pagina voor evenementen',
+  			'name' => 'dossier_events_overview_page',
+  			'type' => 'post_object',
+  			'instructions' => '',
+  			'required' => 0,
+  			'conditional_logic' => 0,
+  			'wrapper' => array(
+  				'width' => '',
+  				'class' => '',
+  				'id' => '',
+  			),
+  			'post_type' => array(
+  				0 => 'page',
+  			),
+  			'taxonomy' => array(
+  			),
+  			'allow_null' => 0,
+  			'multiple' => 0,
+  			'return_format' => 'object',
+  			'ui' => 1,
+  		),
+  		array(
+  			'key' => 'field_5b8f98897f62b',
+  			'label' => 'Pagina voor documenten',
+  			'name' => 'dossier_documents_overview_page',
+  			'type' => 'post_object',
+  			'instructions' => '',
+  			'required' => 0,
+  			'conditional_logic' => 0,
+  			'wrapper' => array(
+  				'width' => '',
+  				'class' => '',
+  				'id' => '',
+  			),
+  			'post_type' => array(
+  				0 => 'page',
+  			),
+  			'taxonomy' => array(
+  			),
+  			'allow_null' => 0,
+  			'multiple' => 0,
+  			'return_format' => 'object',
+  			'ui' => 1,
+  		),
+  	),
+  	'location' => array(
+  		array(
+  			array(
+  				'param' => 'options_page',
+  				'operator' => '==',
+  				'value' => 'instellingen',
+  			),
+  		),
+  	),
+  	'menu_order' => 0,
+  	'position' => 'normal',
+  	'style' => 'default',
+  	'label_placement' => 'top',
+  	'instruction_placement' => 'label',
+  	'hide_on_screen' => '',
+  	'active' => 1,
+  	'description' => '',
+  ));
+
+  //------------------------------------------------------------------------------------------------------
 
 endif;
 

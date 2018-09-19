@@ -164,23 +164,102 @@
 
   
   
-  .breadcrumb,
-  .dossier-overview {
-//    background: @nav_li_active_bg;	
+  .breadcrumb {
     background: @communicatiekleur_vol;
+    color: @wit;
     margin: 0;
     overflow: hidden;
+    padding-left: 1em;
   }
   footer {
     clear: both;
     float: none;
   }
-  
 
-  
-.dinges {
-  background: @nav_li_active_bg;
-}  
+
+  .dossier-overview {
+
+    background: @grijs_1;
+
+    .wrap {
+      padding-top: 1em;
+      padding-bottom: 1em;
+    }
+
+  	@media only screen and ( max-width: ( @break_fullwidth ) ) {
+      nav,
+      .entry-title,
+      .taxonomy-title {
+        padding-left: 1em;
+      }
+    }
+    
+    nav {
+
+      li {
+    		padding-left: 1.5em !important;
+        .listitem_arrow( @a_color_default, .8em, 7px );
+      }      
+
+/*      
+      border-bottom: 1px solid @communicatiekleur_licht;
+      
+      .selected {
+        span {
+          display: block;
+        }
+      }
+      
+      a, .selected span {
+        padding: 5px 10px;
+        border-top: 1px solid @communicatiekleur_licht;
+      }
+      
+      a {
+        color: @txt;
+      }
+      .selected {
+        a,
+        span {
+          color: @txt;
+        }
+      }
+*/      
+    }
+
+  	@media only screen and (min-width: ( @break_fullwidth ) ) {
+      nav {
+        ul {
+          width: 75%;
+          float: left;
+          display: block;
+          column-count: 3;
+        }
+        li {
+        }        
+/*        
+        border-bottom-style: none;
+        
+        li {
+          display: inline-block;
+          float: left;
+        }
+        
+        .selected {
+          span {
+            display: block;
+          }
+        }
+        
+        a, .selected span {
+          padding: 5px 10px;
+          border-top-style: none;
+        }
+*/        
+      }
+  	}    
+  }  
+
   .site-inner {
     color: @nav_submenu_a_color_default;
     margin-top: 1em;

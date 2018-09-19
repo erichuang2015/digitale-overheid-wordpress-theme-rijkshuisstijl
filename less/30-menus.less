@@ -69,7 +69,7 @@
       }
       &.selected {
         a, span {
-          background: white;
+//          background: white;
           font-weight: bold;
           font-family: @fontstrong;
         }
@@ -79,8 +79,8 @@
 
     &.nav-primary {
 
-      padding: 71px 1em 1em 1em;
-      
+//      padding: 71px 1em 1em 1em;
+      padding: 1em;
       
       ul {
         &, li, span {
@@ -116,27 +116,7 @@
       }
     }
   }
-  .dossier-overview {
-    nav {
-      border-bottom: 1px solid @communicatiekleur_licht;
-      
-      .selected {
-        span {
-          display: block;
-        }
-      }
-      
-      a, .selected span {
-        padding: 5px 10px;
-        border-top: 1px solid @communicatiekleur_licht;
-        color: @txt;
-      }
-    }
-  }
 
-
-	
-	
 
 	@media only screen and (max-width: ( @break_tablet  - 1 ) ) {
 
@@ -466,36 +446,6 @@
         }
       }
     }
-
-		
-		
 	}
 
-	@media only screen and (min-width: ( @break_fullwidth ) ) {
-
-    .dossier-overview {
-      nav {
-        border-bottom-style: none;
-        
-        li {
-          display: inline-block;
-          float: left;
-        }
-        
-        .selected {
-          span {
-            display: block;
-          }
-        }
-        
-        a, .selected span {
-          padding: 5px 10px;
-          border-top-style: none;
-          color: @txt;
-        }
-      }
-    }
-	
-	
-	}
 }

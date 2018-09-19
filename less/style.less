@@ -4,8 +4,8 @@
   Description: Theme voor digitaleoverheid.nl
   Author: Paul van Buuren
   Author URI: https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl/
-  Version: 1.2.6
-  Version description: 1.2.6 - Siteimprove code weggehaald.
+  Version: 1.2.4e
+  Version description: 1.2.4e - Voor dossiers: automatische links toegevoegd voor berichten, events, documenten. Plus: search form in breadcrumb.
   Text Domain: wp-rijkshuisstijl
   
   Template: genesis
@@ -199,14 +199,21 @@ Common Classes
     .search-form {
       position: absolute;
       right: 0;
-      top: 0;
+
+      @media only screen and ( max-width: @break_tablet ) {
+        top: 8px;
+      }    
+      @media only screen and ( min-width: @break_tablet ) {
+        top: 14px;
+      }    
+
     }
     
   }
   
   nav {
     color: @wit;
-    font-weight: 700;
+    font-family: @fontstrong;
     padding-top: 18px;
     padding-right: 18px;
     padding-bottom: 18px;
@@ -220,20 +227,14 @@ Common Classes
     
     span {
       padding: ( @padding / 1.5 ) 0;
-      color: @wit;
-      font-weight: normal;
     }
     
     a {
-      font-weight: normal;
-      color: @wit;
-      
       &:hover,
       &:active,
       &:focus {
         text-decoration: underline;
       }
-    
 
       &:after {
         font-weight: normal;
@@ -251,9 +252,14 @@ Common Classes
         margin: -3px 0 0 0;
         text-decoration: none;
       }    
-    
-    
     }
+    
+    span,
+    a {
+      color: @wit;
+      font-family: @bodyfont;
+    }
+
   }
   
   .separator {

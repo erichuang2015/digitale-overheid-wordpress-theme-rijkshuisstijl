@@ -14,9 +14,10 @@ Dit theme wordt gebruikt op [digitaleoverheid.nl](https://www.digitaleoverheid.n
 * single_XXX.php hernoemen naar single.php
 
 ## Current version:
-1.2.6 - Siteimprove code weggehaald.
+1.2.7 - Voor dossiers: automatische links toegevoegd voor berichten, events, documenten. Plus: search form in breadcrumb.
 
 ## Version history
+* 1.2.7 - Voor dossiers: automatische links toegevoegd voor berichten, events, documenten. Plus: search form in breadcrumb.
 * 1.2.6 - Siteimprove code weggehaald.
 * 1.2.5 - Added footer link.
 * 1.2.3 - Responsive styling homepage.
