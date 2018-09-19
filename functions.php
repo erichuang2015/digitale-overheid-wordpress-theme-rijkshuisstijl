@@ -1619,15 +1619,6 @@ function rhswp_trackercode() {
   })();
 <!-- End Piwik Code -->
 
-<!-- Start SiteImprove Code -->
-(function() {
-var sz = document.createElement("script"); sz.type = "text/javascript"; sz.async = true;
-sz.src = "//siteimproveanalytics.com/js/siteanalyze_6017476.js";
-var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(sz, s);
-})();
-<!-- End SiteImprove Code -->
-
-
 </script>';
 
 
@@ -4955,6 +4946,23 @@ function override_mce_options($initArray) {
 function rhswp_footer_payoff( ) {
   $title        = get_bloginfo( 'title' );
   $description  = get_bloginfo( 'description' );
+
+  $strprefix = '';  
+  $strsuffix = '';  
+
+  if ( function_exists( 'get_field' ) ) {
+    
+    if( get_field( 'footer_about_us', 'option') ) {
+      $footer_about_us       = get_field( 'footer_about_us', 'option');
+      
+      if ( $footer_about_us->ID ) {
+
+        $strprefix = '<a href="' . get_permalink( $footer_about_us->ID ) . '">';  
+        $strsuffix = '</a>';  
+
+      }
+    }
+  }
   
   if ( $title ) {
     $title = wp_strip_all_tags( $title ) . '<br>';
@@ -4968,7 +4976,7 @@ function rhswp_footer_payoff( ) {
   $replacer = '';
   $description = str_replace( $needle, $replacer, $description);
   
-  echo '<div id="payoff"> ' . $title . wp_strip_all_tags( $description ) . '</div>';
+  echo '<div id="payoff"> ' . $strprefix . $title . wp_strip_all_tags( $description ) . $strsuffix . '</div>';
 }
 
 //========================================================================================================
