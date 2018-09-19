@@ -208,7 +208,7 @@ $custom_tax_mb = new Taxonomy_Single_Term( RHSWP_CT_DOSSIER, array( 'page' ) );
 $custom_tax_mb->set( 'metabox_title', __( 'Onderwerpen', 'wp-rijkshuisstijl' ) );
 
 // Will keep radio elements from indenting for child-terms.
-$custom_tax_mb->set( 'indented', false );
+$custom_tax_mb->set( 'indented', true );
 
 // Allows adding of new terms from the metabox
 $custom_tax_mb->set( 'allow_new_terms', true );
