@@ -14,10 +14,11 @@ Dit theme wordt gebruikt op [digitaleoverheid.nl](https://www.digitaleoverheid.n
 * single_XXX.php hernoemen naar single.php
 
 ## Current version:
-1.2.10 - CSS voor list-items op onderwerppagina aangepast.
+1.2.11 - Bugs uit broodkruimelpad: dossierhierarchie tonen.
 
 ## Version history
-* 1.2.10 - CSS voor list-items op onderwerppagina aangepast.
+* 1.2.11 - Bugs uit broodkruimelpad: dossierhierarchie tonen.
+* 1.2.10 - CSS voor list-items op onderwerppagina aangepast
 * 1.2.9 - Modernizr voor live-site. Bugfix voor dossier. List-item CSS aangepast.
 * 1.2.7 - Voor dossiers: automatische links toegevoegd voor berichten, events, documenten. Plus: search form in breadcrumb.
 * 1.2.6 - Siteimprove code weggehaald.

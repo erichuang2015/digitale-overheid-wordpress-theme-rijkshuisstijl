@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 1.2.10
-// * @desc.   CSS voor list-items op onderwerppagina aangepast.
+// * @version 1.2.11
+// * @desc.   Bugs uit broodkruimelpad: dossierhierarchie tonen.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "https://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "1.2.10" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "CSS voor list-items op onderwerppagina aangepast." );
+define( 'CHILD_THEME_VERSION',              "1.2.11" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Bugs uit broodkruimelpad: dossierhierarchie tonen." );
 define( 'SHOW_CSS_DEBUG',                   false );
 //define( 'SHOW_CSS_DEBUG',                   true );
 
@@ -529,6 +529,8 @@ function rhswp_add_extra_info_to_breadcrumb( $crumb = '', $args = '' ) {
         ) ) {
           // it is a page
 
+// dodebug('rhswp_add_extra_info_to_breadcrumb: is a page');
+
           $needle = '';
           
           if ( function_exists( 'get_field' ) ) {
@@ -552,10 +554,14 @@ function rhswp_add_extra_info_to_breadcrumb( $crumb = '', $args = '' ) {
         }
         else {
           // it is not a page
+
+// dodebug('rhswp_add_extra_info_to_breadcrumb: NOT a page');
           
           if ( get_query_var( RHSWP_DOSSIERPOSTCONTEXT ) || is_tax( RHSWP_CT_DOSSIER ) || get_query_var( RHSWP_CT_DOSSIER )  ) {
 
             // het is een bericht / event / whatever in een dossiercontext
+
+// dodebug('rhswp_add_extra_info_to_breadcrumb: IS DOSSIERTAX OR DOSSIERQUERYVAR ');
 
             if ( get_query_var( RHSWP_CT_DOSSIER ) && get_query_var( 'category_slug' ) ) {
 
@@ -570,7 +576,7 @@ function rhswp_add_extra_info_to_breadcrumb( $crumb = '', $args = '' ) {
               // de ID achterhalen van de pagina vanwaar dit bericht / event / whatever gelinkt werd
               $urlofparentpage  = get_query_var( RHSWP_DOSSIERPOSTCONTEXT ); 
               
-              dodebug( 'URL of parent: ' . $urlofparentpage );
+dodebug( 'URL of parent: ' . $urlofparentpage );
               
               $parentpageid     = url_to_postid( $urlofparentpage );
               
@@ -589,11 +595,30 @@ function rhswp_add_extra_info_to_breadcrumb( $crumb = '', $args = '' ) {
               $parentpageid     = 0;
             
             }
+            
+            $parentlist = '';
+
+            if ( $term ) {
+
+              $args = array(
+                'separator' => $span_before_start,
+                'inclusive' => false
+              );
+              
+              $parentlist = get_term_parents_list( $term->term_id, RHSWP_CT_DOSSIER, $args );
+            
+              if ( $parentlist ) {
+                $parentlist = $span_before_start . $parentlist . $span_before_end;
+              }
+              
+            }
 
 
             if ( $parentpageid ) {
               // het is een pagina
 
+// dodebug('rhswp_add_extra_info_to_breadcrumb: page with parentID ');
+          
               // in deze array zit als laatste element de titel van de huidige post / event / whatever
               $titlearray = explode( $args['sep'], $crumb );
             
@@ -614,18 +639,29 @@ function rhswp_add_extra_info_to_breadcrumb( $crumb = '', $args = '' ) {
             elseif ( is_tax( RHSWP_CT_DOSSIER ) ) {
               // dit is de taxonomie-pagina
 
+              $returnstring = '';
+
+// dodebug('rhswp_add_extra_info_to_breadcrumb: IS TAX!!');
+
               if ( function_exists( 'get_field' ) ) {
                 if( get_field( 'dossier_overzichtspagina', 'option') ) {
                 
                   $dossier_overzichtspagina       = get_field( 'dossier_overzichtspagina', 'option');
                   $dossier_overzichtspagina_id    = $dossier_overzichtspagina->ID;
             
-                  $returnstring = $span_before_start . ' <a href="' . get_permalink( $dossier_overzichtspagina_id ) . '">' . get_the_title( $dossier_overzichtspagina_id ) .'</a>' . $span_before_end;
+                  $returnstring .= $span_before_start . ' <a href="' . get_permalink( $dossier_overzichtspagina_id ) . '">' . get_the_title( $dossier_overzichtspagina_id ) .'</a>' . $span_before_end;
   
                 }
               }
+
+              if ( $parentlist ) {
+                // dodebug('rhswp_add_extra_info_to_breadcrumb: IS TAX EN HEP PARENTS');
+            
+                $returnstring .= $parentlist;
+                
+              }
                             
-              $returnstring .= $span_before_start . $standaardpaginanaam . $span_before_end;  
+              $returnstring .= $span_before_start .$standaardpaginanaam . $span_before_end;  
               
             }
             
@@ -642,39 +678,47 @@ function rhswp_add_extra_info_to_breadcrumb( $crumb = '', $args = '' ) {
                 }
               }
 
+              if ( $parentlist ) {
+                // dodebug('rhswp_add_extra_info_to_breadcrumb: IS TAX EN HEP PARENTS');
+            
+                $returnstring .= $parentlist;
+                
+              }
+
+
               $returnstring .= $span_before_start .  ' <a href="' . get_term_link( $term->term_id ) . '">' .  $term->name .'</a>' . $span_before_end . $args['sep'];
 
 
               if ( get_query_var( 'category_slug' ) ) {
+
+// dodebug('rhswp_add_extra_info_to_breadcrumb: YES CAT SLUG');
+/*
                 $category                 = get_term_by( 'slug', get_query_var( 'category_slug' ), 'category' );
 
                 $returnstring .= $span_before_start .  ' <a href="' . get_term_link( $term->term_id ) . RHSWP_DOSSIERCONTEXTPOSTOVERVIEW . '/' . RHSWP_DOSSIERCONTEXTCATEGORYPOSTOVERVIEW . '/' . $category->slug . '/">' .  $category->name .'</a>' . $span_before_end . $args['sep'];
 
                 $returnstring .= $span_before_start . $berichtnaam . $span_before_end;  
-
+*/
               }
               else {
 
-                if ( RHSWP_DOSSIERCONTEXTPOSTOVERVIEW == get_query_var( 'pagename' ) ) {
+// dodebug('rhswp_add_extra_info_to_breadcrumb: NO CAT SLUG');
 
-                  $returnstring .= $span_before_start .  _x( 'Berichten', 'Linktekst in dossiermenu', 'wp-rijkshuisstijl' ) ;
-  
+                if ( RHSWP_DOSSIERCONTEXTPOSTOVERVIEW == get_query_var( 'pagename' ) ) {
+// dodebug('rhswp_add_extra_info_to_breadcrumb: NO CAT SLUG, t is nen ' . RHSWP_DOSSIERCONTEXTPOSTOVERVIEW );
+                  $returnstring .= $span_before_start .  _x( 'Artikelen', 'Linktekst in dossiermenu', 'wp-rijkshuisstijl' ) ;
                 }
                 elseif ( RHSWP_DOSSIERCONTEXTEVENTOVERVIEW == get_query_var( 'pagename' ) ) {
-
+// dodebug('rhswp_add_extra_info_to_breadcrumb: NO CAT SLUG, t is nen ' . RHSWP_DOSSIERCONTEXTPOSTOVERVIEW );
                   $returnstring .= $span_before_start .  _x( 'Evenementen', 'Linktekst in dossiermenu', 'wp-rijkshuisstijl' ) ;
-  
                 }
                 elseif ( RHSWP_DOSSIERCONTEXTDOCUMENTOVERVIEW == get_query_var( 'pagename' ) ) {
-
+// dodebug('rhswp_add_extra_info_to_breadcrumb: NO CAT SLUG, t is nen ' . RHSWP_DOSSIERCONTEXTDOCUMENTOVERVIEW );
                   $returnstring .= $span_before_start .  _x( 'Documenten', 'Linktekst in dossiermenu', 'wp-rijkshuisstijl' ) ;
-  
                 }
                 else {
-
-                  $returnstring .= $span_before_start . ' <a href="' . get_term_link( $term->term_id ) . RHSWP_DOSSIERCONTEXTPOSTOVERVIEW . '/">' .  _x( 'Berichten', 'Linktekst in dossiermenu', 'wp-rijkshuisstijl' ) .'</a>' . $span_before_end;
-                  
-                  
+// dodebug('rhswp_add_extra_info_to_breadcrumb: NO CAT SLUG, t is totaal anders' );
+                  $returnstring .= $span_before_start . ' <a href="' . get_term_link( $term->term_id ) . RHSWP_DOSSIERCONTEXTPOSTOVERVIEW . '/">' .  _x( 'Artikelen', 'Linktekst in dossiermenu', 'wp-rijkshuisstijl' ) .'</a>' . $span_before_end;
                 }
 
 
@@ -712,7 +756,7 @@ function rhswp_add_extra_info_to_breadcrumb( $crumb = '', $args = '' ) {
         }
       }
       else {
-        dodebug('rhswp_add_extra_info_to_breadcrumb: TERM NIET BEKEND');  
+        // dodebug('rhswp_add_extra_info_to_breadcrumb: TERM NIET BEKEND');  
       }
 
   
@@ -3391,9 +3435,9 @@ function rhswp_translateposttypes( $posttype = '', $plural = false ) {
   
   switch ($posttype) {
     case 'post':
-      $returnstring = esc_html( __( "Bericht", 'wp-rijkshuisstijl' ) );
+      $returnstring = esc_html( __( "Artikel", 'wp-rijkshuisstijl' ) );
       if ( $plural ) {
-        $returnstring = esc_html( __( "Berichten", 'wp-rijkshuisstijl' ) );
+        $returnstring = esc_html( __( "Artikelen", 'wp-rijkshuisstijl' ) );
       }
       break;
     case 'page':
@@ -5463,14 +5507,14 @@ function rhswp_custom_page_title_for_overviewpage( $title ) {
 
       if ( $category_slug ) {
         $categoryinfo = get_term_by( 'slug', $category_slug, 'category' );
-        $title        = sprintf( _x( 'Berichten voor \'%s\' en \'%s\' %s', 'berichten voor onderwerp met categorie', 'wp-rijkshuisstijl' ), $term->name, $categoryinfo->name, $paged );
+        $title        = sprintf( _x( 'Artikelen voor \'%s\' en \'%s\' %s', 'Artikelen voor onderwerp met categorie', 'wp-rijkshuisstijl' ), $term->name, $categoryinfo->name, $paged );
       }
       else {
         if ( $term->name ) {
-          $title = sprintf( _x( 'Berichten voor %s %s', 'berichten voor onderwerp zonder categorie', 'wp-rijkshuisstijl' ), $term->name, $paged );
+          $title = sprintf( _x( 'Artikelen voor %s %s', 'Artikelen voor onderwerp zonder categorie', 'wp-rijkshuisstijl' ), $term->name, $paged );
         }
         else {
-          $title = __( 'Berichten', 'wp-rijkshuisstijl' );
+          $title = __( 'Artikelen', 'wp-rijkshuisstijl' );
         }
       }
       
