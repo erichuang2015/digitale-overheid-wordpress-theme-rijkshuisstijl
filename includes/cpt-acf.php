@@ -2134,6 +2134,12 @@ if( function_exists('acf_add_local_field_group') ):
   						4 => '4',
   						5 => '5',
   						6 => '6',
+  						9 => '9',
+  						12 => '12',
+  						15 => '15',
+  						18 => '18',
+  						21 => '21',
+  						24 => '24',
   					),
   					'default_value' => array (
   						3 => 3,
@@ -2443,6 +2449,8 @@ if( function_exists('acf_add_local_field_group') ):
   				10 => '10',
   				15 => '15',
   				20 => '20',
+  				25 => '25',
+  				40 => '40',
   			),
   			'default_value' => array(
   				0 => 4,
