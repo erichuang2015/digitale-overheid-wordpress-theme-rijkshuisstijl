@@ -5411,23 +5411,25 @@ function rhswp_get_documents_for_dossier() {
               $postpermalink  = get_the_permalink();
               $postpermalink  = str_replace( $currentsite, '', $postpermalink);
               $postpermalink  = '/' . $post->post_name;
-  
-              $crumb          = str_replace( $currentsite, '', $currentpage);
-              
-              $theurl         = $currentsite . $crumb  . RHSWP_DOSSIERDOCUMENTCONTEXT . $postpermalink;
+              $crumb          = '/' . RHSWP_CT_DOSSIER . '/' . $term->slug . '/' . RHSWP_DOSSIERCONTEXTDOCUMENTOVERVIEW;
+              $theurl         = $currentsite . $crumb . $postpermalink;
   
             }
             else {
               $theurl         = get_the_permalink();
             }
+            
+            $excerpt      = wp_strip_all_tags( get_the_excerpt( ) );
         		
         
           ?>
   
           <section>
-            <h2><a href="<?php echo $theurl ?>"><?php the_title(); ?></a></h2>
+            <h2><a href="<?php echo trailingslashit( $theurl ) ?>"><?php the_title(); ?></a></h2>
             <?php 
-              the_excerpt();
+              if ( $excerpt ) {
+                echo '<p>' . $excerpt . '</p>';
+              }
               
                 if ( WP_DEBUG && SHOW_CSS_DEBUG ) {
                   the_category( ', ' ); 
