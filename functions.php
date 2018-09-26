@@ -620,7 +620,13 @@ dodebug( 'URL of parent: ' . $urlofparentpage );
 // dodebug( 'rhswp_add_extra_info_to_breadcrumb: page with parentID ');
           
               // in deze array zit als laatste element de titel van de huidige post / event / whatever
-              $titlearray = explode( $args['sep'], $crumb );
+              if ( $args['sep'] ) {
+                $titlearray = explode( $args['sep'], $crumb );
+                array_pop($titlearray);
+              }
+              else {
+                $titlearray = $crumb;
+              }
             
               // haal de ancestors op voor de huidige pagina
               $ancestors = get_post_ancestors( $parentpageid );
@@ -633,7 +639,7 @@ dodebug( 'URL of parent: ' . $urlofparentpage );
 
               }
             
-              $returnstring .= $span_before_start .  ' <a href="' . get_permalink( $parentpageid ) . '">' . get_the_title( $parentpageid ) .'</a>' . $span_before_end . $args['sep'] . array_pop($titlearray);
+              $returnstring .= $span_before_start .  ' <a href="' . get_permalink( $parentpageid ) . '">' . get_the_title( $parentpageid ) .'</a>' . $span_before_end . $args['sep'] . $titlearray;
   
             }
             elseif ( is_tax( RHSWP_CT_DOSSIER ) ) {
