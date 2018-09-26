@@ -19,53 +19,6 @@ $tellertje = 0;
 
 //========================================================================================================
 
-function rhswp_dossier_title_checker3( ) {
-
-  global $post;
-  global $wp_query;
-  global $tellertje;
-
-  if ( ! is_object( $post ) ) {
-    // bail early if no post object available (s.a. 404)
-    return;
-  }
-  
-  $currentID = 0;
-  
-  if ( is_posts_page() || is_search() ) {
-    return;
-  }
-  
-  if ( taxonomy_exists( RHSWP_CT_DOSSIER ) ) {
-
-  
-    $subpaginas               = '';
-    $shownalready             = '';
-    $dossier_overzichtpagina  = '';
-    $parentID                 = '';
-    $standaardpaginanaam      = '';
-  
-    $args = array(
-      'dossier_overzichtpagina' => '',
-      'menu_voor_dossier' => '',
-      'markerforclickableactivepage' => '',
-      'currentpageid' => '',
-      'preferedtitle' => '',
-      'maxlength'     => 50,
-    );
-
-
-    // checken of dit een post is en is_single() en of in de URL de juiste dossier-contetxt is meegegeven.
-    
-    $posttype = get_post_type();
-    $loop     = rhswp_get_context_info();
-    $term     = '';
-    $tellertje = 1;
-
-  }
-
-}
-
 //========================================================================================================
 
 function rhswp_dossier_title_checker( ) {
@@ -87,7 +40,8 @@ function rhswp_dossier_title_checker( ) {
   if ( is_posts_page() || is_search() ) {
     return;
   }
-  
+
+
   if ( taxonomy_exists( RHSWP_CT_DOSSIER ) ) {
 
   
