@@ -4,8 +4,8 @@
   Description: Theme voor digitaleoverheid.nl
   Author: Paul van Buuren
   Author URI: https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl/
-  Version: 1.2.11
-  Version description: 1.2.11 - Bugs uit broodkruimelpad: dossierhierarchie tonen.
+  Version: 1.2.12
+  Version description: 1.2.12 - Quickfix voor broodkruimelpad: padding op brede schermen zodat tekst niet onder zoekvenster valt.
   Text Domain: wp-rijkshuisstijl
   
   Template: genesis
@@ -215,14 +215,15 @@ Common Classes
     color: @wit;
     font-family: @fontstrong;
     padding-top: 18px;
-    padding-right: 18px;
     padding-bottom: 18px;
     
     @media only screen and ( max-width: @break_tablet ) {
+      padding-right: 18px;
       font-size: 1.25rem;
     }    
     @media only screen and ( min-width: @break_tablet ) {
       font-size: 1.625rem;
+      padding-right: 271px;
     }    
     
     span {
