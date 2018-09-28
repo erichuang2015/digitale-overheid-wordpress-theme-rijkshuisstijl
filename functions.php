@@ -8,8 +8,8 @@
 // * @author  Paul van Buuren
 // * @license GPL-2.0+
 // * @package wp-rijkshuisstijl
-// * @version 1.2.13
-// * @desc.   Dossiers: bugfixes voor hoofdmenu boven inhoud.
+// * @version 1.3.1
+// * @desc.   Script voor genereren redirectlijst.
 // * @link    https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl
  */
 
@@ -23,8 +23,8 @@ include_once( get_template_directory() . '/lib/init.php' );
 // Constants
 define( 'CHILD_THEME_NAME',                 "Rijkshuisstijl (Digitale Overheid)" );
 define( 'CHILD_THEME_URL',                  "https://wbvb.nl/themes/wp-rijkshuisstijl" );
-define( 'CHILD_THEME_VERSION',              "1.2.13" );
-define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Dossiers: bugfixes voor hoofdmenu boven inhoud." );
+define( 'CHILD_THEME_VERSION',              "1.3.1" );
+define( 'CHILD_THEME_VERSION_DESCRIPTION',  "Script voor genereren redirectlijst." );
 define( 'SHOW_CSS_DEBUG',                   false );
 //define( 'SHOW_CSS_DEBUG',                   true );
 

@@ -4,8 +4,8 @@
   Description: Theme voor digitaleoverheid.nl
   Author: Paul van Buuren
   Author URI: https://github.com/ICTU/digitale-overheid-wordpress-theme-rijkshuisstijl/
-  Version: 1.2.13
-  Version description: 1.2.13 - Dossiers: bugfixes voor hoofdmenu boven inhoud.
+  Version: 1.3.1
+  Version description: 1.3.1 - Script voor genereren redirectlijst.
   Text Domain: wp-rijkshuisstijl
   
   Template: genesis
@@ -1330,3 +1330,20 @@ nav.nav-primary .menu-item.js-menu-open > ul.sub-menu {
 
 .streamerstyle();
 
+.nobug {
+  background: green;
+  color: white;
+  padding: .25em .5em;
+}
+.dobug {
+  background: red;
+  color: white;
+  padding: .25em .5em;
+}
+.nobug,
+.dobug {
+  &.yellow {
+    color: black;
+    background: yellow;
+  }
+}
