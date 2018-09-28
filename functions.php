@@ -1415,6 +1415,7 @@ class rhswp_custom_walker_for_taxonomies extends Walker_Category {
       }
   }
 }
+
 //========================================================================================================
 
 class rhswp_custom_walker_for_sitemap extends Walker_Page {
@@ -1510,9 +1511,6 @@ class rhswp_custom_walker_for_sitemap extends Walker_Page {
         $output .= $link_after . '</a>';
 
     }
-    else {
-//        $output .= 'START';
-    }
       
   
     if ( !empty($show_date) ) {
@@ -1529,11 +1527,10 @@ class rhswp_custom_walker_for_sitemap extends Walker_Page {
   // -------------------------
   
 }
+
 //========================================================================================================
 
 function rhswp_get_sitemap() {
-  
-//  echo genesis_html5() ? '<article class="entry">' : '<div class="post hentry">';
 
   echo '<div class="entry">';
   
@@ -1551,9 +1548,7 @@ function rhswp_get_sitemap() {
   echo '</div>';
   
   echo '</div>';
-  
-//  echo genesis_html5() ? '</article>' : '</div>';
-  
+
 }
 
 //========================================================================================================
@@ -2827,13 +2822,13 @@ function rhswp_write_extra_contentblokken() {
                       if ( $do_cat_permalinks && $permalink_cat ) {
                         $theurl         = trailingslashit( get_term_link( $toonlinksindossiercontext )  . RHSWP_DOSSIERCONTEXTPOSTOVERVIEW . '/' . RHSWP_DOSSIERCONTEXTCATEGORYPOSTOVERVIEW . '/' . $permalink_cat . $postpermalink );
 
-                        dodebug( 'A: theurl: ' . $theurl );
+//                        dodebug( 'A: theurl: ' . $theurl );
                         
                       }
                       else {
                         $theurl         = trailingslashit( get_term_link( $toonlinksindossiercontext )  . RHSWP_DOSSIERCONTEXTPOSTOVERVIEW . $postpermalink );
 
-                        dodebug( 'B: theurl: ' . $theurl );
+//                        dodebug( 'B: theurl: ' . $theurl );
 
                       }
 
@@ -5554,6 +5549,25 @@ function rhswp_custom_page_title_for_overviewpage( $title ) {
   return $title ;  
   
 }
+
+//========================================================================================================
+
+/**
+ * Retrieve a post ID for a slug and post type
+ */
+
+function get_postid_by_slug( $page_slug = '', $posttype = 'post' ) {
+
+  if ( $page_slug ) {
+    $postobject = get_page_by_path( $page_slug, OBJECT, $posttype );
+    if ( $postobject ) {
+      return $postobject->ID;
+    }
+  }
+  return 0;
+
+}
+
 
 //========================================================================================================
 

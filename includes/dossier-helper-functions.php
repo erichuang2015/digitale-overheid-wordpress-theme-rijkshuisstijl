@@ -561,7 +561,7 @@ function rhswp_dossier_title_checker( ) {
 
 function rhswp_dossier_get_pagelink( $theobject, $args ) {
 
-
+  global $wp;
   global $tellertje;
   
   $tellertje++;
@@ -582,8 +582,19 @@ function rhswp_dossier_get_pagelink( $theobject, $args ) {
     dodebug('rhswp_dossier_get_pagelink: set \$pagerequestedbyuser: ' . $args['currentpageid'] );
   }
   else {
-    $pagerequestedbyuser = get_the_id();
-    dodebug('rhswp_dossier_get_pagelink: ELSE set \$pagerequestedbyuser: to get_the_id()' );
+
+    if ( 'page' == get_post_type() ) {
+      // for pages get $pagerequestedbyuser based on current page slug
+      $slug = add_query_arg( array(), $wp->request );
+      
+      $pagerequestedbyuser = get_postid_by_slug( $slug, 'page' );
+      dodebug('rhswp_dossier_get_pagelink: ELSE PAGE set \$pagerequestedbyuser: to get_the_id() / pagerequestedbyuser=' . $pagerequestedbyuser . ' / slug=' . $slug );
+    }
+    else {
+      $pagerequestedbyuser = get_the_id();
+      dodebug('rhswp_dossier_get_pagelink: ELSE set \$pagerequestedbyuser: to get_the_id()' );  
+    }
+    
   }
 
   // use alternative title? 
@@ -776,7 +787,7 @@ function rhswp_dossier_get_pagelink( $theobject, $args ) {
   if ( intval( $pagerequestedbyuser ) == intval( $current_menuitem_id ) ) {
     // the user asked for this particular page / post
     dodebug('rhswp_dossier_get_pagelink: 07: ' . $maxposttitle . ' - ' . intval( $pagerequestedbyuser ) . '==' .intval( $current_menuitem_id ) );
-    return '<li class="selected case07"><span>' . $maxposttitle . '</span> (' . get_permalink( $current_menuitem_id ) . ' ' . get_the_title( $current_menuitem_id ) . ')</li>';
+    return '<li class="selected case07"><span>' . $maxposttitle . '</span></li>';
   }
   else {
     // this is not the currently active page
