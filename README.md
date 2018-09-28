@@ -14,10 +14,10 @@ Dit theme wordt gebruikt op [digitaleoverheid.nl](https://www.digitaleoverheid.n
 * single_XXX.php hernoemen naar single.php
 
 ## Current version:
-1.2.12 - Quickfix voor broodkruimelpad: padding op brede schermen zodat tekst niet onder zoekvenster valt.
+1.2.13 - Dossiers: bugfixes voor hoofdmenu boven inhoud.
 
 ## Version history
-* 1.2.12 - Quickfix voor broodkruimelpad: padding op brede schermen zodat tekst niet onder zoekvenster valt.
+* 1.2.13 - Dossiers: bugfixes voor hoofdmenu boven inhoud.
 * 1.2.11 - Bugs uit broodkruimelpad: dossierhierarchie tonen.
 * 1.2.10 - CSS voor list-items op onderwerppagina aangepast
 * 1.2.9 - Modernizr voor live-site. Bugfix voor dossier. List-item CSS aangepast.
