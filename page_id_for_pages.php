@@ -624,7 +624,7 @@ $arraylala['34960'] = array( 'title' => 'ZZZ overzicht pagina’s', 'liveurl' =>
           // niks veranderd
           $status = '<span class="nobug">NIETS MEE DOEN</span>';
   
-          $output .= $indent . '<li class="' . $css_class . '">|' . $page->ID . '|' . $status . '|<a target="_blank" href="' . $nieuweurl . '">' . apply_filters( 'the_title', $page->post_title, $page->ID ) . '</a>' . $link_after . '|</li>';
+//          $output .= $indent . '<li class="' . $css_class . '">|' . $page->ID . '|' . $status . '|<a target="_blank" href="' . $nieuweurl . '">' . apply_filters( 'the_title', $page->post_title, $page->ID ) . '</a>' . $link_after . '|</li>';
           
         }
         else {
@@ -632,12 +632,12 @@ $arraylala['34960'] = array( 'title' => 'ZZZ overzicht pagina’s', 'liveurl' =>
           $oudeurl    = 'https://www.digitaleoverheid.nl' . $oudeurl;
           $nieuweurl  = 'https://accept.digitaleoverheid.nl' . $nieuweurl;
           
-          $output .= $indent . '<li class="' . $css_class . '">|' . $page->ID . '|' . $status . '|<br><a target="_blank" href="' . $oudeurl . '">' . $oudeurl . '</a>|<br><a target="_blank" href="' . $nieuweurl . '">' . $nieuweurl . '</a>|<br>' . apply_filters( 'the_title', $page->post_title, $page->ID ) . $link_after . '|</li>';
+          $output .= $indent . '<li class="' . $css_class . '">|' . $page->ID . '|' . $status . '|<a target="_blank" href="' . $oudeurl . '">' . $oudeurl . '</a>|<a target="_blank" href="' . $nieuweurl . '">' . $nieuweurl . '</a>|' . apply_filters( 'the_title', $page->post_title, $page->ID ) . $link_after . '|</li>';
         }
         
       }
       else {
-        $output .= $indent . '<li class="' . $css_class . '">|' . $page->ID . '|<span class="nobug yellow">BESTOND NIET</span>|' . apply_filters( 'the_title', $page->post_title, $page->ID ) . $link_after . '|' . get_permalink( $page->ID ) . '|</li>';
+//        $output .= $indent . '<li class="' . $css_class . '">|' . $page->ID . '|<span class="nobug yellow">BESTOND NIET</span>|' . apply_filters( 'the_title', $page->post_title, $page->ID ) . $link_after . '|' . get_permalink( $page->ID ) . '|</li>';
       }
   
   
